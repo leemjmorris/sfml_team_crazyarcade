@@ -26,14 +26,19 @@ bool Player::CheckBubblePop()
 
 void Player::Animating(float dt)
 {
-	if (InputMgr::GetKeyDown(sf::Keyboard::S))//LSY: todo:InputMgr::GetKeyDown(sf::Keyboard::Up))
+	if (InputMgr::GetKeyDown(sf::Keyboard::S))// LSY: todo:InputMgr::GetKeyDown(sf::Keyboard::Up))
 	{
-		if (animator.GetCurrentClipId() == "Left")
+		
+		if (animator.GetCurrentClipId() != "Run")
 		{
+			std::cout << "LFT" << std::endl;
+			//std::cout << "LFT" << std::endl;
 			if (dt != 0.f)
 			{
-				animator.Play("assets/animations/left.csv");
+				animator.Play("assets/animations/bazzi_run.csv");
+				std::cout << "LFT" << std::endl;
 			}
+			
 		}
 	}
 	/*	else if (animator.GetCurrentClipId() == "default")
@@ -115,7 +120,7 @@ void Player::Init()
 	animator.AddEvent("Left", 0,
 		[]()
 		{
-			//std::cout << "??" << std::endl;
+			std::cout << "??" << std::endl;
 		}
 	);
 }
@@ -132,7 +137,6 @@ void Player::Update(float dt)
 {
 	animator.Update(dt);
 	Animating(dt);
-
 }
 
 void Player::Draw(sf::RenderWindow& window)

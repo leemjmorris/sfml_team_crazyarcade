@@ -45,6 +45,7 @@ public:
 		}
 
 		resources.insert({id, res});
+	
 		return true;
 	}
 
