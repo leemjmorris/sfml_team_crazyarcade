@@ -1,0 +1,8 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)		",,,
+waterBalloonAnim,5,"1	",,,
+"				",,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
+assets/bomb/waterBalloon.png,0,0,56,54,0
+assets/bomb/waterBalloon.png,56,0,56,54,0
+assets/bomb/waterBalloon.png,112,0,56,54,0
+assets/bomb/waterBalloon.png,168,0,56,54,0

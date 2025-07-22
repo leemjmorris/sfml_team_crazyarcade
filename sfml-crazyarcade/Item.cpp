@@ -2,16 +2,6 @@
 #include "Item.h"
 //#include "Player.h"
 
-Item* Item::Spawn(const std::string& name, ItemType type, sf::Vector2f spawnPos, Scene& scene)
-{
-	Item* item = new Item(name);
-	item->SetItemType(type);
-	item->SetPosition(spawnPos);
-	item->SetOriginPos(spawnPos);
-	scene.AddGameObject(item);
-	return item;
-}
-
 Item::Item(const std::string& name)
 	: GameObject(name)
 {
@@ -147,4 +137,14 @@ void Item::Use()
 
 	SetActive(false); // KHI: Needs to be fixed later
 	// KHI: Add sound effect here **
+}
+
+Item* Item::Spawn(const std::string& name, ItemType type, sf::Vector2f spawnPos, Scene& scene)
+{
+	Item* item = new Item(name);
+	item->SetItemType(type);
+	item->SetPosition(spawnPos);
+	item->SetOriginPos(spawnPos);
+	scene.AddGameObject(item);
+	return item;
 }
