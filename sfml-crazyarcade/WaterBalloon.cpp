@@ -48,6 +48,11 @@ void WaterBalloon::Init()
 
 	animator.SetTarget(&balloon);
 	animator.Play("animation/waterBalloonAnim.csv");
+
+	SetOrigin(Origins::MC);
+
+	sortingLayer = SortingLayers::Foreground;
+	sortingOrder = -1;
 }
 
 void WaterBalloon::Release()
@@ -95,9 +100,9 @@ void WaterBalloon::Activate()
 void WaterBalloon::Spawn(const std::string& name, sf::Vector2f spawnPos)
 {
 	WaterBalloon* waterBalloon = new WaterBalloon(name);
-	waterBalloon->SetPosition(spawnPos);
 	waterBalloon->Init();
 	waterBalloon->StartCastCountdown(2.5f);
+	waterBalloon->SetPosition(spawnPos);
 
 	Scene* currentScene = SCENE_MGR.GetCurrentScene();
 	currentScene->AddGameObject(waterBalloon);
