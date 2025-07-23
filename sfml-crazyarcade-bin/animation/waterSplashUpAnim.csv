@@ -1,0 +1,6 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)		",,,
+waterSplashUpAnim,15,"1	",,,
+"				",,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
+assets/wave/up2.bmp,0,0,52,52,0
+assets/wave/up2.bmp,52,0,52,52,0

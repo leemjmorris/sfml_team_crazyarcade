@@ -74,7 +74,7 @@ void WaterBalloon::Update(float dt)
 		{
 			currentTime = 0;
 			isCounting = false;
-			Activate();
+			Explode();
 		}
 	}
 }
@@ -91,9 +91,9 @@ void WaterBalloon::StartCastCountdown(float time)
 	isCounting = true;
 }
 
-void WaterBalloon::Activate()
+void WaterBalloon::Explode()
 {
-	std::cout << "Activate()" << std::endl;
+	std::cout << "Explode()" << std::endl;
 }
 
 // KHI: Static method

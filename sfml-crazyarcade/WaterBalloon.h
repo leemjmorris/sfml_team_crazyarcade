@@ -30,7 +30,7 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void StartCastCountdown(float time);
-	void Activate();
+	void Explode();
 	
 	static void Spawn(const std::string& name, sf::Vector2f spawnPos);
 };
