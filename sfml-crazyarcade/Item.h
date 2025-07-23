@@ -24,7 +24,7 @@ protected:
 	sf::Vector2f originPos = { 0.f, 0.f };
 	bool moveUp = false;
 
-	Player* target = nullptr;
+	std::vector<Player*> players;
 
 	HitBox hitBox;
 
@@ -44,8 +44,9 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
+	void SetPlayer(Player* player);
 	void SetItemType(ItemType type);
 	void SetOriginPos(sf::Vector2f pos) { originPos = pos; }
 	void FloatingEffect(float dt, float verticalRange = 5.f, float speed = 10.f);
-	void Use();
+	void Use(Player* player);
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Animator.h"
+#include "HitBox.h"
 
 class Player :
 	public GameObject
@@ -14,6 +15,8 @@ protected:
 	sf::Vector2f velocity;
 	Animator animator;
 	sf::Sprite sprite;
+
+	HitBox hitBox;
 
 public:
 	Player(const std::string& name);
@@ -42,5 +45,10 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	const HitBox& GetHitBox() const
+	{
+		return hitBox;
+	}
 };
 
