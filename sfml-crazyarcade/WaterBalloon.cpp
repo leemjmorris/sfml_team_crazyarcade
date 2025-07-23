@@ -67,3 +67,13 @@ void WaterBalloon::Draw(sf::RenderWindow& window)
 {
 	window.draw(balloon);
 }
+
+void WaterBalloon::Spawn(const std::string& name, sf::Vector2f spawnPos)
+{
+	WaterBalloon* item = new WaterBalloon(name);
+	item->SetPosition(spawnPos);
+	item->Init();
+
+	Scene* currentScene = SCENE_MGR.GetCurrentScene();
+	currentScene->AddGameObject(item);
+}

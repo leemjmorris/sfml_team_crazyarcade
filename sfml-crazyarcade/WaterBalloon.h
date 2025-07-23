@@ -8,7 +8,6 @@ protected:
 	sf::Sprite balloon;
 
 	Animator animator;
-
 public:
 	WaterBalloon(const std::string& name = "");
 	virtual ~WaterBalloon() = default;
@@ -24,4 +23,9 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	
+	static void Spawn(const std::string& name, sf::Vector2f spawnPos);
+
+	//void Spawn();
 };
