@@ -47,5 +47,5 @@ public:
 	void SetItemType(ItemType type);
 	void SetOriginPos(sf::Vector2f pos) { originPos = pos; }
 	void FloatingEffect(float dt, float verticalRange = 5.f, float speed = 10.f);
-	void Use();
+	void Use(Player& p);
 };

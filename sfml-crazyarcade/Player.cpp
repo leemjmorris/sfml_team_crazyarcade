@@ -44,18 +44,18 @@ bool Player::CheckBubblePop()
 
 void Player::Animating(float dt)
 {
-	if (dir.x > 0 && animator.GetCurrentClipId() != "Run")
+	if (dir.x != 0 && animator.GetCurrentClipId() != "Run")
 	{
 		animator.Play("assets/animations/bazzi_run.csv");
 		std::cout << "LFT" << std::endl;
 	}
 
-	if (dir.y < 0 && animator.GetCurrentClipId() != "Up")
+	else if (dir.y < 0 && animator.GetCurrentClipId() != "Up")
 	{
 		animator.Play("assets/animations/bazzi_up.csv");
 	}
 
-	if (dir.y > 0 && animator.GetCurrentClipId() != "Down")
+	else if (dir.y > 0 && animator.GetCurrentClipId() != "Down")
 	{
 		animator.Play("assets/animations/bazzi_down.csv");
 	}

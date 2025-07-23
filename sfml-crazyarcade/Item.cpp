@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Item.h"
-//#include "Player.h"
+#include "Player.h"
 
 Item::Item(const std::string& name)
 	: GameObject(name)
@@ -112,26 +112,27 @@ void Item::FloatingEffect(float dt, float verticalRange, float speed)
 			moveUp = true;
 		}
 	}
-
 	SetPosition(position);
 }
 
-void Item::Use()
+void Item::Use(Player& p)
 {
 	if (itemType == ItemType::Balloon)
 	{
 		std::cout << "물풍선 사용" << std::endl;
+		p.AddBombCount(1);
 		// KHI: Call the method HERE to increase the number of water balloons the player can use **
-
 	}
 	else if (itemType == ItemType::Speed)
 	{
 		std::cout << "이동 속도 증가 사용" << std::endl;
+		p.AddSpeed(100.f);
 		// KHI: Call the method HERE to increase the player's movement speed **
 	}
 	else if (itemType == ItemType::WaterJet)
 	{
 		std::cout << "물줄기 사용" << std::endl;
+		p.AddBombLength(1);
 		// KHI: Call the method HERE to increase the player's water jet stat **
 	}
 

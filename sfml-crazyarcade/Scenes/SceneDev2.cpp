@@ -14,20 +14,20 @@ void SceneDev2::Init()
 	ANI_CLIP_MGR.Load("assets/animations/bazzi_run.csv");
 	ANI_CLIP_MGR.Load("assets/animations/bazzi_up.csv");
 	ANI_CLIP_MGR.Load("assets/animations/bazzi_down.csv");
-	player = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::BAZZI)));
+	bazzi = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::BAZZI)));
 	Scene::Init();
 }
 
 void SceneDev2::Enter()
 {
 	Scene::Enter();
-	player->SetPosition({ 100, 100 });
+	bazzi->SetPosition({ 100, 100 });
 }
 
 void SceneDev2::Update(float dt)
 {
 	Scene::Update(dt);
-	//std::cout << player->GetPosition().x << " " << player->GetPosition().y << std::endl;
+	//std::cout << bazzi->GetPosition().x << " " << bazzi->GetPosition().y << std::endl;
 }
 
 void SceneDev2::Draw(sf::RenderWindow& window)

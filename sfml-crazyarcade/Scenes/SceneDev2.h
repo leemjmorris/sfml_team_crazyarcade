@@ -6,7 +6,7 @@ class Player;
 class SceneDev2 : public Scene
 {
 protected:
-	Player* player;
+	Player* bazzi;
 public:
 	SceneDev2();
 
