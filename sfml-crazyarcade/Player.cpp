@@ -1,16 +1,19 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "WaterBalloon.h"
-#include "CharacterStats.h"
 
-Player::Player(const std::string& name)
+Player::Player(const std::string& name, CharacterID id)
 	: GameObject(name),
 	currentSpeed(100.f),
 	currentBombCount(1),
-	currentBombLenght(1),
+	currentBombLength(1),
 	velocity({ 1.f,1.f }),
 	dir({1.f,1.f})
 {
+	const auto& stats = CharacterTable.at(charId);
+	currentBombCount = stats.initBombCount;
+	currentBombLength = stats.initbombLength;
+	currentSpeed = stats.intiPlayerSpeed;
 }
 
 Player::~Player()
@@ -19,18 +22,19 @@ Player::~Player()
 
 bool Player::CheckInstallBomb()
 {
-	//if (currentBombCount > PlayerStats::) // LSY: add maxBombCount in struct 'CharactorStats'
-	//	return false;
-	//else
-	//{
-	//	WaterBalloon::Spawn("bomb", GetPosition());
-	//	currentBombCount++;
-	//	return true;
-	//}
-
-	WaterBalloon::Spawn("bomb", GetPosition());
-	currentBombCount++;
-	return true;
+	const auto& stats = CharacterTable.at(charId);
+	if (currentBombCount > stats.maxBombCount) // LSY: add maxBombCount in struct 'CharactorStats'
+	{
+		std::cout << "max bomb" << std::endl;
+		return false;
+	}
+	else
+	{
+		WaterBalloon::Spawn("bomb", GetPosition());
+		currentBombCount++;
+		std::cout << "bomb count: "<< currentBombCount << std::endl;
+		return true;
+	}
 }
 
 bool Player::CheckBubblePop()
@@ -97,7 +101,7 @@ void Player::AddBombCount(int b)
 
 void Player::AddBombLength(int l)
 {
-	currentBombLenght += l;
+	currentBombLength += l;
 }
 
 void Player::SetPosition(const sf::Vector2f& pos)
