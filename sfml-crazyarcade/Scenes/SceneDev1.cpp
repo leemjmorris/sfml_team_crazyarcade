@@ -3,6 +3,7 @@
 #include "Item.h"
 #include "WaterBalloon.h"
 #include "WaterSplash.h"
+#include "WaterSplashPool.h"
 
 SceneDev1::SceneDev1() 
 	: Scene(SceneIds::Dev1)
@@ -33,20 +34,24 @@ void SceneDev1::Init()
 
 	TEXTURE_MGR.Load(texIds);
 
-	WaterSplash* testObj = new WaterSplash();
-	testObj->Reset();
-	AddGameObject(testObj);
-	testObj->SetPosition({ 100, 100 });
+	//WaterSplash* testObj = new WaterSplash();
+	//testObj->Reset();
+	//AddGameObject(testObj);
+	//testObj->SetPosition({ 100, 100 });
 
 	Item::Spawn("test1", Item::Balloon, { 0, 0 }, *this);
 	Item::Spawn("test2", Item::WaterJet, { 0, 100 }, *this);
+
 
 	Scene::Init();
 }
 
 void SceneDev1::Enter()
 {
-	
+	WaterSplashPool::SetCurScene(SCENE_MGR.GetCurrentScene());
+	WaterSplashPool::Init();
+
+	WaterBalloon::Spawn("testBomb", { 200.f, 200.f });
 	Scene::Enter();
 }
 

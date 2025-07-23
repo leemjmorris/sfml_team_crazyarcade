@@ -61,7 +61,7 @@ void Item::Update(float dt)
 
 	if (!players.empty())
 	{
-		for (int i = 0; i = players.size(); i++)
+		for (int i = 0; i < players.size(); i++)
 		{
 			if (Utils::CheckCollision(hitBox.rect, players[i]->GetHitBox().rect))
 			{

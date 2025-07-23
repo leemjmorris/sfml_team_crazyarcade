@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "WaterSplash.h"
+#include "WaterSplashPool.h"
 
 WaterSplash::WaterSplash(const std::string& name)
 	: GameObject(name)
@@ -44,11 +45,12 @@ void WaterSplash::Init()
 	waterSplash.setTexture(TEXTURE_MGR.Get("assets/bomb/default.png"));
 
 	ANI_CLIP_MGR.Load("animation/waterSplashAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashExitAnim.csv");
 
 	ANI_CLIP_MGR.Load("animation/waterSplashUpAnim.csv");
-	ANI_CLIP_MGR.Load("animation/waterSplashLeftAnim.csv");
-
 	ANI_CLIP_MGR.Load("animation/waterSplashUpExitAnim.csv");
+
+	ANI_CLIP_MGR.Load("animation/waterSplashLeftAnim.csv");
 	ANI_CLIP_MGR.Load("animation/waterSplashLeftExitAnim.csv");
 
 	animator.SetTarget(&waterSplash);
@@ -56,8 +58,9 @@ void WaterSplash::Init()
 	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = -2;
 
-	SetAnimType(AnimType::Left);
 	PlayAnim();
+
+	SetOrigin(Origins::MC);
 }
 
 void WaterSplash::Release()
@@ -86,8 +89,7 @@ void WaterSplash::Update(float dt)
 
 	if (!animator.IsPlaying())
 	{
-		SetActive(false);
-		// KHI: Return to the object HERE **
+		WaterSplashPool::ReturnToPool(this);
 	}
 }
 
@@ -129,7 +131,7 @@ void WaterSplash::PlayExitAnim()
 {
 	if (animType == AnimType::Center)
 	{
-		animator.Play("animation/waterSplashAnim.csv");
+		animator.Play("animation/waterSplashExitAnim.csv");
 		SetScale({ 1, 1 });
 	}
 	else if (animType == AnimType::Up)

@@ -22,7 +22,7 @@ public:
 
 protected:
 	sf::Sprite waterSplash;
-	AnimType animType = AnimType::Down;
+	AnimType animType = AnimType::Center;
 
 	float skillDuration = 0.8f;
 	bool isCounting = true;

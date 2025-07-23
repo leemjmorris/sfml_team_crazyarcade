@@ -1,0 +1,10 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)		",,,
+waterSplashExitAnim,15,0,,,
+"				",,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
+assets/bomb/pop.bmp,0,0,52,52,0
+assets/bomb/pop.bmp,52,0,52,52,0
+assets/bomb/pop.bmp,104,0,52,52,0
+assets/bomb/pop.bmp,156,0,52,52,0
+assets/bomb/pop.bmp,208,0,52,52,0
+assets/bomb/pop.bmp,260,0,52,52,0

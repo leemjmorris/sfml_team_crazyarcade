@@ -1,60 +1,60 @@
 #include "stdafx.h"
 #include "WaterSplashPool.h"
+#include "WaterSplash.h"
 
-WaterSplashPool::WaterSplashPool(const std::string& name)
-	: GameObject(name)
-{
-}
+std::vector<WaterSplash*> WaterSplashPool::allObjects;
+std::queue<WaterSplash*> WaterSplashPool::readyObjects;
+int WaterSplashPool::initPoolSize = 100;
+Scene* WaterSplashPool::curScene = nullptr;
 
-void WaterSplashPool::SetPosition(const sf::Vector2f& pos)
+WaterSplashPool::WaterSplashPool()
 {
-	GameObject::SetPosition(pos);
-	//gameObject.setPosition(pos);
-}
-
-void WaterSplashPool::SetRotation(float rot)
-{
-	GameObject::SetRotation(rot);
-	//gameObject.setRotation(rot);
-}
-
-void WaterSplashPool::SetScale(const sf::Vector2f& s)
-{
-	GameObject::SetScale(s);
-	//gameObject.setScale(s);
-}
-
-void WaterSplashPool::SetOrigin(const sf::Vector2f& o)
-{
-	GameObject::SetOrigin(o);
-	//gameObject.setOrigin(o);
-}
-
-void WaterSplashPool::SetOrigin(Origins preset)
-{
-	GameObject::SetOrigin(preset);
-	if (preset != Origins::Custom)
-	{
-		//Utils::SetOrigin(gameObject, preset);
-	}
+	std::cout << "Created WaterSplash ObjectPool" << std::endl;
 }
 
 void WaterSplashPool::Init()
 {
+    CreateObject(initPoolSize);
 }
 
-void WaterSplashPool::Release()
+WaterSplash* WaterSplashPool::GetFromPool()
 {
+    // KHI: Create a new one if no available object exists
+    if (readyObjects.empty())
+    {
+        CreateObject(20);
+    }
+
+    WaterSplash* splash = readyObjects.front();
+    readyObjects.pop();
+    splash->SetActive(true);
+    return splash;
 }
 
-void WaterSplashPool::Reset()
+void WaterSplashPool::ReturnToPool(WaterSplash* splashObj)
 {
+    splashObj->SetActive(false);
+    readyObjects.push(splashObj);
 }
 
-void WaterSplashPool::Update(float dt)
+void WaterSplashPool::CreateObject(int amount)
 {
-}
+    for (int i = 0; i < amount; ++i)
+    {
+        WaterSplash* obj = new WaterSplash();
+        obj->Init();
+        obj->Reset();
+        obj->SetActive(false);
+        allObjects.push_back(obj);
+        readyObjects.push(obj);
 
-void WaterSplashPool::Draw(sf::RenderWindow& window)
-{
+        if (curScene != nullptr)
+        {
+            curScene->AddGameObject(obj);
+        }
+        else
+        {
+            std::cout << "WaterSplashPool: 현재 씬 설정해주세요 ㅜ.ㅜ" << std::endl;
+        }
+    }
 }

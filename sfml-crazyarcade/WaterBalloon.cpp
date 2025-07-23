@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "WaterBalloon.h"
 #include "Animator.h"
+#include "WaterSplash.h"
+#include "WaterSplashPool.h"
 
 WaterBalloon::WaterBalloon(const std::string& name)
 	: GameObject(name)
@@ -93,7 +95,9 @@ void WaterBalloon::StartCastCountdown(float time)
 
 void WaterBalloon::Explode()
 {
-	std::cout << "Explode()" << std::endl;
+	SetActive(false);
+	WaterSplash* splashObj = WaterSplashPool::GetFromPool();
+	splashObj->SetPosition(GetPosition());
 }
 
 // KHI: Static method
@@ -101,7 +105,7 @@ void WaterBalloon::Spawn(const std::string& name, sf::Vector2f spawnPos)
 {
 	WaterBalloon* waterBalloon = new WaterBalloon(name);
 	waterBalloon->Init();
-	waterBalloon->StartCastCountdown(2.5f);
+	waterBalloon->StartCastCountdown(2.f);
 	waterBalloon->SetPosition(spawnPos);
 
 	Scene* currentScene = SCENE_MGR.GetCurrentScene();
