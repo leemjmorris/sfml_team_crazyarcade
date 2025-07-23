@@ -96,8 +96,44 @@ void WaterBalloon::StartCastCountdown(float time)
 void WaterBalloon::Explode()
 {
 	SetActive(false);
+	SpawnWaterSplash(4);
+}
+
+void WaterBalloon::SpawnWaterSplash(int length)
+{
+	sf::Vector2f centerPos = GetPosition();
+	float texSize = 52.f;
+
 	WaterSplash* splashObj = WaterSplashPool::GetFromPool();
 	splashObj->SetPosition(GetPosition());
+
+	std::vector<sf::Vector2f> directions = {
+		{ 0.f, -1.f },
+		{ 0.f,  1.f },
+		{ -1.f, 0.f },
+		{ 1.f,  0.f } 
+	};
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 1; j <= length; j++)
+		{
+			WaterSplash* splashObj = WaterSplashPool::GetFromPool();
+			splashObj->SetAnimType((WaterSplash::AnimType)(i + 1));
+			splashObj->PlayAnim();
+			sf::Vector2f pos = centerPos + (directions[i] * (texSize * j));
+
+			if ((WaterSplash::AnimType)(i + 1) == WaterSplash::AnimType::Right)
+			{
+
+			}
+				pos.x += 13.f;
+			else if ((WaterSplash::AnimType)(i + 1) == WaterSplash::AnimType::Down)
+				pos.y += 13.f;
+
+			splashObj->SetPosition(pos);
+		}
+	}
 }
 
 // KHI: Static method

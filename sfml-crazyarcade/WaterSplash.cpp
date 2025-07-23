@@ -58,8 +58,6 @@ void WaterSplash::Init()
 	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = -2;
 
-	PlayAnim();
-
 	SetOrigin(Origins::MC);
 }
 
