@@ -59,16 +59,26 @@ void Item::Update(float dt)
 
 	hitBox.UpdateTransform(itemSprite, itemSprite.getLocalBounds());
 
-	// KHI: Connect after implementing the player **
-	//if (Utils::CheckCollision(hitBox.rect, target->GetHitBox().rect))
-	//{
-	//	Use();
-	//}
+	if (!players.empty())
+	{
+		for (int i = 0; i = players.size(); i++)
+		{
+			if (Utils::CheckCollision(hitBox.rect, players[i]->GetHitBox().rect))
+			{
+				Use(players[i]);
+			}
+		}
+	}
 }
 
 void Item::Draw(sf::RenderWindow& window)
 {
 	window.draw(itemSprite);
+}
+
+void Item::SetPlayer(Player* player)
+{
+	players.push_back(player);
 }
 
 void Item::SetItemType(ItemType type)
@@ -115,23 +125,24 @@ void Item::FloatingEffect(float dt, float verticalRange, float speed)
 	SetPosition(position);
 }
 
-void Item::Use(Player& p)
+void Item::Use(Player* player)
 {
 	if (itemType == ItemType::Balloon)
 	{
-		std::cout << "¹°Ç³¼± »ç¿ë" << std::endl;
+		std::cout << "ï¿½ï¿½Ç³ï¿½ï¿½ ï¿½ï¿½ï¿½" << std::endl;
 		p.AddBombCount(1);
 		// KHI: Call the method HERE to increase the number of water balloons the player can use **
+		// KHI: EX) player->Example();
 	}
 	else if (itemType == ItemType::Speed)
 	{
-		std::cout << "ÀÌµ¿ ¼Óµµ Áõ°¡ »ç¿ë" << std::endl;
+		std::cout << "ï¿½Ìµï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½" << std::endl;
 		p.AddSpeed(100.f);
 		// KHI: Call the method HERE to increase the player's movement speed **
 	}
 	else if (itemType == ItemType::WaterJet)
 	{
-		std::cout << "¹°ÁÙ±â »ç¿ë" << std::endl;
+		std::cout << "ï¿½ï¿½ï¿½Ù±ï¿½ ï¿½ï¿½ï¿½" << std::endl;
 		p.AddBombLength(1);
 		// KHI: Call the method HERE to increase the player's water jet stat **
 	}

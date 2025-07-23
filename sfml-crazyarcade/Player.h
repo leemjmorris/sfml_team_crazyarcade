@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Animator.h"
+#include "HitBox.h"
 #include "CharacterStats.h"
 
 class Player :
@@ -16,6 +17,8 @@ protected:
 	sf::Vector2f velocity;
 	Animator animator;
 	sf::Sprite sprite;
+
+	HitBox hitBox;
 
 public:
 	Player(const std::string& name, CharacterID id);
@@ -44,5 +47,10 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	const HitBox& GetHitBox() const
+	{
+		return hitBox;
+	}
 };
 
