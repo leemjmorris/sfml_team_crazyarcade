@@ -20,6 +20,7 @@ struct PlayerStats
 
 const std::unordered_map<CharacterID, PlayerStats> CharacterTable =
 {
-	{CharacterID::DAO,   {1,10,7,1,5.f,7.f}},
-	{CharacterID::BAZZI, {1,6,1,7,5.f,9.f}},
+	// LSY: default speed (100.f) 
+	{CharacterID::DAO,   {1,10,7,1,100.f,700.f}},
+	{CharacterID::BAZZI, {1,6,1,7,100.f,900.f}},
 };

@@ -14,7 +14,7 @@ void SceneDev2::Init()
 	ANI_CLIP_MGR.Load("assets/animations/bazzi_run.csv");
 	ANI_CLIP_MGR.Load("assets/animations/bazzi_up.csv");
 	ANI_CLIP_MGR.Load("assets/animations/bazzi_down.csv");
-	player = static_cast<Player*>(AddGameObject(new Player("Player")));
+	player = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::BAZZI)));
 	Scene::Init();
 }
 

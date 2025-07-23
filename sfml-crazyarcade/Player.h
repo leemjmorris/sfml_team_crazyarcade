@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Animator.h"
+#include "CharacterStats.h"
 
 class Player :
 	public GameObject
@@ -8,7 +9,8 @@ class Player :
 protected:
 	float currentSpeed;
 	int currentBombCount;
-	int currentBombLenght;
+	int currentBombLength;
+	CharacterID charId;
 
 	sf::Vector2f dir;
 	sf::Vector2f velocity;
@@ -16,7 +18,7 @@ protected:
 	sf::Sprite sprite;
 
 public:
-	Player(const std::string& name);
+	Player(const std::string& name, CharacterID id);
 	~Player();
 
 	bool CheckInstallBomb();
@@ -29,7 +31,7 @@ public:
 
 	float GetSpeed() { return currentSpeed; };
 	int GetBombCount() { return currentBombCount; };
-	int GetBombLength() { return currentBombLenght; };
+	int GetBombLength() { return currentBombLength; };
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;
