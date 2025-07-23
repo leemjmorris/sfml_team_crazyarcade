@@ -14,20 +14,26 @@ bool InputMgr::mouseWheelScrolled = false;
 
 void InputMgr::Init()
 {
-	AxisInfo infoH;
-	infoH.axis = Axis::Horizontal;
-	infoH.positives.push_back(sf::Keyboard::D);
-	infoH.positives.push_back(sf::Keyboard::Right);
-	infoH.negatives.push_back(sf::Keyboard::A);
-	infoH.negatives.push_back(sf::Keyboard::Left);
-	axisInfoMap.insert({ Axis::Horizontal , infoH });
-	AxisInfo infoV;
-	infoV.axis = Axis::Vertical;
-	infoV.positives.push_back(sf::Keyboard::S);
-	infoV.positives.push_back(sf::Keyboard::Down);
-	infoV.negatives.push_back(sf::Keyboard::W);
-	infoV.negatives.push_back(sf::Keyboard::Up);
-	axisInfoMap.insert({ Axis::Vertical , infoV });
+	AxisInfo infoH_1p;
+	AxisInfo infoH_2p;
+	infoH_1p.axis = Axis::Horizontal_1p;
+	infoH_2p.axis = Axis::Horizontal_2p;
+	infoH_1p.positives.push_back(sf::Keyboard::D);
+	infoH_2p.positives.push_back(sf::Keyboard::Right);
+	infoH_1p.negatives.push_back(sf::Keyboard::A);
+	infoH_2p.negatives.push_back(sf::Keyboard::Left);
+	axisInfoMap.insert({ Axis::Horizontal_1p , infoH_1p });
+	axisInfoMap.insert({ Axis::Horizontal_2p , infoH_2p });
+	AxisInfo infoV_1p;
+	AxisInfo infoV_2p;
+	infoV_1p.axis = Axis::Vertical_1p;
+	infoV_2p.axis = Axis::Vertical_2p;
+	infoV_1p.positives.push_back(sf::Keyboard::S);
+	infoV_2p.positives.push_back(sf::Keyboard::Down);
+	infoV_1p.negatives.push_back(sf::Keyboard::W);
+	infoV_2p.negatives.push_back(sf::Keyboard::Up);
+	axisInfoMap.insert({ Axis::Vertical_1p , infoV_1p });
+	axisInfoMap.insert({ Axis::Vertical_2p , infoV_2p});
 }
 
 void InputMgr::Clear()

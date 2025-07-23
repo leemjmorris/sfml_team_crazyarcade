@@ -3,7 +3,7 @@
 enum class AnimationLoopTypes
 {
 	Single,
-	Loop,
+	Loop
 	//PingPong,
 };
 

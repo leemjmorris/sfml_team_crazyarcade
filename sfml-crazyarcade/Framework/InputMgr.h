@@ -2,8 +2,10 @@
 
 enum class Axis
 {
-	Horizontal,
-	Vertical,
+	Horizontal_1p,
+	Vertical_1p,
+	Horizontal_2p,
+	Vertical_2p,
 };
 
 struct AxisInfo

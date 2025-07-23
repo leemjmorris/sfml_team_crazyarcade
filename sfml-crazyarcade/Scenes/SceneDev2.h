@@ -8,6 +8,7 @@ class SceneDev2 : public Scene
 {
 protected:
 	Player* bazzi;
+	Player* Dao;
 	Item* item;
 	sf::FloatRect worldBounds = FRAMEWORK.GetWindowBounds();
 	std::vector<GameObject*> objectsNeedingClamp;

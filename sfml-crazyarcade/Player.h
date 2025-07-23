@@ -3,6 +3,7 @@
 #include "Animator.h"
 #include "HitBox.h"
 #include "CharacterStats.h"
+#include <string_view>
 
 class Player :
 	public GameObject
@@ -12,7 +13,9 @@ protected:
 	int currentBombCount;
 	int currentBombLength;
 	CharacterID charId;
+	int playerIndex;
 
+	GameObject* obj;
 	sf::Vector2f dir;
 	sf::Vector2f velocity;
 	Animator animator;
@@ -21,12 +24,13 @@ protected:
 	HitBox hitBox;
 
 public:
-	Player(const std::string& name, CharacterID id);
+	Player(const std::string& name, CharacterID id, int index);
 	~Player();
 
 	bool CheckInstallBomb();
 	bool CheckBubblePop();
-
+	const char* SelectClip() const;
+	sf::Vector2f ReadDir() const;
 	void Animating(float dt);
 	void AddSpeed(float currentSpeed=1);
 	void AddBombCount(int currentBombCount=1);

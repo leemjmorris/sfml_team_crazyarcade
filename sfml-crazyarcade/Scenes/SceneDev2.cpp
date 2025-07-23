@@ -31,11 +31,13 @@ void SceneDev2::Init()
 	Item::Spawn("test1", Item::Balloon, { 0, 0 }, *this);
 	Item::Spawn("test2", Item::WaterJet, { 0, 100 }, *this);
 
-	bazzi = static_cast<Player*>(AddGameObject(new Player("Bazzi", CharacterID::BAZZI)));
+	bazzi = static_cast<Player*>(AddGameObject(new Player("Bazzi", CharacterID::BAZZI, 0)));
+	Dao = static_cast<Player*>(AddGameObject(new Player("Dao", CharacterID::DAO, 1)));
 	item = static_cast<Item*>(AddGameObject(new Item("Item")));
 	item->SetPlayer(bazzi);
 
 	objectsNeedingClamp.push_back(bazzi);
+	objectsNeedingClamp.push_back(Dao);
 	objectsNeedingClamp.push_back(item);
 
 	Scene::Init();
