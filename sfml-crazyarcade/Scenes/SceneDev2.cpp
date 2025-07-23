@@ -11,7 +11,6 @@ void SceneDev2::Init()
 	texIds.push_back("assets/player/bazzi/right.png");
 	texIds.push_back("assets/player/bazzi/up.png");
 	texIds.push_back("assets/player/bazzi/down.png");
-	texIds.push_back("assets/bomb/waterBalloon.png");
 	ANI_CLIP_MGR.Load("assets/animations/bazzi_run.csv");
 	ANI_CLIP_MGR.Load("assets/animations/bazzi_up.csv");
 	ANI_CLIP_MGR.Load("assets/animations/bazzi_down.csv");

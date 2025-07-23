@@ -125,11 +125,12 @@ void WaterBalloon::SpawnWaterSplash(int length)
 
 			if ((WaterSplash::AnimType)(i + 1) == WaterSplash::AnimType::Right)
 			{
-
-			}
 				pos.x += 13.f;
+			}
 			else if ((WaterSplash::AnimType)(i + 1) == WaterSplash::AnimType::Down)
+			{
 				pos.y += 13.f;
+			}
 
 			splashObj->SetPosition(pos);
 		}
