@@ -15,14 +15,16 @@ Player::~Player()
 {
 }
 
-bool Player::CheckIntallBomb(bool t)
+bool Player::CheckInstallBomb(bool t)
 {
-	return false;
+	if (InputMgr::GetKeyDown(sf::Keyboard::LShift)|| InputMgr::GetKeyDown(sf::Keyboard::RShift))
+	// LSY: add spawnBomb
+	return true;
 }
 
 bool Player::CheckBubblePop()
 {
-	return false;
+	return true;
 }
 
 void Player::Animating(float dt)

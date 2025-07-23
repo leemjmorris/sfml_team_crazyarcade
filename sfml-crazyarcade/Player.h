@@ -19,13 +19,13 @@ public:
 	Player(const std::string& name);
 	~Player();
 
-	bool CheckIntallBomb(bool t);
+	bool CheckInstallBomb(bool t);
 	bool CheckBubblePop();
 
 	void Animating(float dt);
 	void AddSpeed(float currentSpeed=1);
 	void AddBombCount(int currentBombCount=1);
-	void AddBombLength(int currentBombLenght=1);
+	void AddBombLength(int currentBombLength=1);
 
 	float GetSpeed() { return currentSpeed; };
 	int GetBombCount() { return currentBombCount; };
