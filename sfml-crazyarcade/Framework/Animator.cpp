@@ -40,6 +40,7 @@ void Animator::Update(float dt)
 		{
 		case AnimationLoopTypes::Single:
 			currentFrame = speed > 0.f ? totalFrame - 1 : 0;
+			isPlaying = false;
 			break;
 		case AnimationLoopTypes::Loop:
 			currentFrame = speed > 0.f ? 0 : totalFrame - 1;
