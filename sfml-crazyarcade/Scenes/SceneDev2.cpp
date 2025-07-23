@@ -31,9 +31,12 @@ void SceneDev2::Init()
 	Item::Spawn("test1", Item::Balloon, { 0, 0 }, *this);
 	Item::Spawn("test2", Item::WaterJet, { 0, 100 }, *this);
 
-	bazzi = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::BAZZI)));
+	bazzi = static_cast<Player*>(AddGameObject(new Player("Bazzi", CharacterID::BAZZI)));
 	item = static_cast<Item*>(AddGameObject(new Item("Item")));
 	item->SetPlayer(bazzi);
+
+	objectsNeedingClamp.push_back(bazzi);
+	objectsNeedingClamp.push_back(item);
 
 	Scene::Init();
 }
@@ -41,16 +44,28 @@ void SceneDev2::Init()
 void SceneDev2::Enter()
 {
 	Scene::Enter();
-	bazzi->SetPosition({ 100, 100 });
+	bazzi->SetPosition({ 100,100 });
 }
 
 void SceneDev2::Update(float dt)
 {
+	for (auto* obj : objectsNeedingClamp)
+		ClampToBounds(*obj);
+	//std::cout << bazzi->GetPosition().x << ", " << bazzi->GetPosition().y << std::endl;
+
 	Scene::Update(dt);
-	//std::cout << bazzi->GetPosition().x << " " << bazzi->GetPosition().y << std::endl;
 }
 
 void SceneDev2::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
+}
+
+void SceneDev2::ClampToBounds(GameObject& obj)
+{
+	sf::Vector2f pos = obj.GetPosition();
+	// LSY : if ( origins :: BC ) of obj -> (+) getGlobalBounds().width * 0.5f // Becomes unstable when object sizes are different
+	pos.x = Utils::Clamp(pos.x, worldBounds.left + obj.GetGlobalBounds().width * 0.5f, worldBounds.left + worldBounds.width - obj.GetGlobalBounds().width*0.5f);
+	pos.y = Utils::Clamp(pos.y, worldBounds.top + obj.GetGlobalBounds().height * 0.5f , worldBounds.top + worldBounds.height);
+	obj.SetPosition(pos);
 }

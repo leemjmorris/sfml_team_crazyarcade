@@ -65,6 +65,7 @@ void Item::Update(float dt)
 		{
 			if (Utils::CheckCollision(hitBox.rect, players[i]->GetHitBox().rect))
 			{
+				std::cout << "Item collided with player: " << players[i]->GetName() << std::endl;
 				Use(players[i]);
 			}
 		}
