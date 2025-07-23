@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "WaterBalloon.h"
+#include "CharacterStats.h"
 
 Player::Player(const std::string& name)
 	: GameObject(name),
@@ -15,10 +17,19 @@ Player::~Player()
 {
 }
 
-bool Player::CheckInstallBomb(bool t)
+bool Player::CheckInstallBomb()
 {
-	if (InputMgr::GetKeyDown(sf::Keyboard::LShift)|| InputMgr::GetKeyDown(sf::Keyboard::RShift))
-	// LSY: add spawnBomb
+	//if (currentBombCount > PlayerStats::) // LSY: add maxBombCount in struct 'CharactorStats'
+	//	return false;
+	//else
+	//{
+	//	WaterBalloon::Spawn("bomb", GetPosition());
+	//	currentBombCount++;
+	//	return true;
+	//}
+
+	WaterBalloon::Spawn("bomb", GetPosition());
+	currentBombCount++;
 	return true;
 }
 
@@ -48,13 +59,16 @@ void Player::Animating(float dt)
 	else if (dir == sf::Vector2f(0.f, 0.f) &&
 		(animator.GetCurrentClipId() == "Run" || animator.GetCurrentClipId() == "Up" || animator.GetCurrentClipId() == "Down"))
 	{
-		if (animator.GetCurrentClipId() == "Run") {
+		if (animator.GetCurrentClipId() == "Run")
+		{
 			animator.Play("assets/animations/bazzi_run.csv");
 		}
-		if (animator.GetCurrentClipId() == "Up") {
+		if (animator.GetCurrentClipId() == "Up")
+		{
 			animator.Play("assets/animations/bazzi_up.csv");
 		}
-		if (animator.GetCurrentClipId() == "Down") {
+		if (animator.GetCurrentClipId() == "Down")
+		{
 			animator.Play("assets/animations/bazzi_down.csv");
 		}
 	}
@@ -145,8 +159,8 @@ void Player::Release()
 
 void Player::Reset()
 {
-	sortingLayer = SortingLayers::Foreground;
-	sortingOrder = 0;
+	sortingLayer = SortingLayers::Default;
+	sortingOrder = 1; // LSY: waterBalloon / sortingOrder = 0
 }
 
 void Player::Update(float dt)
@@ -157,6 +171,10 @@ void Player::Update(float dt)
 	position = GetPosition() + dir * currentSpeed * dt;
 	SetPosition(position);
 	animator.Update(dt);
+	if (InputMgr::GetKeyDown(sf::Keyboard::LShift) || InputMgr::GetKeyDown(sf::Keyboard::RShift))
+	{
+		CheckInstallBomb();
+	}
 }
 
 void Player::Draw(sf::RenderWindow& window)
