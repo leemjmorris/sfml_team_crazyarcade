@@ -47,6 +47,8 @@ public:
 	static bool GetMouseButtonUp(sf::Mouse::Button key);
 	static bool GetMouseButton(sf::Mouse::Button key);
 
+	static sf::Vector2f GetPriorityDirection();
+
 	static sf::Vector2i GetMousePosition();
 };
 

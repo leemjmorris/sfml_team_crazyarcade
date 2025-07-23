@@ -1,0 +1,12 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)",,,
+Down,10,1,,,
+,,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
+assets/player/bazzi/down.png,0,0,64,76,0
+assets/player/bazzi/down.png,64,0,64,76,0
+assets/player/bazzi/down.png,128,0,64,76,0
+assets/player/bazzi/down.png,192,0,64,76,0
+assets/player/bazzi/down.png,256,0,64,76,0
+assets/player/bazzi/down.png,320,0,64,76,0
+assets/player/bazzi/down.png,384,0,64,76,0
+assets/player/bazzi/down.png,450,0,64,76,0

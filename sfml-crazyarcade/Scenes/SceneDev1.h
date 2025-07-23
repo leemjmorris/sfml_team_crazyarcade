@@ -17,4 +17,3 @@ public:
 
 	void SpawnItem(Item::ItemType type, std::string name);
 };
-
