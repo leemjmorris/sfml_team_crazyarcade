@@ -157,9 +157,7 @@ void MapEditor::HandleInput()
 
     static float lastScrollTime = 0;
     float currentTime = FRAMEWORK.GetTime();
-
-
-    
+           
     if (InputMgr::IsMouseWheelUp())
     {
         tileOptionIndex--;
@@ -167,16 +165,16 @@ void MapEditor::HandleInput()
         {
             tileOptionIndex = TileOptions.size() - 1;
         }
-        std::cout << "Tile index changed to: " << tileOptionIndex << std::endl;
+        std::cout << "Tile index-- changed to: " << tileOptionIndex << std::endl;
     }
-    else if (InputMgr::IsMouseWheelDown)
+    else if (InputMgr::IsMouseWheelDown())
     {
         tileOptionIndex++;
         if (tileOptionIndex >= TileOptions.size())
         {
             tileOptionIndex = 0;
         }
-        std::cout << "Tile index changed to: " << tileOptionIndex << std::endl;
+        std::cout << "Tile index++ changed to: " << tileOptionIndex << std::endl;
     }
 
     if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
