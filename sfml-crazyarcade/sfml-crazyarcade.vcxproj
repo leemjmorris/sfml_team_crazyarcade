@@ -163,6 +163,7 @@
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="Framework\Variables.cpp" />
     <ClCompile Include="TestMap.cpp" />
+    <ClCompile Include="WaterBalloon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CharacterStats.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="Framework\Variables.h" />
     <ClInclude Include="TestMap.h" />
+    <ClInclude Include="WaterBalloon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
