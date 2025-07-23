@@ -1,12 +1,15 @@
 #pragma once
 #include "Scene.h"
 #include "CharacterStats.h"
+#include "Item.h"
 
 class Player;
 class SceneDev2 : public Scene
 {
 protected:
 	Player* bazzi;
+	Item* item;
+
 public:
 	SceneDev2();
 

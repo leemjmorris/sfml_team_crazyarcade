@@ -61,7 +61,7 @@ void Item::Update(float dt)
 
 	if (!players.empty())
 	{
-		for (int i = 0; i = players.size(); i++)
+		for (int i = 0; i < players.size(); i++)
 		{
 			if (Utils::CheckCollision(hitBox.rect, players[i]->GetHitBox().rect))
 			{
@@ -129,21 +129,15 @@ void Item::Use(Player* player)
 {
 	if (itemType == ItemType::Balloon)
 	{
-		std::cout << "��ǳ�� ���" << std::endl;
-		p.AddBombCount(1);
 		// KHI: Call the method HERE to increase the number of water balloons the player can use **
 		// KHI: EX) player->Example();
 	}
 	else if (itemType == ItemType::Speed)
 	{
-		std::cout << "�̵� �ӵ� ���� ���" << std::endl;
-		p.AddSpeed(100.f);
 		// KHI: Call the method HERE to increase the player's movement speed **
 	}
 	else if (itemType == ItemType::WaterJet)
 	{
-		std::cout << "���ٱ� ���" << std::endl;
-		p.AddBombLength(1);
 		// KHI: Call the method HERE to increase the player's water jet stat **
 	}
 
