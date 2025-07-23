@@ -19,7 +19,7 @@ public:
 	Player(const std::string& name);
 	~Player();
 
-	bool CheckInstallBomb(bool t);
+	bool CheckInstallBomb();
 	bool CheckBubblePop();
 
 	void Animating(float dt);
