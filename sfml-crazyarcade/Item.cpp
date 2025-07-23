@@ -139,6 +139,7 @@ void Item::Use()
 	// KHI: Add sound effect here **
 }
 
+// KHI: Static method
 Item* Item::Spawn(const std::string& name, ItemType type, sf::Vector2f spawnPos, Scene& scene)
 {
 	Item* item = new Item(name);

@@ -8,6 +8,11 @@ protected:
 	sf::Sprite balloon;
 
 	Animator animator;
+
+	float countdownTime = 0;
+	float currentTime = 0;
+	bool isCounting = false;
+
 public:
 	WaterBalloon(const std::string& name = "");
 	virtual ~WaterBalloon() = default;
@@ -24,8 +29,8 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
+	void StartCastCountdown(float time);
+	void Activate();
 	
 	static void Spawn(const std::string& name, sf::Vector2f spawnPos);
-
-	//void Spawn();
 };
