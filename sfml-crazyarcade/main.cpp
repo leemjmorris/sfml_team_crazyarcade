@@ -3,12 +3,14 @@
 
 int main()
 {
-    FRAMEWORK.Init(800, 600, "CRAZY ARCADE");
+    FRAMEWORK.Init(1920, 1080, "CRAZY ARCADE");
     FRAMEWORK.Do();
     FRAMEWORK.Release();
 
     return 0;
 }
+
+#pragma region TestMap Region
 
 //int main()
 //{
@@ -40,3 +42,5 @@ int main()
 //    FRAMEWORK.Release();
 //    return 0;
 //}
+
+#pragma endregion

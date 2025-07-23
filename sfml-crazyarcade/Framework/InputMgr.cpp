@@ -9,6 +9,9 @@ std::unordered_map<Axis, AxisInfo> InputMgr::axisInfoMap;
 
 sf::Vector2i InputMgr::mousePosition;
 
+float InputMgr::mouseWheelDelta = 0.0f;
+bool InputMgr::mouseWheelScrolled = false;
+
 void InputMgr::Init()
 {
 	AxisInfo infoH;
@@ -27,13 +30,15 @@ void InputMgr::Init()
 	axisInfoMap.insert({ Axis::Vertical , infoV });
 }
 
-void InputMgr::Clear() 
+void InputMgr::Clear()
 {
 	downKeys.clear();
 	upKeys.clear();
+	mouseWheelDelta = 0.f;
+	mouseWheelScrolled = false;
 }
 
-void InputMgr::UpdateEvent(const sf::Event& ev) 
+void InputMgr::UpdateEvent(const sf::Event& ev)
 {
 	switch (ev.type)
 	{
@@ -57,18 +62,22 @@ void InputMgr::UpdateEvent(const sf::Event& ev)
 			heldKeys.push_back(code);
 		}
 	}
-		break;
+	break;
 	case sf::Event::MouseButtonReleased:
 	{
 		int code = sf::Keyboard::KeyCount + ev.mouseButton.button;
 		Remove(heldKeys, code);
 		upKeys.push_back(code);
 	}
-		break;
+	break;
+	case sf::Event::MouseWheelScrolled:
+		mouseWheelDelta = ev.mouseWheelScroll.delta;
+		mouseWheelScrolled = true;
+		break;	
 	}
 }
 
-void InputMgr::Update(float dt) 
+void InputMgr::Update(float dt)
 {
 	mousePosition = sf::Mouse::getPosition(FRAMEWORK.GetWindow());
 
@@ -186,6 +195,26 @@ sf::Vector2f InputMgr::GetPriorityDirection()
 
 sf::Vector2i InputMgr::GetMousePosition()
 {
-	return mousePosition; 
+	return mousePosition;
+}
+
+float InputMgr::GetMouseWheelDelta()
+{
+	return mouseWheelDelta;
+}
+
+bool InputMgr::IsMouseWheelScrolled()
+{
+	return mouseWheelScrolled;
+}
+
+bool InputMgr::IsMouseWheelUp()
+{
+	return mouseWheelScrolled && mouseWheelDelta > 0;
+}
+
+bool InputMgr::IsMouseWheelDown()
+{
+	return mouseWheelScrolled && mouseWheelDelta < 0;
 }
 
