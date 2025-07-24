@@ -133,6 +133,7 @@ void WaterBalloon::SpawnWaterSplash(WaterSplash::AnimType dir, int length)
 	if (dir == WaterSplash::AnimType::Center)
 	{
 		WaterSplash* splashObj = WaterSplashPool::GetFromPool();
+		splashObj->SetAnimType(WaterSplash::AnimType::Center);
 		splashObj->SetPosition(GetPosition());
 		splashObj->Reset();
 		splashObj->PlayAnim();
