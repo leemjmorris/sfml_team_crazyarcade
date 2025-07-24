@@ -86,9 +86,8 @@ void WaterBalloon::Draw(sf::RenderWindow& window)
 	window.draw(balloon);
 }
 
-void WaterBalloon::StartCastCountdown(float time)
+void WaterBalloon::StartCastCountdown()
 {
-	countdownTime = time;
 	currentTime = countdownTime;
 	isCounting = true;
 }
@@ -162,7 +161,7 @@ void WaterBalloon::Spawn(const std::string& name, sf::Vector2f spawnPos)
 {
 	WaterBalloon* waterBalloon = new WaterBalloon(name);
 	waterBalloon->Init();
-	waterBalloon->StartCastCountdown(2.f);
+	waterBalloon->StartCastCountdown();
 	waterBalloon->SetPosition(spawnPos);
 
 	Scene* currentScene = SCENE_MGR.GetCurrentScene();

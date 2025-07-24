@@ -10,7 +10,7 @@ protected:
 
 	Animator animator;
 
-	float countdownTime = 0;
+	float countdownTime = 1.5f;
 	float currentTime = 0;
 	bool isCounting = false;
 
@@ -30,7 +30,7 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void StartCastCountdown(float time);
+	void StartCastCountdown();
 	void Explode();
 	void ExplodeInAllDirections(int upLen, int downLen, int leftLen, int rightLen);
 	void SpawnWaterSplash(WaterSplash::AnimType dir, int length = 1);
