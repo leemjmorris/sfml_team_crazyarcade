@@ -205,7 +205,7 @@ void MapEditor::HandleInput()
         std::cout << "Tile index++ changed to: " << tileOptionIndex << std::endl;
     }
 
-    if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
         sf::Vector2i mousePos = InputMgr::GetMousePosition();
         sf::Vector2f worldPos = FRAMEWORK.GetWindow().mapPixelToCoords(mousePos, worldView);
@@ -213,7 +213,7 @@ void MapEditor::HandleInput()
         std::cout << "Left click at: " << worldPos.x << ", " << worldPos.y << std::endl;
     }
 
-    if (InputMgr::GetMouseButtonDown(sf::Mouse::Right))
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
     {
         sf::Vector2i mousePos = InputMgr::GetMousePosition();
         sf::Vector2f worldPos = FRAMEWORK.GetWindow().mapPixelToCoords(mousePos, worldView);
@@ -227,6 +227,12 @@ void MapEditor::CreateTileAtPosition(const sf::Vector2f& position)
     if (TileOptions.empty() || tileOptionIndex >= TileOptions.size())
     {
         std::cout << "Cannot create tile - invalid state" << std::endl;
+        return;
+    }
+
+    if (position.x < 0 || position.x >= GRID_WIDTH * GRID_SIZE || position.y < 0 || position.y >= GRID_HEIGHT * GRID_SIZE)
+    {
+        std::cout << "Put tiles on the grid" << std::endl;
         return;
     }
 
