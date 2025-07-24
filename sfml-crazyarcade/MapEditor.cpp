@@ -1,11 +1,12 @@
 #include "stdafx.h"
 #include "MapEditor.h"
 
-MapEditor::MapEditor()
-    : Scene(SceneIds::MapEditor)
-    , tileOptionIndex(0)
-    , MouseScrollInput(None)
+MapEditor::MapEditor() : Scene(SceneIds::MapEditor)
 {
+    currentLayer = LayerType::Background;
+    tileOptionIndex = 0;
+    blockRegistryIndex = 0;
+    MouseScrollInput = ScrollInput::None;
 }
 
 void MapEditor::Init()
@@ -21,7 +22,15 @@ void MapEditor::Init()
 
     std::cout << "MapEditor::Init() called" << std::endl;
 
+    // LMJ: "Load block textures from registry"
+    auto allBlocks = Block::GetAllBlocks();
+    for (const auto& blockInfo : allBlocks)
+    {
+        texIds.push_back(blockInfo.textureId);
+    }
+
     LoadTileSet();
+    LoadBlockSet();
 
     gridLines.setPrimitiveType(sf::Lines);
     gridLines.clear();
@@ -44,6 +53,16 @@ void MapEditor::Init()
 
 void MapEditor::Release()
 {
+    // LMJ: "Clean up placed blocks"
+    for (Block* block : PlacedBlocks)
+    {
+        if (block)
+        {
+            delete block;
+        }
+    }
+    PlacedBlocks.clear();
+
     Scene::Release();
     std::cout << "MapEditor::Release() called" << std::endl;
 }
@@ -91,12 +110,6 @@ void MapEditor::LoadTileSet()
     if (!success)
     {
         std::cout << "All texture loading failed! Creating test texture..." << std::endl;
-
-        // LMJ: Red rect for Test purpose
-        //sf::Image testImage;
-        //testImage.create(260, 104, sf::Color::Red);
-        //tileMapTexture.loadFromImage(testImage);
-        //std::cout << "Created red test texture" << std::endl;
     }
 
     // LMJ: size check
@@ -139,10 +152,37 @@ void MapEditor::LoadTileSet()
     }
 }
 
+void MapEditor::LoadBlockSet()
+{
+    // LMJ: "Create preview sprites for all blocks in registry"  
+    BlockPreviewSprites.clear();
+
+    auto allBlocks = Block::GetAllBlocks();
+    for (const auto& blockInfo : allBlocks)
+    {
+        if (TEXTURE_MGR.Exists(blockInfo.textureId))
+        {
+            sf::Sprite blockSprite;
+            blockSprite.setTexture(TEXTURE_MGR.Get(blockInfo.textureId));
+            Utils::SetOrigin(blockSprite, Origins::MC);
+            BlockPreviewSprites.push_back(blockSprite);
+        }
+    }
+}
+
 void MapEditor::Update(float dt)
 {
     Scene::Update(dt);
     HandleInput();
+
+    // LMJ: "Update placed blocks"
+    for (Block* block : PlacedBlocks)
+    {
+        if (block && block->GetActive())
+        {
+            block->Update(dt);
+        }
+    }
 }
 
 void MapEditor::Draw(sf::RenderWindow& window)
@@ -165,6 +205,15 @@ void MapEditor::Draw(sf::RenderWindow& window)
         window.draw(tile);
     }
 
+    // LMJ: "Draw placed blocks"
+    for (Block* block : PlacedBlocks)
+    {
+        if (block && block->GetActive())
+        {
+            block->Draw(window);
+        }
+    }
+
     // LMJ: drawing tiles to mouse point
     DrawMapEditor(window);
 
@@ -177,48 +226,112 @@ void MapEditor::Draw(sf::RenderWindow& window)
 
 void MapEditor::HandleInput()
 {
-    if (TileOptions.empty())
-    {
-        std::cout << "TileOptions is empty in HandleInput!" << std::endl;
-        return;
-    }
+    HandleLayerSwitching();
+    HandleScrollInput();
 
-    static float lastScrollTime = 0;
-    float currentTime = FRAMEWORK.GetTime();
-           
-    if (InputMgr::IsMouseWheelUp())
-    {
-        tileOptionIndex--;
-        if (tileOptionIndex < 0)
-        {
-            tileOptionIndex = TileOptions.size() - 1;
-        }
-        std::cout << "Tile index-- changed to: " << tileOptionIndex << std::endl;
-    }
-    else if (InputMgr::IsMouseWheelDown())
-    {
-        tileOptionIndex++;
-        if (tileOptionIndex >= TileOptions.size())
-        {
-            tileOptionIndex = 0;
-        }
-        std::cout << "Tile index++ changed to: " << tileOptionIndex << std::endl;
-    }
+    sf::Vector2i mousePos = InputMgr::GetMousePosition();
+    sf::Vector2f worldPos = FRAMEWORK.GetWindow().mapPixelToCoords(mousePos, worldView);
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        sf::Vector2i mousePos = InputMgr::GetMousePosition();
-        sf::Vector2f worldPos = FRAMEWORK.GetWindow().mapPixelToCoords(mousePos, worldView);
-        CreateTileAtPosition(worldPos);
-        std::cout << "Left click at: " << worldPos.x << ", " << worldPos.y << std::endl;
+        if (currentLayer == LayerType::Background)
+        {
+            CreateTileAtPosition(worldPos);
+            std::cout << "Left click at: " << worldPos.x << ", " << worldPos.y << std::endl;
+        }
+        else if (currentLayer == LayerType::Block)
+        {
+            CreateBlockAtPosition(worldPos);
+        }
     }
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
     {
-        sf::Vector2i mousePos = InputMgr::GetMousePosition();
-        sf::Vector2f worldPos = FRAMEWORK.GetWindow().mapPixelToCoords(mousePos, worldView);
-        DeleteTileAtPosition(worldPos);
-        std::cout << "Right click at: " << worldPos.x << ", " << worldPos.y << std::endl;
+        if (currentLayer == LayerType::Background)
+        {
+            DeleteTileAtPosition(worldPos);
+            std::cout << "Right click at: " << worldPos.x << ", " << worldPos.y << std::endl;
+        }
+        else if (currentLayer == LayerType::Block)
+        {
+            DeleteBlockAtPosition(worldPos);
+        }
+    }
+}
+
+void MapEditor::HandleLayerSwitching()
+{
+    // LMJ: "Tab key to switch layers"
+    if (InputMgr::GetKeyDown(sf::Keyboard::Tab))
+    {
+        int currentLayerInt = static_cast<int>(currentLayer);
+        currentLayerInt = (currentLayerInt + 1) % 3; // LMJ: "Cycle through 3 layers"
+        currentLayer = static_cast<LayerType>(currentLayerInt);
+
+        std::cout << "Layer switched to: " << currentLayerInt << std::endl;
+    }
+}
+
+void MapEditor::HandleScrollInput()
+{
+    MouseScrollInput = ScrollInput::None;
+
+    if (InputMgr::IsMouseWheelScrolled())
+    {
+        float delta = InputMgr::GetMouseWheelDelta();
+
+        if (delta > 0) // LMJ: "Scroll up"
+        {
+            MouseScrollInput = ScrollInput::ScrollUp;
+
+            if (currentLayer == LayerType::Background)
+            {
+                if (!TileOptions.empty())
+                {
+                    tileOptionIndex--;
+                    if (tileOptionIndex < 0)
+                    {
+                        tileOptionIndex = TileOptions.size() - 1;
+                    }
+                    std::cout << "Tile index-- changed to: " << tileOptionIndex << std::endl;
+                }
+            }
+            else if (currentLayer == LayerType::Block)
+            {
+                int maxIndex = Block::GetBlockRegistrySize();
+                if (maxIndex > 0)
+                {
+                    blockRegistryIndex = (blockRegistryIndex - 1 + maxIndex) % maxIndex;
+                    std::cout << "Block index-- changed to: " << blockRegistryIndex << std::endl;
+                }
+            }
+        }
+        else if (delta < 0) // LMJ: "Scroll down"
+        {
+            MouseScrollInput = ScrollInput::ScrollDown;
+
+            if (currentLayer == LayerType::Background)
+            {
+                if (!TileOptions.empty())
+                {
+                    tileOptionIndex++;
+                    if (tileOptionIndex >= TileOptions.size())
+                    {
+                        tileOptionIndex = 0;
+                    }
+                    std::cout << "Tile index++ changed to: " << tileOptionIndex << std::endl;
+                }
+            }
+            else if (currentLayer == LayerType::Block)
+            {
+                int maxIndex = Block::GetBlockRegistrySize();
+                if (maxIndex > 0)
+                {
+                    blockRegistryIndex = (blockRegistryIndex + 1) % maxIndex;
+                    std::cout << "Block index++ changed to: " << blockRegistryIndex << std::endl;
+                }
+            }
+        }
     }
 }
 
@@ -259,10 +372,33 @@ void MapEditor::CreateTileAtPosition(const sf::Vector2f& position)
     // LMJ: new tiles
     sf::Sprite tile = TileOptions[tileOptionIndex];
     tile.setPosition(tilePosition);
-    //tile.setColor(sf::Color::White);  // LMJ: set in transperant
     Tiles.push_back(tile);
 
     std::cout << "Tile created. Total tiles: " << Tiles.size() << std::endl;
+}
+
+void MapEditor::CreateBlockAtPosition(const sf::Vector2f& position)
+{
+    sf::Vector2f gridPos = GetGridPosition(position);
+    if (!IsValidGridPosition(gridPos))
+        return;
+
+    // LMJ: "Check if block already exists at this position"
+    Block* existingBlock = GetBlockAtPosition(gridPos);
+    if (existingBlock)
+        return;
+
+    // LMJ: "Create new block using registry index"
+    Block* newBlock = Block::CreateBlockFromRegistry(blockRegistryIndex,
+        gridPos * static_cast<float>(GRID_SIZE) + sf::Vector2f(GRID_SIZE / 2, GRID_SIZE / 2));
+
+    if (newBlock)
+    {
+        PlacedBlocks.push_back(newBlock);
+        newBlock->Init();
+        newBlock->Reset();
+        std::cout << "Block created at: " << gridPos.x << ", " << gridPos.y << std::endl;
+    }
 }
 
 void MapEditor::DeleteTileAtPosition(const sf::Vector2f& position)
@@ -286,7 +422,74 @@ void MapEditor::DeleteTileAtPosition(const sf::Vector2f& position)
     }
 }
 
+void MapEditor::DeleteBlockAtPosition(const sf::Vector2f& position)
+{
+    sf::Vector2f gridPos = GetGridPosition(position);
+    if (!IsValidGridPosition(gridPos))
+        return;
+
+    Block* blockToDelete = GetBlockAtPosition(gridPos);
+    if (blockToDelete)
+    {
+        // LMJ: "Remove from vector and delete"
+        auto it = std::find(PlacedBlocks.begin(), PlacedBlocks.end(), blockToDelete);
+        if (it != PlacedBlocks.end())
+        {
+            delete* it;
+            PlacedBlocks.erase(it);
+            std::cout << "Block deleted" << std::endl;
+        }
+    }
+}
+
+sf::Vector2f MapEditor::GetGridPosition(const sf::Vector2f& mousePos)
+{
+    return sf::Vector2f(
+        std::floor(mousePos.x / GRID_SIZE),
+        std::floor(mousePos.y / GRID_SIZE)
+    );
+}
+
+bool MapEditor::IsValidGridPosition(const sf::Vector2f& gridPos)
+{
+    return gridPos.x >= 0 && gridPos.x < GRID_WIDTH &&
+        gridPos.y >= 0 && gridPos.y < GRID_HEIGHT;
+}
+
+Block* MapEditor::GetBlockAtPosition(const sf::Vector2f& gridPos)
+{
+    sf::Vector2f worldPos = gridPos * static_cast<float>(GRID_SIZE) + sf::Vector2f(GRID_SIZE / 2, GRID_SIZE / 2);
+
+    for (Block* block : PlacedBlocks)
+    {
+        if (block && block->GetActive())
+        {
+            sf::Vector2f blockPos = block->GetPosition();
+            // LMJ: "Check if positions match (with small tolerance)"
+            if (std::abs(blockPos.x - worldPos.x) < 1.0f &&
+                std::abs(blockPos.y - worldPos.y) < 1.0f)
+            {
+                return block;
+            }
+        }
+    }
+
+    return nullptr;
+}
+
 void MapEditor::DrawMapEditor(sf::RenderWindow& window)
+{
+    if (currentLayer == LayerType::Background)
+    {
+        DrawTilePreviewAtMouse(window);
+    }
+    else if (currentLayer == LayerType::Block)
+    {
+        DrawBlockPreview(window);
+    }
+}
+
+void MapEditor::DrawTilePreviewAtMouse(sf::RenderWindow& window)
 {
     if (TileOptions.empty())
     {
@@ -313,11 +516,8 @@ void MapEditor::DrawMapEditor(sf::RenderWindow& window)
 
         // LMJ: draw selected tile
         sf::Sprite currentTile = TileOptions[tileOptionIndex];
-        currentTile.setPosition(worldPos);
-    
-        // LMJ: set color into transperant
-        //currentTile.setColor(sf::Color(255, 255, 255, 150));
-    
+        currentTile.setPosition(snappedPos);
+        currentTile.setColor(sf::Color(255, 255, 255, 150)); // LMJ: "Semi-transparent"
         window.draw(currentTile);
 
         sf::RectangleShape highlight;
@@ -328,12 +528,35 @@ void MapEditor::DrawMapEditor(sf::RenderWindow& window)
         highlight.setOutlineThickness(2.0f);
         window.draw(highlight);
     }
+}
 
-    // 디버깅: 마우스 위치에 작은 원 그리기
-    //sf::CircleShape debugCircle(5);
-    //debugCircle.setFillColor(sf::Color::Yellow);
-    //debugCircle.setPosition(worldPos.x - 5, worldPos.y - 5);
-    //window.draw(debugCircle);
+void MapEditor::DrawBlockPreview(sf::RenderWindow& window)
+{
+    if (BlockPreviewSprites.empty() || blockRegistryIndex >= static_cast<int>(BlockPreviewSprites.size()))
+        return;
+
+    sf::Vector2i mousePos = InputMgr::GetMousePosition();
+    sf::Vector2f worldPos = FRAMEWORK.GetWindow().mapPixelToCoords(mousePos, worldView);
+    sf::Vector2f gridPos = GetGridPosition(worldPos);
+
+    if (IsValidGridPosition(gridPos))
+    {
+        int gridX = static_cast<int>(gridPos.x);
+        int gridY = static_cast<int>(gridPos.y);
+
+        sf::Sprite preview = BlockPreviewSprites[blockRegistryIndex];
+        preview.setPosition(gridX * GRID_SIZE + GRID_SIZE / 2, gridY * GRID_SIZE + GRID_SIZE / 2);
+        preview.setColor(sf::Color(255, 255, 255, 128)); // LMJ: "Semi-transparent"
+        window.draw(preview);
+
+        sf::RectangleShape highlight;
+        highlight.setSize(sf::Vector2f(GRID_SIZE, GRID_SIZE));
+        highlight.setPosition(gridX * GRID_SIZE, gridY * GRID_SIZE);
+        highlight.setFillColor(sf::Color(0, 255, 0, 50));  // 반투명 초록색
+        highlight.setOutlineColor(sf::Color::Green);
+        highlight.setOutlineThickness(2.0f);
+        window.draw(highlight);
+    }
 }
 
 void MapEditor::DrawTilePreview(sf::RenderWindow& window)
@@ -381,4 +604,13 @@ void MapEditor::DrawTilePreview(sf::RenderWindow& window)
         dot.setFillColor(sf::Color::Yellow);
         window.draw(dot);
     }
+
+    // LMJ: "Show current layer info"
+    sf::RectangleShape layerBg;
+    layerBg.setSize(sf::Vector2f(200, 30));
+    layerBg.setPosition(10, 10);
+    layerBg.setFillColor(sf::Color(0, 0, 0, 150));
+    layerBg.setOutlineColor(sf::Color::White);
+    layerBg.setOutlineThickness(1.0f);
+    window.draw(layerBg);
 }
