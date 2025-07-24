@@ -154,6 +154,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapEditor.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SceneDemo.cpp" />
     <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="Scenes\SceneDev1.cpp" />
     <ClCompile Include="Scenes\SceneDev2.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="MapEditor.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SceneDemo.h" />
     <ClInclude Include="SceneGame.h" />
     <ClInclude Include="Scenes\SceneDev1.h" />
     <ClInclude Include="Scenes\SceneDev2.h" />

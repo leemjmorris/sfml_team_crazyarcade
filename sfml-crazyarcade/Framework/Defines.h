@@ -25,6 +25,7 @@ enum class SceneIds
 	Dev1,
 	Dev2,
 	MapEditor,
+	Demo,
 	Count,
 };
 

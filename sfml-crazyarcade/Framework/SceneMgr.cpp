@@ -3,12 +3,14 @@
 #include "SceneDev1.h"
 #include "SceneDev2.h"
 #include "MapEditor.h"
+#include "SceneDemo.h"
 
 void SceneMgr::Init()
 {
 	scenes.push_back(new SceneDev1());
 	scenes.push_back(new SceneDev2());
 	scenes.push_back(new MapEditor());
+	scenes.push_back(new SceneDemo());
 
 	for (auto scene : scenes)
 	{
