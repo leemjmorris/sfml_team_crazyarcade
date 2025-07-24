@@ -42,7 +42,7 @@ protected:
 	HitBox hitBox;
 
 public:
-	WaterSplash(const std::string& name = "");
+	WaterSplash(const std::string& name = "WaterSplash");
 	virtual ~WaterSplash() = default;
 
 	void SetPosition(const sf::Vector2f& pos) override;
@@ -62,4 +62,9 @@ public:
 	void PlayAnim();
 	void PlayExitAnim();
 	void CheckCollisionWithItems();
+
+	const HitBox& GetHitBox() const
+	{
+		return hitBox;
+	}
 };

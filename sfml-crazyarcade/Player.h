@@ -59,6 +59,8 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
+	void CheckCollWithSplash(); // KHI
+
 	sf::FloatRect GetGlobalBounds() const
 	{
 		return sprite.getGlobalBounds();

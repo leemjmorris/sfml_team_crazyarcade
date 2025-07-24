@@ -79,16 +79,19 @@ void Player::Animating(float dt)
 	if (dir.x != 0 && animator.GetCurrentClipId() != "Run")
 	{
 		animator.Play("animation/bazzi_run.csv");
+		animState = AnimState::live;
 	}
 
 	else if ( dir.y < 0 && animator.GetCurrentClipId() != "Up")
 	{
 		animator.Play("animation/bazzi_up.csv");
+		animState = AnimState::live;
 	}
 
 	else if (dir.y > 0 && animator.GetCurrentClipId() != "Down")
 	{
 		animator.Play("animation/bazzi_down.csv");
+		animState = AnimState::live;
 	}
 
 	else if (dir == sf::Vector2f(0.f, 0.f) &&
@@ -100,14 +103,17 @@ void Player::Animating(float dt)
 		if (animator.GetCurrentClipId() == "Run")
 		{
 			animator.Play("animation/bazzi_run.csv");
+			animState = AnimState::live;
 		}
 		if (animator.GetCurrentClipId() == "Up")
 		{
 			animator.Play("animation/bazzi_up.csv");
+			animState = AnimState::live;
 		}
 		if (animator.GetCurrentClipId() == "Down")
 		{
 			animator.Play("animation/bazzi_down.csv");
+			animState = AnimState::live;
 		}
 	}
 
@@ -212,9 +218,33 @@ void Player::Update(float dt)
 	PlayerEvent(dt);
 
 	hitBox.UpdateTransform(sprite, sprite.getLocalBounds());
+
+	CheckCollWithSplash(); // KHI
 }
 
 void Player::Draw(sf::RenderWindow& window)
 {
 	window.draw(sprite);
+}
+
+void Player::CheckCollWithSplash()
+{
+	if (animState == AnimState::Dying)
+		return;
+
+	auto waterSplashes = SCENE_MGR.GetCurrentScene()->FindGameObjects("WaterSplash");
+	for (auto* obj : waterSplashes)
+	{
+		WaterSplash* splashObj = dynamic_cast<WaterSplash*>(obj);
+
+		if (splashObj && splashObj->GetActive())
+		{
+			if (Utils::CheckCollision(splashObj->GetHitBox().rect, this->GetHitBox().rect))
+			{
+				animState = AnimState::Dying;
+				animator.Play("animation/bazzi_trap.csv");
+				break;
+			}
+		}
+	}
 }
