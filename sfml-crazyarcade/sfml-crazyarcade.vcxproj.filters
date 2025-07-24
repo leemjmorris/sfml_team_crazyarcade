@@ -67,6 +67,9 @@
     <ClCompile Include="WaterBalloon.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="SceneGame.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="WaterSplash.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -151,6 +154,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="WaterBalloon.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGame.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="WaterSplash.h">
