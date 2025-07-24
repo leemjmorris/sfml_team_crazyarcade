@@ -16,10 +16,13 @@ protected:
 
 	GameObject* obj;
 	sf::Vector2f dir;
-	sf::Vector2f dir2;
 	sf::Vector2f velocity;
 	Animator animator;
 	sf::Sprite sprite;
+
+	Axis hAxis;
+	Axis vAxis;
+	int installWaterBomb;
 
 	HitBox hitBox;
 

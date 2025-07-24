@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "WaterBalloon.h"
 
-Player::Player(const std::string & name, CharacterID id, int index)
+Player::Player(const std::string& name, CharacterID id, int index)
 	: GameObject(name),
 	curSpeed(100.f),
 	curWaterBalloonCount(1),
@@ -45,115 +45,51 @@ bool Player::CheckBubblePop()
 
 void Player::Animating(float dt)
 {
-	//for(obj : GameObject::GetAllObjects())
-	//{
-	//	if(obj.getName() == "Bazzi")
-	//	{
-	//		animator.SetTarget(&obj.getSprite());
-	//		break;
-	//	}
-	//}
-
-	if (playerIndex == 0)
-		dir = InputMgr::GetPriorityDirection();
-
-	else if (playerIndex == 1)
-		dir2 = InputMgr::GetPriorityDirection();
-
-	if (playerIndex == 0)
+	if (dir.x = 0 && animator.GetCurrentClipId() != "Run")
 	{
-		if (dir.x != 0 && animator.GetCurrentClipId() != "Run")
+		animator.Play("animation/bazzi_run.csv");
+		std::cout << "LFT" << std::endl;
+	}
+
+	else if (dir.x < 0 && animator.GetCurrentClipId() != "Up")
+	{
+		animator.Play("animation/bazzi_up.csv");
+	}
+
+	else if (dir.x > 0 && animator.GetCurrentClipId() != "Down")
+	{
+		animator.Play("animation/bazzi_down.csv");
+	}
+
+	else if (dir == sf::Vector2f(0.f, 0.f) &&
+		(animator.GetCurrentClipId() == "Run" || animator.GetCurrentClipId() == "Up" || animator.GetCurrentClipId() == "Down"))
+	{
+		if (animator.GetCurrentClipId() == "Run")
 		{
 			animator.Play("animation/bazzi_run.csv");
-			std::cout << "LFT" << std::endl;
 		}
-
-		else if (dir.y < 0 && animator.GetCurrentClipId() != "Up")
+		if (animator.GetCurrentClipId() == "Up")
 		{
 			animator.Play("animation/bazzi_up.csv");
 		}
-
-		else if (dir.y > 0 && animator.GetCurrentClipId() != "Down")
+		if (animator.GetCurrentClipId() == "Down")
 		{
 			animator.Play("animation/bazzi_down.csv");
 		}
-
-		else if (dir == sf::Vector2f(0.f, 0.f) &&
-			(animator.GetCurrentClipId() == "Run" || animator.GetCurrentClipId() == "Up" || animator.GetCurrentClipId() == "Down"))
-		{
-			if (animator.GetCurrentClipId() == "Run")
-			{
-				animator.Play("animation/bazzi_run.csv");
-			}
-			if (animator.GetCurrentClipId() == "Up")
-			{
-				animator.Play("animation/bazzi_up.csv");
-			}
-			if (animator.GetCurrentClipId() == "Down")
-			{
-				animator.Play("animation/bazzi_down.csv");
-			}
-		}
-	}
-	if (playerIndex == 1)
-	{
-		if (dir2.x != 0 && animator.GetCurrentClipId() != "Run")
-		{
-			animator.Play("animation/bazzi_run.csv");
-			std::cout << "LFT" << std::endl;
-		}
-
-		else if (dir2.y < 0 && animator.GetCurrentClipId() != "Up")
-		{
-			animator.Play("animation/bazzi_up.csv");
-		}
-
-		else if (dir2.y > 0 && animator.GetCurrentClipId() != "Down")
-		{
-			animator.Play("animation/bazzi_down.csv");
-		}
-
-		else if (dir2 == sf::Vector2f(0.f, 0.f) &&
-			(animator.GetCurrentClipId() == "Run" || animator.GetCurrentClipId() == "Up" || animator.GetCurrentClipId() == "Down"))
-		{
-			if (animator.GetCurrentClipId() == "Run")
-			{
-				animator.Play("animation/bazzi_run.csv");
-			}
-			if (animator.GetCurrentClipId() == "Up")
-			{
-				animator.Play("animation/bazzi_up.csv");
-			}
-			if (animator.GetCurrentClipId() == "Down")
-			{
-				animator.Play("animation/bazzi_down.csv");
-			}
-		}
 	}
 
-	if (playerIndex == 0)
+	if (dir. x < 0)
 	{
-		if (InputMgr::GetKeyDown(sf::Keyboard::Left))
-		{
-			SetScale({ -1.f,1.f });
-		}
-		if (InputMgr::GetKeyDown(sf::Keyboard::Right))
-		{
-			SetScale({ 1.f,1.f });
-		}
+		SetScale({ -1.f,1.f });
 	}
-	else if (playerIndex == 1)
+	if (dir.x > 0)
 	{
-		if (InputMgr::GetKeyDown(sf::Keyboard::A))
-		{
-			SetScale({ -1.f,1.f });
-		}
-		if (InputMgr::GetKeyDown(sf::Keyboard::D))
-		{
-			SetScale({ 1.f,1.f });
-		}
+		SetScale({ 1.f,1.f });
 	}
 }
+
+
+
 
 void Player::AddSpeed(float s)
 {
@@ -208,19 +144,19 @@ void Player::Init()
 	SetOrigin(Origins::BC);
 	animator.SetTarget(&sprite);
 
-	//animator.AddEvent("Idle", 0,
-	//	[]()
-	//	{
-	//		//std::cout << "!!" << std::endl;
-	//	}
-	//);
-
-	animator.AddEvent("Left", 0,
-		[]()
-		{
-			std::cout << "??" << std::endl;
-		}
-	);
+	switch (playerIndex)
+	{
+	case 0:
+		vAxis = Axis::Vertical_1p;
+		hAxis = Axis::Horizontal_1p;
+		installWaterBomb = InputMgr::GetKeyDown(sf::Keyboard::LShift);
+		break;
+	case 1:
+		vAxis = Axis::Vertical_2p;
+		hAxis = Axis::Horizontal_2p;
+		installWaterBomb = InputMgr::GetKeyDown(sf::Keyboard::RShift);
+		break;
+	}
 }
 
 void Player::Release()
@@ -238,27 +174,13 @@ void Player::Update(float dt)
 	Animating(dt);
 	SetOrigin(Origins::BC);
 
-	if (playerIndex == 0)
-	this->position = this->GetPosition() + dir * curSpeed * dt;
-
-	if (playerIndex == 1)
-	this->position = this->GetPosition() + dir2 * curSpeed * dt;
-
+	position = GetPosition() + dir * curSpeed * dt;
 	SetPosition(position);
 	animator.Update(dt);
-	if (playerIndex == 0)
+
+	if (installWaterBomb)
 	{
-		if (InputMgr::GetKeyDown(sf::Keyboard::LShift))
-		{
-			CheckInstallBomb();
-		}
-	}
-	else if (playerIndex == 1)
-	{
-		if (InputMgr::GetKeyDown(sf::Keyboard::RShift))
-		{
-			CheckInstallBomb();
-		}
+		CheckInstallBomb();
 	}
 }
 

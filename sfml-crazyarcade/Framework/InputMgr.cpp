@@ -18,15 +18,12 @@ void InputMgr::Init()
 	infoH.axis = Axis::Horizontal_1p;
 	infoH.positives.push_back(sf::Keyboard::D);
 	infoH.negatives.push_back(sf::Keyboard::A);
-
-
 	axisInfoMap.insert({ Axis::Horizontal_1p , infoH });
 
 	AxisInfo infoH2;
 	infoH2.axis = Axis::Horizontal_2p;
 	infoH2.positives.push_back(sf::Keyboard::Right);
 	infoH2.negatives.push_back(sf::Keyboard::Left);
-
 	axisInfoMap.insert({ Axis::Horizontal_2p , infoH2 });
 
 	AxisInfo infoV;
