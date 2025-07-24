@@ -30,52 +30,49 @@ void Block::SetBlockType(BlockType type)
     blockType = type;
     textureId = GetTextureId(type);
 
-    // LMJ: "Set block properties based on type"
+    // LMJ: "Set block properties based on type (backward compatibility)"
     switch (type)
     {
     case BlockType::SoftBlock:
-        isDestroyable = true;
-        isHidable = false;
-        isMovable = false;
-        canSpawnItem = true;
+        SetBlockProperties(true, false, false, true);
         break;
     case BlockType::HardBlock:
-        isDestroyable = false;
-        isHidable = false;
-        isMovable = false;
-        canSpawnItem = false;
+        SetBlockProperties(false, false, false, false);
         break;
     case BlockType::HideBlock:
-        isDestroyable = false;
-        isHidable = true;
-        isMovable = false;
-        canSpawnItem = false;
+        SetBlockProperties(false, true, false, false);
         break;
     case BlockType::UncoverBlock:
-        isDestroyable = false;
-        isHidable = false;
-        isMovable = false;
-        canSpawnItem = false;
+        SetBlockProperties(false, false, false, false);
         break;
     case BlockType::PushBlock:
-        isDestroyable = false;
-        isHidable = false;
-        isMovable = true;
-        canSpawnItem = false;
+        SetBlockProperties(false, false, true, false);
         break;
     case BlockType::FixBlock:
-        isDestroyable = false;
-        isHidable = false;
-        isMovable = false;
-        canSpawnItem = false;
+        SetBlockProperties(false, false, false, false);
         break;
     default:
-        isDestroyable = false;
-        isHidable = false;
-        isMovable = false;
-        canSpawnItem = false;
+        SetBlockProperties(false, false, false, false);
         break;
     }
+}
+
+void Block::SetBlockProperties(const BlockInfo& info)
+{
+    textureId = info.textureId;
+    isDestroyable = info.isDestroyable;
+    isHidable = info.isHidable;
+    isMovable = info.isMovable;
+    canSpawnItem = info.canSpawnItem;
+    blockType = BlockType::Custom; // LMJ: "Mark as custom when using BlockInfo"
+}
+
+void Block::SetBlockProperties(bool destroyable, bool hidable, bool movable, bool spawnItem)
+{
+    isDestroyable = destroyable;
+    isHidable = hidable;
+    isMovable = movable;
+    canSpawnItem = spawnItem;
 }
 
 void Block::Init()
@@ -118,9 +115,9 @@ void Block::DestroyBlock(Scene* scene)
         int randomItemType = Utils::RandomRange(0, 3); // LMJ: "0=Balloon, 1=Speed, 2=WaterJet"
         Item::ItemType itemType = static_cast<Item::ItemType>(randomItemType);
 
-        // LMJ: "Spawn item at block position"
+        // LMJ: "Spawn item at block position using existing SpawnItem method"
         std::string itemName = "SpawnedItem_" + std::to_string(rand());
-        Item::Spawn(itemName, itemType, blockPosition, *scene);
+        Item::SpawnItem(itemName, itemType, blockPosition);
     }
 
     // LMJ: "Deactivate the block (will be removed by scene)"
@@ -143,39 +140,91 @@ void Block::InitializeBlockRegistry()
 
     blockRegistry.clear();
 
-    // LMJ: "Register multiple textures for SoftBlock type"
-    RegisterBlock("assets/block/soft_block_1.png", BlockType::SoftBlock, "Soft Block 1");
-    RegisterBlock("assets/block/soft_block_2.png", BlockType::SoftBlock, "Soft Block 2");
-    RegisterBlock("assets/block/soft_block_3.png", BlockType::SoftBlock, "Soft Block 3");
-
-    // LMJ: "Register multiple textures for HardBlock type"
-    RegisterBlock("assets/block/hard_block_1.png", BlockType::HardBlock, "Hard Block 1");
-    RegisterBlock("assets/block/hard_block_2.png", BlockType::HardBlock, "Hard Block 2");
-
-    // LMJ: "Register other block types"
-    RegisterBlock("assets/block/hide_block.png", BlockType::HideBlock, "Hide Block");
-    RegisterBlock("assets/block/uncover_block.png", BlockType::UncoverBlock, "Uncover Block");
-    RegisterBlock("assets/block/push_block.png", BlockType::PushBlock, "Push Block");
-    RegisterBlock("assets/block/fix_block.png", BlockType::FixBlock, "Fix Block");
+    // LMJ: "Register forest blocks with specified properties"
+    // LMJ: "All blocks: not movable, destructable, not hidable, no item spawn"
+    RegisterBlock("assets/map/forest/block/block_1.bmp", "Forest Block 1", true, false, false, false);
+    RegisterBlock("assets/map/forest/block/block_2.bmp", "Forest Block 2", true, false, false, false);
+    RegisterBlock("assets/map/forest/block/block_3.bmp", "Forest Block 3", true, false, false, false);
+    RegisterBlock("assets/map/forest/block/block_4.bmp", "Forest Block 4", true, false, false, false);
+    RegisterBlock("assets/map/forest/block/block_5.bmp", "Forest Block 5", true, false, false, false);
+    RegisterBlock("assets/map/forest/block/block_6.bmp", "Forest Block 6", true, false, false, false);
 
     registryInitialized = true;
 }
 
+void Block::RegisterBlock(const std::string& textureId, const std::string& displayName,
+    bool destroyable, bool hidable, bool movable, bool spawnItem)
+{
+    blockRegistry.emplace_back(textureId, displayName, destroyable, hidable, movable, spawnItem);
+}
+
 void Block::RegisterBlock(const std::string& textureId, BlockType type, const std::string& displayName)
 {
-    blockRegistry.emplace_back(textureId, type, displayName);
+    // LMJ: "Legacy registration method - convert BlockType to properties"
+    bool destroyable = false, hidable = false, movable = false, spawnItem = false;
+
+    switch (type)
+    {
+    case BlockType::SoftBlock:
+        destroyable = true; spawnItem = true;
+        break;
+    case BlockType::HardBlock:
+        // All false (default)
+        break;
+    case BlockType::HideBlock:
+        hidable = true;
+        break;
+    case BlockType::UncoverBlock:
+        // All false (default)
+        break;
+    case BlockType::PushBlock:
+        movable = true;
+        break;
+    case BlockType::FixBlock:
+        // All false (default)
+        break;
+    }
+
+    RegisterBlock(textureId, displayName, destroyable, hidable, movable, spawnItem);
 }
 
 std::vector<BlockInfo> Block::GetBlocksByType(BlockType type)
 {
     std::vector<BlockInfo> result;
+
+    // LMJ: "For backward compatibility, filter by properties that match the type"
     for (const auto& blockInfo : blockRegistry)
     {
-        if (blockInfo.type == type)
+        bool matches = false;
+
+        switch (type)
+        {
+        case BlockType::SoftBlock:
+            matches = blockInfo.isDestroyable && blockInfo.canSpawnItem;
+            break;
+        case BlockType::HardBlock:
+            matches = !blockInfo.isDestroyable && !blockInfo.isHidable && !blockInfo.isMovable;
+            break;
+        case BlockType::HideBlock:
+            matches = blockInfo.isHidable;
+            break;
+        case BlockType::UncoverBlock:
+            matches = !blockInfo.isDestroyable && !blockInfo.isHidable && !blockInfo.isMovable && !blockInfo.canSpawnItem;
+            break;
+        case BlockType::PushBlock:
+            matches = blockInfo.isMovable;
+            break;
+        case BlockType::FixBlock:
+            matches = !blockInfo.isDestroyable && !blockInfo.isHidable && !blockInfo.isMovable && !blockInfo.canSpawnItem;
+            break;
+        }
+
+        if (matches)
         {
             result.push_back(blockInfo);
         }
     }
+
     return result;
 }
 
@@ -201,7 +250,7 @@ BlockInfo Block::GetBlockInfo(int registryIndex)
     }
 
     // LMJ: "Return default BlockInfo if index is invalid"
-    return BlockInfo("", BlockType::None, "Invalid");
+    return BlockInfo("", "Invalid", false, false, false, false);
 }
 
 int Block::GetBlockRegistrySize()
@@ -242,12 +291,23 @@ Block* Block::CreateBlock(BlockType type, const sf::Vector2f& position)
 Block* Block::CreateBlockFromRegistry(int registryIndex, const sf::Vector2f& position)
 {
     BlockInfo blockInfo = GetBlockInfo(registryIndex);
-    if (blockInfo.type == BlockType::None)
+    if (blockInfo.textureId.empty())
         return nullptr;
 
     Block* block = new Block();
-    block->SetBlockType(blockInfo.type);
-    block->textureId = blockInfo.textureId; // LMJ: "Use specific texture"
+    block->SetBlockProperties(blockInfo); // LMJ: "Use new property system"
+    block->textureId = blockInfo.textureId;
+    block->Reset();
+    block->SetPosition(position);
+    return block;
+}
+
+Block* Block::CreateBlockWithProperties(const std::string& textureId, const sf::Vector2f& position,
+    bool destroyable, bool hidable, bool movable, bool spawnItem)
+{
+    Block* block = new Block();
+    block->textureId = textureId;
+    block->SetBlockProperties(destroyable, hidable, movable, spawnItem);
     block->Reset();
     block->SetPosition(position);
     return block;

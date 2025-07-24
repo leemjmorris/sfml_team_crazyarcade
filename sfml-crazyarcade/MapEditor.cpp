@@ -6,7 +6,15 @@ MapEditor::MapEditor() : Scene(SceneIds::MapEditor)
     currentLayer = LayerType::Background;
     tileOptionIndex = 0;
     blockRegistryIndex = 0;
+    currentPropertyMode = PropertyMode::Destroyable;
     MouseScrollInput = ScrollInput::None;
+    selectedBlock = nullptr;
+
+    // LMJ: "Initialize selection highlight"
+    selectionHighlight.setSize(sf::Vector2f(GRID_SIZE, GRID_SIZE));
+    selectionHighlight.setFillColor(sf::Color::Transparent);
+    selectionHighlight.setOutlineColor(sf::Color::Yellow);
+    selectionHighlight.setOutlineThickness(3.0f);
 }
 
 void MapEditor::Init()
@@ -14,13 +22,16 @@ void MapEditor::Init()
     Scene::Init();
 
     sf::Vector2f viewSize(800, 600);
-
     worldView.setSize(viewSize);
     worldView.setCenter(viewSize * 0.5f);
     uiView.setSize(viewSize);
     uiView.setCenter(viewSize * 0.5f);
 
     std::cout << "MapEditor::Init() called" << std::endl;
+
+    // LMJ: "Add font to texture loading"
+    texIds.push_back("assets/font/Daum_Regular.ttf");
+    fontIds.push_back("assets/font/Daum_Regular.ttf");
 
     // LMJ: "Load block textures from registry"
     auto allBlocks = Block::GetAllBlocks();
@@ -32,11 +43,11 @@ void MapEditor::Init()
     LoadTileSet();
     LoadBlockSet();
 
+    // LMJ: "Initialize grid lines"
     gridLines.setPrimitiveType(sf::Lines);
     gridLines.clear();
 
     sf::Color gridColor(255, 255, 255, 100);
-
     for (int x = 0; x <= GRID_WIDTH; ++x)
     {
         float xPos = x * GRID_SIZE;
@@ -84,8 +95,6 @@ void MapEditor::LoadTileSet()
     std::cout << "Loading tileset..." << std::endl;
 
     bool success = false;
-
-    // LMJ: Trying multiple path, for test purpose
     std::string paths[] = {
         "assets/map/forest/tile/forest_tile_set.png",
         "../assets/map/forest/tile/forest_tile_set.png",
@@ -101,37 +110,25 @@ void MapEditor::LoadTileSet()
             success = true;
             break;
         }
-        else
-        {
-            std::cout << "Failed to load: " << path << std::endl;
-        }
     }
 
     if (!success)
     {
-        std::cout << "All texture loading failed! Creating test texture..." << std::endl;
+        std::cout << "All texture loading failed!" << std::endl;
+        return;
     }
 
-    // LMJ: size check
     sf::Vector2u textureSize = tileMapTexture.getSize();
-    std::cout << "Texture size: " << textureSize.x << "x" << textureSize.y << std::endl;
-
-    // LMJ: testing for tile size
     float tile_width = textureSize.x / 5.0f;
     float tile_height = textureSize.y / 2.0f;
 
-    std::cout << "Tile size: " << tile_width << "x" << tile_height << std::endl;
-
     TileOptions.clear();
-
-    // LMJ: load tile
     for (int y = 0; y < 2; ++y)
     {
         for (int x = 0; x < 5; ++x)
         {
             sf::Sprite tile;
             tile.setTexture(tileMapTexture);
-
             tile.setTextureRect(sf::IntRect(
                 static_cast<int>(x * tile_width),
                 static_cast<int>(y * tile_height),
@@ -139,22 +136,19 @@ void MapEditor::LoadTileSet()
                 static_cast<int>(tile_height)
             ));
 
-            // LMJ: adjust scale
             float scaleX = GRID_SIZE / tile_width;
             float scaleY = GRID_SIZE / tile_height;
-
             tile.setScale(sf::Vector2f(scaleX, scaleY));
             tile.setOrigin(sf::Vector2f(tile_width / 2, tile_height / 2));
 
             TileOptions.push_back(tile);
-            std::cout << "Added tile " << (y * 5 + x) << std::endl;
         }
     }
 }
 
 void MapEditor::LoadBlockSet()
 {
-    // LMJ: "Create preview sprites for all blocks in registry"  
+    // LMJ: "Create preview sprites for all blocks in registry"
     BlockPreviewSprites.clear();
 
     auto allBlocks = Block::GetAllBlocks();
@@ -187,11 +181,13 @@ void MapEditor::Update(float dt)
 
 void MapEditor::Draw(sf::RenderWindow& window)
 {
-    // LMJ: world view set
+    // LMJ: "Set world view and draw main content"
     window.setView(worldView);
 
+    // LMJ: "Draw grid"
     window.draw(gridLines);
 
+    // LMJ: "Draw grid outline"
     sf::RectangleShape outline;
     outline.setSize(sf::Vector2f(GRID_WIDTH * GRID_SIZE, GRID_HEIGHT * GRID_SIZE));
     outline.setPosition(0, 0);
@@ -200,6 +196,7 @@ void MapEditor::Draw(sf::RenderWindow& window)
     outline.setOutlineThickness(3.f);
     window.draw(outline);
 
+    // LMJ: "Draw tiles"
     for (const sf::Sprite& tile : Tiles)
     {
         window.draw(tile);
@@ -214,13 +211,25 @@ void MapEditor::Draw(sf::RenderWindow& window)
         }
     }
 
-    // LMJ: drawing tiles to mouse point
+    // LMJ: "Draw preview at mouse position"
     DrawMapEditor(window);
 
-    window.setView(uiView);
-    DrawTilePreview(window);
+    // LMJ: "Draw Layer 2 selection highlight"
+    if (currentLayer == LayerType::BlockState && selectedBlock != nullptr)
+    {
+        window.draw(selectionHighlight);
+    }
 
-    // LMJ: drawing scene
+    // LMJ: "Draw block property indicators"
+    DrawBlockPropertyIndicators(window);
+
+    // LMJ: "Switch to UI view for UI elements"
+    window.setView(uiView);
+
+    // LMJ: "Draw right-side UI"
+    DrawRightSideUI(window);
+
+    // LMJ: "Draw base scene"
     Scene::Draw(window);
 }
 
@@ -229,44 +238,121 @@ void MapEditor::HandleInput()
     HandleLayerSwitching();
     HandleScrollInput();
 
-    sf::Vector2i mousePos = InputMgr::GetMousePosition();
-    sf::Vector2f worldPos = FRAMEWORK.GetWindow().mapPixelToCoords(mousePos, worldView);
-
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    if (currentLayer == LayerType::BlockState)
     {
-        if (currentLayer == LayerType::Background)
+        HandleLayer2Input();
+        return;
+    }
+
+    // LMJ: "Regular input handling for Layer 0 and 1"
+    sf::Vector2i mousePos = InputMgr::GetMousePosition();
+    sf::Vector2f worldPos = ScreenToWorld(mousePos);
+    sf::Vector2f gridPos = GetGridPosition(worldPos);
+
+    if (InputMgr::GetMouseButton(sf::Mouse::Left))
+    {
+        if (IsValidGridPosition(gridPos))
         {
-            CreateTileAtPosition(worldPos);
-            std::cout << "Left click at: " << worldPos.x << ", " << worldPos.y << std::endl;
-        }
-        else if (currentLayer == LayerType::Block)
-        {
-            CreateBlockAtPosition(worldPos);
+            if (currentLayer == LayerType::Background)
+            {
+                CreateTileAtPosition(gridPos);
+            }
+            else if (currentLayer == LayerType::Block)
+            {
+                CreateBlockAtPosition(gridPos);
+            }
         }
     }
 
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+    if (InputMgr::GetMouseButton(sf::Mouse::Right))
     {
-        if (currentLayer == LayerType::Background)
+        if (IsValidGridPosition(gridPos))
         {
-            DeleteTileAtPosition(worldPos);
-            std::cout << "Right click at: " << worldPos.x << ", " << worldPos.y << std::endl;
+            if (currentLayer == LayerType::Background)
+            {
+                DeleteTileAtPosition(gridPos);
+            }
+            else if (currentLayer == LayerType::Block)
+            {
+                DeleteBlockAtPosition(gridPos);
+            }
         }
-        else if (currentLayer == LayerType::Block)
+    }
+}
+
+void MapEditor::HandleLayer2Input()
+{
+    sf::Vector2i mousePos = InputMgr::GetMousePosition();
+    sf::Vector2f worldPos = ScreenToWorld(mousePos);
+    sf::Vector2f gridPos = GetGridPosition(worldPos);
+
+    // LMJ: "Block selection with left click"
+    if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
+    {
+        if (IsValidGridPosition(gridPos))
         {
-            DeleteBlockAtPosition(worldPos);
+            SelectBlockAtPosition(gridPos);
+        }
+    }
+
+    // LMJ: "Property mode switching with number keys"
+    if (InputMgr::GetKeyDown(sf::Keyboard::Num1))
+        currentPropertyMode = PropertyMode::Destroyable;
+    else if (InputMgr::GetKeyDown(sf::Keyboard::Num2))
+        currentPropertyMode = PropertyMode::Hidable;
+    else if (InputMgr::GetKeyDown(sf::Keyboard::Num3))
+        currentPropertyMode = PropertyMode::Movable;
+    else if (InputMgr::GetKeyDown(sf::Keyboard::Num4))
+        currentPropertyMode = PropertyMode::SpawnItem;
+
+    if (selectedBlock != nullptr)
+    {
+        // LMJ: "Toggle current property with Space"
+        if (InputMgr::GetKeyDown(sf::Keyboard::Space))
+        {
+            ToggleSelectedBlockProperty(currentPropertyMode);
+        }
+
+        // LMJ: "Set property to true with T key"
+        if (InputMgr::GetKeyDown(sf::Keyboard::T))
+        {
+            ModifySelectedBlockProperty(currentPropertyMode, true);
+        }
+
+        // LMJ: "Set property to false with F key"
+        if (InputMgr::GetKeyDown(sf::Keyboard::F))
+        {
+            ModifySelectedBlockProperty(currentPropertyMode, false);
+        }
+
+        // LMJ: "Copy properties with C key (source) and V key (target)"
+        static sf::Vector2f copySourcePos = sf::Vector2f(-1, -1);
+
+        if (InputMgr::GetKeyDown(sf::Keyboard::C))
+        {
+            copySourcePos = selectedBlock->GetPosition();
+        }
+
+        if (InputMgr::GetKeyDown(sf::Keyboard::V) && copySourcePos.x >= 0)
+        {
+            CopyBlockProperties(copySourcePos, selectedBlock->GetPosition());
         }
     }
 }
 
 void MapEditor::HandleLayerSwitching()
 {
-    // LMJ: "Tab key to switch layers"
     if (InputMgr::GetKeyDown(sf::Keyboard::Tab))
     {
         int currentLayerInt = static_cast<int>(currentLayer);
-        currentLayerInt = (currentLayerInt + 1) % 3; // LMJ: "Cycle through 3 layers"
+        currentLayerInt = (currentLayerInt + 1) % 3;
         currentLayer = static_cast<LayerType>(currentLayerInt);
+
+        // LMJ: "Reset selection when switching layers"
+        if (currentLayer != LayerType::BlockState)
+        {
+            selectedBlock = nullptr;
+        }
 
         std::cout << "Layer switched to: " << currentLayerInt << std::endl;
     }
@@ -280,20 +366,14 @@ void MapEditor::HandleScrollInput()
     {
         float delta = InputMgr::GetMouseWheelDelta();
 
-        if (delta > 0) // LMJ: "Scroll up"
+        if (delta > 0)
         {
             MouseScrollInput = ScrollInput::ScrollUp;
-
             if (currentLayer == LayerType::Background)
             {
                 if (!TileOptions.empty())
                 {
-                    tileOptionIndex--;
-                    if (tileOptionIndex < 0)
-                    {
-                        tileOptionIndex = TileOptions.size() - 1;
-                    }
-                    std::cout << "Tile index-- changed to: " << tileOptionIndex << std::endl;
+                    tileOptionIndex = (tileOptionIndex - 1 + TileOptions.size()) % TileOptions.size();
                 }
             }
             else if (currentLayer == LayerType::Block)
@@ -302,24 +382,17 @@ void MapEditor::HandleScrollInput()
                 if (maxIndex > 0)
                 {
                     blockRegistryIndex = (blockRegistryIndex - 1 + maxIndex) % maxIndex;
-                    std::cout << "Block index-- changed to: " << blockRegistryIndex << std::endl;
                 }
             }
         }
-        else if (delta < 0) // LMJ: "Scroll down"
+        else if (delta < 0)
         {
             MouseScrollInput = ScrollInput::ScrollDown;
-
             if (currentLayer == LayerType::Background)
             {
                 if (!TileOptions.empty())
                 {
-                    tileOptionIndex++;
-                    if (tileOptionIndex >= TileOptions.size())
-                    {
-                        tileOptionIndex = 0;
-                    }
-                    std::cout << "Tile index++ changed to: " << tileOptionIndex << std::endl;
+                    tileOptionIndex = (tileOptionIndex + 1) % TileOptions.size();
                 }
             }
             else if (currentLayer == LayerType::Block)
@@ -328,58 +401,132 @@ void MapEditor::HandleScrollInput()
                 if (maxIndex > 0)
                 {
                     blockRegistryIndex = (blockRegistryIndex + 1) % maxIndex;
-                    std::cout << "Block index++ changed to: " << blockRegistryIndex << std::endl;
                 }
             }
         }
     }
 }
 
-void MapEditor::CreateTileAtPosition(const sf::Vector2f& position)
+void MapEditor::SelectBlockAtPosition(const sf::Vector2f& gridPos)
 {
-    if (TileOptions.empty() || tileOptionIndex >= TileOptions.size())
+    Block* block = GetBlockAtPosition(gridPos);
+    if (block != nullptr)
     {
-        std::cout << "Cannot create tile - invalid state" << std::endl;
-        return;
+        selectedBlock = block;
+        sf::Vector2f worldPos = gridPos * static_cast<float>(GRID_SIZE);
+        selectionHighlight.setPosition(worldPos);
+    }
+    else
+    {
+        selectedBlock = nullptr;
+    }
+}
+
+void MapEditor::ModifySelectedBlockProperty(PropertyMode mode, bool value)
+{
+    if (selectedBlock == nullptr) return;
+
+    switch (mode)
+    {
+    case PropertyMode::Destroyable:
+        selectedBlock->SetDestroyable(value);
+        break;
+    case PropertyMode::Hidable:
+        selectedBlock->SetHidable(value);
+        break;
+    case PropertyMode::Movable:
+        selectedBlock->SetMovable(value);
+        break;
+    case PropertyMode::SpawnItem:
+        selectedBlock->SetCanSpawnItem(value);
+        break;
+    }
+}
+
+void MapEditor::ToggleSelectedBlockProperty(PropertyMode mode)
+{
+    if (selectedBlock == nullptr) return;
+
+    bool currentValue = false;
+    switch (mode)
+    {
+    case PropertyMode::Destroyable:
+        currentValue = selectedBlock->IsDestroyable();
+        break;
+    case PropertyMode::Hidable:
+        currentValue = selectedBlock->IsHidable();
+        break;
+    case PropertyMode::Movable:
+        currentValue = selectedBlock->IsMovable();
+        break;
+    case PropertyMode::SpawnItem:
+        currentValue = selectedBlock->CanSpawnItem();
+        break;
     }
 
-    if (position.x < 0 || position.x >= GRID_WIDTH * GRID_SIZE || position.y < 0 || position.y >= GRID_HEIGHT * GRID_SIZE)
+    ModifySelectedBlockProperty(mode, !currentValue);
+}
+
+void MapEditor::CopyBlockProperties(const sf::Vector2f& sourcePos, const sf::Vector2f& targetPos)
+{
+    Block* sourceBlock = nullptr;
+    Block* targetBlock = nullptr;
+
+    // LMJ: "Find blocks at positions"
+    for (Block* block : PlacedBlocks)
     {
-        std::cout << "Put tiles on the grid" << std::endl;
-        return;
-    }
-
-    std::cout << "Creating tile at position: " << position.x << ", " << position.y << std::endl;
-
-    // LMJ: snap on grid
-    int gridX = static_cast<int>(position.x / GRID_SIZE);
-    int gridY = static_cast<int>(position.y / GRID_SIZE);
-    sf::Vector2f tilePosition(gridX * GRID_SIZE + GRID_SIZE / 2.0f, gridY * GRID_SIZE + GRID_SIZE / 2.0f);
-
-    // LMJ: get rid of the tile if its already there
-    for (int i = 0; i < Tiles.size(); ++i)
-    {
-        sf::Vector2f tilePos = Tiles[i].getPosition();
-        float distance = std::sqrt((tilePos.x - tilePosition.x) * (tilePos.x - tilePosition.x) +
-            (tilePos.y - tilePosition.y) * (tilePos.y - tilePosition.y));
-        if (distance < GRID_SIZE / 2)
+        if (block && block->GetActive())
         {
-            Tiles.erase(Tiles.begin() + i);
+            sf::Vector2f blockPos = block->GetPosition();
+            if (std::abs(blockPos.x - sourcePos.x) < 1.0f && std::abs(blockPos.y - sourcePos.y) < 1.0f)
+            {
+                sourceBlock = block;
+            }
+            if (std::abs(blockPos.x - targetPos.x) < 1.0f && std::abs(blockPos.y - targetPos.y) < 1.0f)
+            {
+                targetBlock = block;
+            }
+        }
+    }
+
+    if (sourceBlock == nullptr || targetBlock == nullptr) return;
+
+    // LMJ: "Copy all properties from source to target"
+    targetBlock->SetBlockProperties(
+        sourceBlock->IsDestroyable(),
+        sourceBlock->IsHidable(),
+        sourceBlock->IsMovable(),
+        sourceBlock->CanSpawnItem()
+    );
+}
+
+void MapEditor::CreateTileAtPosition(const sf::Vector2f& gridPos)
+{
+    if (TileOptions.empty() || !IsValidGridPosition(gridPos))
+        return;
+
+    sf::Vector2f tilePosition(gridPos.x * GRID_SIZE + GRID_SIZE / 2.0f, gridPos.y * GRID_SIZE + GRID_SIZE / 2.0f);
+
+    // LMJ: "Remove existing tile at position"
+    for (auto it = Tiles.begin(); it != Tiles.end(); ++it)
+    {
+        sf::Vector2f tilePos = it->getPosition();
+        if (std::abs(tilePos.x - tilePosition.x) < GRID_SIZE / 2 &&
+            std::abs(tilePos.y - tilePosition.y) < GRID_SIZE / 2)
+        {
+            Tiles.erase(it);
             break;
         }
     }
 
-    // LMJ: new tiles
+    // LMJ: "Add new tile"
     sf::Sprite tile = TileOptions[tileOptionIndex];
     tile.setPosition(tilePosition);
     Tiles.push_back(tile);
-
-    std::cout << "Tile created. Total tiles: " << Tiles.size() << std::endl;
 }
 
-void MapEditor::CreateBlockAtPosition(const sf::Vector2f& position)
+void MapEditor::CreateBlockAtPosition(const sf::Vector2f& gridPos)
 {
-    sf::Vector2f gridPos = GetGridPosition(position);
     if (!IsValidGridPosition(gridPos))
         return;
 
@@ -390,54 +537,48 @@ void MapEditor::CreateBlockAtPosition(const sf::Vector2f& position)
 
     // LMJ: "Create new block using registry index"
     Block* newBlock = Block::CreateBlockFromRegistry(blockRegistryIndex,
-        gridPos * static_cast<float>(GRID_SIZE) + sf::Vector2f(GRID_SIZE / 2, GRID_SIZE / 2));
+        sf::Vector2f(gridPos.x * GRID_SIZE + GRID_SIZE / 2, gridPos.y * GRID_SIZE + GRID_SIZE / 2));
 
     if (newBlock)
     {
         PlacedBlocks.push_back(newBlock);
         newBlock->Init();
         newBlock->Reset();
-        std::cout << "Block created at: " << gridPos.x << ", " << gridPos.y << std::endl;
     }
 }
 
-void MapEditor::DeleteTileAtPosition(const sf::Vector2f& position)
+void MapEditor::DeleteTileAtPosition(const sf::Vector2f& gridPos)
 {
-    // LMJ: snap on grid
-    int gridX = static_cast<int>(position.x / GRID_SIZE);
-    int gridY = static_cast<int>(position.y / GRID_SIZE);
-    sf::Vector2f tilePosition(gridX * GRID_SIZE + GRID_SIZE / 2.0f, gridY * GRID_SIZE + GRID_SIZE / 2.0f);
+    if (!IsValidGridPosition(gridPos))
+        return;
 
-    for (int i = 0; i < Tiles.size(); ++i)
+    sf::Vector2f tilePosition(gridPos.x * GRID_SIZE + GRID_SIZE / 2.0f, gridPos.y * GRID_SIZE + GRID_SIZE / 2.0f);
+
+    for (auto it = Tiles.begin(); it != Tiles.end(); ++it)
     {
-        sf::Vector2f tilePos = Tiles[i].getPosition();
-        float distance = std::sqrt((tilePos.x - tilePosition.x) * (tilePos.x - tilePosition.x) +
-            (tilePos.y - tilePosition.y) * (tilePos.y - tilePosition.y));
-        if (distance < GRID_SIZE / 2)
+        sf::Vector2f tilePos = it->getPosition();
+        if (std::abs(tilePos.x - tilePosition.x) < GRID_SIZE / 2 &&
+            std::abs(tilePos.y - tilePosition.y) < GRID_SIZE / 2)
         {
-            Tiles.erase(Tiles.begin() + i);
-            std::cout << "Tile deleted. Total tiles: " << Tiles.size() << std::endl;
+            Tiles.erase(it);
             break;
         }
     }
 }
 
-void MapEditor::DeleteBlockAtPosition(const sf::Vector2f& position)
+void MapEditor::DeleteBlockAtPosition(const sf::Vector2f& gridPos)
 {
-    sf::Vector2f gridPos = GetGridPosition(position);
     if (!IsValidGridPosition(gridPos))
         return;
 
     Block* blockToDelete = GetBlockAtPosition(gridPos);
     if (blockToDelete)
     {
-        // LMJ: "Remove from vector and delete"
         auto it = std::find(PlacedBlocks.begin(), PlacedBlocks.end(), blockToDelete);
         if (it != PlacedBlocks.end())
         {
             delete* it;
             PlacedBlocks.erase(it);
-            std::cout << "Block deleted" << std::endl;
         }
     }
 }
@@ -458,14 +599,13 @@ bool MapEditor::IsValidGridPosition(const sf::Vector2f& gridPos)
 
 Block* MapEditor::GetBlockAtPosition(const sf::Vector2f& gridPos)
 {
-    sf::Vector2f worldPos = gridPos * static_cast<float>(GRID_SIZE) + sf::Vector2f(GRID_SIZE / 2, GRID_SIZE / 2);
+    sf::Vector2f worldPos = sf::Vector2f(gridPos.x * GRID_SIZE + GRID_SIZE / 2, gridPos.y * GRID_SIZE + GRID_SIZE / 2);
 
     for (Block* block : PlacedBlocks)
     {
         if (block && block->GetActive())
         {
             sf::Vector2f blockPos = block->GetPosition();
-            // LMJ: "Check if positions match (with small tolerance)"
             if (std::abs(blockPos.x - worldPos.x) < 1.0f &&
                 std::abs(blockPos.y - worldPos.y) < 1.0f)
             {
@@ -492,38 +632,25 @@ void MapEditor::DrawMapEditor(sf::RenderWindow& window)
 void MapEditor::DrawTilePreviewAtMouse(sf::RenderWindow& window)
 {
     if (TileOptions.empty())
-    {
-        std::cout << "TileOptions is empty in DrawMapEditor!" << std::endl;
         return;
-    }
 
-    if (tileOptionIndex >= TileOptions.size())
-    {
-        std::cout << "Invalid tile index: " << tileOptionIndex << std::endl;
-        tileOptionIndex = 0;
-    }
-
-    // LMJ: get mouse pos
     sf::Vector2i mousePos = InputMgr::GetMousePosition();
-    sf::Vector2f worldPos = FRAMEWORK.GetWindow().mapPixelToCoords(mousePos, worldView);
+    sf::Vector2f worldPos = ScreenToWorld(mousePos);
+    sf::Vector2f gridPos = GetGridPosition(worldPos);
 
-    if (worldPos.x >= 0 && worldPos.x < GRID_WIDTH * GRID_SIZE && worldPos.y >= 0 && worldPos.y < GRID_HEIGHT * GRID_SIZE)
+    if (IsValidGridPosition(gridPos))
     {
-        int gridX = static_cast<int>(worldPos.x / GRID_SIZE);
-        int gridY = static_cast<int>(worldPos.y / GRID_SIZE);
+        sf::Vector2f snappedPos(gridPos.x * GRID_SIZE + GRID_SIZE / 2.f, gridPos.y * GRID_SIZE + GRID_SIZE / 2.f);
 
-        sf::Vector2f snappedPos(gridX * GRID_SIZE + GRID_SIZE / 2.f, gridY * GRID_SIZE + GRID_SIZE / 2.f);
-
-        // LMJ: draw selected tile
         sf::Sprite currentTile = TileOptions[tileOptionIndex];
         currentTile.setPosition(snappedPos);
-        currentTile.setColor(sf::Color(255, 255, 255, 150)); // LMJ: "Semi-transparent"
+        currentTile.setColor(sf::Color(255, 255, 255, 150));
         window.draw(currentTile);
 
         sf::RectangleShape highlight;
         highlight.setSize(sf::Vector2f(GRID_SIZE, GRID_SIZE));
-        highlight.setPosition(gridX * GRID_SIZE, gridY * GRID_SIZE);
-        highlight.setFillColor(sf::Color(255, 255, 0, 50));  // 반투명 노란색
+        highlight.setPosition(gridPos.x * GRID_SIZE, gridPos.y * GRID_SIZE);
+        highlight.setFillColor(sf::Color(255, 255, 0, 50));
         highlight.setOutlineColor(sf::Color::Yellow);
         highlight.setOutlineThickness(2.0f);
         window.draw(highlight);
@@ -536,81 +663,287 @@ void MapEditor::DrawBlockPreview(sf::RenderWindow& window)
         return;
 
     sf::Vector2i mousePos = InputMgr::GetMousePosition();
-    sf::Vector2f worldPos = FRAMEWORK.GetWindow().mapPixelToCoords(mousePos, worldView);
+    sf::Vector2f worldPos = ScreenToWorld(mousePos);
     sf::Vector2f gridPos = GetGridPosition(worldPos);
 
     if (IsValidGridPosition(gridPos))
     {
-        int gridX = static_cast<int>(gridPos.x);
-        int gridY = static_cast<int>(gridPos.y);
-
         sf::Sprite preview = BlockPreviewSprites[blockRegistryIndex];
-        preview.setPosition(gridX * GRID_SIZE + GRID_SIZE / 2, gridY * GRID_SIZE + GRID_SIZE / 2);
-        preview.setColor(sf::Color(255, 255, 255, 128)); // LMJ: "Semi-transparent"
+        preview.setPosition(gridPos.x * GRID_SIZE + GRID_SIZE / 2, gridPos.y * GRID_SIZE + GRID_SIZE / 2);
+        preview.setColor(sf::Color(255, 255, 255, 128));
         window.draw(preview);
 
         sf::RectangleShape highlight;
         highlight.setSize(sf::Vector2f(GRID_SIZE, GRID_SIZE));
-        highlight.setPosition(gridX * GRID_SIZE, gridY * GRID_SIZE);
-        highlight.setFillColor(sf::Color(0, 255, 0, 50));  // 반투명 초록색
+        highlight.setPosition(gridPos.x * GRID_SIZE, gridPos.y * GRID_SIZE);
+        highlight.setFillColor(sf::Color(0, 255, 0, 50));
         highlight.setOutlineColor(sf::Color::Green);
         highlight.setOutlineThickness(2.0f);
         window.draw(highlight);
     }
 }
 
-void MapEditor::DrawTilePreview(sf::RenderWindow& window)
+void MapEditor::DrawBlockPropertyIndicators(sf::RenderWindow& window)
 {
-    if (TileOptions.empty() || tileOptionIndex >= TileOptions.size())
-        return;
+    if (currentLayer != LayerType::BlockState) return;
 
-    float previewSize = 120.0f;
-    sf::Vector2f windowSize(800, 600);
-    sf::Vector2f previewPos(windowSize.x - previewSize - 35, 40);
+    // LMJ: "Draw small colored squares on blocks to show their properties"
+    for (Block* block : PlacedBlocks)
+    {
+        if (block == nullptr || !block->GetActive()) continue;
 
+        sf::Vector2f blockPos = block->GetPosition();
+        float indicatorSize = 8.0f;
+
+        // LMJ: "Destroyable indicator (top-left)"
+        if (block->IsDestroyable())
+        {
+            sf::RectangleShape indicator;
+            indicator.setSize(sf::Vector2f(indicatorSize, indicatorSize));
+            indicator.setPosition(blockPos.x - GRID_SIZE / 2, blockPos.y - GRID_SIZE / 2);
+            indicator.setFillColor(GetPropertyColor(PropertyMode::Destroyable, true));
+            window.draw(indicator);
+        }
+
+        // LMJ: "Hidable indicator (top-right)"
+        if (block->IsHidable())
+        {
+            sf::RectangleShape indicator;
+            indicator.setSize(sf::Vector2f(indicatorSize, indicatorSize));
+            indicator.setPosition(blockPos.x + GRID_SIZE / 2 - indicatorSize, blockPos.y - GRID_SIZE / 2);
+            indicator.setFillColor(GetPropertyColor(PropertyMode::Hidable, true));
+            window.draw(indicator);
+        }
+
+        // LMJ: "Movable indicator (bottom-left)"
+        if (block->IsMovable())
+        {
+            sf::RectangleShape indicator;
+            indicator.setSize(sf::Vector2f(indicatorSize, indicatorSize));
+            indicator.setPosition(blockPos.x - GRID_SIZE / 2, blockPos.y + GRID_SIZE / 2 - indicatorSize);
+            indicator.setFillColor(GetPropertyColor(PropertyMode::Movable, true));
+            window.draw(indicator);
+        }
+
+        // LMJ: "SpawnItem indicator (bottom-right)"
+        if (block->CanSpawnItem())
+        {
+            sf::RectangleShape indicator;
+            indicator.setSize(sf::Vector2f(indicatorSize, indicatorSize));
+            indicator.setPosition(blockPos.x + GRID_SIZE / 2 - indicatorSize, blockPos.y + GRID_SIZE / 2 - indicatorSize);
+            indicator.setFillColor(GetPropertyColor(PropertyMode::SpawnItem, true));
+            window.draw(indicator);
+        }
+    }
+}
+
+void MapEditor::DrawRightSideUI(sf::RenderWindow& window)
+{
+    float rightPanelX = GRID_WIDTH * GRID_SIZE + 20; // LMJ: "Start right of grid"
+    float rightPanelWidth = 160; // LMJ: "Reduced width to fit in 800px window"
+
+    // LMJ: "Main UI background"
+    sf::RectangleShape uiBackground;
+    uiBackground.setSize(sf::Vector2f(rightPanelWidth, 580));
+    uiBackground.setPosition(rightPanelX, 10);
+    uiBackground.setFillColor(sf::Color(20, 20, 20, 200));
+    uiBackground.setOutlineColor(sf::Color::White);
+    uiBackground.setOutlineThickness(2);
+    window.draw(uiBackground);
+
+    // LMJ: "Preview window - smaller size"
+    float previewSize = 80;
     sf::RectangleShape previewBg;
     previewBg.setSize(sf::Vector2f(previewSize, previewSize));
-    previewBg.setPosition(previewPos);
-    previewBg.setFillColor(sf::Color(50, 50, 50, 200));
+    previewBg.setPosition(rightPanelX + 40, 20); // LMJ: "Centered in smaller panel"
+    previewBg.setFillColor(sf::Color(50, 50, 50, 180));
     previewBg.setOutlineColor(sf::Color::White);
-    previewBg.setOutlineThickness(2.0f);
+    previewBg.setOutlineThickness(2);
     window.draw(previewBg);
 
-    sf::Sprite previewTile = TileOptions[tileOptionIndex];
-
-    sf::Vector2f previewCenter = previewPos + sf::Vector2f(previewSize / 2, previewSize / 2);
-    previewTile.setPosition(previewCenter);
-
-    sf::Vector2f currentScale = previewTile.getScale();
-    previewTile.setScale(currentScale.x * 2.0f, currentScale.y * 2.0f);
-
-    previewTile.setColor(sf::Color::White);
-
-    window.draw(previewTile);
-
-    sf::RectangleShape indexBg;
-    indexBg.setSize(sf::Vector2f(30, 20));
-    indexBg.setPosition(previewPos.x, previewPos.y - 25);
-    indexBg.setFillColor(sf::Color::Black);
-    indexBg.setOutlineColor(sf::Color::White);
-    indexBg.setOutlineThickness(1.0f);
-    window.draw(indexBg);
-
-    for (int i = 0; i < (tileOptionIndex + 1) && i < 10; i++)
+    // LMJ: "Draw preview content"
+    if (currentLayer == LayerType::Background && tileOptionIndex < TileOptions.size())
     {
-        sf::RectangleShape dot;
-        dot.setSize(sf::Vector2f(2, 2));
-        dot.setPosition(previewPos.x + 3 + i * 3, previewPos.y - 20);
-        dot.setFillColor(sf::Color::Yellow);
-        window.draw(dot);
+        sf::Sprite currentTile = TileOptions[tileOptionIndex];
+        currentTile.setPosition(rightPanelX + 80, 60); // LMJ: "Center in preview"
+        currentTile.setScale(1.2f, 1.2f); // LMJ: "Slightly smaller scale"
+        currentTile.setColor(sf::Color::White);
+        window.draw(currentTile);
+    }
+    else if (currentLayer == LayerType::Block && blockRegistryIndex < Block::GetBlockRegistrySize())
+    {
+        BlockInfo blockInfo = Block::GetBlockInfo(blockRegistryIndex);
+        if (!blockInfo.textureId.empty() && TEXTURE_MGR.Exists(blockInfo.textureId))
+        {
+            sf::Sprite blockPreview;
+            blockPreview.setTexture(TEXTURE_MGR.Get(blockInfo.textureId));
+            Utils::SetOrigin(blockPreview, Origins::MC);
+            blockPreview.setPosition(rightPanelX + 80, 60);
+            blockPreview.setColor(sf::Color::White);
+            window.draw(blockPreview);
+        }
     }
 
-    // LMJ: "Show current layer info"
-    sf::RectangleShape layerBg;
-    layerBg.setSize(sf::Vector2f(200, 30));
-    layerBg.setPosition(10, 10);
-    layerBg.setFillColor(sf::Color(0, 0, 0, 150));
-    layerBg.setOutlineColor(sf::Color::White);
-    layerBg.setOutlineThickness(1.0f);
-    window.draw(layerBg);
+    // LMJ: "Layer information"
+    DrawLayerInfo(window, rightPanelX, 110);
+
+    // LMJ: "Controls information"
+    DrawControlsInfo(window, rightPanelX, 190);
+
+    // LMJ: "Layer 2 specific UI"
+    if (currentLayer == LayerType::BlockState)
+    {
+        DrawLayer2Info(window, rightPanelX, 320);
+    }
+}
+
+void MapEditor::DrawLayerInfo(sf::RenderWindow& window, float x, float y)
+{
+    if (!FONT_MGR.Exists("assets/font/Daum_Regular.ttf"))
+        return;
+
+    sf::Text layerText;
+    layerText.setFont(FONT_MGR.Get("assets/font/Daum_Regular.ttf"));
+    layerText.setCharacterSize(13); // LMJ: "Smaller font size"
+    layerText.setFillColor(sf::Color::White);
+    layerText.setPosition(x + 10, y);
+
+    std::string layerInfo = "Layer: ";
+    switch (currentLayer)
+    {
+    case LayerType::Background:
+        layerInfo += "Background\nTile: " + std::to_string(tileOptionIndex + 1) + "/" + std::to_string(TileOptions.size());
+        break;
+    case LayerType::Block:
+        layerInfo += "Block\nBlock: " + std::to_string(blockRegistryIndex + 1) + "/" + std::to_string(Block::GetBlockRegistrySize());
+        break;
+    case LayerType::BlockState:
+        layerInfo += "Properties\nMode: " + GetPropertyModeString(currentPropertyMode);
+        break;
+    }
+
+    layerText.setString(layerInfo);
+    window.draw(layerText);
+}
+
+void MapEditor::DrawControlsInfo(sf::RenderWindow& window, float x, float y)
+{
+    if (!FONT_MGR.Exists("assets/font/Daum_Regular.ttf"))
+        return;
+
+    sf::Text controlsText;
+    controlsText.setFont(FONT_MGR.Get("assets/font/Daum_Regular.ttf"));
+    controlsText.setCharacterSize(11); // LMJ: "Smaller font to fit"
+    controlsText.setFillColor(sf::Color::Cyan);
+    controlsText.setPosition(x + 10, y);
+
+    std::string controls;
+    if (currentLayer == LayerType::Background || currentLayer == LayerType::Block)
+    {
+        controls = "=== Controls ===\n";
+        controls += "Tab: Switch Layer\n";
+        controls += "Wheel: Change\n";
+        controls += "L-Click: Place\n";
+        controls += "R-Click: Delete";
+    }
+    else if (currentLayer == LayerType::BlockState)
+    {
+        controls = "=== Layer 2 ===\n";
+        controls += "Tab: Switch Layer\n";
+        controls += "L-Click: Select\n";
+        controls += "1-4: Property Mode\n";
+        controls += "Space: Toggle\n";
+        controls += "T/F: True/False\n";
+        controls += "C/V: Copy/Paste";
+    }
+
+    controlsText.setString(controls);
+    window.draw(controlsText);
+}
+
+void MapEditor::DrawLayer2Info(sf::RenderWindow& window, float x, float y)
+{
+    if (!FONT_MGR.Exists("assets/font/Daum_Regular.ttf"))
+        return;
+
+    // LMJ: "Property modes header"
+    sf::Text propertyText;
+    propertyText.setFont(FONT_MGR.Get("assets/font/Daum_Regular.ttf"));
+    propertyText.setCharacterSize(11);
+    propertyText.setPosition(x + 10, y);
+    propertyText.setString("=== Properties ===");
+    propertyText.setFillColor(sf::Color::White);
+    window.draw(propertyText);
+
+    // LMJ: "Draw property mode indicators - compact"
+    std::vector<std::string> modeNames = { "1:Dest", "2:Hide", "3:Move", "4:Item" };
+    std::vector<PropertyMode> modes = { PropertyMode::Destroyable, PropertyMode::Hidable, PropertyMode::Movable, PropertyMode::SpawnItem };
+
+    for (int i = 0; i < 4; ++i)
+    {
+        float modeY = y + 20 + i * 16; // LMJ: "Reduced spacing"
+
+        // LMJ: "Color indicator - smaller"
+        sf::RectangleShape colorIndicator;
+        colorIndicator.setSize(sf::Vector2f(12, 12));
+        colorIndicator.setPosition(x + 10, modeY);
+        colorIndicator.setFillColor(GetPropertyColor(modes[i], true));
+        colorIndicator.setOutlineColor(currentPropertyMode == modes[i] ? sf::Color::White : sf::Color::Black);
+        colorIndicator.setOutlineThickness(currentPropertyMode == modes[i] ? 2 : 1);
+        window.draw(colorIndicator);
+
+        // LMJ: "Mode name - smaller font"
+        sf::Text modeText;
+        modeText.setFont(FONT_MGR.Get("assets/font/Daum_Regular.ttf"));
+        modeText.setCharacterSize(10);
+        modeText.setFillColor(currentPropertyMode == modes[i] ? sf::Color::Yellow : sf::Color::White);
+        modeText.setPosition(x + 25, modeY);
+        modeText.setString(modeNames[i]);
+        window.draw(modeText);
+    }
+
+    // LMJ: "Selected block properties - compact"
+    if (selectedBlock != nullptr)
+    {
+        sf::Text selectedText;
+        selectedText.setFont(FONT_MGR.Get("assets/font/Daum_Regular.ttf"));
+        selectedText.setCharacterSize(10);
+        selectedText.setFillColor(sf::Color::Yellow);
+        selectedText.setPosition(x + 10, y + 90);
+
+        std::string selectedInfo = "=== Selected ===\n";
+        selectedInfo += "Dest: " + std::string(selectedBlock->IsDestroyable() ? "ON" : "OFF") + "\n";
+        selectedInfo += "Hide: " + std::string(selectedBlock->IsHidable() ? "ON" : "OFF") + "\n";
+        selectedInfo += "Move: " + std::string(selectedBlock->IsMovable() ? "ON" : "OFF") + "\n";
+        selectedInfo += "Item: " + std::string(selectedBlock->CanSpawnItem() ? "ON" : "OFF");
+
+        selectedText.setString(selectedInfo);
+        window.draw(selectedText);
+    }
+}
+
+std::string MapEditor::GetPropertyModeString(PropertyMode mode) const
+{
+    switch (mode)
+    {
+    case PropertyMode::Destroyable: return "Destroyable";
+    case PropertyMode::Hidable: return "Hidable";
+    case PropertyMode::Movable: return "Movable";
+    case PropertyMode::SpawnItem: return "Spawn Item";
+    default: return "Unknown";
+    }
+}
+
+sf::Color MapEditor::GetPropertyColor(PropertyMode mode, bool enabled) const
+{
+    if (!enabled) return sf::Color(64, 64, 64); // LMJ: "Dark gray for disabled"
+
+    switch (mode)
+    {
+    case PropertyMode::Destroyable: return sf::Color::Red;
+    case PropertyMode::Hidable: return sf::Color::Blue;
+    case PropertyMode::Movable: return sf::Color::Green;
+    case PropertyMode::SpawnItem: return sf::Color::Yellow;
+    default: return sf::Color::White;
+    }
 }

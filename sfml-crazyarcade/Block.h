@@ -1,6 +1,28 @@
 #pragma once
 #include "SpriteGo.h"
 
+// LMJ: "Updated BlockInfo with individual properties"
+struct BlockInfo
+{
+    std::string textureId;
+    std::string displayName;
+
+    // LMJ: "Individual properties instead of single type"
+    bool isDestroyable;
+    bool isHidable;
+    bool isMovable;
+    bool canSpawnItem;
+
+    BlockInfo(const std::string& texId, const std::string& name = "",
+        bool destroyable = false, bool hidable = false,
+        bool movable = false, bool spawnItem = false)
+        : textureId(texId), displayName(name),
+        isDestroyable(destroyable), isHidable(hidable),
+        isMovable(movable), canSpawnItem(spawnItem) {
+    }
+};
+
+// LMJ: "Keep BlockType enum for backward compatibility and categorization"
 enum class BlockType
 {
     None = -1,
@@ -10,17 +32,8 @@ enum class BlockType
     UncoverBlock,
     PushBlock,
     FixBlock,
+    Custom, // LMJ: "For blocks with custom property combinations"
     Count
-};
-
-struct BlockInfo
-{
-    std::string textureId;
-    BlockType type;
-    std::string displayName;
-
-    BlockInfo(const std::string& texId, BlockType blockType, const std::string& name = "")
-        : textureId(texId), type(blockType), displayName(name) {}
 };
 
 class Scene;
@@ -45,7 +58,11 @@ public:
     Block(const std::string& name = "Block");
     ~Block() override = default;
 
+    // LMJ: "Updated methods for property system"
     void SetBlockType(BlockType type);
+    void SetBlockProperties(const BlockInfo& info);
+    void SetBlockProperties(bool destroyable, bool hidable, bool movable, bool spawnItem);
+
     BlockType GetBlockType() const { return blockType; }
 
     bool IsDestroyable() const { return isDestroyable; }
@@ -63,7 +80,7 @@ public:
 
     float GetItemSpawnProbability() const { return itemSpawnProbability; }
     void SetItemSpawnProbability(float probability) { itemSpawnProbability = probability; }
-    
+
     static void SetDefaultItemSpawnProbability(float probability) { defaultItemSpawnProbability = probability; }
     static float GetDefaultItemSpawnProbability() { return defaultItemSpawnProbability; }
     // LMJ: =========================================================
@@ -80,8 +97,10 @@ public:
     // LMJ: "Check if item should spawn based on probability"
     bool ShouldSpawnItem() const;
 
-    // LMJ: "Block registry management"
+    // LMJ: "Updated block registry management with property system"
     static void InitializeBlockRegistry();
+    static void RegisterBlock(const std::string& textureId, const std::string& displayName,
+        bool destroyable, bool hidable, bool movable, bool spawnItem);
     static void RegisterBlock(const std::string& textureId, BlockType type, const std::string& displayName = "");
     static std::vector<BlockInfo> GetBlocksByType(BlockType type);
     static std::vector<BlockInfo> GetAllBlocks();
@@ -91,7 +110,9 @@ public:
     // LMJ: "Legacy method - kept for compatibility but deprecated"
     static std::string GetTextureId(BlockType type);
 
-    // LMJ: "Factory methods - enhanced"
+    // LMJ: "Factory methods - enhanced with property system"
     static Block* CreateBlock(BlockType type, const sf::Vector2f& position);
     static Block* CreateBlockFromRegistry(int registryIndex, const sf::Vector2f& position);
+    static Block* CreateBlockWithProperties(const std::string& textureId, const sf::Vector2f& position,
+        bool destroyable, bool hidable, bool movable, bool spawnItem);
 };
