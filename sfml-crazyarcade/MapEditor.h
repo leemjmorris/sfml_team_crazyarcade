@@ -2,28 +2,19 @@
 #include "Scene.h"
 #include "Block.h"
 
-enum ScrollInput
-{
-    None,
-    ScrollUp,
-    ScrollDown
-};
-
 enum class LayerType
 {
     Background = 0,
     Block = 1,
-    BlockState = 2  // LMJ: "Block property modification layer"
+    BlockState = 2
 };
 
-// LMJ: "Property modification modes for Layer 2"
 enum class PropertyMode
 {
     Destroyable = 0,
     Hidable = 1,
     Movable = 2,
-    SpawnItem = 3,
-    Count
+    SpawnItem = 3
 };
 
 class MapEditor : public Scene
@@ -33,8 +24,8 @@ private:
     LayerType currentLayer;
     int tileOptionIndex;
     int blockRegistryIndex;
-    PropertyMode currentPropertyMode; // LMJ: "Current property being modified in Layer 2"
-    ScrollInput MouseScrollInput;
+    PropertyMode currentPropertyMode;
+    float currentTileRotation;
 
     // LMJ: "Texture and sprite containers"
     sf::Texture tileMapTexture;
@@ -51,8 +42,8 @@ private:
     static const int GRID_SIZE = 40;
 
     // LMJ: "Layer 2 specific variables"
-    Block* selectedBlock; // LMJ: "Currently selected block for property modification"
-    sf::RectangleShape selectionHighlight; // LMJ: "Visual highlight for selected block"
+    Block* selectedBlock;
+    sf::RectangleShape selectionHighlight;
 
 public:
     MapEditor();
@@ -74,7 +65,8 @@ private:
     void HandleInput();
     void HandleLayerSwitching();
     void HandleScrollInput();
-    void HandleLayer2Input(); // LMJ: "Special input handling for Layer 2"
+    void HandleTileRotation();
+    void HandleLayer2Input();
 
     // LMJ: "Placement methods"
     void CreateTileAtPosition(const sf::Vector2f& position);
@@ -97,13 +89,13 @@ private:
     void DrawMapEditor(sf::RenderWindow& window);
     void DrawTilePreviewAtMouse(sf::RenderWindow& window);
     void DrawBlockPreview(sf::RenderWindow& window);
-    void DrawBlockPropertyIndicators(sf::RenderWindow& window); // LMJ: "Show block properties visually"
-    void DrawRightSideUI(sf::RenderWindow& window); // LMJ: "Main right-side UI"
-    void DrawLayerInfo(sf::RenderWindow& window, float x, float y); // LMJ: "Layer information display"
-    void DrawControlsInfo(sf::RenderWindow& window, float x, float y); // LMJ: "Controls help display"
-    void DrawLayer2Info(sf::RenderWindow& window, float x, float y); // LMJ: "Layer 2 specific info"
+    void DrawBlockPropertyIndicators(sf::RenderWindow& window);
+    void DrawRightSideUI(sf::RenderWindow& window);
+    void DrawLayerInfo(sf::RenderWindow& window, float x, float y);
+    void DrawControlsInfo(sf::RenderWindow& window, float x, float y);
+    void DrawLayer2Info(sf::RenderWindow& window, float x, float y);
 
     // LMJ: "Helper methods"
-    std::string GetPropertyModeString(PropertyMode mode) const;
-    sf::Color GetPropertyColor(PropertyMode mode, bool enabled) const; // LMJ: "Color coding for properties"
+    std::wstring GetPropertyModeString(PropertyMode mode) const;
+    sf::Color GetPropertyColor(PropertyMode mode, bool enabled) const;
 };
