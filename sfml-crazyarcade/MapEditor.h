@@ -8,6 +8,13 @@ enum ScrollInput
     ScrollDown
 };
 
+enum class LayerType
+{
+    Background = 0,
+    Block = 1,
+    BlockState = 2
+};
+
 class MapEditor : public Scene
 {
 private:

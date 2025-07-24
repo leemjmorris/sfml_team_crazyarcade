@@ -55,5 +55,17 @@ struct DrawOrderComparer
 			return a->sortingLayer < b->sortingLayer;
 		}
 		return a->sortingOrder < b->sortingOrder;
+		
+		if (a->sortingLayer == b->sortingLayer)
+		{
+			if (a->GetPosition().y < b->GetPosition().y)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 	}
 };
