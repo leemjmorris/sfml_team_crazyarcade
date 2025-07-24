@@ -133,16 +133,42 @@ void MapEditor::LoadTileSet()
 
 void MapEditor::LoadBlockSet()
 {
+    // LMJ: "Clear existing data"
     BlockPreviewSprites.clear();
+    BlockTextures.clear();
 
     auto allBlocks = Block::GetAllBlocks();
+
     for (const auto& blockInfo : allBlocks)
     {
-        if (TEXTURE_MGR.Exists(blockInfo.textureId))
+        // LMJ: "Load texture directly and store safely"
+        sf::Texture blockTexture;
+        if (blockTexture.loadFromFile(blockInfo.textureId))
         {
+            sf::Vector2u textureSize = blockTexture.getSize();
+
+            // LMJ: "Skip zero size textures"
+            if (textureSize.x == 0 || textureSize.y == 0)
+            {
+                continue;
+            }
+
+            // LMJ: "Store texture in member vector"
+            BlockTextures.push_back(blockTexture);
+
+            // LMJ: "Create sprite using stored texture"
             sf::Sprite blockSprite;
-            blockSprite.setTexture(TEXTURE_MGR.Get(blockInfo.textureId));
+            blockSprite.setTexture(BlockTextures.back());
+
+            // LMJ: "Scale blocks to fit grid size like tiles"
+            float scaleX = static_cast<float>(GRID_SIZE) / textureSize.x;
+            float scaleY = static_cast<float>(GRID_SIZE) / textureSize.y;
+            blockSprite.setScale(scaleX, scaleY);
+
+            // LMJ: "Set origin to center for proper positioning"
             Utils::SetOrigin(blockSprite, Origins::MC);
+
+            // LMJ: "Add to preview sprites"
             BlockPreviewSprites.push_back(blockSprite);
         }
     }
@@ -499,15 +525,33 @@ void MapEditor::CreateBlockAtPosition(const sf::Vector2f& gridPos)
     if (!IsValidGridPosition(gridPos))
         return;
 
+    // LMJ: "Check if block already exists at this position"
     Block* existingBlock = GetBlockAtPosition(gridPos);
     if (existingBlock)
         return;
 
-    Block* newBlock = Block::CreateBlockFromRegistry(blockRegistryIndex,
-        sf::Vector2f(gridPos.x * GRID_SIZE + GRID_SIZE / 2, gridPos.y * GRID_SIZE + GRID_SIZE / 2));
+    // LMJ: "Calculate snapped position like tiles - center of grid cell"
+    sf::Vector2f snappedPosition(
+        gridPos.x * GRID_SIZE + GRID_SIZE / 2.0f,
+        gridPos.y * GRID_SIZE + GRID_SIZE / 2.0f
+    );
+
+    // LMJ: "Create new block using registry index"
+    Block* newBlock = Block::CreateBlockFromRegistry(blockRegistryIndex, snappedPosition);
 
     if (newBlock)
     {
+        // LMJ: "Scale the block to fit grid size"
+        sf::Sprite& blockSprite = newBlock->GetSprite();
+        sf::Vector2u textureSize = blockSprite.getTexture()->getSize();
+        float scaleX = static_cast<float>(GRID_SIZE) / textureSize.x;
+        float scaleY = static_cast<float>(GRID_SIZE) / textureSize.y;
+        blockSprite.setScale(scaleX, scaleY);
+
+        // LMJ: "Ensure proper origin and position"
+        Utils::SetOrigin(blockSprite, Origins::MC);
+        newBlock->SetPosition(snappedPosition);
+
         PlacedBlocks.push_back(newBlock);
         newBlock->Init();
         newBlock->Reset();
@@ -627,7 +671,7 @@ void MapEditor::DrawTilePreviewAtMouse(sf::RenderWindow& window)
 
 void MapEditor::DrawBlockPreview(sf::RenderWindow& window)
 {
-    if (BlockPreviewSprites.empty() || blockRegistryIndex >= static_cast<int>(BlockPreviewSprites.size()))
+    if (BlockTextures.empty() || blockRegistryIndex >= static_cast<int>(BlockTextures.size()))
         return;
 
     sf::Vector2i mousePos = InputMgr::GetMousePosition();
@@ -636,11 +680,30 @@ void MapEditor::DrawBlockPreview(sf::RenderWindow& window)
 
     if (IsValidGridPosition(gridPos))
     {
-        sf::Sprite preview = BlockPreviewSprites[blockRegistryIndex];
-        preview.setPosition(gridPos.x * GRID_SIZE + GRID_SIZE / 2, gridPos.y * GRID_SIZE + GRID_SIZE / 2);
-        preview.setColor(sf::Color(255, 255, 255, 128));
+        // LMJ: "Snap preview to grid center like tiles"
+        sf::Vector2f snappedPos(
+            gridPos.x * GRID_SIZE + GRID_SIZE / 2.0f,
+            gridPos.y * GRID_SIZE + GRID_SIZE / 2.0f
+        );
+
+        // LMJ: "Create preview sprite directly from stored texture"
+        sf::Sprite preview;
+        preview.setTexture(BlockTextures[blockRegistryIndex]);
+
+        // LMJ: "Apply same scaling as in LoadBlockSet"
+        sf::Vector2u textureSize = BlockTextures[blockRegistryIndex].getSize();
+        float scaleX = static_cast<float>(GRID_SIZE) / textureSize.x;
+        float scaleY = static_cast<float>(GRID_SIZE) / textureSize.y;
+        preview.setScale(scaleX, scaleY);
+
+        // LMJ: "Set origin and position"
+        Utils::SetOrigin(preview, Origins::MC);
+        preview.setPosition(snappedPos);
+        preview.setColor(sf::Color(255, 255, 255, 180));
+
         window.draw(preview);
 
+        // LMJ: "Draw grid highlight like tiles"
         sf::RectangleShape highlight;
         highlight.setSize(sf::Vector2f(GRID_SIZE, GRID_SIZE));
         highlight.setPosition(gridPos.x * GRID_SIZE, gridPos.y * GRID_SIZE);

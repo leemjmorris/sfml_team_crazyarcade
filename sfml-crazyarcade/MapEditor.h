@@ -29,6 +29,7 @@ private:
 
     // LMJ: "Texture and sprite containers"
     sf::Texture tileMapTexture;
+    std::vector<sf::Texture> BlockTextures;
     std::vector<sf::Sprite> TileOptions;
     std::vector<sf::Sprite> BlockPreviewSprites;
     std::vector<sf::Sprite> Tiles;

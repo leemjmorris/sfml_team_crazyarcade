@@ -1,5 +1,6 @@
 #pragma once
 #include "SpriteGo.h"
+#include "ColorMaskShader.h"
 
 // LMJ: "Updated BlockInfo with individual properties"
 struct BlockInfo
@@ -99,8 +100,7 @@ public:
 
     // LMJ: "Updated block registry management with property system"
     static void InitializeBlockRegistry();
-    static void RegisterBlock(const std::string& textureId, const std::string& displayName,
-        bool destroyable, bool hidable, bool movable, bool spawnItem);
+    static void RegisterBlock(const std::string& textureId, const std::string& displayName, bool destroyable, bool hidable, bool movable, bool spawnItem);
     static void RegisterBlock(const std::string& textureId, BlockType type, const std::string& displayName = "");
     static std::vector<BlockInfo> GetBlocksByType(BlockType type);
     static std::vector<BlockInfo> GetAllBlocks();
@@ -113,6 +113,5 @@ public:
     // LMJ: "Factory methods - enhanced with property system"
     static Block* CreateBlock(BlockType type, const sf::Vector2f& position);
     static Block* CreateBlockFromRegistry(int registryIndex, const sf::Vector2f& position);
-    static Block* CreateBlockWithProperties(const std::string& textureId, const sf::Vector2f& position,
-        bool destroyable, bool hidable, bool movable, bool spawnItem);
+    static Block* CreateBlockWithProperties(const std::string& textureId, const sf::Vector2f& position, bool destroyable, bool hidable, bool movable, bool spawnItem);
 };
