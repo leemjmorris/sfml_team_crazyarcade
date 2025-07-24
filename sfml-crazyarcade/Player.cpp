@@ -210,6 +210,8 @@ void Player::Update(float dt)
 	position = GetPosition() + dir * curSpeed * dt;
 	SetPosition(position);
 	PlayerEvent(dt);
+
+	hitBox.UpdateTransform(sprite, sprite.getLocalBounds());
 }
 
 void Player::Draw(sf::RenderWindow& window)
