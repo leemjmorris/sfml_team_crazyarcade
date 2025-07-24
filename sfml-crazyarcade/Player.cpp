@@ -8,7 +8,7 @@ Player::Player(const std::string& name, CharacterID id, int index)
 	curWaterBalloonCount(1),
 	curWaterBalloonLength(1),
 	velocity({ 1.f,1.f }),
-	dir({ 0.f,0.f }),
+	dir({ 1.f,1.f }),
 	playerIndex(index)
 {
 	const auto& stats = CharacterTable.at(charId);
@@ -45,18 +45,18 @@ bool Player::CheckBubblePop()
 
 void Player::Animating(float dt)
 {
-	if (dir.x == 0 && animator.GetCurrentClipId() != "Run")
+	if (dir.x != 0 && animator.GetCurrentClipId() != "Run")
 	{
 		animator.Play("animation/bazzi_run.csv");
 		std::cout << "LFT" << std::endl;
 	}
 
-	else if (dir.x < 0 && animator.GetCurrentClipId() != "Up")
+	else if (dir.y < 0 && animator.GetCurrentClipId() != "Up")
 	{
 		animator.Play("animation/bazzi_up.csv");
 	}
 
-	else if (dir.x > 0 && animator.GetCurrentClipId() != "Down")
+	else if (dir.y > 0 && animator.GetCurrentClipId() != "Down")
 	{
 		animator.Play("animation/bazzi_down.csv");
 	}
@@ -87,9 +87,6 @@ void Player::Animating(float dt)
 		SetScale({ 1.f,1.f });
 	}
 }
-
-
-
 
 void Player::AddSpeed(float s)
 {
@@ -174,6 +171,8 @@ void Player::Update(float dt)
 {
 	Animating(dt);
 	SetOrigin(Origins::BC);
+	dir.x = InputMgr::GetAxisRaw(hAxis);
+	dir.y = InputMgr::GetAxisRaw(vAxis);
 
 	position = GetPosition() + dir * curSpeed * dt;
 	SetPosition(position);
