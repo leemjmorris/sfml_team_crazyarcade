@@ -134,6 +134,7 @@ void WaterBalloon::SpawnWaterSplash(WaterSplash::AnimType dir, int length)
 	{
 		WaterSplash* splashObj = WaterSplashPool::GetFromPool();
 		splashObj->SetPosition(GetPosition());
+		splashObj->Reset();
 		splashObj->PlayAnim();
 	}
 	else
@@ -153,6 +154,7 @@ void WaterBalloon::SpawnWaterSplash(WaterSplash::AnimType dir, int length)
 			}
 
 			splashObj->SetPosition(pos);
+			splashObj->Reset();
 			splashObj->PlayAnim();
 		}
 	}

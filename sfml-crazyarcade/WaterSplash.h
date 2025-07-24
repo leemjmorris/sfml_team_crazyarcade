@@ -31,7 +31,8 @@ protected:
 	sf::Sprite waterSplash;
 	AnimType animType = AnimType::Center;
 
-	float skillDuration = 0.2f;
+	const float SKILL_DURATION = 0.2f;
+	float skillCountdown = 0.f;
 	bool isCounting = true;
 
 	Animator animator;
