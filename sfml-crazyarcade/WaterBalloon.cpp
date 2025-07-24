@@ -94,8 +94,10 @@ void WaterBalloon::StartCastCountdown()
 
 void WaterBalloon::Explode()
 {
-	SetActive(false);
 	ExplodeInAllDirections(2, 3, 3, 4);
+
+	Scene* currentScene = SCENE_MGR.GetCurrentScene();
+	currentScene->RemoveGameObject(this);
 }
 
 void WaterBalloon::ExplodeInAllDirections(int upLen, int downLen, int leftLen, int rightLen)
