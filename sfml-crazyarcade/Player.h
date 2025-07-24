@@ -22,7 +22,7 @@ protected:
 
 	Axis hAxis;
 	Axis vAxis;
-	int installWaterBomb;
+	sf::Keyboard::Key installWaterBomb;
 
 	HitBox hitBox;
 

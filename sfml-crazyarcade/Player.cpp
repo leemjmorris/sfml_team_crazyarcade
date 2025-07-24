@@ -8,7 +8,7 @@ Player::Player(const std::string& name, CharacterID id, int index)
 	curWaterBalloonCount(1),
 	curWaterBalloonLength(1),
 	velocity({ 1.f,1.f }),
-	dir({ 1.f,1.f }),
+	dir({ 0.f,0.f }),
 	playerIndex(index)
 {
 	const auto& stats = CharacterTable.at(charId);
@@ -45,7 +45,7 @@ bool Player::CheckBubblePop()
 
 void Player::Animating(float dt)
 {
-	if (dir.x = 0 && animator.GetCurrentClipId() != "Run")
+	if (dir.x == 0 && animator.GetCurrentClipId() != "Run")
 	{
 		animator.Play("animation/bazzi_run.csv");
 		std::cout << "LFT" << std::endl;
@@ -149,12 +149,12 @@ void Player::Init()
 	case 0:
 		vAxis = Axis::Vertical_1p;
 		hAxis = Axis::Horizontal_1p;
-		installWaterBomb = InputMgr::GetKeyDown(sf::Keyboard::LShift);
+		installWaterBomb = sf::Keyboard::LShift;
 		break;
 	case 1:
 		vAxis = Axis::Vertical_2p;
 		hAxis = Axis::Horizontal_2p;
-		installWaterBomb = InputMgr::GetKeyDown(sf::Keyboard::RShift);
+		installWaterBomb = sf::Keyboard::RShift;
 		break;
 	}
 }
@@ -167,6 +167,7 @@ void Player::Reset()
 {
 	sortingLayer = SortingLayers::Default;
 	sortingOrder = 1; // LSY: waterBalloon / sortingOrder = 0
+	animator.Play("animation/bazzi_run.csv");
 }
 
 void Player::Update(float dt)
@@ -178,7 +179,7 @@ void Player::Update(float dt)
 	SetPosition(position);
 	animator.Update(dt);
 
-	if (installWaterBomb)
+	if (InputMgr::GetKeyDown(installWaterBomb))
 	{
 		CheckInstallBomb();
 	}
