@@ -3,7 +3,7 @@
 #include "Animator.h"
 #include "HitBox.h"
 #include "CharacterStats.h"
-enum class AnimState { Normal, Dying, Dead };
+enum class AnimState { Normal, Dying, Dead, live };
 
 class Player :
 	public GameObject

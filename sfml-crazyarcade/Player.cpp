@@ -39,16 +39,17 @@ void Player::PlayerKeyEvent(float dt)
 		animator.SetSpeed(0.8);
 		animator.Play("animation/bazzi_die.csv");
 	}
-	//if (InputMgr::GetKeyDown(sf::Keyboard::Z))
-	//{
-	//	animState = AnimState::Dying;
-	//	animator.Play("animation/bazzi_trap.csv");
-	//}
-	//if (InputMgr::GetKeyDown(sf::Keyboard::R))
-	//{
-	//	animState = AnimState::Dying;
-	//	animator.Play("animation/bazzi_alive.csv");
-	//}
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+	{
+		animState = AnimState::Dying;
+		animator.Play("animation/bazzi_trap.csv");
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::R))
+	{
+		animState = AnimState::live;
+		animator.Play("animation/bazzi_live.csv");
+	}
 }
 
 void Player::AnimatingDying(float dt)
@@ -239,8 +240,5 @@ void Player::Update(float dt)
 
 void Player::Draw(sf::RenderWindow& window)
 {
-	if (isShowing)
-	{
-		window.draw(sprite);
-	}
+	window.draw(sprite);
 }

@@ -1,5 +1,5 @@
 ID,FPS,"LoopType (0: Single, 1: Loop)",,,
-live,10,1,,,
+live,10,0,,,
 ,,,,,
 TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
 assets/player/bazzi/live.png,0,0,88,97,0
