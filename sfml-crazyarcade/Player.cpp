@@ -26,7 +26,7 @@ Player::~Player()
 {
 }
 
-void Player::PlayerKeyEvent(float dt)
+void Player::PlayerEvent(float dt)
 {
 	if (InputMgr::GetKeyDown(installWaterBomb))
 	{
@@ -49,30 +49,6 @@ void Player::PlayerKeyEvent(float dt)
 	{
 		animState = AnimState::live;
 		animator.Play("animation/bazzi_live.csv");
-	}
-}
-
-void Player::AnimatingDying(float dt)
-{
-	if (animState == AnimState::Dying)
-	{
-		aliveTimer += dt;
-		if (aliveTimer > 1.f)
-		{
-			isShowing = false;
-			aliveTimer = 0.f;
-		}
-	}
-
-	if (animState == AnimState::Dead)
-	{
-		std::cout << dieTimer << std::endl;
-		dieTimer += dt;
-		if (dieTimer > 1.f)
-		{
-			isShowing = false;
-			dieTimer = 0.f;
-		}
 	}
 }
 
@@ -100,7 +76,6 @@ bool Player::CheckBubblePop()
 
 void Player::Animating(float dt)
 {
-	if (animState == AnimState::Dying) return;
 	if (dir.x != 0 && animator.GetCurrentClipId() != "Run")
 	{
 		animator.Play("animation/bazzi_run.csv");
@@ -234,8 +209,7 @@ void Player::Update(float dt)
 
 	position = GetPosition() + dir * curSpeed * dt;
 	SetPosition(position);
-	AnimatingDying(dt);
-	PlayerKeyEvent(dt);
+	PlayerEvent(dt);
 }
 
 void Player::Draw(sf::RenderWindow& window)

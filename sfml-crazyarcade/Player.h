@@ -35,8 +35,7 @@ protected:
 public:
 	Player(const std::string& name, CharacterID id, int index);
 	~Player();
-	void PlayerKeyEvent(float dt);
-	void AnimatingDying(float dt);
+	void PlayerEvent(float dt);
 	bool CheckInstallBomb();
 	bool CheckBubblePop();
 	void Animating(float dt);
