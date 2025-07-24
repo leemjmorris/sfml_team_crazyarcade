@@ -3,17 +3,18 @@
 #include "Animator.h"
 #include "HitBox.h"
 #include "CharacterStats.h"
+enum class AnimState { Normal, Dying, Dead };
 
 class Player :
 	public GameObject
 {
 protected:
+	AnimState animState;
+
 	float curSpeed;
 	int curWaterBalloonCount;
 	int curWaterBalloonLength;
 	int playerIndex;
-
-	float lastAxis;
 
 	CharacterID charId;
 	GameObject* obj;
@@ -26,12 +27,16 @@ protected:
 	Axis vAxis;
 	sf::Keyboard::Key installWaterBomb;
 
+	float dieTimer;
+	float aliveTimer;
+	bool isShowing;
 	HitBox hitBox;
 
 public:
 	Player(const std::string& name, CharacterID id, int index);
 	~Player();
-
+	void PlayerKeyEvent(float dt);
+	void AnimatingDying(float dt);
 	bool CheckInstallBomb();
 	bool CheckBubblePop();
 	void Animating(float dt);

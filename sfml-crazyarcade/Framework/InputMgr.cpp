@@ -203,7 +203,7 @@ sf::Vector2f InputMgr::GetPriorityDirection(Axis hAxis, Axis vAxis, int index)
 		}
 		return { 0.f, 0.f };
 	}
-	if (index = 1)
+	if (index == 1)
 	{
 		const AxisInfo& hInfo2 = axisInfoMap[hAxis];
 		const AxisInfo& vInfo2 = axisInfoMap[vAxis];
@@ -219,7 +219,6 @@ sf::Vector2f InputMgr::GetPriorityDirection(Axis hAxis, Axis vAxis, int index)
 		}
 		return { 0.f, 0.f };
 	}
-
 }
 
 sf::Vector2i InputMgr::GetMousePosition()

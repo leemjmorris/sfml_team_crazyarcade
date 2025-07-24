@@ -12,9 +12,15 @@ void SceneDev2::Init()
 	texIds.push_back("assets/player/bazzi/right.png");
 	texIds.push_back("assets/player/bazzi/up.png");
 	texIds.push_back("assets/player/bazzi/down.png");
+	texIds.push_back("assets/player/bazzi/die.png");
+	texIds.push_back("assets/player/bazzi/trap.png");
+	texIds.push_back("assets/player/bazzi/live.png");
 	ANI_CLIP_MGR.Load("animation/bazzi_run.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_up.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_down.csv");
+	ANI_CLIP_MGR.Load("animation/bazzi_live.csv");
+	ANI_CLIP_MGR.Load("animation/bazzi_trap.csv");
+	ANI_CLIP_MGR.Load("animation/bazzi_die.csv");
 
 	texIds.push_back("assets/item/bubble.png");
 	texIds.push_back("assets/item/damage.png");
