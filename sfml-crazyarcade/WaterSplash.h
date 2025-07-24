@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 #include "Animator.h"
+#include "ColorMaskShader.h"
+
 
 class WaterSplash : public GameObject
 {
@@ -33,6 +35,8 @@ protected:
 	bool isCounting = true;
 
 	Animator animator;
+
+	ColorMaskShader colorMask;
 
 public:
 	WaterSplash(const std::string& name = "");

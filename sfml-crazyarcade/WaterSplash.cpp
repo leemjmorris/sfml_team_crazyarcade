@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "WaterSplash.h"
 #include "WaterSplashPool.h"
+#include "ColorMaskShader.h"
 
 WaterSplash::WaterSplash(const std::string& name)
 	: GameObject(name)
@@ -37,7 +38,7 @@ void WaterSplash::SetOrigin(Origins preset)
 	if (preset != Origins::Custom)
 	{
 		Utils::SetOrigin(waterSplash, preset);
-	}
+	} 
 }
 
 void WaterSplash::Init()
@@ -61,6 +62,10 @@ void WaterSplash::Init()
 	sortingOrder = -2;
 
 	SetOrigin(Origins::MC);
+
+	colorMask.LoadFromFile("assets/shaders/transparent.frag");
+	colorMask.SetMaskColor(sf::Color(255, 0, 255));
+	colorMask.SetThreshold(0.1f);
 }
 
 void WaterSplash::Release()
@@ -95,7 +100,9 @@ void WaterSplash::Update(float dt)
 
 void WaterSplash::Draw(sf::RenderWindow& window)
 {
-	window.draw(waterSplash);
+	//window.draw(waterSplash);
+
+	colorMask.Apply(window, waterSplash);
 }
 
 void WaterSplash::PlayAnim()
