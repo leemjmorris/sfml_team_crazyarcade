@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Block.cpp" />
     <ClCompile Include="ColorMaskShader.cpp" />
     <ClCompile Include="Framework\AnimationClip.cpp" />
     <ClCompile Include="Framework\Animator.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="WaterSplashPool.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Block.h" />
     <ClInclude Include="CharacterStats.h" />
     <ClInclude Include="ColorMaskShader.h" />
     <ClInclude Include="Framework\AnimationClip.h" />
