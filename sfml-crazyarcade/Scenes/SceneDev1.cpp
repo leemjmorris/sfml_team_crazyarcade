@@ -41,8 +41,6 @@ void SceneDev1::Init()
 	//AddGameObject(testObj);
 	//testObj->SetPosition({ 100, 100 });
 
-	Item::Spawn("test1", Item::Balloon, { 0, 0 }, *this);
-	Item::Spawn("test2", Item::WaterJet, { 0, 100 }, *this);
 
 
 	Scene::Init();
@@ -52,6 +50,9 @@ void SceneDev1::Enter()
 {
 	WaterSplashPool::SetCurScene(SCENE_MGR.GetCurrentScene());
 	WaterSplashPool::Init();
+
+	Item::SpawnItem("test1", Item::Balloon, { 0, 0 });
+	Item::SpawnItem("test2", Item::WaterJet, { 200, 100 });
 
 	WaterBalloon::Spawn("testBomb", { 200.f, 200.f });
 	Scene::Enter();

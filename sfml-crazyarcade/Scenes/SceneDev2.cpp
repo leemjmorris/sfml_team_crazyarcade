@@ -28,8 +28,8 @@ void SceneDev2::Init()
 	AddGameObject(waterBalloon);
 	waterBalloon->SetPosition({ 100, 100 });
 
-	Item::Spawn("test1", Item::Balloon, { 0, 0 }, *this);
-	Item::Spawn("test2", Item::WaterJet, { 0, 100 }, *this);
+	//Item::Spawn("test1", Item::Balloon, { 0, 0 }, *this);
+	//Item::Spawn("test2", Item::WaterJet, { 0, 100 }, *this);
 
 	bazzi = static_cast<Player*>(AddGameObject(new Player("Bazzi", CharacterID::BAZZI, 0)));
 	Dao = static_cast<Player*>(AddGameObject(new Player("Dao", CharacterID::DAO, 1)));

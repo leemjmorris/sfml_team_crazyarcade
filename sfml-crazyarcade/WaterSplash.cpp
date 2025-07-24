@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "WaterSplash.h"
 #include "WaterSplashPool.h"
-#include "ColorMaskShader.h"
+#include "Item.h"
 
 WaterSplash::WaterSplash(const std::string& name)
 	: GameObject(name)
@@ -83,26 +83,33 @@ void WaterSplash::Update(float dt)
 
 	if (isCounting)
 	{
-		skillDuration -= dt;
-		if (skillDuration <= 0)
-		{
-			skillDuration = 0;
-			PlayExitAnim();
-			isCounting = false; 
-		}
+		UpdateSkillDuration(dt);
 	}
+
+	CheckCollisionWithItems();
 
 	if (!animator.IsPlaying())
 	{
 		WaterSplashPool::ReturnToPool(this);
 	}
+
+	hitBox.UpdateTransform(waterSplash, waterSplash.getLocalBounds());
 }
 
 void WaterSplash::Draw(sf::RenderWindow& window)
 {
-	//window.draw(waterSplash);
-
 	colorMask.Apply(window, waterSplash);
+}
+
+void WaterSplash::UpdateSkillDuration(float dt)
+{
+	skillDuration -= dt;
+	if (skillDuration <= 0.f)
+	{
+		skillDuration = 0.f;
+		PlayExitAnim();
+		isCounting = false;
+	}
 }
 
 void WaterSplash::PlayAnim()
@@ -197,5 +204,20 @@ void WaterSplash::PlayExitAnim()
 		animator.Play("animation/waterSplashLeftExitAnim.csv");
 		SetOrigin(Origins::MC);
 		SetScale({ -1, 1 });
+	}
+}
+
+void WaterSplash::CheckCollisionWithItems()
+{
+	if (Item::allItems.empty())
+		return;
+
+	for (int i = 0; i < Item::allItems.size(); i++)
+	{
+		if (Utils::CheckCollision(hitBox.rect, Item::allItems[i]->GetHitBox().rect))
+		{
+			Item::allItems[i]->SetActive(false);
+			// KHI: NEED TO FIX HERE!!!! (to delete Object)
+		}
 	}
 }

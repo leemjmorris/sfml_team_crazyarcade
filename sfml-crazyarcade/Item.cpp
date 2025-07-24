@@ -2,6 +2,8 @@
 #include "Item.h"
 #include "Player.h"
 
+std::vector<Item*> Item::allItems;
+
 Item::Item(const std::string& name)
 	: GameObject(name)
 {
@@ -51,6 +53,7 @@ void Item::Release()
 
 void Item::Reset()
 {
+	SetOrigin(Origins::MC);
 }
 
 void Item::Update(float dt)
@@ -59,27 +62,12 @@ void Item::Update(float dt)
 
 	hitBox.UpdateTransform(itemSprite, itemSprite.getLocalBounds());
 
-	if (!players.empty())
-	{
-		for (int i = 0; i < players.size(); i++)
-		{
-			if (Utils::CheckCollision(hitBox.rect, players[i]->GetHitBox().rect))
-			{
-				std::cout << "Item collided with player: " << players[i]->GetName() << std::endl;
-				Use(players[i]);
-			}
-		}
-	}
+	CheckCollisionWithPlayers();
 }
 
 void Item::Draw(sf::RenderWindow& window)
 {
 	window.draw(itemSprite);
-}
-
-void Item::SetPlayer(Player* player)
-{
-	players.push_back(player);
 }
 
 void Item::SetItemType(ItemType type)
@@ -146,13 +134,42 @@ void Item::Use(Player* player)
 	// KHI: Add sound effect here **
 }
 
+void Item::SetPlayer(Player* player)
+{
+	players.push_back(player);
+}
+
+void Item::CheckCollisionWithPlayers()
+{
+	if (players.empty())
+		return;
+
+	for (int i = 0; i < players.size(); i++)
+	{
+		if (Utils::CheckCollision(hitBox.rect, players[i]->GetHitBox().rect))
+		{
+			std::cout << "Item collided with player: " << players[i]->GetName() << std::endl;
+			Use(players[i]);
+		}
+	}
+}
+
 // KHI: Static method
-Item* Item::Spawn(const std::string& name, ItemType type, sf::Vector2f spawnPos, Scene& scene)
+void Item::SpawnItem(const std::string& name, ItemType type, sf::Vector2f spawnPos)
 {
 	Item* item = new Item(name);
 	item->SetItemType(type);
 	item->SetPosition(spawnPos);
 	item->SetOriginPos(spawnPos);
-	scene.AddGameObject(item);
-	return item;
+	AddItemToVector(item);
+
+	Scene* currentScene = SCENE_MGR.GetCurrentScene();
+	currentScene->AddGameObject(item);
+}
+
+// KHI: Static method
+void Item::AddItemToVector(Item* itemObj)
+{
+	allItems.push_back(itemObj);
+	std::cout << "ÃÑ ¾ÆÀÌÅÛ ¼ö: " << allItems.size() << std::endl;
 }

@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Animator.h"
 #include "ColorMaskShader.h"
-
+#include "HitBox.h"
 
 class WaterSplash : public GameObject
 {
@@ -38,6 +38,8 @@ protected:
 
 	ColorMaskShader colorMask;
 
+	HitBox hitBox;
+
 public:
 	WaterSplash(const std::string& name = "");
 	virtual ~WaterSplash() = default;
@@ -54,7 +56,9 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
+	void UpdateSkillDuration(float dt);
 	void SetAnimType(AnimType type) { animType = type; }
 	void PlayAnim();
 	void PlayExitAnim();
+	void CheckCollisionWithItems();
 };

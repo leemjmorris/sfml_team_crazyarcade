@@ -14,7 +14,9 @@ public:
 		WaterJet,
 	};
 
-	static Item* Spawn(const std::string& name, ItemType type, sf::Vector2f spawnPos, Scene& scene);
+	static std::vector<Item*> allItems;
+	static void SpawnItem(const std::string& name, ItemType type, sf::Vector2f spawnPos);
+	static void AddItemToVector(Item* itemObj);
 
 protected:
 	ItemType itemType = ItemType::Balloon;
@@ -44,9 +46,16 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void SetPlayer(Player* player);
 	void SetItemType(ItemType type);
 	void SetOriginPos(sf::Vector2f pos) { originPos = pos; }
 	void FloatingEffect(float dt, float verticalRange = 5.f, float speed = 10.f);
 	void Use(Player* player);
+
+	void SetPlayer(Player* player);
+	void CheckCollisionWithPlayers();
+
+	const HitBox& GetHitBox() const
+	{
+		return hitBox;
+	}
 };

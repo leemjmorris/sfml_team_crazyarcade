@@ -44,4 +44,4 @@
 #include "SoundMgr.h"
 #include "Framework.h"
 #include "MapEditor.h"
-
+#include "ColorMaskShader.h"
