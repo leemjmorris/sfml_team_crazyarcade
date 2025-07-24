@@ -12,6 +12,27 @@ SceneDemo::SceneDemo()
 
 void SceneDemo::Init()
 {
+	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
+	worldView.setSize(windowSize);
+	worldView.setCenter(windowSize * 0.5f);
+
+	gridLines.setPrimitiveType(sf::Lines);
+	gridLines.clear();
+
+	sf::Color gridColor(255, 255, 255, 100);
+	for (int x = 0; x <= GRID_WIDTH; ++x)
+	{
+		float xPos = x * GRID_SIZE;
+		gridLines.append(sf::Vertex(sf::Vector2f(xPos, 0), gridColor));
+		gridLines.append(sf::Vertex(sf::Vector2f(xPos, GRID_HEIGHT * GRID_SIZE), gridColor));
+	}
+	for (int y = 0; y <= GRID_HEIGHT; ++y)
+	{
+		float yPos = y * GRID_SIZE;
+		gridLines.append(sf::Vertex(sf::Vector2f(0, yPos), gridColor));
+		gridLines.append(sf::Vertex(sf::Vector2f(GRID_WIDTH * GRID_SIZE, yPos), gridColor));
+	}
+
 	texIds.push_back("assets/player/bazzi/right.png");
 	texIds.push_back("assets/player/bazzi/up.png");
 	texIds.push_back("assets/player/bazzi/down.png");
@@ -55,6 +76,11 @@ void SceneDemo::Enter()
 
 void SceneDemo::Update(float dt)
 {
+	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
+	{
+		toggleActiveGrid = !toggleActiveGrid;
+	}
+
 	for (auto* obj : objectsNeedingClamp)
 		ClampToBounds(*obj);
 
@@ -63,6 +89,9 @@ void SceneDemo::Update(float dt)
 
 void SceneDemo::Draw(sf::RenderWindow& window)
 {
+	if (toggleActiveGrid)
+		window.draw(gridLines);
+
 	Scene::Draw(window);
 }
 

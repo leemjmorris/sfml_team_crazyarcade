@@ -14,6 +14,8 @@ protected:
 	float currentTime = 0;
 	bool isCounting = false;
 
+	static const int GRID_SIZE = 52;
+
 public:
 	WaterBalloon(const std::string& name = "");
 	virtual ~WaterBalloon() = default;
@@ -34,6 +36,7 @@ public:
 	void Explode();
 	void ExplodeInAllDirections(int upLen, int downLen, int leftLen, int rightLen);
 	void SpawnWaterSplash(WaterSplash::AnimType dir, int length = 1);
-	
+
+	static sf::Vector2f GetSnappedGridCenter(const sf::Vector2f& worldPos);
 	static void Spawn(const std::string& name, sf::Vector2f spawnPos);
 };

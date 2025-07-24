@@ -14,6 +14,15 @@ protected:
 	sf::FloatRect worldBounds = FRAMEWORK.GetWindowBounds();
 	std::vector<GameObject*> objectsNeedingClamp;
 
+	// KHI: For Testing
+	bool toggleActiveGrid = true;
+
+	const int GRID_WIDTH = 15;
+	const int GRID_HEIGHT = 13;
+	const int GRID_SIZE = 52;
+
+	sf::VertexArray gridLines;
+
 public:
 	SceneDemo();
 	~SceneDemo() override = default;
