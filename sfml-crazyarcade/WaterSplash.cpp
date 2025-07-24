@@ -49,9 +49,11 @@ void WaterSplash::Init()
 
 	ANI_CLIP_MGR.Load("animation/waterSplashUpAnim.csv");
 	ANI_CLIP_MGR.Load("animation/waterSplashUpExitAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashUpEndAnim.csv");
 
 	ANI_CLIP_MGR.Load("animation/waterSplashLeftAnim.csv");
 	ANI_CLIP_MGR.Load("animation/waterSplashLeftExitAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashLeftEndAnim.csv");
 
 	animator.SetTarget(&waterSplash);
 
@@ -98,29 +100,61 @@ void WaterSplash::Draw(sf::RenderWindow& window)
 
 void WaterSplash::PlayAnim()
 {
+	// KHI: Center
 	if (animType == AnimType::Center)
 	{
 		animator.Play("animation/waterSplashAnim.csv");
+		SetOrigin(Origins::MC);
 		SetScale({ 1, 1 });
 	}
+	// KHI: Dir
 	else if (animType == AnimType::Up)
 	{
 		animator.Play("animation/waterSplashUpAnim.csv");
+		SetOrigin(Origins::MC);
 		SetScale({ 1, 1 });
 	}
 	else if (animType == AnimType::Down)
 	{
 		animator.Play("animation/waterSplashUpAnim.csv");
+		SetOrigin(Origins::MC);
 		SetScale({ 1, -1 });
 	}
 	else if (animType == AnimType::Left)
 	{
 		animator.Play("animation/waterSplashLeftAnim.csv");
+		SetOrigin(Origins::MC);
 		SetScale({ 1, 1 });
 	}
 	else if (animType == AnimType::Right)
 	{
 		animator.Play("animation/waterSplashLeftAnim.csv");
+		SetOrigin(Origins::MC);
+		SetScale({ -1, 1 });
+	}
+	// KHI: End
+	else if (animType == AnimType::UpEnd)
+	{
+		animator.Play("animation/waterSplashUpEndAnim.csv");
+		SetOrigin(Origins::MC);
+		SetScale({ 1, 1 });
+	}
+	else if (animType == AnimType::DownEnd)
+	{
+		animator.Play("animation/waterSplashUpEndAnim.csv");
+		SetOrigin(Origins::MC);
+		SetScale({ 1, -1 });
+	}
+	else if (animType == AnimType::LeftEnd)
+	{
+		animator.Play("animation/waterSplashLeftEndAnim.csv");
+		SetOrigin(Origins::MC);
+		SetScale({ 1, 1 });
+	}
+	else if (animType == AnimType::RightEnd)
+	{
+		animator.Play("animation/waterSplashLeftEndAnim.csv");
+		SetOrigin(Origins::MC);
 		SetScale({ -1, 1 });
 	}
 }
@@ -130,26 +164,31 @@ void WaterSplash::PlayExitAnim()
 	if (animType == AnimType::Center)
 	{
 		animator.Play("animation/waterSplashExitAnim.csv");
+		SetOrigin(Origins::MC);
 		SetScale({ 1, 1 });
 	}
-	else if (animType == AnimType::Up)
+	else if (animType == AnimType::Up || animType == AnimType::UpEnd)
 	{
 		animator.Play("animation/waterSplashUpExitAnim.csv");
+		SetOrigin(Origins::MC);
 		SetScale({ 1, 1 });
 	}
-	else if (animType == AnimType::Down)
+	else if (animType == AnimType::Down || animType == AnimType::DownEnd)
 	{
 		animator.Play("animation/waterSplashUpExitAnim.csv");
+		SetOrigin(Origins::MC);
 		SetScale({ 1, -1 });
 	}
-	else if (animType == AnimType::Left)
+	else if (animType == AnimType::Left || animType == AnimType::LeftEnd)
 	{
 		animator.Play("animation/waterSplashLeftExitAnim.csv");
+		SetOrigin(Origins::MC);
 		SetScale({ 1, 1 });
 	}
-	else if (animType == AnimType::Right)
+	else if (animType == AnimType::Right || animType == AnimType::RightEnd)
 	{
 		animator.Play("animation/waterSplashLeftExitAnim.csv");
+		SetOrigin(Origins::MC);
 		SetScale({ -1, 1 });
 	}
 }

@@ -1,12 +1,13 @@
 ID,FPS,"LoopType (0: Single, 1: Loop)		",,,
-waterSplashUpExitAnim,15,0,,,
+waterSplashUpExitAnim,20,0,,,
 "				",,,,,
 TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
-assets/wave/up2.bmp,0,0,52,52,0
-assets/wave/up2.bmp,52,0,52,52,0
-assets/wave/up2.bmp,104,0,52,52,0
-assets/wave/up2.bmp,156,0,52,52,0
-assets/wave/up2.bmp,208,0,52,52,0
-assets/wave/up2.bmp,260,0,52,52,0
-assets/wave/up2.bmp,312,0,52,52,0
-assets/wave/up2.bmp,364,0,52,52,0
+assets/wave/up1.bmp,0,0,52,52,0
+assets/wave/up1.bmp,52,0,52,52,0
+assets/wave/up1.bmp,104,0,52,52,0
+assets/wave/up1.bmp,156,0,52,52,0
+assets/wave/up1.bmp,208,0,52,52,0
+assets/wave/up1.bmp,260,0,52,52,0
+assets/wave/up1.bmp,312,0,52,52,0
+assets/wave/up1.bmp,364,0,52,52,0
+assets/wave/up1.bmp,416,0,52,52,0

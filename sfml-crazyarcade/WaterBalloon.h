@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Animator.h"
+#include "WaterSplash.h"
 
 class WaterBalloon : public GameObject
 {
@@ -9,7 +10,7 @@ protected:
 
 	Animator animator;
 
-	float countdownTime = 0;
+	float countdownTime = 1.5f;
 	float currentTime = 0;
 	bool isCounting = false;
 
@@ -29,9 +30,10 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void StartCastCountdown(float time);
+	void StartCastCountdown();
 	void Explode();
-	void SpawnWaterSplash(int length);
+	void ExplodeInAllDirections(int upLen, int downLen, int leftLen, int rightLen);
+	void SpawnWaterSplash(WaterSplash::AnimType dir, int length = 1);
 	
 	static void Spawn(const std::string& name, sf::Vector2f spawnPos);
 };

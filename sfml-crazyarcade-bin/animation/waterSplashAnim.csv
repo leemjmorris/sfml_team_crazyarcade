@@ -1,5 +1,5 @@
 ID,FPS,"LoopType (0: Single, 1: Loop)		",,,
-waterSplashAnim,15,"1	",,,
+waterSplashAnim,20,"1	",,,
 "				",,,,,
 TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
 assets/bomb/pop.bmp,0,0,52,52,0

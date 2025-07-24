@@ -14,7 +14,12 @@ public:
 		Left,	// KHI: 3
 		Right,  // KHI: 4
 
-		UpExit,
+		UpEnd,  // KHI: 5
+		DownEnd,
+		LeftEnd,
+		RightEnd,
+
+		UpExit, // KHI: 9
 		DownExit,
 		LeftExit,
 		RightExit
@@ -24,7 +29,7 @@ protected:
 	sf::Sprite waterSplash;
 	AnimType animType = AnimType::Center;
 
-	float skillDuration = 0.8f;
+	float skillDuration = 0.2f;
 	bool isCounting = true;
 
 	Animator animator;
