@@ -3,20 +3,20 @@
 #include "Animator.h"
 #include "HitBox.h"
 #include "CharacterStats.h"
-#include <string_view>
 
 class Player :
 	public GameObject
 {
 protected:
-	float currentSpeed;
-	int currentBombCount;
-	int currentBombLength;
+	float curSpeed;
+	int curWaterBalloonCount;
+	int curWaterBalloonLength;
 	CharacterID charId;
 	int playerIndex;
 
 	GameObject* obj;
 	sf::Vector2f dir;
+	sf::Vector2f dir2;
 	sf::Vector2f velocity;
 	Animator animator;
 	sf::Sprite sprite;
@@ -29,16 +29,14 @@ public:
 
 	bool CheckInstallBomb();
 	bool CheckBubblePop();
-	const char* SelectClip() const;
-	sf::Vector2f ReadDir() const;
 	void Animating(float dt);
-	void AddSpeed(float currentSpeed=1);
-	void AddBombCount(int currentBombCount=1);
-	void AddBombLength(int currentBombLength=1);
+	void AddSpeed(float s =1);
+	void AddBombCount(int c =1);
+	void AddBombLength(int l =1);
 
-	float GetSpeed() { return currentSpeed; };
-	int GetBombCount() { return currentBombCount; };
-	int GetBombLength() { return currentBombLength; };
+	float GetSpeed() { return curSpeed; };
+	int GetBombCount() { return curWaterBalloonCount; };
+	int GetBombLength() { return curWaterBalloonLength; };
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;

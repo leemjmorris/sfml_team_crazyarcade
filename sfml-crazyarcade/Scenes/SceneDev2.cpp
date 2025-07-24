@@ -12,9 +12,9 @@ void SceneDev2::Init()
 	texIds.push_back("assets/player/bazzi/right.png");
 	texIds.push_back("assets/player/bazzi/up.png");
 	texIds.push_back("assets/player/bazzi/down.png");
-	ANI_CLIP_MGR.Load("assets/animations/bazzi_run.csv");
-	ANI_CLIP_MGR.Load("assets/animations/bazzi_up.csv");
-	ANI_CLIP_MGR.Load("assets/animations/bazzi_down.csv");
+	ANI_CLIP_MGR.Load("animation/bazzi_run.csv");
+	ANI_CLIP_MGR.Load("animation/bazzi_up.csv");
+	ANI_CLIP_MGR.Load("animation/bazzi_down.csv");
 
 	texIds.push_back("assets/item/bubble.png");
 	texIds.push_back("assets/item/damage.png");
@@ -38,7 +38,6 @@ void SceneDev2::Init()
 
 	objectsNeedingClamp.push_back(bazzi);
 	objectsNeedingClamp.push_back(Dao);
-	objectsNeedingClamp.push_back(item);
 
 	Scene::Init();
 }

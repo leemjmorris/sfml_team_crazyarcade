@@ -4,17 +4,17 @@
 
 Player::Player(const std::string & name, CharacterID id, int index)
 	: GameObject(name),
-	currentSpeed(100.f),
-	currentBombCount(1),
-	currentBombLength(1),
+	curSpeed(100.f),
+	curWaterBalloonCount(1),
+	curWaterBalloonLength(1),
 	velocity({ 1.f,1.f }),
 	dir({ 1.f,1.f }),
 	playerIndex(index)
 {
 	const auto& stats = CharacterTable.at(charId);
-	currentBombCount = stats.initBombCount;
-	currentBombLength = stats.initbombLength;
-	currentSpeed = stats.intiPlayerSpeed;
+	curWaterBalloonCount = stats.initBombCount;
+	curWaterBalloonLength = stats.initbombLength;
+	curSpeed = stats.intiPlayerSpeed;
 }
 
 Player::~Player()
@@ -24,7 +24,7 @@ Player::~Player()
 bool Player::CheckInstallBomb()
 {
 	const auto& stats = CharacterTable.at(charId);
-	if (currentBombCount > stats.maxBombCount) // LSY: add maxBombCount in struct 'CharactorStats'
+	if (curWaterBalloonCount > stats.maxBombCount) // LSY: add maxBombCount in struct 'CharactorStats'
 	{
 		std::cout << "max bomb" << std::endl;
 		return false;
@@ -32,8 +32,8 @@ bool Player::CheckInstallBomb()
 	else
 	{
 		WaterBalloon::Spawn("bomb", GetPosition());
-		currentBombCount++;
-		std::cout << "bomb count: " << currentBombCount << std::endl;
+		curWaterBalloonCount++;
+		std::cout << "bomb count: " << curWaterBalloonCount << std::endl;
 		return true;
 	}
 }
@@ -55,77 +55,81 @@ void Player::Animating(float dt)
 	//}
 
 	if (playerIndex == 0)
+		dir = InputMgr::GetPriorityDirection();
+
+	else if (playerIndex == 1)
+		dir2 = InputMgr::GetPriorityDirection();
+
+	if (playerIndex == 0)
 	{
-		if (this->dir.x != 0 && animator.GetCurrentClipId() != "Run")
+		if (dir.x != 0 && animator.GetCurrentClipId() != "Run")
 		{
-			animator.Play("assets/animations/bazzi_run.csv");
+			animator.Play("animation/bazzi_run.csv");
 			std::cout << "LFT" << std::endl;
 		}
 
-		else if (this->dir.y < 0 && animator.GetCurrentClipId() != "Up")
+		else if (dir.y < 0 && animator.GetCurrentClipId() != "Up")
 		{
-			animator.Play("assets/animations/bazzi_up.csv");
+			animator.Play("animation/bazzi_up.csv");
 		}
 
-		else if (this->dir.y > 0 && animator.GetCurrentClipId() != "Down")
+		else if (dir.y > 0 && animator.GetCurrentClipId() != "Down")
 		{
-			animator.Play("assets/animations/bazzi_down.csv");
+			animator.Play("animation/bazzi_down.csv");
 		}
 
-		else if (this->dir == sf::Vector2f(0.f, 0.f) &&
+		else if (dir == sf::Vector2f(0.f, 0.f) &&
 			(animator.GetCurrentClipId() == "Run" || animator.GetCurrentClipId() == "Up" || animator.GetCurrentClipId() == "Down"))
 		{
 			if (animator.GetCurrentClipId() == "Run")
 			{
-				animator.Play("assets/animations/bazzi_run.csv");
+				animator.Play("animation/bazzi_run.csv");
 			}
 			if (animator.GetCurrentClipId() == "Up")
 			{
-				animator.Play("assets/animations/bazzi_up.csv");
+				animator.Play("animation/bazzi_up.csv");
 			}
 			if (animator.GetCurrentClipId() == "Down")
 			{
-				animator.Play("assets/animations/bazzi_down.csv");
+				animator.Play("animation/bazzi_down.csv");
 			}
 		}
 	}
 	if (playerIndex == 1)
 	{
-		if (this->dir.x != 0 && animator.GetCurrentClipId() != "Run")
+		if (dir2.x != 0 && animator.GetCurrentClipId() != "Run")
 		{
-			animator.Play("assets/animations/bazzi_run.csv");
+			animator.Play("animation/bazzi_run.csv");
 			std::cout << "LFT" << std::endl;
 		}
 
-		else if (this->dir.y < 0 && animator.GetCurrentClipId() != "Up")
+		else if (dir2.y < 0 && animator.GetCurrentClipId() != "Up")
 		{
-			animator.Play("assets/animations/bazzi_up.csv");
+			animator.Play("animation/bazzi_up.csv");
 		}
 
-		else if (this->dir.y > 0 && animator.GetCurrentClipId() != "Down")
+		else if (dir2.y > 0 && animator.GetCurrentClipId() != "Down")
 		{
-			animator.Play("assets/animations/bazzi_down.csv");
+			animator.Play("animation/bazzi_down.csv");
 		}
 
-		else if (this->dir == sf::Vector2f(0.f, 0.f) &&
+		else if (dir2 == sf::Vector2f(0.f, 0.f) &&
 			(animator.GetCurrentClipId() == "Run" || animator.GetCurrentClipId() == "Up" || animator.GetCurrentClipId() == "Down"))
 		{
 			if (animator.GetCurrentClipId() == "Run")
 			{
-				animator.Play("assets/animations/bazzi_run.csv");
+				animator.Play("animation/bazzi_run.csv");
 			}
 			if (animator.GetCurrentClipId() == "Up")
 			{
-				animator.Play("assets/animations/bazzi_up.csv");
+				animator.Play("animation/bazzi_up.csv");
 			}
 			if (animator.GetCurrentClipId() == "Down")
 			{
-				animator.Play("assets/animations/bazzi_down.csv");
+				animator.Play("animation/bazzi_down.csv");
 			}
 		}
 	}
-
-	this->dir = InputMgr::GetPriorityDirection();
 
 	if (playerIndex == 0)
 	{
@@ -153,17 +157,17 @@ void Player::Animating(float dt)
 
 void Player::AddSpeed(float s)
 {
-	currentSpeed += s;
+	curSpeed += s;
 }
 
 void Player::AddBombCount(int b)
 {
-	currentBombCount += b;
+	curWaterBalloonCount += b;
 }
 
 void Player::AddBombLength(int l)
 {
-	currentBombLength += l;
+	curWaterBalloonLength += l;
 }
 
 void Player::SetPosition(const sf::Vector2f& pos)
@@ -234,7 +238,11 @@ void Player::Update(float dt)
 	Animating(dt);
 	SetOrigin(Origins::BC);
 
-	position = GetPosition() + dir * currentSpeed * dt;
+	if (playerIndex == 0)
+	this->position = this->GetPosition() + dir * curSpeed * dt;
+
+	if (playerIndex == 1)
+	this->position = this->GetPosition() + dir2 * curSpeed * dt;
 
 	SetPosition(position);
 	animator.Update(dt);
