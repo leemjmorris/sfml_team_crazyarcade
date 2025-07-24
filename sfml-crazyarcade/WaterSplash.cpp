@@ -212,12 +212,15 @@ void WaterSplash::CheckCollisionWithItems()
 	if (Item::allItems.empty())
 		return;
 
-	for (int i = 0; i < Item::allItems.size(); i++)
+	for (Item* item : Item::allItems)
 	{
-		if (Utils::CheckCollision(hitBox.rect, Item::allItems[i]->GetHitBox().rect))
+		if (item == nullptr) continue;
+
+		if (Utils::CheckCollision(hitBox.rect, item->GetHitBox().rect))
 		{
-			Item::allItems[i]->SetActive(false);
-			// KHI: NEED TO FIX HERE!!!! (to delete Object)
+			item->SetActive(false);
 		}
 	}
+
+	Item::CheckAndRemoveItem();
 }

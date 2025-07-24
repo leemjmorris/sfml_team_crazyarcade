@@ -2,7 +2,7 @@
 #include "Item.h"
 #include "Player.h"
 
-std::vector<Item*> Item::allItems;
+std::list<Item*> Item::allItems;
 
 Item::Item(const std::string& name)
 	: GameObject(name)
@@ -154,6 +154,7 @@ void Item::CheckCollisionWithPlayers()
 	}
 }
 
+
 // KHI: Static method
 void Item::SpawnItem(const std::string& name, ItemType type, sf::Vector2f spawnPos)
 {
@@ -172,4 +173,26 @@ void Item::AddItemToVector(Item* itemObj)
 {
 	allItems.push_back(itemObj);
 	std::cout << "ÃÑ ¾ÆÀÌÅÛ ¼ö: " << allItems.size() << std::endl;
+}
+
+// KHI: Static method
+void Item::CheckAndRemoveItem()
+{
+	if (allItems.empty())
+		return;
+
+	Scene* currentScene = SCENE_MGR.GetCurrentScene();
+
+	for (auto it = allItems.begin(); it != allItems.end(); )
+	{
+		if (*it == nullptr || !(*it)->GetActive())
+		{
+			currentScene->RemoveGameObject(*it);
+			it = allItems.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
 }
