@@ -3,7 +3,7 @@
 #include "Animator.h"
 #include "HitBox.h"
 #include "CharacterStats.h"
-enum class AnimState { Normal, Dying, Dead, live };
+enum class AnimState { Normal, Trapped, Dead, live };
 
 class Player :
 	public GameObject
@@ -15,6 +15,10 @@ protected:
 	int curWaterBalloonCount;
 	int curWaterBalloonLength;
 	int playerIndex;
+
+	bool isTrapped;
+	bool isDead;
+	bool isAlive;
 
 	CharacterID charId;
 	GameObject* obj;
@@ -30,6 +34,7 @@ protected:
 	float dieTimer;
 	float aliveTimer;
 	bool isShowing;
+	bool checkDieTimer=false;
 	HitBox hitBox;
 
 public:
@@ -38,14 +43,16 @@ public:
 	void PlayerEvent(float dt);
 	bool CheckInstallBomb();
 	bool CheckBubblePop();
-	void Animating(float dt);
+	void MoveAnim(float dt);
 	void AddSpeed(float s =1);
 	void AddBombCount(int c =1);
 	void AddBombLength(int l =1);
 
 	float GetSpeed() { return curSpeed; };
-	int GetBombCount() { return curWaterBalloonCount; };
-	int GetBombLength() { return curWaterBalloonLength; };
+	const int GetBombCount() { return curWaterBalloonCount; };
+	const int GetBombLength() { return curWaterBalloonLength; };
+	void SetPlayerTrapped(bool t) { isTrapped = t; };
+	void SetPlayerDead(bool t) { isDead = t; };
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;
@@ -74,4 +81,3 @@ public:
 		return hitBox;
 	}
 };
-
