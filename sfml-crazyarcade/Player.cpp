@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "WaterBalloon.h"
+#include <cmath>
 
 Player::Player(const std::string& name, CharacterID id, int index)
 	: GameObject(name),
@@ -9,7 +10,8 @@ Player::Player(const std::string& name, CharacterID id, int index)
 	curWaterBalloonLength(1),
 	velocity({ 1.f,1.f }),
 	dir({ 1.f,1.f }),
-	playerIndex(index)
+	playerIndex(index),
+	lastAxis(0.f)
 {
 	const auto& stats = CharacterTable.at(charId);
 	curWaterBalloonCount = stats.initBombCount;
@@ -171,8 +173,8 @@ void Player::Update(float dt)
 {
 	Animating(dt);
 	SetOrigin(Origins::BC);
-	dir.x = InputMgr::GetAxisRaw(hAxis);
-	dir.y = InputMgr::GetAxisRaw(vAxis);
+
+	dir=InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
 
 	position = GetPosition() + dir * curSpeed * dt;
 	SetPosition(position);

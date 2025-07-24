@@ -11,9 +11,11 @@ protected:
 	float curSpeed;
 	int curWaterBalloonCount;
 	int curWaterBalloonLength;
-	CharacterID charId;
 	int playerIndex;
 
+	float lastAxis;
+
+	CharacterID charId;
 	GameObject* obj;
 	sf::Vector2f dir;
 	sf::Vector2f velocity;

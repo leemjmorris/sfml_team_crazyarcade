@@ -185,21 +185,41 @@ bool InputMgr::GetMouseButton(sf::Mouse::Button key)
 	return Contains(heldKeys, sf::Keyboard::KeyCount + key);;
 }
 
-sf::Vector2f InputMgr::GetPriorityDirection()
+sf::Vector2f InputMgr::GetPriorityDirection(Axis hAxis, Axis vAxis, int index)
 {
-	for (auto it = heldKeys.rbegin(); it != heldKeys.rend(); ++it)
+	if (index == 0)
 	{
-		int code = *it;
-		if (code == sf::Keyboard::W || code == sf::Keyboard::Up)
-			return { 0.f, -1.f };
-		if (code == sf::Keyboard::S || code == sf::Keyboard::Down)
-			return { 0.f, 1.f };
-		if (code == sf::Keyboard::A || code == sf::Keyboard::Left)
-			return { -1.f, 0.f };
-		if (code == sf::Keyboard::D || code == sf::Keyboard::Right)
-			return { 1.f, 0.f };
+		const AxisInfo& hInfo = axisInfoMap[hAxis];
+		const AxisInfo& vInfo = axisInfoMap[vAxis];
+
+		for (auto it = heldKeys.rbegin(); it != heldKeys.rend(); ++it)
+		{
+			int code = *it;
+			if (Contains(hInfo.positives, code)) return { 1.f, 0.f };
+			if (Contains(hInfo.negatives, code)) return { -1.f, 0.f };
+
+			if (Contains(vInfo.positives, code)) return { 0.f,  1.f };
+			if (Contains(vInfo.negatives, code)) return { 0.f, -1.f };
+		}
+		return { 0.f, 0.f };
 	}
-	return { 0.f, 0.f };
+	if (index = 1)
+	{
+		const AxisInfo& hInfo2 = axisInfoMap[hAxis];
+		const AxisInfo& vInfo2 = axisInfoMap[vAxis];
+
+		for (auto it = heldKeys.rbegin(); it != heldKeys.rend(); ++it)
+		{
+			int code = *it;
+			if (Contains(hInfo2.positives, code)) return { 1.f, 0.f };
+			if (Contains(hInfo2.negatives, code)) return { -1.f, 0.f };
+
+			if (Contains(vInfo2.positives, code)) return { 0.f,  1.f };
+			if (Contains(vInfo2.negatives, code)) return { 0.f, -1.f };
+		}
+		return { 0.f, 0.f };
+	}
+
 }
 
 sf::Vector2i InputMgr::GetMousePosition()
