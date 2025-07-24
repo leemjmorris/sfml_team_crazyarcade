@@ -29,6 +29,8 @@ void SceneDev1::Init()
 
 	// KHI: wave
 	texIds.push_back("assets/bomb/pop.bmp");
+	texIds.push_back("assets/wave/up1.bmp");
+	texIds.push_back("assets/wave/left1.bmp");
 	texIds.push_back("assets/wave/up2.bmp");
 	texIds.push_back("assets/wave/left2.bmp");
 

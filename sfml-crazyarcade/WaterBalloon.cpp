@@ -96,43 +96,63 @@ void WaterBalloon::StartCastCountdown(float time)
 void WaterBalloon::Explode()
 {
 	SetActive(false);
-	SpawnWaterSplash(4);
+	ExplodeInAllDirections(2, 3, 3, 4);
 }
 
-void WaterBalloon::SpawnWaterSplash(int length)
+void WaterBalloon::ExplodeInAllDirections(int upLen, int downLen, int leftLen, int rightLen)
+{
+	if (upLen > 10)
+		upLen = 10;
+	if (downLen > 10)
+		downLen = 10;
+	if (leftLen > 10)
+		leftLen = 10;
+	if (rightLen > 10)
+		rightLen = 10;
+
+	SpawnWaterSplash(WaterSplash::AnimType::Center);
+	SpawnWaterSplash(WaterSplash::AnimType::Up, upLen);
+	SpawnWaterSplash(WaterSplash::AnimType::Down, downLen);
+	SpawnWaterSplash(WaterSplash::AnimType::Left, leftLen);
+	SpawnWaterSplash(WaterSplash::AnimType::Right, rightLen);
+}
+
+void WaterBalloon::SpawnWaterSplash(WaterSplash::AnimType dir, int length)
 {
 	sf::Vector2f centerPos = GetPosition();
 	float texSize = 52.f;
 
-	WaterSplash* splashObj = WaterSplashPool::GetFromPool();
-	splashObj->SetPosition(GetPosition());
-
-	std::vector<sf::Vector2f> directions = {
-		{ 0.f, -1.f },
-		{ 0.f,  1.f },
-		{ -1.f, 0.f },
-		{ 1.f,  0.f } 
+	std::unordered_map<WaterSplash::AnimType, sf::Vector2f> dirs {
+	{ WaterSplash::AnimType::Up, sf::Vector2f(0.f, -1.f) },
+	{ WaterSplash::AnimType::Down, sf::Vector2f(0.f, 1.f) },
+	{ WaterSplash::AnimType::Left, sf::Vector2f(-1.f, 0.f) },
+	{ WaterSplash::AnimType::Right, sf::Vector2f(1.f, 0.f) }
 	};
 
-	for (int i = 0; i < 4; i++)
+	if (dir == WaterSplash::AnimType::Center)
 	{
-		for (int j = 1; j <= length; j++)
+		WaterSplash* splashObj = WaterSplashPool::GetFromPool();
+		splashObj->SetPosition(GetPosition());
+		splashObj->PlayAnim();
+	}
+	else
+	{
+		for (int i = 1; i <= length; i++)
 		{
 			WaterSplash* splashObj = WaterSplashPool::GetFromPool();
-			splashObj->SetAnimType((WaterSplash::AnimType)(i + 1));
-			splashObj->PlayAnim();
-			sf::Vector2f pos = centerPos + (directions[i] * (texSize * j));
+			sf::Vector2f pos = centerPos + (dirs[dir] * (texSize * i));
 
-			if ((WaterSplash::AnimType)(i + 1) == WaterSplash::AnimType::Right)
+			if (i == length)
 			{
-				pos.x += 13.f;
+				splashObj->SetAnimType(WaterSplash::AnimType((int)dir + 4));
 			}
-			else if ((WaterSplash::AnimType)(i + 1) == WaterSplash::AnimType::Down)
+			else
 			{
-				pos.y += 13.f;
+				splashObj->SetAnimType(dir);
 			}
 
 			splashObj->SetPosition(pos);
+			splashObj->PlayAnim();
 		}
 	}
 }

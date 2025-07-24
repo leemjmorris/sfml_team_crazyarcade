@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Animator.h"
+#include "WaterSplash.h"
 
 class WaterBalloon : public GameObject
 {
@@ -31,7 +32,8 @@ public:
 
 	void StartCastCountdown(float time);
 	void Explode();
-	void SpawnWaterSplash(int length);
+	void ExplodeInAllDirections(int upLen, int downLen, int leftLen, int rightLen);
+	void SpawnWaterSplash(WaterSplash::AnimType dir, int length = 1);
 	
 	static void Spawn(const std::string& name, sf::Vector2f spawnPos);
 };
