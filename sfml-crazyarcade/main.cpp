@@ -16,11 +16,11 @@ int main()
 //{
 //    FRAMEWORK.Init(800, 600, "CRAZY ARCADE");
 //
-//    // TestMap »ý¼º ¹× Å×½ºÆ®
+//    // TestMap ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½×½ï¿½Æ®
 //    TestMap testMap;
 //
-//    // °£´ÜÇÑ Å×½ºÆ® ·çÇÁ (FRAMEWORK.Do() ´ë½Å)
-//    sf::RenderWindow& window = FRAMEWORK.GetWindow(); // FRAMEWORK¿¡¼­ À©µµ¿ì °¡Á®¿À±â
+//    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ (FRAMEWORK.Do() ï¿½ï¿½ï¿½)
+//    sf::RenderWindow& window = FRAMEWORK.GetWindow(); // FRAMEWORKï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //
 //    while (window.isOpen())
 //    {
@@ -31,8 +31,8 @@ int main()
 //                window.close();
 //        }
 //
-//        // ¾÷µ¥ÀÌÆ® ¹× ·»´õ¸µ
-//        testMap.Update(0.016f); // 60FPS °¡Á¤
+//        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//        testMap.Update(0.016f); // 60FPS ï¿½ï¿½ï¿½ï¿½
 //
 //        window.clear();
 //        testMap.Draw(window);

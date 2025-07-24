@@ -1,30 +1,61 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "WaterBalloon.h"
+#include <cmath>
 
-Player::Player(const std::string & name, CharacterID id, int index)
+Player::Player(const std::string& name, CharacterID id, int index)
 	: GameObject(name),
-	currentSpeed(100.f),
-	currentBombCount(1),
-	currentBombLength(1),
+	curSpeed(100.f),
+	curWaterBalloonCount(1),
+	curWaterBalloonLength(1),
 	velocity({ 1.f,1.f }),
 	dir({ 1.f,1.f }),
-	playerIndex(index)
+	playerIndex(index),
+	isShowing(true),
+	dieTimer(0.f),
+	aliveTimer(0.f),
+	animState(AnimState::Normal)
 {
 	const auto& stats = CharacterTable.at(charId);
-	currentBombCount = stats.initBombCount;
-	currentBombLength = stats.initbombLength;
-	currentSpeed = stats.intiPlayerSpeed;
+	curWaterBalloonCount = stats.initBombCount;
+	curWaterBalloonLength = stats.initbombLength;
+	curSpeed = stats.intiPlayerSpeed;
 }
 
 Player::~Player()
 {
 }
 
+void Player::PlayerEvent(float dt)
+{
+	if (InputMgr::GetKeyDown(installWaterBomb))
+	{
+		CheckInstallBomb();
+	}
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Q))
+	{
+		animState = AnimState::Dead;
+		animator.SetSpeed(0.8);
+		animator.Play("animation/bazzi_die.csv");
+	}
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+	{
+		animState = AnimState::Dying;
+		animator.Play("animation/bazzi_trap.csv");
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::R))
+	{
+		animState = AnimState::live;
+		animator.Play("animation/bazzi_live.csv");
+	}
+}
+
 bool Player::CheckInstallBomb()
 {
 	const auto& stats = CharacterTable.at(charId);
-	if (currentBombCount > stats.maxBombCount) // LSY: add maxBombCount in struct 'CharactorStats'
+	if (curWaterBalloonCount > stats.maxBombCount) // LSY: add maxBombCount in struct 'CharactorStats'
 	{
 		std::cout << "max bomb" << std::endl;
 		return false;
@@ -32,8 +63,8 @@ bool Player::CheckInstallBomb()
 	else
 	{
 		WaterBalloon::Spawn("bomb", GetPosition());
-		currentBombCount++;
-		std::cout << "bomb count: " << currentBombCount << std::endl;
+		curWaterBalloonCount++;
+		std::cout << "bomb count: " << curWaterBalloonCount << std::endl;
 		return true;
 	}
 }
@@ -45,125 +76,64 @@ bool Player::CheckBubblePop()
 
 void Player::Animating(float dt)
 {
-	//for(obj : GameObject::GetAllObjects())
-	//{
-	//	if(obj.getName() == "Bazzi")
-	//	{
-	//		animator.SetTarget(&obj.getSprite());
-	//		break;
-	//	}
-	//}
-
-	if (playerIndex == 0)
+	if (dir.x != 0 && animator.GetCurrentClipId() != "Run")
 	{
-		if (this->dir.x != 0 && animator.GetCurrentClipId() != "Run")
-		{
-			animator.Play("assets/animations/bazzi_run.csv");
-			std::cout << "LFT" << std::endl;
-		}
-
-		else if (this->dir.y < 0 && animator.GetCurrentClipId() != "Up")
-		{
-			animator.Play("assets/animations/bazzi_up.csv");
-		}
-
-		else if (this->dir.y > 0 && animator.GetCurrentClipId() != "Down")
-		{
-			animator.Play("assets/animations/bazzi_down.csv");
-		}
-
-		else if (this->dir == sf::Vector2f(0.f, 0.f) &&
-			(animator.GetCurrentClipId() == "Run" || animator.GetCurrentClipId() == "Up" || animator.GetCurrentClipId() == "Down"))
-		{
-			if (animator.GetCurrentClipId() == "Run")
-			{
-				animator.Play("assets/animations/bazzi_run.csv");
-			}
-			if (animator.GetCurrentClipId() == "Up")
-			{
-				animator.Play("assets/animations/bazzi_up.csv");
-			}
-			if (animator.GetCurrentClipId() == "Down")
-			{
-				animator.Play("assets/animations/bazzi_down.csv");
-			}
-		}
+		animator.Play("animation/bazzi_run.csv");
 	}
-	if (playerIndex == 1)
+
+	else if ( dir.y < 0 && animator.GetCurrentClipId() != "Up")
 	{
-		if (this->dir.x != 0 && animator.GetCurrentClipId() != "Run")
-		{
-			animator.Play("assets/animations/bazzi_run.csv");
-			std::cout << "LFT" << std::endl;
-		}
+		animator.Play("animation/bazzi_up.csv");
+	}
 
-		else if (this->dir.y < 0 && animator.GetCurrentClipId() != "Up")
-		{
-			animator.Play("assets/animations/bazzi_up.csv");
-		}
+	else if (dir.y > 0 && animator.GetCurrentClipId() != "Down")
+	{
+		animator.Play("animation/bazzi_down.csv");
+	}
 
-		else if (this->dir.y > 0 && animator.GetCurrentClipId() != "Down")
+	else if (dir == sf::Vector2f(0.f, 0.f) &&
+			(animator.GetCurrentClipId() == "Run" ||
+			animator.GetCurrentClipId() == "Up" ||
+			animator.GetCurrentClipId() == "Down"
+			))
+	{
+		if (animator.GetCurrentClipId() == "Run")
 		{
-			animator.Play("assets/animations/bazzi_down.csv");
+			animator.Play("animation/bazzi_run.csv");
 		}
-
-		else if (this->dir == sf::Vector2f(0.f, 0.f) &&
-			(animator.GetCurrentClipId() == "Run" || animator.GetCurrentClipId() == "Up" || animator.GetCurrentClipId() == "Down"))
+		if (animator.GetCurrentClipId() == "Up")
 		{
-			if (animator.GetCurrentClipId() == "Run")
-			{
-				animator.Play("assets/animations/bazzi_run.csv");
-			}
-			if (animator.GetCurrentClipId() == "Up")
-			{
-				animator.Play("assets/animations/bazzi_up.csv");
-			}
-			if (animator.GetCurrentClipId() == "Down")
-			{
-				animator.Play("assets/animations/bazzi_down.csv");
-			}
+			animator.Play("animation/bazzi_up.csv");
+		}
+		if (animator.GetCurrentClipId() == "Down")
+		{
+			animator.Play("animation/bazzi_down.csv");
 		}
 	}
 
-	this->dir = InputMgr::GetPriorityDirection();
-
-	if (playerIndex == 0)
+	if (dir. x < 0)
 	{
-		if (InputMgr::GetKeyDown(sf::Keyboard::Left))
-		{
-			SetScale({ -1.f,1.f });
-		}
-		if (InputMgr::GetKeyDown(sf::Keyboard::Right))
-		{
-			SetScale({ 1.f,1.f });
-		}
+		SetScale({ -1.f,1.f });
 	}
-	else if (playerIndex == 1)
+	if (dir.x > 0)
 	{
-		if (InputMgr::GetKeyDown(sf::Keyboard::A))
-		{
-			SetScale({ -1.f,1.f });
-		}
-		if (InputMgr::GetKeyDown(sf::Keyboard::D))
-		{
-			SetScale({ 1.f,1.f });
-		}
+		SetScale({ 1.f,1.f });
 	}
 }
 
 void Player::AddSpeed(float s)
 {
-	currentSpeed += s;
+	curSpeed += s;
 }
 
 void Player::AddBombCount(int b)
 {
-	currentBombCount += b;
+	curWaterBalloonCount += b;
 }
 
 void Player::AddBombLength(int l)
 {
-	currentBombLength += l;
+	curWaterBalloonLength += l;
 }
 
 void Player::SetPosition(const sf::Vector2f& pos)
@@ -204,19 +174,19 @@ void Player::Init()
 	SetOrigin(Origins::BC);
 	animator.SetTarget(&sprite);
 
-	//animator.AddEvent("Idle", 0,
-	//	[]()
-	//	{
-	//		//std::cout << "!!" << std::endl;
-	//	}
-	//);
-
-	animator.AddEvent("Left", 0,
-		[]()
-		{
-			std::cout << "??" << std::endl;
-		}
-	);
+	switch (playerIndex)
+	{
+	case 0:
+		vAxis = Axis::Vertical_1p;
+		hAxis = Axis::Horizontal_1p;
+		installWaterBomb = sf::Keyboard::LShift;
+		break;
+	case 1:
+		vAxis = Axis::Vertical_2p;
+		hAxis = Axis::Horizontal_2p;
+		installWaterBomb = sf::Keyboard::RShift;
+		break;
+	}
 }
 
 void Player::Release()
@@ -227,31 +197,19 @@ void Player::Reset()
 {
 	sortingLayer = SortingLayers::Default;
 	sortingOrder = 1; // LSY: waterBalloon / sortingOrder = 0
+	animator.Play("animation/bazzi_run.csv");
 }
 
 void Player::Update(float dt)
 {
 	Animating(dt);
-	SetOrigin(Origins::BC);
-
-	position = GetPosition() + dir * currentSpeed * dt;
-
-	SetPosition(position);
 	animator.Update(dt);
-	if (playerIndex == 0)
-	{
-		if (InputMgr::GetKeyDown(sf::Keyboard::LShift))
-		{
-			CheckInstallBomb();
-		}
-	}
-	else if (playerIndex == 1)
-	{
-		if (InputMgr::GetKeyDown(sf::Keyboard::RShift))
-		{
-			CheckInstallBomb();
-		}
-	}
+	SetOrigin(Origins::BC);
+	dir=InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
+
+	position = GetPosition() + dir * curSpeed * dt;
+	SetPosition(position);
+	PlayerEvent(dt);
 }
 
 void Player::Draw(sf::RenderWindow& window)
