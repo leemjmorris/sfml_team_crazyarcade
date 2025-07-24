@@ -162,17 +162,10 @@ void Item::SpawnItem(const std::string& name, ItemType type, sf::Vector2f spawnP
 	item->SetItemType(type);
 	item->SetPosition(spawnPos);
 	item->SetOriginPos(spawnPos);
-	AddItemToVector(item);
+	allItems.push_back(item);
 
 	Scene* currentScene = SCENE_MGR.GetCurrentScene();
 	currentScene->AddGameObject(item);
-}
-
-// KHI: Static method
-void Item::AddItemToVector(Item* itemObj)
-{
-	allItems.push_back(itemObj);
-	std::cout << "ÃÑ ¾ÆÀÌÅÛ ¼ö: " << allItems.size() << std::endl;
 }
 
 // KHI: Static method

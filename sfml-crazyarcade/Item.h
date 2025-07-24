@@ -16,7 +16,6 @@ public:
 
 	static std::list<Item*> allItems;
 	static void SpawnItem(const std::string& name, ItemType type, sf::Vector2f spawnPos);
-	static void AddItemToVector(Item* itemObj);
 	static void CheckAndRemoveItem();
 
 protected:
