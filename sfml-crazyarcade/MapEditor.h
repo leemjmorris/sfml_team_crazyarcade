@@ -18,6 +18,12 @@ private:
     std::vector<sf::Sprite> TileOptions;
     std::vector<sf::Sprite> Tiles;
 
+    sf::VertexArray gridLines;
+
+    static const int GRID_WIDTH = 15;
+    static const int GRID_HEIGHT = 13;
+    static const int GRID_SIZE = 40;
+
 public:
     MapEditor();
     ~MapEditor() override = default;
@@ -35,4 +41,5 @@ private:
     void CreateTileAtPosition(const sf::Vector2f& position);
     void DeleteTileAtPosition(const sf::Vector2f& position);
     void DrawMapEditor(sf::RenderWindow& window);
+    void DrawTilePreview(sf::RenderWindow& window);
 };

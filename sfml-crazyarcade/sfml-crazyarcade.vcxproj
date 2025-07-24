@@ -152,6 +152,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapEditor.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="Scenes\SceneDev1.cpp" />
     <ClCompile Include="Scenes\SceneDev2.cpp" />
     <ClCompile Include="Framework\SceneMgr.cpp" />
@@ -164,6 +165,8 @@
     <ClCompile Include="Framework\Variables.cpp" />
     <ClCompile Include="TestMap.cpp" />
     <ClCompile Include="WaterBalloon.cpp" />
+    <ClCompile Include="WaterSplash.cpp" />
+    <ClCompile Include="WaterSplashPool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CharacterStats.h" />
@@ -182,6 +185,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="MapEditor.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SceneGame.h" />
     <ClInclude Include="Scenes\SceneDev1.h" />
     <ClInclude Include="Scenes\SceneDev2.h" />
     <ClInclude Include="Framework\SceneMgr.h" />
@@ -192,6 +196,8 @@
     <ClInclude Include="Framework\Variables.h" />
     <ClInclude Include="TestMap.h" />
     <ClInclude Include="WaterBalloon.h" />
+    <ClInclude Include="WaterSplash.h" />
+    <ClInclude Include="WaterSplashPool.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

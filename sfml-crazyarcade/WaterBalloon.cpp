@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "WaterBalloon.h"
 #include "Animator.h"
+#include "WaterSplash.h"
+#include "WaterSplashPool.h"
 
 WaterBalloon::WaterBalloon(const std::string& name)
 	: GameObject(name)
@@ -74,7 +76,7 @@ void WaterBalloon::Update(float dt)
 		{
 			currentTime = 0;
 			isCounting = false;
-			Activate();
+			Explode();
 		}
 	}
 }
@@ -91,9 +93,48 @@ void WaterBalloon::StartCastCountdown(float time)
 	isCounting = true;
 }
 
-void WaterBalloon::Activate()
+void WaterBalloon::Explode()
 {
-	std::cout << "Activate()" << std::endl;
+	SetActive(false);
+	SpawnWaterSplash(4);
+}
+
+void WaterBalloon::SpawnWaterSplash(int length)
+{
+	sf::Vector2f centerPos = GetPosition();
+	float texSize = 52.f;
+
+	WaterSplash* splashObj = WaterSplashPool::GetFromPool();
+	splashObj->SetPosition(GetPosition());
+
+	std::vector<sf::Vector2f> directions = {
+		{ 0.f, -1.f },
+		{ 0.f,  1.f },
+		{ -1.f, 0.f },
+		{ 1.f,  0.f } 
+	};
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 1; j <= length; j++)
+		{
+			WaterSplash* splashObj = WaterSplashPool::GetFromPool();
+			splashObj->SetAnimType((WaterSplash::AnimType)(i + 1));
+			splashObj->PlayAnim();
+			sf::Vector2f pos = centerPos + (directions[i] * (texSize * j));
+
+			if ((WaterSplash::AnimType)(i + 1) == WaterSplash::AnimType::Right)
+			{
+				pos.x += 13.f;
+			}
+			else if ((WaterSplash::AnimType)(i + 1) == WaterSplash::AnimType::Down)
+			{
+				pos.y += 13.f;
+			}
+
+			splashObj->SetPosition(pos);
+		}
+	}
 }
 
 // KHI: Static method
@@ -101,7 +142,7 @@ void WaterBalloon::Spawn(const std::string& name, sf::Vector2f spawnPos)
 {
 	WaterBalloon* waterBalloon = new WaterBalloon(name);
 	waterBalloon->Init();
-	waterBalloon->StartCastCountdown(2.5f);
+	waterBalloon->StartCastCountdown(2.f);
 	waterBalloon->SetPosition(spawnPos);
 
 	Scene* currentScene = SCENE_MGR.GetCurrentScene();
