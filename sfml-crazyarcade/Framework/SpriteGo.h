@@ -1,11 +1,14 @@
 #pragma once
 #include "GameObject.h"
+#include "ColorMaskShader.h"
 
 class SpriteGo : public GameObject
 {
 protected:
 	sf::Sprite sprite;
 	std::string textureId;
+
+	ColorMaskShader colorMask;
 
 public:
 	SpriteGo(const std::string& texPlayerId = "", const std::string& name = "");

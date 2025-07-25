@@ -45,3 +45,4 @@
 #include "Framework.h"
 #include "MapEditor.h"
 #include "ColorMaskShader.h"
+#include <nlohmann/json.hpp>
