@@ -39,30 +39,10 @@ void Player::PlayerEvent(float dt)
 		checkDieTimer = true;
 	}
 
-	if (checkDieTimer)
+	if (animState == AnimState::Dead && InputMgr::GetKeyDown(sf::Keyboard::Num2))
 	{
-		dieTimer += dt;
-		if (dieTimer > 5.f)
-		{
-			isDead = true;
-		}
-	}
-
-	if (isTrapped || InputMgr::GetKeyDown(sf::Keyboard::Num1))
-	{
-
-		animState = AnimState::Trapped;
-		curSpeed = 5.f; // LSY: trap speed
-		animator.Play("animation/bazzi_trap.csv");
-		isTrapped = false;
-	}
-	
-	if (isDead || InputMgr::GetKeyDown(sf::Keyboard::Num2))
-	{
-		animState = AnimState::Dead;
 		animator.SetSpeed(0.8);
 		animator.Play("animation/bazzi_die.csv");
-		isDead = false;
 	}
 
 	//if (isAlive)
@@ -95,48 +75,50 @@ bool Player::CheckBubblePop()
 	return true;
 }
 
-void Player::Animating(float dt)
+void Player::MoveAnim(float dt)
 {
-	if (dir.x != 0 && animator.GetCurrentClipId() != "Run")
+	if ( animState != AnimState::Trapped && animState != AnimState::Dead)
 	{
-		animator.Play("animation/bazzi_run.csv");
-		animState = AnimState::live;
-	}
-
-	else if ( dir.y < 0 && animator.GetCurrentClipId() != "Up")
-	{
-		animator.Play("animation/bazzi_up.csv");
-		animState = AnimState::live;
-	}
-
-	else if (dir.y > 0 && animator.GetCurrentClipId() != "Down")
-	{
-		animator.Play("animation/bazzi_down.csv");
-		animState = AnimState::live;
-	}
-
-		else if (dir == sf::Vector2f(0.f, 0.f) &&
-			(animator.GetCurrentClipId() == "Run" ||
-			animator.GetCurrentClipId() == "Up" ||
-			animator.GetCurrentClipId() == "Down"
-			))
-	{
-		if (animator.GetCurrentClipId() == "Run")
+		if (dir.x != 0 && animator.GetCurrentClipId() != "Run")
 		{
 			animator.Play("animation/bazzi_run.csv");
 			animState = AnimState::live;
 		}
-		if (animator.GetCurrentClipId() == "Up")
+
+		else if (dir.y < 0 && animator.GetCurrentClipId() != "Up")
 		{
 			animator.Play("animation/bazzi_up.csv");
 			animState = AnimState::live;
 		}
-		if (animator.GetCurrentClipId() == "Down")
+
+		else if (dir.y > 0 && animator.GetCurrentClipId() != "Down")
 		{
 			animator.Play("animation/bazzi_down.csv");
 			animState = AnimState::live;
 		}
-	}
+
+		else if (dir == sf::Vector2f(0.f, 0.f) &&
+			(animator.GetCurrentClipId() == "Run" ||
+				animator.GetCurrentClipId() == "Up" ||
+				animator.GetCurrentClipId() == "Down"
+				))
+		{
+			if (animator.GetCurrentClipId() == "Run")
+			{
+				animator.Play("animation/bazzi_run.csv");
+				animState = AnimState::live;
+			}
+			if (animator.GetCurrentClipId() == "Up")
+			{
+				animator.Play("animation/bazzi_up.csv");
+				animState = AnimState::live;
+			}
+			if (animator.GetCurrentClipId() == "Down")
+			{
+				animator.Play("animation/bazzi_down.csv");
+				animState = AnimState::live;
+			}
+		}
 
 		if (dir.x < 0)
 		{
@@ -234,15 +216,25 @@ void Player::Update(float dt)
 	SetOrigin(Origins::BC);
 	MoveAnim(dt);
 	animator.Update(dt);
-	dir=InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
+	dir = InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
 
 	position = GetPosition() + dir * curSpeed * dt;
 	SetPosition(position);
-	PlayerEvent(dt);
 
+	PlayerEvent(dt);
 	hitBox.UpdateTransform(sprite, sprite.getLocalBounds());
 
 	CheckCollWithSplash(); // KHI
+	if (animState == AnimState::Trapped)
+	{
+		dieTimer += dt;
+		std::cout << dieTimer << std::endl;
+		if (dieTimer > 5.f)
+		{
+			animState == AnimState::Dead;
+			dieTimer = 0.f;
+		}
+	}
 }
 
 void Player::Draw(sf::RenderWindow& window)
@@ -252,7 +244,7 @@ void Player::Draw(sf::RenderWindow& window)
 
 void Player::CheckCollWithSplash()
 {
-	if (animState == AnimState::Dying)
+	if (animState == AnimState::Trapped)
 		return;
 
 	auto waterSplashes = SCENE_MGR.GetCurrentScene()->FindGameObjects("WaterSplash");
@@ -264,7 +256,9 @@ void Player::CheckCollWithSplash()
 		{
 			if (Utils::CheckCollision(splashObj->GetHitBox().rect, this->GetHitBox().rect))
 			{
-				animState = AnimState::Dying;
+				animState = AnimState::Trapped;
+				curSpeed = 5.f;
+				isTrapped = true;
 				animator.Play("animation/bazzi_trap.csv");
 				break;
 			}
