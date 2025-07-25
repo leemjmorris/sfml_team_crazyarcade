@@ -33,23 +33,44 @@ void Player::PlayerEvent(float dt)
 		CheckInstallBomb();
 	}
 
-	if (InputMgr::GetKeyDown(sf::Keyboard::Q))
+	if (InputMgr::GetKeyDown(sf::Keyboard::B)) // LSY: for testing
+	{
+		SetPlayerTrapped(true);
+		checkDieTimer = true;
+	}
+
+	if (checkDieTimer)
+	{
+		dieTimer += dt;
+		if (dieTimer > 5.f)
+		{
+			isDead = true;
+		}
+	}
+
+	if (isTrapped || InputMgr::GetKeyDown(sf::Keyboard::Num1))
+	{
+
+		animState = AnimState::Trapped;
+		curSpeed = 5.f; // LSY: trap speed
+		animator.Play("animation/bazzi_trap.csv");
+		isTrapped = false;
+	}
+	
+	if (isDead || InputMgr::GetKeyDown(sf::Keyboard::Num2))
 	{
 		animState = AnimState::Dead;
 		animator.SetSpeed(0.8);
 		animator.Play("animation/bazzi_die.csv");
+		isDead = false;
 	}
 
-	if (InputMgr::GetKeyDown(sf::Keyboard::Z))
-	{
-		animState = AnimState::Dying;
-		animator.Play("animation/bazzi_trap.csv");
-	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::R))
-	{
-		animState = AnimState::live;
-		animator.Play("animation/bazzi_live.csv");
-	}
+	//if (isAlive)
+	//{
+	//	isTrapped = false;
+	//	animState = AnimState::live;
+	//	animator.Play("animation/bazzi_live.csv");
+	//}
 }
 
 bool Player::CheckInstallBomb()
@@ -74,24 +95,28 @@ bool Player::CheckBubblePop()
 	return true;
 }
 
-void Player::Animating(float dt)
+void Player::MoveAnim(float dt)
 {
+	
 	if (dir.x != 0 && animator.GetCurrentClipId() != "Run")
 	{
 		animator.Play("animation/bazzi_run.csv");
+		animState = AnimState::live;
 	}
 
 	else if ( dir.y < 0 && animator.GetCurrentClipId() != "Up")
 	{
 		animator.Play("animation/bazzi_up.csv");
+		animState = AnimState::live;
 	}
 
 	else if (dir.y > 0 && animator.GetCurrentClipId() != "Down")
 	{
 		animator.Play("animation/bazzi_down.csv");
+		animState = AnimState::live;
 	}
 
-	else if (dir == sf::Vector2f(0.f, 0.f) &&
+		else if (dir == sf::Vector2f(0.f, 0.f) &&
 			(animator.GetCurrentClipId() == "Run" ||
 			animator.GetCurrentClipId() == "Up" ||
 			animator.GetCurrentClipId() == "Down"
@@ -100,26 +125,30 @@ void Player::Animating(float dt)
 		if (animator.GetCurrentClipId() == "Run")
 		{
 			animator.Play("animation/bazzi_run.csv");
+			animState = AnimState::live;
 		}
 		if (animator.GetCurrentClipId() == "Up")
 		{
 			animator.Play("animation/bazzi_up.csv");
+			animState = AnimState::live;
 		}
 		if (animator.GetCurrentClipId() == "Down")
 		{
 			animator.Play("animation/bazzi_down.csv");
+			animState = AnimState::live;
 		}
 	}
 
-	if (dir. x < 0)
-	{
-		SetScale({ -1.f,1.f });
-	}
-	if (dir.x > 0)
-	{
-		SetScale({ 1.f,1.f });
-	}
+		if (dir.x < 0)
+		{
+			SetScale({ -1.f,1.f });
+		}
+		if (dir.x > 0)
+		{
+			SetScale({ 1.f,1.f });
+		}
 }
+
 
 void Player::AddSpeed(float s)
 {
@@ -202,17 +231,44 @@ void Player::Reset()
 
 void Player::Update(float dt)
 {
-	Animating(dt);
-	animator.Update(dt);
+	hitBox.UpdateTransform(sprite, sprite.getLocalBounds());
 	SetOrigin(Origins::BC);
+	MoveAnim(dt);
+	animator.Update(dt);
 	dir=InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
 
 	position = GetPosition() + dir * curSpeed * dt;
 	SetPosition(position);
 	PlayerEvent(dt);
+
+	hitBox.UpdateTransform(sprite, sprite.getLocalBounds());
+
+	CheckCollWithSplash(); // KHI
 }
 
 void Player::Draw(sf::RenderWindow& window)
 {
 	window.draw(sprite);
+}
+
+void Player::CheckCollWithSplash()
+{
+	if (animState == AnimState::Trapped)
+		return;
+
+	auto waterSplashes = SCENE_MGR.GetCurrentScene()->FindGameObjects("WaterSplash");
+	for (auto* obj : waterSplashes)
+	{
+		WaterSplash* splashObj = dynamic_cast<WaterSplash*>(obj);
+
+		if (splashObj && splashObj->GetActive())
+		{
+			if (Utils::CheckCollision(splashObj->GetHitBox().rect, this->GetHitBox().rect))
+			{
+				animState = AnimState::Trapped;
+				animator.Play("animation/bazzi_trap.csv");
+				break;
+			}
+		}
+	}
 }

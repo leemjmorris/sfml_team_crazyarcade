@@ -41,7 +41,7 @@ void WaterSplashPool::CreateObject(int amount)
 {
     for (int i = 0; i < amount; ++i)
     {
-        WaterSplash* obj = new WaterSplash();
+        WaterSplash* obj = new WaterSplash("WaterSplash");
         obj->Init();
         obj->Reset();
         obj->SetActive(false);

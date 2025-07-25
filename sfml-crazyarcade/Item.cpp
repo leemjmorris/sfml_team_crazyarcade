@@ -3,6 +3,7 @@
 #include "Player.h"
 
 std::list<Item*> Item::allItems;
+std::vector<Player*> Item::players;
 
 Item::Item(const std::string& name)
 	: GameObject(name)
@@ -134,10 +135,6 @@ void Item::Use(Player* player)
 	// KHI: Add sound effect here **
 }
 
-void Item::SetPlayer(Player* player)
-{
-	players.push_back(player);
-}
 
 void Item::CheckCollisionWithPlayers()
 {
@@ -154,7 +151,6 @@ void Item::CheckCollisionWithPlayers()
 	}
 }
 
-
 // KHI: Static method
 void Item::SpawnItem(const std::string& name, ItemType type, sf::Vector2f spawnPos)
 {
@@ -166,6 +162,12 @@ void Item::SpawnItem(const std::string& name, ItemType type, sf::Vector2f spawnP
 
 	Scene* currentScene = SCENE_MGR.GetCurrentScene();
 	currentScene->AddGameObject(item);
+}
+
+// KHI: Static method
+void Item::SetPlayer(Player* player)
+{
+	players.push_back(player);
 }
 
 // KHI: Static method

@@ -75,6 +75,8 @@ void WaterSplash::Release()
 
 void WaterSplash::Reset()
 {
+	skillCountdown = SKILL_DURATION;
+	isCounting = true;
 }
 
 void WaterSplash::Update(float dt)
@@ -103,10 +105,10 @@ void WaterSplash::Draw(sf::RenderWindow& window)
 
 void WaterSplash::UpdateSkillDuration(float dt)
 {
-	skillDuration -= dt;
-	if (skillDuration <= 0.f)
+	skillCountdown -= dt;
+	if (skillCountdown <= 0.f)
 	{
-		skillDuration = 0.f;
+		skillCountdown = 0.f;
 		PlayExitAnim();
 		isCounting = false;
 	}

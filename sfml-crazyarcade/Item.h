@@ -17,16 +17,17 @@ public:
 	static std::list<Item*> allItems;
 	static void SpawnItem(const std::string& name, ItemType type, sf::Vector2f spawnPos);
 	static void CheckAndRemoveItem();
+	static void SetPlayer(Player* player);
 
 protected:
+	static std::vector<Player*> players;
+
 	ItemType itemType = ItemType::Balloon;
 	sf::Sprite itemSprite;
 	std::string texId;
 
 	sf::Vector2f originPos = { 0.f, 0.f };
 	bool moveUp = false;
-
-	std::vector<Player*> players;
 
 	HitBox hitBox;
 
@@ -50,8 +51,6 @@ public:
 	void SetOriginPos(sf::Vector2f pos) { originPos = pos; }
 	void FloatingEffect(float dt, float verticalRange = 5.f, float speed = 10.f);
 	void Use(Player* player);
-
-	void SetPlayer(Player* player);
 	void CheckCollisionWithPlayers();
 
 	const HitBox& GetHitBox() const

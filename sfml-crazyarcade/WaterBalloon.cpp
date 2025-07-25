@@ -133,7 +133,9 @@ void WaterBalloon::SpawnWaterSplash(WaterSplash::AnimType dir, int length)
 	if (dir == WaterSplash::AnimType::Center)
 	{
 		WaterSplash* splashObj = WaterSplashPool::GetFromPool();
+		splashObj->SetAnimType(WaterSplash::AnimType::Center);
 		splashObj->SetPosition(GetPosition());
+		splashObj->Reset();
 		splashObj->PlayAnim();
 	}
 	else
@@ -153,9 +155,22 @@ void WaterBalloon::SpawnWaterSplash(WaterSplash::AnimType dir, int length)
 			}
 
 			splashObj->SetPosition(pos);
+			splashObj->Reset();
 			splashObj->PlayAnim();
 		}
 	}
+}
+
+// KHI: Static method
+sf::Vector2f WaterBalloon::GetSnappedGridCenter(const sf::Vector2f& worldPos)
+{
+	int gridX = static_cast<int>(worldPos.x / GRID_SIZE);
+	int gridY = static_cast<int>(worldPos.y / GRID_SIZE);
+
+	float centerX = gridX * GRID_SIZE + GRID_SIZE / 2.0f;
+	float centerY = gridY * GRID_SIZE + GRID_SIZE / 2.0f;
+
+	return { centerX, centerY };
 }
 
 // KHI: Static method
@@ -164,7 +179,8 @@ void WaterBalloon::Spawn(const std::string& name, sf::Vector2f spawnPos)
 	WaterBalloon* waterBalloon = new WaterBalloon(name);
 	waterBalloon->Init();
 	waterBalloon->StartCastCountdown();
-	waterBalloon->SetPosition(spawnPos);
+
+	waterBalloon->SetPosition(GetSnappedGridCenter(spawnPos));
 
 	Scene* currentScene = SCENE_MGR.GetCurrentScene();
 	currentScene->AddGameObject(waterBalloon);

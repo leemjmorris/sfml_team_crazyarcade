@@ -31,7 +31,8 @@ protected:
 	sf::Sprite waterSplash;
 	AnimType animType = AnimType::Center;
 
-	float skillDuration = 0.2f;
+	const float SKILL_DURATION = 0.2f;
+	float skillCountdown = 0.f;
 	bool isCounting = true;
 
 	Animator animator;
@@ -41,7 +42,7 @@ protected:
 	HitBox hitBox;
 
 public:
-	WaterSplash(const std::string& name = "");
+	WaterSplash(const std::string& name = "WaterSplash");
 	virtual ~WaterSplash() = default;
 
 	void SetPosition(const sf::Vector2f& pos) override;
@@ -61,4 +62,9 @@ public:
 	void PlayAnim();
 	void PlayExitAnim();
 	void CheckCollisionWithItems();
+
+	const HitBox& GetHitBox() const
+	{
+		return hitBox;
+	}
 };
