@@ -94,7 +94,7 @@ void WaterBalloon::StartCastCountdown()
 	
 void WaterBalloon::Explode()
 {
-	ExplodeInAllDirections(2, 3, 3, 4);
+	ExplodeInAllDirections(splashLength, splashLength, splashLength, splashLength);
 
 	Scene* currentScene = SCENE_MGR.GetCurrentScene();
 	currentScene->RemoveGameObject(this);
@@ -174,12 +174,12 @@ sf::Vector2f WaterBalloon::GetSnappedGridCenter(const sf::Vector2f& worldPos)
 }
 
 // KHI: Static method
-void WaterBalloon::Spawn(const std::string& name, sf::Vector2f spawnPos)
+void WaterBalloon::Spawn(const std::string& name, sf::Vector2f spawnPos, int splashLen)
 {
 	WaterBalloon* waterBalloon = new WaterBalloon(name);
 	waterBalloon->Init();
 	waterBalloon->StartCastCountdown();
-
+	waterBalloon->SetSplashLen(splashLen);
 	waterBalloon->SetPosition(GetSnappedGridCenter(spawnPos));
 
 	Scene* currentScene = SCENE_MGR.GetCurrentScene();

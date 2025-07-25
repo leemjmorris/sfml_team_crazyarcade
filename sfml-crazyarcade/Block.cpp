@@ -98,6 +98,7 @@ void Block::Update(float dt)
 
 void Block::Draw(sf::RenderWindow& window)
 {
+
     SpriteGo::Draw(window);
 }
 

@@ -44,7 +44,13 @@ void SceneDemo::Init()
 	texIds.push_back("assets/player/bazzi/live.png");
 
 	// KHI: Blocks
-	texIds.push_back("assets/map/forest/block/block_1.bmp");
+	texIds.push_back("assets/map/forest/tile/tile_9.bmp");
+	texIds.push_back("assets/map/forest/object/object_3.bmp");
+
+	// KHI: Items
+	texIds.push_back("assets/item/bubble.png");
+	texIds.push_back("assets/item/damage.png");
+	texIds.push_back("assets/item/speed.png");
 
 	ANI_CLIP_MGR.Load("animation/bazzi_run.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_up.csv");
@@ -59,9 +65,9 @@ void SceneDemo::Init()
 	objectsNeedingClamp.push_back(bazzi);
 	objectsNeedingClamp.push_back(Dao);
 
-	Block* testBlock = static_cast<Block*>(AddGameObject(new Block("TestBlock")));
-	testBlock->SetPosition({ 300.f, 300.f });
-	AddGameObject(testBlock);
+	colorMask.LoadFromFile("assets/shaders/transparent.frag");
+	colorMask.SetMaskColor(sf::Color(255, 0, 255));
+	colorMask.SetThreshold(0.1f);
 
 	Scene::Init();
 }
@@ -77,6 +83,8 @@ void SceneDemo::Enter()
 	WaterSplashPool::Init();
 
 	Item::SpawnItem("item", Item::ItemType::Balloon, { 200.f, 200.f });
+	Item::SpawnItem("item", Item::ItemType::Speed, { 300.f, 200.f });
+	Item::SpawnItem("item", Item::ItemType::WaterJet, { 400.f, 200.f });
 
 	std::cout << "===================" << std::endl;
 	std::cout << "     SceneDemo"      << std::endl;
@@ -84,6 +92,14 @@ void SceneDemo::Enter()
 
 	bazzi->SetPosition({ 100,100 });
 	Dao->SetPosition({ 200,100 });
+
+	//Block* testBlock = new Block();
+	//testBlock->SetBlockType(BlockType::SoftBlock);
+
+	//testBlockSprite.setTexture(TEXTURE_MGR.Get("assets/map/forest/block/block_1.bmp"));
+	//testBlockSprite.setPosition({300.f, 300.f});
+
+	SetLayerForTest();
 }
 
 void SceneDemo::Update(float dt)
@@ -101,6 +117,11 @@ void SceneDemo::Update(float dt)
 
 void SceneDemo::Draw(sf::RenderWindow& window)
 {
+	for (int i = 0; i < sprites.size(); i++)
+	{
+		colorMask.Apply(window, sprites[i]);
+	}
+
 	if (toggleActiveGrid)
 		window.draw(gridLines);
 
@@ -114,4 +135,37 @@ void SceneDemo::ClampToBounds(GameObject& obj)
 	pos.x = Utils::Clamp(pos.x, worldBounds.left + obj.GetGlobalBounds().width * 0.5f, worldBounds.left + worldBounds.width - obj.GetGlobalBounds().width * 0.5f);
 	pos.y = Utils::Clamp(pos.y, worldBounds.top + obj.GetGlobalBounds().height * 0.5f, worldBounds.top + worldBounds.height);
 	obj.SetPosition(pos);
+}
+
+void SceneDemo::SetLayerForTest()
+{
+	// KHI: background
+	for (int i = 0; i < GRID_HEIGHT; i++)
+	{
+		for (int j = 0; j < GRID_WIDTH; j++)
+		{
+			if (layer0[i][j] == 1)
+			{
+				sf::Sprite sprite;
+				sprite.setTexture(TEXTURE_MGR.Get("assets/map/forest/tile/tile_9.bmp"));
+				sprite.setPosition(sf::Vector2f(j * GRID_SIZE, i * GRID_SIZE));
+				sprites.push_back(sprite);
+			}
+		}
+	}
+
+	// KHI: objects
+	for (int i = 0; i < GRID_HEIGHT; i++)
+	{
+		for (int j = 0; j < GRID_WIDTH; j++)
+		{
+			if (layer1[i][j] == 1)
+			{
+				sf::Sprite sprite;
+				sprite.setTexture(TEXTURE_MGR.Get("assets/map/forest/object/object_3.bmp"));
+				sprite.setPosition(sf::Vector2f(j * GRID_SIZE, i * GRID_SIZE));
+				sprites.push_back(sprite);
+			}
+		}
+	}
 }
