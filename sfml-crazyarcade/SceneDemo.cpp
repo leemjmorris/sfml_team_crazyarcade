@@ -47,6 +47,11 @@ void SceneDemo::Init()
 	texIds.push_back("assets/map/forest/tile/tile_9.bmp");
 	texIds.push_back("assets/map/forest/object/object_3.bmp");
 
+	// KHI: Items
+	texIds.push_back("assets/item/bubble.png");
+	texIds.push_back("assets/item/damage.png");
+	texIds.push_back("assets/item/speed.png");
+
 	ANI_CLIP_MGR.Load("animation/bazzi_run.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_up.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_down.csv");
@@ -78,6 +83,8 @@ void SceneDemo::Enter()
 	WaterSplashPool::Init();
 
 	Item::SpawnItem("item", Item::ItemType::Balloon, { 200.f, 200.f });
+	Item::SpawnItem("item", Item::ItemType::Speed, { 300.f, 200.f });
+	Item::SpawnItem("item", Item::ItemType::WaterJet, { 400.f, 200.f });
 
 	std::cout << "===================" << std::endl;
 	std::cout << "     SceneDemo"      << std::endl;

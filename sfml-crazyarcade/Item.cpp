@@ -76,17 +76,17 @@ void Item::SetItemType(ItemType type)
 	if (type == ItemType::Balloon)
 	{
 		texId = "assets/item/bubble.png";
-		type = ItemType::Balloon;
+		itemType = ItemType::Balloon;
 	}
 	else if (type == ItemType::Speed)
 	{
 		texId = "assets/item/speed.png";
-		type = ItemType::Speed;
+		itemType = ItemType::Speed;
 	}
 	else if (type == ItemType::WaterJet)
 	{
 		texId = "assets/item/damage.png";
-		type = ItemType::WaterJet;
+		itemType = ItemType::WaterJet;
 	}
 
 	itemSprite.setTexture(TEXTURE_MGR.Get(texId));
@@ -117,21 +117,21 @@ void Item::FloatingEffect(float dt, float verticalRange, float speed)
 
 void Item::Use(Player* player)
 {
+	std::cout << itemType << std::endl;
 	if (itemType == ItemType::Balloon)
 	{
-		// KHI: Call the method HERE to increase the number of water balloons the player can use **
-		// KHI: EX) player->Example();
+		player->AddBombCount(1);
 	}
 	else if (itemType == ItemType::Speed)
 	{
-		// KHI: Call the method HERE to increase the player's movement speed **
+		player->AddSpeed(100);
 	}
 	else if (itemType == ItemType::WaterJet)
 	{
-		// KHI: Call the method HERE to increase the player's water jet stat **
+		player->AddBombLength(1);
 	}
 
-	SetActive(false); // KHI: Needs to be fixed later
+	SetActive(false);
 	// KHI: Add sound effect here **
 }
 

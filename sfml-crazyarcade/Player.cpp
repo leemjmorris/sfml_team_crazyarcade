@@ -63,7 +63,7 @@ bool Player::CheckInstallBomb()
 	}
 	else
 	{
-		WaterBalloon::Spawn("bomb", GetPosition());
+		WaterBalloon::Spawn("bomb", GetPosition(), curWaterBalloonLength);
 		curWaterBalloonCount++;
 		std::cout << "bomb count: " << curWaterBalloonCount << std::endl;
 		return true;
@@ -146,6 +146,7 @@ void Player::AddBombCount(int b)
 void Player::AddBombLength(int l)
 {
 	curWaterBalloonLength += l;
+	
 }
 
 void Player::SetPosition(const sf::Vector2f& pos)
@@ -230,7 +231,6 @@ void Player::Update(float dt)
 	if (animState == AnimState::Trapped)
 	{
 		dieTimer += dt;
-		std::cout << dieTimer << std::endl;
 		if (dieTimer > 5.f)
 		{
 			animState == AnimState::Dead;
@@ -244,6 +244,7 @@ void Player::Draw(sf::RenderWindow& window)
 	window.draw(sprite);
 }
 
+// KHI
 void Player::CheckCollWithSplash()
 {
 	if (animState == AnimState::Trapped)
