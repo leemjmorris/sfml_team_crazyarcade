@@ -4,6 +4,7 @@
 class SceneReady : public Scene
 {
 protected:
+	sf::Sprite bgSprite; // KHI: DRAFT!!
 
 public:
 	SceneReady();

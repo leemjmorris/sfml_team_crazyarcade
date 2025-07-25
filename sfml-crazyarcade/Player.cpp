@@ -256,7 +256,10 @@ void Player::CheckCollWithSplash()
 
 		if (splashObj && splashObj->GetActive())
 		{
-			if (Utils::CheckCollision(splashObj->GetHitBox().rect, this->GetHitBox().rect))
+
+			sf::FloatRect rect(splashObj->GetGlobalBounds()); // left, top, width, height
+
+			if (rect.contains(GetPosition()))
 			{
 				animState = AnimState::Trapped;
 				curSpeed = 5.f;
