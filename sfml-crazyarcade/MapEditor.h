@@ -1,6 +1,9 @@
 #pragma once
 #include "Scene.h"
 #include "Block.h"
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 enum class LayerType
 {
@@ -17,9 +20,45 @@ enum class PropertyMode
     SpawnItem = 3
 };
 
+// LMJ: struct for tile data management
+struct TileData
+{
+    int tileOptionIndex;
+    int gridX, gridY;
+    float rotation;
+
+    TileData(int optionIdx, int x, int y, float rot = 0.f)
+        : tileOptionIndex(optionIdx), gridX(x), gridY(y), rotation(rot) {}
+
+    // LMJ: DATA to Json
+    json ToJson() const
+    {
+        return json{
+            {"tileOptionIndex", tileOptionIndex},
+            {"gridX", gridX },
+            {"gridY", gridY},
+            {"rotation", rotation}
+        };
+    }
+
+    // LMJ: Json to DATA
+    static TileData FromJson(const json& j)
+    {
+        return TileData(
+            j.at("tileOptionIndex").get<int>(),
+            j.at("gridX").get<int>(),
+            j.at("gridY").get<int>(),
+            j.value("rotation", 0.f)
+        );
+    }
+};
+
 class MapEditor : public Scene
 {
 private:
+    // LMJ: Vector for saving Tile data
+    std::vector<TileData> tileDatas;
+
     // LMJ: "Current layer and selection states"
     LayerType currentLayer;
     int tileOptionIndex;
@@ -99,4 +138,8 @@ private:
     // LMJ: "Helper methods"
     std::wstring GetPropertyModeString(PropertyMode mode) const;
     sf::Color GetPropertyColor(PropertyMode mode, bool enabled) const;
+
+    // LMJ: "Json methods"
+    void SaveMapToJson(const std::string& filename) const;
+    void LoadMapFromJson(const std::string& filename);
 };

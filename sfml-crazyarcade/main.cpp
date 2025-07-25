@@ -3,7 +3,7 @@
 
 int main()
 {
-    FRAMEWORK.Init(800, 600, "CRAZY ARCADE");
+    FRAMEWORK.Init(1600, 1200, "CRAZY ARCADE");
     FRAMEWORK.Do();
     FRAMEWORK.Release();
 

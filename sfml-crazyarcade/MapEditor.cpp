@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "MapEditor.h"
+#include <fstream>
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 MapEditor::MapEditor() : Scene(SceneIds::MapEditor)
 {
@@ -69,6 +72,7 @@ void MapEditor::Release()
         }
     }
     PlacedBlocks.clear();
+    tileDatas.clear();
     Scene::Release();
 }
 
@@ -203,8 +207,11 @@ void MapEditor::Draw(sf::RenderWindow& window)
     outline.setOutlineThickness(3.f);
     window.draw(outline);
 
-    for (const sf::Sprite& tile : Tiles)
+    for (const TileData& t : tileDatas)
     {
+        sf::Sprite tile = TileOptions[t.tileOptionIndex];
+        tile.setPosition(t.gridX * GRID_SIZE + GRID_SIZE / 2.f, t.gridY * GRID_SIZE + GRID_SIZE / 2.f);
+        tile.setRotation(t.rotation);
         window.draw(tile);
     }
 
@@ -501,23 +508,21 @@ void MapEditor::CreateTileAtPosition(const sf::Vector2f& gridPos)
     if (TileOptions.empty() || !IsValidGridPosition(gridPos))
         return;
 
-    sf::Vector2f tilePosition(gridPos.x * GRID_SIZE + GRID_SIZE / 2.0f, gridPos.y * GRID_SIZE + GRID_SIZE / 2.0f);
+    int gx = static_cast<int>(gridPos.x);
+    int gy = static_cast<int>(gridPos.y);
 
-    for (auto it = Tiles.begin(); it != Tiles.end(); ++it)
+    // LMJ: if already exist, delete
+    for (auto it = tileDatas.begin(); it != tileDatas.end(); ++it)
     {
-        sf::Vector2f tilePos = it->getPosition();
-        if (std::abs(tilePos.x - tilePosition.x) < GRID_SIZE / 2 &&
-            std::abs(tilePos.y - tilePosition.y) < GRID_SIZE / 2)
+        if (it->gridX == gx && it->gridY == gy)
         {
-            Tiles.erase(it);
+            tileDatas.erase(it);
             break;
         }
     }
 
-    sf::Sprite tile = TileOptions[tileOptionIndex];
-    tile.setPosition(tilePosition);
-    tile.setRotation(currentTileRotation);
-    Tiles.push_back(tile);
+    // LMJ: New tile add
+    tileDatas.emplace_back(tileOptionIndex, gx, gy, currentTileRotation);
 }
 
 void MapEditor::CreateBlockAtPosition(const sf::Vector2f& gridPos)
@@ -563,15 +568,14 @@ void MapEditor::DeleteTileAtPosition(const sf::Vector2f& gridPos)
     if (!IsValidGridPosition(gridPos))
         return;
 
-    sf::Vector2f tilePosition(gridPos.x * GRID_SIZE + GRID_SIZE / 2.0f, gridPos.y * GRID_SIZE + GRID_SIZE / 2.0f);
+    int gx = static_cast<int>(gridPos.x);
+    int gy = static_cast<int>(gridPos.y);
 
-    for (auto it = Tiles.begin(); it != Tiles.end(); ++it)
+    for (auto it = tileDatas.begin(); it != tileDatas.end(); ++it)
     {
-        sf::Vector2f tilePos = it->getPosition();
-        if (std::abs(tilePos.x - tilePosition.x) < GRID_SIZE / 2 &&
-            std::abs(tilePos.y - tilePosition.y) < GRID_SIZE / 2)
+        if (it->gridX == gx && it->gridY == gy)
         {
-            Tiles.erase(it);
+            tileDatas.erase(it);
             break;
         }
     }
@@ -971,5 +975,66 @@ sf::Color MapEditor::GetPropertyColor(PropertyMode mode, bool enabled) const
     case PropertyMode::Movable: return sf::Color::Green;
     case PropertyMode::SpawnItem: return sf::Color::Yellow;
     default: return sf::Color::White;
+    }
+}
+
+void MapEditor::SaveMapToJson(const std::string& filename) const
+{
+    json jMap;
+
+    jMap["tiles"] = json::array();
+    for (const auto& t : tileDatas)
+        jMap["tiles"].push_back(t.ToJson());
+
+    jMap["blocks"] = json::array();
+    for (const Block* block : PlacedBlocks)
+    {
+        if (block && block->GetActive())
+        {
+            int registryIndex = 0;
+            jMap["blocks"].push_back(Block::ToJson(block, registryIndex));
+        }
+    }
+
+    std::ofstream ofs(filename);
+    if (ofs.is_open())
+    {
+        ofs << jMap.dump(4); // pretty print
+        ofs.close();
+    }
+}
+
+void MapEditor::LoadMapFromJson(const std::string& filename)
+{
+    std::ifstream ifs(filename);
+    if (!ifs.is_open()) return;
+
+    json jMap;
+    ifs >> jMap;
+    ifs.close();
+
+    tileDatas.clear();
+    for (Block* block : PlacedBlocks)
+        delete block;
+    PlacedBlocks.clear();
+
+    if (jMap.contains("tiles"))
+    {
+        for (const auto& jt : jMap["tiles"])
+            tileDatas.push_back(TileData::FromJson(jt));
+    }
+
+    if (jMap.contains("blocks"))
+    {
+        for (const auto& jb : jMap["blocks"])
+        {
+            Block* block = Block::FromJson(jb);
+            if (block)
+            {
+                PlacedBlocks.push_back(block);
+                block->Init();
+                block->Reset();
+            }
+        }
     }
 }

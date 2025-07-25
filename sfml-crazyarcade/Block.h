@@ -1,6 +1,8 @@
 #pragma once
 #include "SpriteGo.h"
 #include "ColorMaskShader.h"
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 // LMJ: "Updated BlockInfo with individual properties"
 struct BlockInfo
@@ -114,4 +116,37 @@ public:
     static Block* CreateBlock(BlockType type, const sf::Vector2f& position);
     static Block* CreateBlockFromRegistry(int registryIndex, const sf::Vector2f& position);
     static Block* CreateBlockWithProperties(const std::string& textureId, const sf::Vector2f& position, bool destroyable, bool hidable, bool movable, bool spawnItem);
+
+    // LMJ: Json methods
+    static json ToJson(const Block* block, int registryIndex)
+    {
+        json j;
+        j["registryIndex"] = registryIndex;
+        j["x"] = block->GetPosition().x;
+        j["y"] = block->GetPosition().y;
+        j["isDestroyable"] = block->IsDestroyable();
+        j["isHidable"] = block->IsHidable();
+        j["isMovable"] = block->IsMovable();
+        j["canSpawnItem"] = block->CanSpawnItem();
+
+        return j;
+    }
+
+    static Block* FromJson(const json& j)
+    {
+        int registryIndex = j.at("registryIndex").get<int>();
+        float x = j.at("x").get<float>();
+        float y = j.at("y").get<float>();
+        bool isDestroyable = j.value("isDestroyable", false);
+        bool isHidable = j.value("isHidable", false);
+        bool isMovable = j.value("isMovable", false);
+        bool canSpawnItem = j.value("canSpawnItem", false);
+
+        Block* block = Block::CreateBlockFromRegistry(registryIndex, { x, y });
+        if (block)
+        {
+            block->SetBlockProperties(isDestroyable, isHidable, isMovable, canSpawnItem);
+        }
+        return block;
+    }
 };
