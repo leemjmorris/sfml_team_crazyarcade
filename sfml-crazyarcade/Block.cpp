@@ -296,10 +296,12 @@ Block* Block::CreateBlockFromRegistry(int registryIndex, const sf::Vector2f& pos
         return nullptr;
 
     Block* block = new Block();
+    block->SetRegistryIndex(registryIndex);
     block->SetBlockProperties(blockInfo); // LMJ: "Use new property system"
     block->textureId = blockInfo.textureId;
     block->Reset();
     block->SetPosition(position);
+
     return block;
 }
 

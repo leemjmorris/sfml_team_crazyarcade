@@ -252,7 +252,6 @@ void MapEditor::HandleInput()
     if (currentLayer == LayerType::BlockState)
     {
         HandleLayer2Input();
-        return;
     }
 
     sf::Vector2i mousePos = InputMgr::GetMousePosition();
@@ -1022,7 +1021,7 @@ void MapEditor::SaveMapToJson(const std::string& filename) const
     {
         if (block && block->GetActive())
         {
-            int registryIndex = 0;
+            int registryIndex = block->GetRegistryIndex();
             jMap["blocks"].push_back(Block::ToJson(block, registryIndex));
         }
     }
@@ -1069,3 +1068,4 @@ void MapEditor::LoadMapFromJson(const std::string& filename)
         }
     }
 }
+

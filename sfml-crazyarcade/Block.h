@@ -57,6 +57,8 @@ protected:
     static std::vector<BlockInfo> blockRegistry;
     static bool registryInitialized;
 
+    int registryIndex = -1;
+
 public:
     Block(const std::string& name = "Block");
     ~Block() override = default;
@@ -116,6 +118,9 @@ public:
     static Block* CreateBlock(BlockType type, const sf::Vector2f& position);
     static Block* CreateBlockFromRegistry(int registryIndex, const sf::Vector2f& position);
     static Block* CreateBlockWithProperties(const std::string& textureId, const sf::Vector2f& position, bool destroyable, bool hidable, bool movable, bool spawnItem);
+
+    int GetRegistryIndex() const { return registryIndex; }
+    void SetRegistryIndex(int idx) { registryIndex = idx; }
 
     // LMJ: Json methods
     static json ToJson(const Block* block, int registryIndex)
