@@ -66,7 +66,7 @@ bool Player::CheckBubblePop(AnimState s)
 
 void Player::MoveAnim(float dt)
 {
-	if (animState != AnimState::Trapped && animState != AnimState::Dead)
+	if (animState != AnimState::Trapped && animState != AnimState::Dead && animState != AnimState::Win)
 	{
 		if (dir.x != 0 && animator.GetCurrentClipId() != "Run")
 		{
@@ -136,9 +136,11 @@ void Player::AddBombLength(int l)
 	curWaterBalloonLength += l;
 }
 
+//====================================GAME OVER==========================================
 void Player::SetGameOver()
 {
 	curSpeed = 0.f;
+	animState = AnimState::Win;
 	animator.Play("animation/bazzi_win.csv");
 }
 
