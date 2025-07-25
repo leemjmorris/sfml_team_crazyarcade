@@ -121,14 +121,17 @@ void Item::Use(Player* player)
 	{
 		// KHI: Call the method HERE to increase the number of water balloons the player can use **
 		// KHI: EX) player->Example();
+		player->AddBombCount(1);
 	}
 	else if (itemType == ItemType::Speed)
 	{
 		// KHI: Call the method HERE to increase the player's movement speed **
+		player->AddSpeed(1);
 	}
 	else if (itemType == ItemType::WaterJet)
 	{
 		// KHI: Call the method HERE to increase the player's water jet stat **
+		player->AddBombLength(1);
 	}
 
 	SetActive(false); // KHI: Needs to be fixed later

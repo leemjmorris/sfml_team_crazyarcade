@@ -42,6 +42,7 @@ void SceneDemo::Init()
 	texIds.push_back("assets/player/bazzi/die.png");
 	texIds.push_back("assets/player/bazzi/trap.png");
 	texIds.push_back("assets/player/bazzi/live.png");
+	texIds.push_back("assets/player/bazzi/jump.png");
 
 	// KHI: Blocks
 	texIds.push_back("assets/map/forest/block/block_1.bmp");
@@ -52,6 +53,7 @@ void SceneDemo::Init()
 	ANI_CLIP_MGR.Load("animation/bazzi_live.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_trap.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_die.csv");
+	ANI_CLIP_MGR.Load("animation/bazzi_win.csv");
 
 	bazzi = static_cast<Player*>(AddGameObject(new Player("Bazzi", CharacterID::BAZZI, 0)));
 	Dao = static_cast<Player*>(AddGameObject(new Player("Dao", CharacterID::DAO, 1)));
@@ -92,10 +94,12 @@ void SceneDemo::Update(float dt)
 	{
 		toggleActiveGrid = !toggleActiveGrid;
 	}
-
+	
 	for (auto* obj : objectsNeedingClamp)
 		ClampToBounds(*obj);
 
+	CheckCollisionWithPlayer();
+	
 	Scene::Update(dt);
 }
 
@@ -114,4 +118,26 @@ void SceneDemo::ClampToBounds(GameObject& obj)
 	pos.x = Utils::Clamp(pos.x, worldBounds.left + obj.GetGlobalBounds().width * 0.5f, worldBounds.left + worldBounds.width - obj.GetGlobalBounds().width * 0.5f);
 	pos.y = Utils::Clamp(pos.y, worldBounds.top + obj.GetGlobalBounds().height * 0.5f, worldBounds.top + worldBounds.height);
 	obj.SetPosition(pos);
+}
+
+bool SceneDemo::CheckCollisionWithPlayer()
+{
+	if (Utils::CheckCollision(Dao->GetHitBox().rect, bazzi->GetHitBox().rect))
+	{
+		if (Dao->GetPlayerState() == AnimState::Trapped)
+		{
+			Dao->CheckBubblePop(AnimState::Dead);
+			std::cout << " 2P Player Dead " << std::endl;
+			std::cout << "GameOver" << std::endl;
+			bazzi->SetGameOver();
+		}
+		else if (bazzi->GetPlayerState() == AnimState::Trapped)
+		{
+			bazzi->CheckBubblePop(AnimState::Dead);
+			std::cout << " 1P Player Dead " << std::endl;
+			std::cout << "GameOver" << std::endl;
+			Dao->SetGameOver();
+		}
+		return true;
+	}
 }

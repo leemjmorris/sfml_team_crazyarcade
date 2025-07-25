@@ -18,7 +18,6 @@ protected:
 	Item* item;
 	sf::FloatRect worldBounds = FRAMEWORK.GetWindowBounds();
 	std::vector<GameObject*> objectsNeedingClamp;
-
 	sf::VertexArray gridLines;
 
 public:
@@ -31,4 +30,5 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void ClampToBounds(GameObject& obj);
+	bool CheckCollisionWithPlayer();
 };
