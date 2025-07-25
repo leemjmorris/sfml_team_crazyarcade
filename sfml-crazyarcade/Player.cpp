@@ -95,8 +95,9 @@ bool Player::CheckBubblePop()
 	return true;
 }
 
-void Player::Animating(float dt)
+void Player::MoveAnim(float dt)
 {
+	
 	if (dir.x != 0 && animator.GetCurrentClipId() != "Run")
 	{
 		animator.Play("animation/bazzi_run.csv");
@@ -146,8 +147,8 @@ void Player::Animating(float dt)
 		{
 			SetScale({ 1.f,1.f });
 		}
-	}
 }
+
 
 void Player::AddSpeed(float s)
 {
@@ -252,7 +253,7 @@ void Player::Draw(sf::RenderWindow& window)
 
 void Player::CheckCollWithSplash()
 {
-	if (animState == AnimState::Dying)
+	if (animState == AnimState::Trapped)
 		return;
 
 	auto waterSplashes = SCENE_MGR.GetCurrentScene()->FindGameObjects("WaterSplash");
@@ -264,7 +265,7 @@ void Player::CheckCollWithSplash()
 		{
 			if (Utils::CheckCollision(splashObj->GetHitBox().rect, this->GetHitBox().rect))
 			{
-				animState = AnimState::Dying;
+				animState = AnimState::Trapped;
 				animator.Play("animation/bazzi_trap.csv");
 				break;
 			}
