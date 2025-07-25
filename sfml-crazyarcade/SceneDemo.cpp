@@ -80,7 +80,7 @@ void SceneDemo::Enter()
 
 	Item::SetPlayer(bazzi);
 	Item::SetPlayer(Dao);
-
+	
 	WaterSplashPool::SetCurScene(SCENE_MGR.GetCurrentScene());
 	WaterSplashPool::Init();
 

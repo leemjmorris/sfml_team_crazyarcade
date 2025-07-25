@@ -20,6 +20,8 @@ Player::Player(const std::string& name, CharacterID id, int index)
 	curWaterBalloonCount = stats.initBombCount;
 	curWaterBalloonLength = stats.initbombLength;
 	curSpeed = stats.intiPlayerSpeed;
+	maxBalloonCount = stats.maxBombCount;
+	maxBalloonLength = stats.maxbombLength;
 }
 
 Player::~Player()
@@ -42,17 +44,21 @@ void Player::PlayerEvent(float dt)
 
 bool Player::CheckInstallBomb()
 {
-	const auto& stats = CharacterTable.at(charId);
-	if (curWaterBalloonCount > stats.maxBombCount) // LSY: add maxBombCount in struct 'CharactorStats'
+	if (curWaterBalloonCount > maxBalloonCount) // LSY: add maxBombCount in struct 'CharactorStats'
 	{
 		std::cout << "max bomb" << std::endl;
 		return false;
 	}
 	else
 	{
-		WaterBalloon::Spawn("bomb", GetPosition(), curWaterBalloonLength);
-		curWaterBalloonCount++;
-		std::cout << "bomb count: " << curWaterBalloonCount << std::endl;
+		WaterBalloon::Spawn("bomb", GetPosition(), curWaterBalloonLength, this);
+		curWaterBalloonCount--;
+		std::cout << "waterBalloon count: " << curWaterBalloonCount << std::endl;
+		if (curWaterBalloonCount < 0)
+		{
+			std::cout << "waterBalloon is finished" << std::endl;
+			return true;
+		}
 		return true;
 	}
 }
@@ -126,15 +132,14 @@ void Player::AddSpeed(float s)
 	curSpeed += s;
 }
 
-void Player::AddBombCount(int b)
+void Player::AddWaterBalloonCount(int b)
 {
 	curWaterBalloonCount += b;
 }
 
-void Player::AddBombLength(int l)
+void Player::AddWaterBalloonLength(int l)
 {
 	curWaterBalloonLength += l;
-	
 }
 
 //====================================GAME OVER==========================================
@@ -180,6 +185,7 @@ void Player::SetOrigin(Origins preset)
 
 void Player::Init()
 {
+	std::cout << "[Init balloonCount]" << curWaterBalloonCount << ", [Init balloonLength]" << curWaterBalloonLength << ", [Init Speed]" << curSpeed << std::endl;
 	SetOrigin(Origins::BC);
 	animator.SetTarget(&sprite);
 

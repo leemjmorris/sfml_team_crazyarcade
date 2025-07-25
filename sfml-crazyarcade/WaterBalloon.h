@@ -2,12 +2,13 @@
 #include "GameObject.h"
 #include "Animator.h"
 #include "WaterSplash.h"
-
+class Player;
 class WaterBalloon : public GameObject
 {
 protected:
-	sf::Sprite balloon;
+	Player* player;
 
+	sf::Sprite balloon;
 	Animator animator;
 
 	float countdownTime = 1.5f;
@@ -38,7 +39,8 @@ public:
 	void ExplodeInAllDirections(int upLen, int downLen, int leftLen, int rightLen);
 	void SpawnWaterSplash(WaterSplash::AnimType dir, int length = 1);
 	void SetSplashLen(int len) { splashLength = len; }
+	void TargetPlayer(Player* p) { player = p; }
 
 	static sf::Vector2f GetSnappedGridCenter(const sf::Vector2f& worldPos);
-	static void Spawn(const std::string& name, sf::Vector2f spawnPos, int splashLen);
+	static void Spawn(const std::string& name, sf::Vector2f spawnPos, int splashLen, Player* p);
 };

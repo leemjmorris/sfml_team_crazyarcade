@@ -54,7 +54,6 @@ void SceneDev1::Enter()
 	Item::SpawnItem("test1", Item::Balloon, { 0, 0 });
 	Item::SpawnItem("test2", Item::WaterJet, { 200, 100 });
 
-	WaterBalloon::Spawn("testBomb", { 200.f, 200.f }, 1);
 	Scene::Enter();
 }
 

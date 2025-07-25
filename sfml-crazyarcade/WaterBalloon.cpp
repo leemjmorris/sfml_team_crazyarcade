@@ -3,6 +3,7 @@
 #include "Animator.h"
 #include "WaterSplash.h"
 #include "WaterSplashPool.h"
+#include "Player.h"
 
 WaterBalloon::WaterBalloon(const std::string& name)
 	: GameObject(name)
@@ -69,16 +70,17 @@ void WaterBalloon::Update(float dt)
 {
 	animator.Update(dt);
 
-	if (isCounting)
-	{
-		currentTime -= dt;
-		if (currentTime <= 0)
+		if (isCounting)
 		{
-			currentTime = 0;
-			isCounting = false;
-			Explode();
+			currentTime -= dt;
+			if (currentTime <= 0)
+			{
+				currentTime = 0;
+				isCounting = false;
+				//targetPlayer->AddWaterBalloonCount(); // LSY: Todo
+				Explode();
+			}
 		}
-	}
 }
 
 void WaterBalloon::Draw(sf::RenderWindow& window)
@@ -95,9 +97,9 @@ void WaterBalloon::StartCastCountdown()
 void WaterBalloon::Explode()
 {
 	ExplodeInAllDirections(splashLength, splashLength, splashLength, splashLength);
-
 	Scene* currentScene = SCENE_MGR.GetCurrentScene();
 	currentScene->RemoveGameObject(this);
+	player->SetBalloonCount();
 }
 
 void WaterBalloon::ExplodeInAllDirections(int upLen, int downLen, int leftLen, int rightLen)
@@ -174,13 +176,14 @@ sf::Vector2f WaterBalloon::GetSnappedGridCenter(const sf::Vector2f& worldPos)
 }
 
 // KHI: Static method
-void WaterBalloon::Spawn(const std::string& name, sf::Vector2f spawnPos, int splashLen)
+void WaterBalloon::Spawn(const std::string& name, sf::Vector2f spawnPos, int splashLen, Player* p)
 {
 	WaterBalloon* waterBalloon = new WaterBalloon(name);
 	waterBalloon->Init();
 	waterBalloon->StartCastCountdown();
 	waterBalloon->SetSplashLen(splashLen);
 	waterBalloon->SetPosition(GetSnappedGridCenter(spawnPos));
+	waterBalloon->TargetPlayer(p);
 
 	Scene* currentScene = SCENE_MGR.GetCurrentScene();
 	currentScene->AddGameObject(waterBalloon);
