@@ -7,6 +7,7 @@ class SpriteGo : public GameObject
 protected:
 	sf::Sprite sprite;
 	std::string textureId;
+	bool isBmp = true;
 
 	ColorMaskShader colorMask;
 
@@ -19,6 +20,8 @@ public:
 
 	sf::Sprite& GetSprite() { return sprite; }
 	const sf::Sprite& GetSprite() const { return sprite; }
+
+	void SetIsBmp(bool bmp) { isBmp = bmp; }
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;

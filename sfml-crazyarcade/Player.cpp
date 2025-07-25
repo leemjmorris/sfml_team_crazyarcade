@@ -77,7 +77,8 @@ bool Player::CheckBubblePop()
 
 void Player::MoveAnim(float dt)
 {
-	if ( animState != AnimState::Trapped && animState != AnimState::Dead)
+
+	if (animState != AnimState::Trapped && animState != AnimState::Dead)
 	{
 		if (dir.x != 0 && animator.GetCurrentClipId() != "Run")
 		{
@@ -99,9 +100,9 @@ void Player::MoveAnim(float dt)
 
 		else if (dir == sf::Vector2f(0.f, 0.f) &&
 			(animator.GetCurrentClipId() == "Run" ||
-				animator.GetCurrentClipId() == "Up" ||
-				animator.GetCurrentClipId() == "Down"
-				))
+			animator.GetCurrentClipId() == "Up" ||
+			animator.GetCurrentClipId() == "Down"
+			))
 		{
 			if (animator.GetCurrentClipId() == "Run")
 			{
@@ -128,6 +129,7 @@ void Player::MoveAnim(float dt)
 		{
 			SetScale({ 1.f,1.f });
 		}
+	}
 }
 
 
@@ -186,16 +188,16 @@ void Player::Init()
 
 	switch (playerIndex)
 	{
-	case 0:
-		vAxis = Axis::Vertical_1p;
-		hAxis = Axis::Horizontal_1p;
-		installWaterBomb = sf::Keyboard::LShift;
-		break;
-	case 1:
-		vAxis = Axis::Vertical_2p;
-		hAxis = Axis::Horizontal_2p;
-		installWaterBomb = sf::Keyboard::RShift;
-		break;
+		case 0:
+			vAxis = Axis::Vertical_1p;
+			hAxis = Axis::Horizontal_1p;
+			installWaterBomb = sf::Keyboard::LShift;
+			break;
+		case 1:
+			vAxis = Axis::Vertical_2p;
+			hAxis = Axis::Horizontal_2p;
+			installWaterBomb = sf::Keyboard::RShift;
+			break;
 	}
 }
 
@@ -245,8 +247,8 @@ void Player::Draw(sf::RenderWindow& window)
 void Player::CheckCollWithSplash()
 {
 	if (animState == AnimState::Trapped)
-	if (animState == AnimState::Trapped)
-		return;
+		if (animState == AnimState::Trapped)
+			return;
 
 	auto waterSplashes = SCENE_MGR.GetCurrentScene()->FindGameObjects("WaterSplash");
 	for (auto* obj : waterSplashes)

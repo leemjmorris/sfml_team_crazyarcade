@@ -67,6 +67,13 @@ void SpriteGo::Draw(sf::RenderWindow& window)
 {
 	if (active)
 	{
-		colorMask.Apply(window, sprite);
+		if (isBmp)
+		{
+			colorMask.Apply(window, sprite);
+		}
+		else
+		{
+			window.draw(sprite);
+		}
 	}
 }

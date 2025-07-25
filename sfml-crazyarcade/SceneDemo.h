@@ -13,6 +13,12 @@ protected:
 	const int GRID_HEIGHT = 13;
 	const int GRID_SIZE = 52;
 
+	Player* bazzi;
+	Player* Dao;
+	Item* item;
+	sf::FloatRect worldBounds = FRAMEWORK.GetWindowBounds();
+	std::vector<GameObject*> objectsNeedingClamp;
+
 	sf::VertexArray gridLines;
 
 public:
