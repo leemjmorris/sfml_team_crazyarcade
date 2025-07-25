@@ -3,7 +3,7 @@
 #include "Animator.h"
 #include "HitBox.h"
 #include "CharacterStats.h"
-enum class AnimState { Normal, Trapped, Dead, live };
+enum class AnimState { Normal, Trapped, Dead, live, Win };
 
 class Player :
 	public GameObject
@@ -42,17 +42,18 @@ public:
 	~Player();
 	void PlayerEvent(float dt);
 	bool CheckInstallBomb();
-	bool CheckBubblePop();
+	bool CheckBubblePop(AnimState s);
 	void MoveAnim(float dt);
 	void AddSpeed(float s =1);
 	void AddBombCount(int c =1);
 	void AddBombLength(int l =1);
 
+	void SetGameOver();
 	float GetSpeed() { return curSpeed; };
 	const int GetBombCount() { return curWaterBalloonCount; };
 	const int GetBombLength() { return curWaterBalloonLength; };
-	void SetPlayerTrapped(bool t) { isTrapped = t; };
-	void SetPlayerDead(bool t) { isDead = t; };
+
+	AnimState GetPlayerState() { return animState; };
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;
