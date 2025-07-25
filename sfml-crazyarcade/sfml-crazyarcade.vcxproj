@@ -151,6 +151,9 @@
     <ClCompile Include="Framework\SpriteGo.cpp" />
     <ClCompile Include="Framework\Scene.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="libtinyfiledialogs-master\tinyfiledialogs.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapEditor.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -188,6 +191,7 @@
     <ClInclude Include="Framework\SpriteGo.h" />
     <ClInclude Include="Framework\Scene.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="libtinyfiledialogs-master\tinyfiledialogs.h" />
     <ClInclude Include="MapEditor.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneDemo.h" />

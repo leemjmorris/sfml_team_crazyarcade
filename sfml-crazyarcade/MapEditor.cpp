@@ -2,6 +2,7 @@
 #include "MapEditor.h"
 #include <fstream>
 #include <nlohmann/json.hpp>
+#include "libtinyfiledialogs-master/tinyfiledialogs.h"
 using json = nlohmann::json;
 
 MapEditor::MapEditor() : Scene(SceneIds::MapEditor)
@@ -285,6 +286,36 @@ void MapEditor::HandleInput()
             {
                 DeleteBlockAtPosition(gridPos);
             }
+        }
+    }
+
+    if (InputMgr::GetKey(sf::Keyboard::LControl) && InputMgr::GetKeyDown(sf::Keyboard::S))
+    {
+        const char* filters[] = { "*.json" };
+        const char* filename = tinyfd_saveFileDialog(
+            "맵 파일 저장",
+            "map.json",
+            1, filters, NULL
+        );
+
+        if (filename)
+        {
+            SaveMapToJson(filename);
+        }
+    }
+
+    if (InputMgr::GetKey(sf::Keyboard::LControl) && InputMgr::GetKeyDown(sf::Keyboard::O))
+    {
+        const char* filters[] = { "*.json" };
+        const char* filename = tinyfd_openFileDialog(
+            "맵 파일 열기",
+            "",
+            1, filters, NULL, 0
+        );
+        
+        if (filename)
+        {
+            LoadMapFromJson(filename);
         }
     }
 }
