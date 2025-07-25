@@ -1,18 +1,18 @@
 ID,FPS,"LoopType (0: Single, 1: Loop)",,,
-Die,10,1,,,
+Die,10,0,,,
 ,,,,,
 TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
-assets/player/bazzi/die.png,0,0,78,128,0
-assets/player/bazzi/die.png,79,0,78,128,0
-assets/player/bazzi/die.png,158,0,78,128,0
-assets/player/bazzi/die.png,237,0,78,128,0
-assets/player/bazzi/die.png,316,0,78,128,0
-assets/player/bazzi/die.png,395,0,78,128,0
-assets/player/bazzi/die.png,474,0,78,128,0
-assets/player/bazzi/die.png,553,0,78,128,0
-assets/player/bazzi/die.png,632,0,78,128,0
-assets/player/bazzi/die.png,711,0,78,128,0
-assets/player/bazzi/die.png,790,0,78,128,0
-assets/player/bazzi/die.png,869,0,78,128,0
-assets/player/bazzi/die.png,948,0,78,128,0
-assets/player/bazzi/die.png,1127,0,78,128,0
+assets/player/bazzi/die.png,0,0,79,128,0
+assets/player/bazzi/die.png,79,0,79,128,0
+assets/player/bazzi/die.png,158,0,79,128,0
+assets/player/bazzi/die.png,237,0,79,128,0
+assets/player/bazzi/die.png,316,0,79,128,0
+assets/player/bazzi/die.png,395,0,79,128,0
+assets/player/bazzi/die.png,474,0,79,128,0
+assets/player/bazzi/die.png,553,0,79,128,0
+assets/player/bazzi/die.png,632,0,79,128,0
+assets/player/bazzi/die.png,711,0,79,128,0
+assets/player/bazzi/die.png,790,0,79,128,0
+assets/player/bazzi/die.png,869,0,79,128,0
+assets/player/bazzi/die.png,948,0,79,128,0
+assets/player/bazzi/die.png,1127,0,71,128,0

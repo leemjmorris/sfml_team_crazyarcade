@@ -1,0 +1,12 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)",,,
+Win,10,1,,,
+,,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
+assets/player/bazzi/jump.png,0,0,64,80,0
+assets/player/bazzi/jump.png,64,0,64,80,0
+assets/player/bazzi/jump.png,128,0,64,80,0
+assets/player/bazzi/jump.png,192,0,64,80,0
+assets/player/bazzi/jump.png,256,0,64,80,0
+assets/player/bazzi/jump.png,320,0,64,80,0
+assets/player/bazzi/jump.png,384,0,64,80,0
+assets/player/bazzi/jump.png,448,0,64,80,0

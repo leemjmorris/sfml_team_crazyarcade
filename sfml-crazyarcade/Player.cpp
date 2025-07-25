@@ -32,19 +32,6 @@ void Player::PlayerEvent(float dt)
 	{
 		CheckInstallBomb();
 	}
-
-	if (InputMgr::GetKeyDown(sf::Keyboard::B)) // LSY: for testing
-	{
-		SetPlayerTrapped(true);
-		checkDieTimer = true;
-	}
-
-	if (animState == AnimState::Dead && InputMgr::GetKeyDown(sf::Keyboard::Num2))
-	{
-		animator.SetSpeed(0.8);
-		animator.Play("animation/bazzi_die.csv");
-	}
-
 	//if (isAlive)
 	//{
 	//	isTrapped = false;
@@ -70,15 +57,16 @@ bool Player::CheckInstallBomb()
 	}
 }
 
-bool Player::CheckBubblePop()
+bool Player::CheckBubblePop(AnimState s)
 {
+	animState = s;
+	animator.Play("animation/bazzi_die.csv");
 	return true;
 }
 
 void Player::MoveAnim(float dt)
 {
-
-	if (animState != AnimState::Trapped && animState != AnimState::Dead)
+	if (animState != AnimState::Trapped && animState != AnimState::Dead && animState != AnimState::Win)
 	{
 		if (dir.x != 0 && animator.GetCurrentClipId() != "Run")
 		{
@@ -147,6 +135,14 @@ void Player::AddBombLength(int l)
 {
 	curWaterBalloonLength += l;
 	
+}
+
+//====================================GAME OVER==========================================
+void Player::SetGameOver()
+{
+	curSpeed = 0.f;
+	animState = AnimState::Win;
+	animator.Play("animation/bazzi_win.csv");
 }
 
 void Player::SetPosition(const sf::Vector2f& pos)
@@ -235,6 +231,8 @@ void Player::Update(float dt)
 		{
 			animState == AnimState::Dead;
 			dieTimer = 0.f;
+			animator.Play("animation/bazzi_die.csv");
+			std::cout << "TrappedTimer is finished: AnimeState::Dead" << std::endl;
 		}
 	}
 }

@@ -79,4 +79,5 @@ public:
 
 	// KHI: For TEST !!!
 	void SetLayerForTest();
+	bool CheckCollisionWithPlayer();
 };
