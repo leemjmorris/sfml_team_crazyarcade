@@ -43,6 +43,9 @@ void SpriteGo::SetOrigin(Origins preset)
 
 void SpriteGo::Init()
 {
+	colorMask.LoadFromFile("assets/shaders/transparent.frag");
+	colorMask.SetMaskColor(sf::Color(255, 0, 255));
+	colorMask.SetThreshold(0.1f);
 }
 
 void SpriteGo::Release()
@@ -64,6 +67,6 @@ void SpriteGo::Draw(sf::RenderWindow& window)
 {
 	if (active)
 	{
-		window.draw(sprite);
+		colorMask.Apply(window, sprite);
 	}
 }

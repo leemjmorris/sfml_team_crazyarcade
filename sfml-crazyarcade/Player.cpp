@@ -128,8 +128,8 @@ void Player::MoveAnim(float dt)
 		{
 			SetScale({ 1.f,1.f });
 		}
-	}
 }
+
 
 void Player::AddSpeed(float s)
 {
@@ -244,6 +244,7 @@ void Player::Draw(sf::RenderWindow& window)
 
 void Player::CheckCollWithSplash()
 {
+	if (animState == AnimState::Trapped)
 	if (animState == AnimState::Trapped)
 		return;
 

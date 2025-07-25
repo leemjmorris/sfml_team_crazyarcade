@@ -4,6 +4,7 @@
 #include "WaterBalloon.h"
 #include "WaterSplashPool.h"
 #include "Item.h"
+#include "Block.h"
 
 SceneDemo::SceneDemo()
 	: Scene(SceneIds::Demo)
@@ -16,6 +17,7 @@ void SceneDemo::Init()
 	worldView.setSize(windowSize);
 	worldView.setCenter(windowSize * 0.5f);
 
+	// KHI: For Testing (Draw Grids)
 	gridLines.setPrimitiveType(sf::Lines);
 	gridLines.clear();
 
@@ -33,12 +35,17 @@ void SceneDemo::Init()
 		gridLines.append(sf::Vertex(sf::Vector2f(GRID_WIDTH * GRID_SIZE, yPos), gridColor));
 	}
 
+	// KHI: Player
 	texIds.push_back("assets/player/bazzi/right.png");
 	texIds.push_back("assets/player/bazzi/up.png");
 	texIds.push_back("assets/player/bazzi/down.png");
 	texIds.push_back("assets/player/bazzi/die.png");
 	texIds.push_back("assets/player/bazzi/trap.png");
 	texIds.push_back("assets/player/bazzi/live.png");
+
+	// KHI: Blocks
+	texIds.push_back("assets/map/forest/block/block_1.bmp");
+
 	ANI_CLIP_MGR.Load("animation/bazzi_run.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_up.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_down.csv");
@@ -51,6 +58,10 @@ void SceneDemo::Init()
 
 	objectsNeedingClamp.push_back(bazzi);
 	objectsNeedingClamp.push_back(Dao);
+
+	Block* testBlock = static_cast<Block*>(AddGameObject(new Block("TestBlock")));
+	testBlock->SetPosition({ 300.f, 300.f });
+	AddGameObject(testBlock);
 
 	Scene::Init();
 }
@@ -68,10 +79,11 @@ void SceneDemo::Enter()
 	Item::SpawnItem("item", Item::ItemType::Balloon, { 200.f, 200.f });
 
 	std::cout << "===================" << std::endl;
-	std::cout << "     SceneDemo" << std::endl;
+	std::cout << "     SceneDemo"      << std::endl;
 	std::cout << "===================" << std::endl;
 
 	bazzi->SetPosition({ 100,100 });
+	Dao->SetPosition({ 200,100 });
 }
 
 void SceneDemo::Update(float dt)

@@ -3,17 +3,9 @@
 #include "CharacterStats.h"
 #include "Item.h"
 
-class Player;
-
 class SceneDemo : public Scene
 {
 protected:
-	Player* bazzi;
-	Player* Dao;
-	Item* item;
-	sf::FloatRect worldBounds = FRAMEWORK.GetWindowBounds();
-	std::vector<GameObject*> objectsNeedingClamp;
-
 	// KHI: For Testing
 	bool toggleActiveGrid = true;
 
