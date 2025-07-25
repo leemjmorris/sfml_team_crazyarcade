@@ -79,7 +79,7 @@ private:
     // LMJ: "Grid configuration"
     static const int GRID_WIDTH = 15;
     static const int GRID_HEIGHT = 13;
-    static const int GRID_SIZE = 52;
+    static const int GRID_SIZE = 40;
 
     // LMJ: "Layer 2 specific variables"
     Block* selectedBlock;
@@ -95,6 +95,8 @@ public:
     void Exit() override;
     void Update(float dt) override;
     void Draw(sf::RenderWindow& window) override;
+
+    static bool CompareBlockAxisY(const Block* a, const Block* b);
 
 private:
     // LMJ: "Asset loading methods"

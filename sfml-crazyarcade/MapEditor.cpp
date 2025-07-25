@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "MapEditor.h"
+#include <algorithm>
+#include "libtinyfiledialogs-master/tinyfiledialogs.h"
 #include <fstream>
 #include <nlohmann/json.hpp>
-#include "libtinyfiledialogs-master/tinyfiledialogs.h"
 using json = nlohmann::json;
 
 MapEditor::MapEditor() : Scene(SceneIds::MapEditor)
@@ -216,6 +217,10 @@ void MapEditor::Draw(sf::RenderWindow& window)
         window.draw(tile);
     }
 
+    {
+        std::sort(PlacedBlocks.begin(), PlacedBlocks.end(), CompareBlockAxisY);
+    }
+
     for (Block* block : PlacedBlocks)
     {
         if (block && block->GetActive())
@@ -237,6 +242,11 @@ void MapEditor::Draw(sf::RenderWindow& window)
     window.setView(uiView);
     DrawRightSideUI(window);
     Scene::Draw(window);
+}
+
+bool MapEditor::CompareBlockAxisY(const Block* a, const Block* b)
+{
+    return a->GetPosition().y < b->GetPosition().y;
 }
 
 void MapEditor::HandleInput()
@@ -579,9 +589,9 @@ void MapEditor::CreateBlockAtPosition(const sf::Vector2f& gridPos)
         // LMJ: "Scale the block to fit grid size"
         sf::Sprite& blockSprite = newBlock->GetSprite();
         sf::Vector2u textureSize = blockSprite.getTexture()->getSize();
-        float scaleX = static_cast<float>(GRID_SIZE) / textureSize.x;
+        float scaleX = static_cast<float>(GRID_SIZE) / textureSize.x; // LMJ: SCALE BOX SIZE 01081089586
         float scaleY = static_cast<float>(GRID_SIZE) / textureSize.y;
-        blockSprite.setScale(scaleX, scaleY);
+        blockSprite.setScale(scaleX * 1.2f, scaleY * 1.2f);
 
         // LMJ: "Ensure proper origin and position"
         Utils::SetOrigin(blockSprite, Origins::MC);
@@ -728,7 +738,7 @@ void MapEditor::DrawBlockPreview(sf::RenderWindow& window)
         sf::Vector2u textureSize = BlockTextures[blockRegistryIndex].getSize();
         float scaleX = static_cast<float>(GRID_SIZE) / textureSize.x;
         float scaleY = static_cast<float>(GRID_SIZE) / textureSize.y;
-        preview.setScale(scaleX, scaleY);
+        preview.setScale(scaleX * 1.2f, scaleY * 1.2f);
 
         // LMJ: "Set origin and position"
         Utils::SetOrigin(preview, Origins::MC);
@@ -1063,6 +1073,7 @@ void MapEditor::LoadMapFromJson(const std::string& filename)
             {
                 PlacedBlocks.push_back(block);
                 block->Init();
+                block->SetScale({ 0.588235319 * 1.2f, 0.597014904 * 1.2f });
                 block->Reset();
             }
         }
