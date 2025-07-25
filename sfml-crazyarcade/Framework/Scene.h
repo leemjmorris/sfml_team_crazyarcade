@@ -51,21 +51,8 @@ struct DrawOrderComparer
 	bool operator()(const GameObject* a, const GameObject* b)
 	{
 		if (a->sortingLayer != b->sortingLayer)
-		{
 			return a->sortingLayer < b->sortingLayer;
-		}
-		return a->sortingOrder < b->sortingOrder;
-		
-		if (a->sortingLayer == b->sortingLayer)
-		{
-			if (a->GetPosition().y < b->GetPosition().y)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
+
+		return a->GetPosition().y < b->GetPosition().y;
 	}
 };
