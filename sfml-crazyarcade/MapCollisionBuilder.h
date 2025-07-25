@@ -4,19 +4,18 @@
 class MapCollisionBuilder
 {
 protected:
-    const std::vector<std::vector<int>>& mapData;
+    const int(&mapData)[13][15];
 
     const int GRID_SIZE = 52;
 
 public:
     MapCollisionBuilder() = delete;
-    MapCollisionBuilder(const std::vector<std::vector<int>>& data);
+    MapCollisionBuilder(const int(&data)[13][15]);
     ~MapCollisionBuilder() = default;
 
-    void SetMapData(const std::vector<std::vector<int>>& data);
     void BuildMapHitBox(Scene* scene);
     void DrawDebugHitBox(sf::RenderWindow& window);
-    void test();
+    sf::RectangleShape DrawRect(int i, int j);
     void CreateCollisionHitBox();
 };
 
