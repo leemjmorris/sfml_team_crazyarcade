@@ -33,23 +33,44 @@ void Player::PlayerEvent(float dt)
 		CheckInstallBomb();
 	}
 
-	if (InputMgr::GetKeyDown(sf::Keyboard::Q))
+	if (InputMgr::GetKeyDown(sf::Keyboard::B)) // LSY: for testing
+	{
+		SetPlayerTrapped(true);
+		checkDieTimer = true;
+	}
+
+	if (checkDieTimer)
+	{
+		dieTimer += dt;
+		if (dieTimer > 5.f)
+		{
+			isDead = true;
+		}
+	}
+
+	if (isTrapped || InputMgr::GetKeyDown(sf::Keyboard::Num1))
+	{
+
+		animState = AnimState::Trapped;
+		curSpeed = 5.f; // LSY: trap speed
+		animator.Play("animation/bazzi_trap.csv");
+		isTrapped = false;
+	}
+	
+	if (isDead || InputMgr::GetKeyDown(sf::Keyboard::Num2))
 	{
 		animState = AnimState::Dead;
 		animator.SetSpeed(0.8);
 		animator.Play("animation/bazzi_die.csv");
+		isDead = false;
 	}
 
-	if (InputMgr::GetKeyDown(sf::Keyboard::Z))
-	{
-		animState = AnimState::Dying;
-		animator.Play("animation/bazzi_trap.csv");
-	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::R))
-	{
-		animState = AnimState::live;
-		animator.Play("animation/bazzi_live.csv");
-	}
+	//if (isAlive)
+	//{
+	//	isTrapped = false;
+	//	animState = AnimState::live;
+	//	animator.Play("animation/bazzi_live.csv");
+	//}
 }
 
 bool Player::CheckInstallBomb()
@@ -94,7 +115,7 @@ void Player::Animating(float dt)
 		animState = AnimState::live;
 	}
 
-	else if (dir == sf::Vector2f(0.f, 0.f) &&
+		else if (dir == sf::Vector2f(0.f, 0.f) &&
 			(animator.GetCurrentClipId() == "Run" ||
 			animator.GetCurrentClipId() == "Up" ||
 			animator.GetCurrentClipId() == "Down"
@@ -117,13 +138,14 @@ void Player::Animating(float dt)
 		}
 	}
 
-	if (dir. x < 0)
-	{
-		SetScale({ -1.f,1.f });
-	}
-	if (dir.x > 0)
-	{
-		SetScale({ 1.f,1.f });
+		if (dir.x < 0)
+		{
+			SetScale({ -1.f,1.f });
+		}
+		if (dir.x > 0)
+		{
+			SetScale({ 1.f,1.f });
+		}
 	}
 }
 
@@ -208,9 +230,10 @@ void Player::Reset()
 
 void Player::Update(float dt)
 {
-	Animating(dt);
-	animator.Update(dt);
+	hitBox.UpdateTransform(sprite, sprite.getLocalBounds());
 	SetOrigin(Origins::BC);
+	MoveAnim(dt);
+	animator.Update(dt);
 	dir=InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
 
 	position = GetPosition() + dir * curSpeed * dt;
