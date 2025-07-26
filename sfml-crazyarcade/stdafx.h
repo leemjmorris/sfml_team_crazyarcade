@@ -1,8 +1,10 @@
 #pragma once
 
 // LMJ: File Path Organizer Added
-#define PATH_MAP_FOREST "assets/map/forest/"
+#define PATH_MAP_FOREST_TILE "assets/map/forest/tile/"
+#define PATH_MAP_FOREST_BLOCK "assets/map/forest/block/"
 #define PATH_MAP_TOWN "assets/map/town/"
+#define PATH_MAP_JSON "map/" // LMJ: "JSON map files directory"
 #define PATH_FONT "assets/font/"
 #define PATH_ITEM "assets/item/"
 #define PATH_BOMB "assets/bomb/"
@@ -16,6 +18,9 @@
 #define PATH_ANI_WAVE "assets/wave/"
 #define PATH_ASSETS "assets/"
 
+// LMJ: "Map loading convenience macros"
+#define LOAD_MAP(scene, filename) Utils::LoadMapFromJson(scene, filename)
+#define CLEAR_MAP(scene) Utils::ClearMapObjects(scene)
 
 // STL
 #include <iostream>
@@ -26,6 +31,7 @@
 #include <unordered_map>
 #include <algorithm>
 #include <functional>
+#include <fstream> // LMJ: "Added for JSON file loading"
 
 // SFML
 #include <SFML/Graphics.hpp>
@@ -34,11 +40,11 @@
 // FRAMEWORK
 #include "Defines.h"
 #include "Variables.h"
-#include "Utils.h"
 #include "Singleton.h"
 #include "ResourceMgr.h"
 #include "InputMgr.h"
 #include "GameObject.h"
+#include "Utils.h"
 #include "Scene.h"
 #include "SceneMgr.h"
 #include "SoundMgr.h"

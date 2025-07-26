@@ -45,7 +45,10 @@ void SceneDemo::Init()
 	texIds.push_back("assets/player/bazzi/live.png");
 	texIds.push_back("assets/player/bazzi/jump.png");
 
-	// KHI: Blocks
+	// LMJ: "Load forest tileset texture for map loading (same as MapEditor)"
+	texIds.push_back(PATH_MAP_FOREST_TILE "forest_tile_set.png");
+
+	// KHI: Blocks - Keep existing block textures
 	texIds.push_back("assets/map/forest/tile/tile_9.bmp");
 	texIds.push_back("assets/map/forest/object/object_3.bmp");
 
@@ -90,19 +93,24 @@ void SceneDemo::Enter()
 	Item::SpawnItem("item", Item::ItemType::WaterJet, { 400.f, 200.f });
 
 	std::cout << "===================" << std::endl;
-	std::cout << "     SceneDemo"      << std::endl;
+	std::cout << "     SceneDemo" << std::endl;
 	std::cout << "===================" << std::endl;
 
 	bazzi->SetPosition({ 100,100 });
 	Dao->SetPosition({ 200,100 });
 
-	//Block* testBlock = new Block();
-	//testBlock->SetBlockType(BlockType::SoftBlock);
-
-	//testBlockSprite.setTexture(TEXTURE_MGR.Get("assets/map/forest/block/block_1.bmp"));
-	//testBlockSprite.setPosition({300.f, 300.f});
-
-	SetLayerForTest();
+	// LMJ: "Load map from JSON file created in MapEditor"
+	// LMJ: "This replaces the old manual tile/block creation"
+	if (!LOAD_MAP(this, "temp_map.json"))
+	{
+		std::cout << "Failed to load temp_map.json, falling back to manual setup..." << std::endl;
+		// LMJ: "Fallback to old method if JSON loading fails"
+		SetLayerForTest();
+	}
+	else
+	{
+		std::cout << "Successfully loaded map from temp_map.json!" << std::endl;
+	}
 }
 
 void SceneDemo::Update(float dt)
@@ -111,12 +119,12 @@ void SceneDemo::Update(float dt)
 	{
 		toggleActiveGrid = !toggleActiveGrid;
 	}
-	
+
 	for (auto* obj : objectsNeedingClamp)
 		ClampToBounds(*obj);
 
 	CheckCollisionWithPlayer();
-	
+
 	Scene::Update(dt);
 }
 

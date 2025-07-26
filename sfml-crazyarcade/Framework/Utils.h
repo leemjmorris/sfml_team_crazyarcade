@@ -1,6 +1,9 @@
 #pragma once
 #include <random>
 
+// LMJ: "Forward declarations to avoid circular dependencies"
+class Scene;
+
 class Utils
 {
 private:
@@ -64,6 +67,14 @@ public:
 	static bool PolygonsIntersect(const std::vector<sf::Vector2f>& polygonA, const sf::Transform& transformA,
 		const std::vector<sf::Vector2f>& polygonB, const sf::Transform& transformB);
 
+	// LMJ: "Map loading utilities"
+	static bool LoadMapFromJson(Scene* scene, const std::string& filename);
+	static void LoadTilesFromJson(Scene* scene, const void* tilesJson);
+	static void LoadBlocksFromJson(Scene* scene, const void* blocksJson);
+	static sf::Vector2f GridToWorldPosition(int gridX, int gridY, int gridSize = 40);
+	static void ClearMapObjects(Scene* scene);
+
+private:
+	// LMJ: "Private helper for map loading"
+	static sf::Sprite* CreateTileSprite(int tileOptionIndex, const sf::Vector2f& position, float rotation = 0.f);
 };
-
-
