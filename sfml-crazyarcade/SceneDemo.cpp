@@ -5,9 +5,10 @@
 #include "WaterSplashPool.h"
 #include "Item.h"
 #include "Block.h"
+#include "MapCollisionBuilder.h"
 
 SceneDemo::SceneDemo()
-	: Scene(SceneIds::Demo)
+	: Scene(SceneIds::Demo), builder(layer1)
 {
 }
 
@@ -128,6 +129,8 @@ void SceneDemo::Draw(sf::RenderWindow& window)
 
 	if (toggleActiveGrid)
 		window.draw(gridLines);
+
+	builder.DrawDebugHitBox(window);
 
 	Scene::Draw(window);
 }

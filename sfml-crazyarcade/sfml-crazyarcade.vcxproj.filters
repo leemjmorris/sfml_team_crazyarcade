@@ -88,6 +88,12 @@
     <ClCompile Include="libtinyfiledialogs-master\tinyfiledialogs.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="SceneReady.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MapCollisionBuilder.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\AnimationClip.h">
@@ -187,6 +193,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="libtinyfiledialogs-master\tinyfiledialogs.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneReady.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MapCollisionBuilder.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

@@ -67,4 +67,14 @@ public:
 	{
 		return hitBox;
 	}
+
+	sf::FloatRect GetGlobalBounds() const
+	{
+		return waterSplash.getGlobalBounds();
+	}
+
+	sf::FloatRect GetLocalBounds() const
+	{
+		return waterSplash.getLocalBounds();
+	}
 };

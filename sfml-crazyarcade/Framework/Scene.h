@@ -58,4 +58,4 @@ struct DrawOrderComparer
 
 		return a->GetPosition().y < b->GetPosition().y;
 	}
-};
+};	

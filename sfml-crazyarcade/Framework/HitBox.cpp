@@ -6,14 +6,48 @@ HitBox::HitBox()
 	rect.setFillColor(sf::Color::Transparent);
 	rect.setOutlineColor(sf::Color::Green);
 	rect.setOutlineThickness(1.f);
+
+	customized = false;
+}
+
+HitBox::HitBox(const sf::Vector2f& size)
+{
+	rect.setFillColor(sf::Color::Transparent);
+	rect.setOutlineColor(sf::Color::Green);
+	rect.setOutlineThickness(1.f);
+	rect.setSize(size);
+
+	customized = true;
+}
+
+HitBox::HitBox(const sf::Vector2f& size, const sf::Vector2f& offset)
+{
+	rect.setFillColor(sf::Color::Transparent);
+	rect.setOutlineColor(sf::Color::Green);
+	rect.setOutlineThickness(1.f);
+	rect.setSize(size);
+	hitBoxOffset = offset;
+
+	customized = true;
 }
 
 void HitBox::UpdateTransform(const sf::Transformable& tr, const sf::FloatRect& localBounds)
 {
-	rect.setSize({ localBounds.width, localBounds.height });
-	rect.setOutlineColor(sf::Color::Green);
+	if (!customized)
+	{
+		rect.setSize({ localBounds.width, localBounds.height });
+	}
+
 	rect.setOrigin(tr.getOrigin());
-	rect.setPosition(tr.getPosition());
+
+	sf::Vector2f adjustedOffset = hitBoxOffset;
+	if (tr.getScale().x < 0.f)
+	{
+		adjustedOffset.x *= -1.f;
+	}
+
+	rect.setPosition(tr.getPosition() + adjustedOffset);
+
 	rect.setScale(tr.getScale());
 	rect.setRotation(tr.getRotation());
 }

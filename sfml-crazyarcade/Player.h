@@ -35,6 +35,9 @@ protected:
 	float aliveTimer;
 	bool isShowing;
 	bool checkDieTimer=false;
+
+	sf::Vector2f playerHitBoxSize = { 52.f, 52.f }; // KHI
+	sf::Vector2f playerHitBoxOffset = { 7.f, 20.f }; // KHI: 
 	HitBox hitBox;
 
 public:

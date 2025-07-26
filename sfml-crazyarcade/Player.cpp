@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "WaterBalloon.h"
-#include <cmath>
 
 Player::Player(const std::string& name, CharacterID id, int index)
 	: GameObject(name),
@@ -14,7 +13,8 @@ Player::Player(const std::string& name, CharacterID id, int index)
 	isShowing(true),
 	dieTimer(0.f),
 	aliveTimer(0.f),
-	animState(AnimState::Normal)
+	animState(AnimState::Normal),
+	hitBox(playerHitBoxSize, playerHitBoxOffset)
 {
 	const auto& stats = CharacterTable.at(charId);
 	curWaterBalloonCount = stats.initBombCount;
@@ -240,6 +240,7 @@ void Player::Update(float dt)
 void Player::Draw(sf::RenderWindow& window)
 {
 	window.draw(sprite);
+	hitBox.Draw(window);
 }
 
 // KHI
@@ -256,7 +257,10 @@ void Player::CheckCollWithSplash()
 
 		if (splashObj && splashObj->GetActive())
 		{
-			if (Utils::CheckCollision(splashObj->GetHitBox().rect, this->GetHitBox().rect))
+
+			sf::FloatRect rect(splashObj->GetGlobalBounds()); // left, top, width, height
+
+			if (rect.contains(GetPosition()))
 			{
 				animState = AnimState::Trapped;
 				curSpeed = 5.f;
