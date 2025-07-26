@@ -1,17 +1,19 @@
 #pragma once
+
 class HitBox
 {
 public:
-	bool customized = false;
+    HitBox();
 
-	HitBox();
-	HitBox(const sf::Vector2f& size);
-	HitBox(const sf::Vector2f& size, const sf::Vector2f& offset);
+    sf::RectangleShape rect;
 
-	sf::RectangleShape rect;
-	sf::Vector2f hitBoxOffset = { 0, 0 };
+    void UpdateTransform(const sf::Transformable& tr, const sf::FloatRect& localBounds);
+    void Draw(sf::RenderWindow& window);
 
-	void UpdateTransform(const sf::Transformable& tr, const sf::FloatRect& localBounds);
-	void Draw(sf::RenderWindow& window);
+    void UpdateCustomTransform(const sf::Transformable& tr, const sf::Vector2f& customSize, Origins spriteOrigin);
+    void UpdateCustomTransform(const sf::Transformable& tr, const sf::Vector2f& customSize, Origins spriteOrigin, const sf::Vector2f& offset);
+    void UpdateCustomTransform(const sf::Transformable& tr, const sf::Vector2f& customSize, const sf::Vector2f& offset, Origins spriteOrigin);
+
+    sf::FloatRect GetGlobalBounds() const;
+    sf::Vector2f CalculateOriginOffset(Origins spriteOrigin, const sf::FloatRect& spriteBounds);
 };
-

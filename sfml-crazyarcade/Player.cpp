@@ -13,8 +13,7 @@ Player::Player(const std::string& name, CharacterID id, int index)
 	isShowing(true),
 	dieTimer(0.f),
 	aliveTimer(0.f),
-	animState(AnimState::Normal),
-	hitBox(playerHitBoxSize, playerHitBoxOffset)
+	animState(AnimState::Normal)
 {
 	const auto& stats = CharacterTable.at(charId);
 	curWaterBalloonCount = stats.initBombCount;
@@ -217,7 +216,8 @@ void Player::Reset()
 
 void Player::Update(float dt)
 {
-	hitBox.UpdateTransform(sprite, sprite.getLocalBounds());
+	hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, Origins::BC, playerHitBoxOffset);
+
 	SetOrigin(Origins::BC);
 	MoveAnim(dt);
 	animator.Update(dt);
@@ -227,7 +227,7 @@ void Player::Update(float dt)
 	SetPosition(position);
 
 	PlayerEvent(dt);
-	hitBox.UpdateTransform(sprite, sprite.getLocalBounds());
+	hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, Origins::BC, playerHitBoxOffset);
 
 	CheckCollWithSplash(); // KHI
 	if (animState == AnimState::Trapped)
@@ -235,7 +235,7 @@ void Player::Update(float dt)
 		dieTimer += dt;
 		if (dieTimer > 5.f)
 		{
-			animState == AnimState::Dead;
+			animState = AnimState::Dead;
 			dieTimer = 0.f;
 			animator.Play("animation/bazzi_die.csv");
 			std::cout << "TrappedTimer is finished: AnimeState::Dead" << std::endl;

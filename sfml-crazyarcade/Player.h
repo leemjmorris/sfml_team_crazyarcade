@@ -34,8 +34,8 @@ protected:
 	bool isShowing;
 	bool checkDieTimer=false;
 
-	sf::Vector2f playerHitBoxSize = { 52.f, 52.f }; // KHI
-	sf::Vector2f playerHitBoxOffset = { 7.f, 20.f }; // KHI: 
+	sf::Vector2f playerHitBoxSize = { 40.f, 40.f }; // KHI
+	sf::Vector2f playerHitBoxOffset = { 0.f, 10.f }; // KHI: 
 	HitBox hitBox;
 
 public:
