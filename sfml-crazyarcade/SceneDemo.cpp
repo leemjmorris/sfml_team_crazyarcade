@@ -15,8 +15,13 @@ SceneDemo::SceneDemo()
 void SceneDemo::Init()
 {
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
-	worldView.setSize(windowSize);
-	worldView.setCenter(windowSize * 0.5f);
+
+	float scale = 1.3f;
+	sf::Vector2f worldSize = windowSize * scale;
+
+	sf::Vector2f topLeft = { 30.f, 50.f };
+	worldView.setSize(worldSize);
+	worldView.setCenter( worldSize.x * 0.5f - topLeft.x, worldSize.y * 0.5f - topLeft.y);
 
 	// KHI: For Testing (Draw Grids)
 	gridLines.setPrimitiveType(sf::Lines);
