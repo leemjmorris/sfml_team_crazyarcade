@@ -122,8 +122,6 @@ void SceneDemo::Update(float dt)
 	
 	for (auto* obj : objectsNeedingClamp)
 		ClampToBounds(*obj);
-
-	CheckCollisionWithPlayer();
 	
 	Scene::Update(dt);
 }
@@ -152,7 +150,7 @@ void SceneDemo::ClampToBounds(GameObject& obj)
 	obj.SetPosition(pos);
 }
 
-bool SceneDemo::CheckCollisionWithPlayer()
+bool SceneDemo::CheckCollisionWithPlayer(float dt)
 {
 	if (Utils::CheckCollision(dao->GetHitBox().rect, bazzi->GetHitBox().rect))
 	{

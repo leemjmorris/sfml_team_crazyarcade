@@ -15,6 +15,8 @@ protected:
 	const int GRID_WIDTH = 15;
 	const int GRID_SIZE = 52;
 
+	float killTimer = 0.0f;
+
 	Player* bazzi;
 	Player* dao;
 	Item* item;
@@ -77,5 +79,5 @@ public:
 
 	// KHI: For TEST !!!
 	void SetLayerForTest();
-	bool CheckCollisionWithPlayer();
+	bool CheckCollisionWithPlayer(float dt);
 };
