@@ -5,6 +5,8 @@
 #include "ColorMaskShader.h"
 #include "MapCollisionBuilder.h"
 
+class GameSceneUI;
+
 class SceneDemo : public Scene
 {
 protected:
@@ -20,6 +22,8 @@ protected:
 	Item* item;
 	sf::FloatRect worldBounds = FRAMEWORK.GetWindowBounds();
 	std::vector<GameObject*> objectsNeedingClamp;
+
+	GameSceneUI* ui;
 
 	sf::Sprite testBlockSprite;
 

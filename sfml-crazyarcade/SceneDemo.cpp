@@ -6,6 +6,7 @@
 #include "Item.h"
 #include "Block.h"
 #include "MapCollisionBuilder.h"
+#include "GameSceneUI.h"
 
 SceneDemo::SceneDemo()
 	: Scene(SceneIds::Demo), collBuilder(layer1)
@@ -16,13 +17,17 @@ void SceneDemo::Init()
 {
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 
-	float scale = 1.3f;
+	float scale = 1.30f;
 	sf::Vector2f worldSize = windowSize * scale;
 
-	sf::Vector2f topLeft = { 30.f, 50.f };
+	sf::Vector2f topLeft = { 27.f, 55.f };
 	worldView.setSize(worldSize);
 	worldView.setCenter( worldSize.x * 0.5f - topLeft.x, worldSize.y * 0.5f - topLeft.y);
 
+	uiView.setSize(windowSize);
+	uiView.setCenter(windowSize * 0.5f);
+	uiView.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+	
 	// KHI: For Testing (Draw Grids)
 	gridLines.setPrimitiveType(sf::Lines);
 	gridLines.clear();
@@ -49,6 +54,7 @@ void SceneDemo::Init()
 	texIds.push_back("assets/player/bazzi/trap.png");
 	texIds.push_back("assets/player/bazzi/live.png");
 	texIds.push_back("assets/player/bazzi/jump.png");
+	texIds.push_back("assets/play_bg.bmp");
 
 	// KHI: Blocks
 	texIds.push_back("assets/map/forest/tile/tile_9.bmp");
@@ -80,6 +86,8 @@ void SceneDemo::Init()
 	colorMask.LoadFromFile("assets/shaders/transparent.frag");
 	colorMask.SetMaskColor(sf::Color(255, 0, 255));
 	colorMask.SetThreshold(0.1f);
+
+	ui = static_cast<GameSceneUI*>(AddGameObject(new GameSceneUI()));
 
 	Scene::Init();
 }
@@ -132,6 +140,8 @@ void SceneDemo::Update(float dt)
 
 void SceneDemo::Draw(sf::RenderWindow& window)
 {
+	window.setView(worldView);
+
 	for (int i = 0; i < sprites.size(); i++)
 	{
 		colorMask.Apply(window, sprites[i]);
