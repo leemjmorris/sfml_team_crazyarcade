@@ -83,6 +83,8 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void CheckCollWithSplash(); // KHI
+	bool CheckCollisionWithMap(); // KHI
+	void Movement(float dt); // KHI
 
 	sf::FloatRect GetGlobalBounds() const
 	{

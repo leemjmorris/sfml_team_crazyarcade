@@ -216,20 +216,17 @@ void Player::Reset()
 
 void Player::Update(float dt)
 {
-	hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, Origins::BC, playerHitBoxOffset);
-
 	SetOrigin(Origins::BC);
+
 	MoveAnim(dt);
 	animator.Update(dt);
-	dir = InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
-
-	position = GetPosition() + dir * curSpeed * dt;
-	SetPosition(position);
+	Movement(dt);
 
 	PlayerEvent(dt);
 	hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, Origins::BC, playerHitBoxOffset);
 
-	CheckCollWithSplash(); // KHI
+	CheckCollWithSplash();
+
 	if (animState == AnimState::Trapped)
 	{
 		dieTimer += dt;
@@ -276,4 +273,47 @@ void Player::CheckCollWithSplash()
 			}
 		}
 	}
+}
+
+// KHI
+bool Player::CheckCollisionWithMap()
+{
+	sf::FloatRect nextBounds = hitBox.rect.getGlobalBounds();
+
+	for (const auto& tile : mapData)
+	{
+		if (tile.bounds.intersects(nextBounds))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+// KHI
+void Player::Movement(float dt)
+{
+	dir = InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
+
+	sf::Vector2f currentPos = GetPosition();
+	sf::Vector2f tempPos = currentPos;
+
+	sf::Vector2f tryX = currentPos + sf::Vector2f(dir.x * curSpeed * dt, 0.f);
+	sprite.setPosition(tryX);
+	hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
+	if (!CheckCollisionWithMap())
+	{
+		tempPos.x = tryX.x;
+	}
+
+	sf::Vector2f tryY = currentPos + sf::Vector2f(0.f, dir.y * curSpeed * dt);
+	sprite.setPosition(sf::Vector2f(tempPos.x, tryY.y));
+	hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
+	if (!CheckCollisionWithMap())
+	{
+		tempPos.y = tryY.y;
+	}
+
+	SetPosition(tempPos);
 }

@@ -27,15 +27,16 @@ void MapCollisionBuilder::CreateCollisionHitBox()
 // KHI: For debuging
 void MapCollisionBuilder::DrawDebugHitBox(sf::RenderWindow& window)
 {
-    for (int i = 0; i < 13; i++)
+    for (const auto& tile : tileHitBoxes)
     {
-        for (int j = 0; j < 15; j++)
-        {
-            if (mapData[i][j] == 1)
-            {
-                window.draw(DrawRect(i, j));
-            }
-        }
+        sf::RectangleShape rect;
+        rect.setSize({ tile.bounds.width, tile.bounds.height });
+        rect.setFillColor(sf::Color(255, 0, 0, 80));
+        rect.setOutlineColor(sf::Color::Red);
+        rect.setOutlineThickness(1.f);
+        rect.setPosition(tile.bounds.left, tile.bounds.top); // TL 기준
+
+        window.draw(rect);
     }
 }
 
@@ -43,10 +44,14 @@ sf::RectangleShape MapCollisionBuilder::DrawRect(int i, int j)
 {
     sf::RectangleShape debugRect;
     debugRect.setSize({ static_cast<float>(GRID_SIZE), static_cast<float>(GRID_SIZE) });
+
+    debugRect.setOrigin(GRID_SIZE * 0.5f, GRID_SIZE * 0.5f); // 중심 기준
+    debugRect.setPosition(static_cast<float>(j * GRID_SIZE + GRID_SIZE * 0.5f),
+        static_cast<float>(i * GRID_SIZE + GRID_SIZE * 0.5f));
+
     debugRect.setFillColor(sf::Color(255, 0, 0, 80));
     debugRect.setOutlineColor(sf::Color::Red);
     debugRect.setOutlineThickness(1.f);
-    debugRect.setPosition(static_cast<float>(j * GRID_SIZE), static_cast<float>(i * GRID_SIZE));
 
     return debugRect;
 }
