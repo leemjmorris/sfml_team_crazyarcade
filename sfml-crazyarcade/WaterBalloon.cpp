@@ -77,7 +77,7 @@ void WaterBalloon::Update(float dt)
 			{
 				currentTime = 0;
 				isCounting = false;
-				//targetPlayer->AddWaterBalloonCount(); // LSY: Todo
+				
 				Explode();
 			}
 		}
@@ -93,13 +93,13 @@ void WaterBalloon::StartCastCountdown()
 	currentTime = countdownTime;
 	isCounting = true;
 }
-	
+
 void WaterBalloon::Explode()
 {
 	ExplodeInAllDirections(splashLength, splashLength, splashLength, splashLength);
+	player->OnBalloonExploded();
 	Scene* currentScene = SCENE_MGR.GetCurrentScene();
 	currentScene->RemoveGameObject(this);
-	player->SetBalloonCount();
 }
 
 void WaterBalloon::ExplodeInAllDirections(int upLen, int downLen, int leftLen, int rightLen)

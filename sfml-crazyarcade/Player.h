@@ -10,8 +10,6 @@ class Player :
 {
 protected:
 	AnimState animState;
-
-
 	int playerIndex;
 
 	bool isTrapped;
@@ -39,31 +37,32 @@ protected:
 	HitBox hitBox;
 
 public:
-	// LSY: for std::cout in ItemClass 
+	// LSY: for std::cout in ItemClass
 	float curSpeed;
-	int curWaterBalloonCount;
-	int curWaterBalloonLength;
+	int balloonCapacity;
+	int activeBalloons;
+	int activeWaterBalloonCount;
+	int activeWaterBalloonLength;
 	int	maxBalloonCount;
 	int	maxBalloonLength;
 
 	Player(const std::string& name, CharacterID id, int index);
 	~Player();
 	void PlayerEvent(float dt);
+	void OnBalloonExploded();
+	bool CanPlaceBalloon() const;
 	bool CheckInstallBomb();
 	bool CheckBubblePop(AnimState s);
 	void MoveAnim(float dt);
 	void AddSpeed(float s =1);
 	void AddWaterBalloonCount(int c =1);
 	void AddWaterBalloonLength(int l =1);
+	void GetBalloon(int a) { activeBalloons += a; };
 	void SetGameOver();
-	void SetBalloonCount() {
-		curWaterBalloonCount--;
-		if (curWaterBalloonCount < 0)
-			curWaterBalloonCount = 0;
-	};
+
 	float GetSpeed() { return curSpeed; };
-	const int GetWaterBalloonCount() { return curWaterBalloonCount; };
-	const int GetWaterBalloonLength() { return curWaterBalloonLength; };
+	const int GetWaterBalloonCount() { return activeWaterBalloonCount; };
+	const int GetWaterBalloonLength() { return activeWaterBalloonLength; };
 	AnimState GetPlayerState() { return animState; };
 
 	void SetPosition(const sf::Vector2f& pos) override;
@@ -77,6 +76,7 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
 
 	void CheckCollWithSplash(); // KHI
 

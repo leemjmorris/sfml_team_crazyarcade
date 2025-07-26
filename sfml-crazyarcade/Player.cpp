@@ -5,8 +5,8 @@
 Player::Player(const std::string& name, CharacterID id, int index)
 	: GameObject(name),
 	curSpeed(100.f),
-	curWaterBalloonCount(1),
-	curWaterBalloonLength(1),
+	activeWaterBalloonCount(1),
+	activeWaterBalloonLength(1),
 	velocity({ 1.f,1.f }),
 	dir({ 1.f,1.f }),
 	playerIndex(index),
@@ -17,11 +17,11 @@ Player::Player(const std::string& name, CharacterID id, int index)
 	hitBox(playerHitBoxSize, playerHitBoxOffset)
 {
 	const auto& stats = CharacterTable.at(charId);
-	curWaterBalloonCount = stats.initBombCount;
-	curWaterBalloonLength = stats.initbombLength;
+
 	curSpeed = stats.intiPlayerSpeed;
 	maxBalloonCount = stats.maxBombCount;
 	maxBalloonLength = stats.maxbombLength;
+	balloonCapacity = stats.initBombCount;
 }
 
 Player::~Player()
@@ -42,25 +42,28 @@ void Player::PlayerEvent(float dt)
 	//}
 }
 
+void Player::OnBalloonExploded()
+{
+	if (activeBalloons > 0) --activeBalloons;
+}
+
+bool Player::CanPlaceBalloon() const
+{
+	return activeBalloons < balloonCapacity;
+}
+
 bool Player::CheckInstallBomb()
 {
-	if (curWaterBalloonCount > maxBalloonCount) // LSY: add maxBombCount in struct 'CharactorStats'
-	{
-		std::cout << "max bomb" << std::endl;
+	if (!CanPlaceBalloon()) {
+		std::cout << "모든 풍선이 설치돼 있어!" << std::endl;
 		return false;
 	}
-	else
-	{
-		WaterBalloon::Spawn("bomb", GetPosition(), curWaterBalloonLength, this);
-		curWaterBalloonCount--;
-		std::cout << "waterBalloon count: " << curWaterBalloonCount << std::endl;
-		if (curWaterBalloonCount < 0)
-		{
-			std::cout << "waterBalloon is finished" << std::endl;
-			return true;
-		}
-		return true;
-	}
+
+	WaterBalloon::Spawn("bomb", GetPosition(),
+		GetWaterBalloonLength(), this);
+
+	++activeBalloons;                  // 필드에 살아있는 풍선 +1
+	return true;
 }
 
 bool Player::CheckBubblePop(AnimState s)
@@ -134,12 +137,12 @@ void Player::AddSpeed(float s)
 
 void Player::AddWaterBalloonCount(int b)
 {
-	curWaterBalloonCount += b;
+	balloonCapacity = Utils::Clamp(balloonCapacity + b, 1, maxBalloonCount); 
 }
 
 void Player::AddWaterBalloonLength(int l)
 {
-	curWaterBalloonLength += l;
+	activeWaterBalloonLength += l;
 }
 
 //====================================GAME OVER==========================================
@@ -185,7 +188,7 @@ void Player::SetOrigin(Origins preset)
 
 void Player::Init()
 {
-	std::cout << "[Init balloonCount]" << curWaterBalloonCount << ", [Init balloonLength]" << curWaterBalloonLength << ", [Init Speed]" << curSpeed << std::endl;
+	std::cout << "[Init balloonCount]" << activeWaterBalloonCount << ", [Init balloonLength]" << activeWaterBalloonLength << ", [Init Speed]" << curSpeed << std::endl;
 	SetOrigin(Origins::BC);
 	animator.SetTarget(&sprite);
 
@@ -263,7 +266,6 @@ void Player::CheckCollWithSplash()
 
 		if (splashObj && splashObj->GetActive())
 		{
-
 			sf::FloatRect rect(splashObj->GetGlobalBounds()); // left, top, width, height
 
 			if (rect.contains(GetPosition()))
