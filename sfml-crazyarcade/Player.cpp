@@ -4,19 +4,26 @@
 
 Player::Player(const std::string& name, CharacterID id, int index)
 	: GameObject(name),
+	charId(id),
 	curSpeed(100.f),
 	activeWaterBalloonCount(1),
 	activeWaterBalloonLength(1),
-	velocity({ 1.f,1.f }),
-	dir({ 1.f,1.f }),
+	velocity({ 1.f, 1.f }),
+	dir({ 1.f, 1.f }),
 	playerIndex(index),
-	isShowing(true),
 	isStart(false),
 	isDead(false),
+	isAlive(true),
+	isTrapped(false),
 	dieTimer(0.f),
-	aliveTimer(0.f),
+	readyTimer(0.f),
+	activeBalloons(0),
 	animState(AnimState::Normal),
-	hitBox(playerHitBoxSize, playerHitBoxOffset)
+	hAxis(Axis::Horizontal_1p),
+	vAxis(Axis::Vertical_1p),
+	installWaterBomb(sf::Keyboard::Unknown),
+	hitBox(playerHitBoxSize, playerHitBoxOffset),
+	obj(nullptr)
 {
 	const auto& stats = CharacterTable.at(charId);
 
@@ -68,74 +75,25 @@ bool Player::CheckInstallWaterballoon()
 	return true;
 }
 
-bool Player::CheckBubblePop(AnimState s)
+bool Player::HandleBubbleDeath(AnimState s)
 {
 	animState = s;
 	animator.Play("animation/bazzi_die.csv");
 	return true;
 }
 
-void Player::MoveAnim(float dt)
+void Player::Move(float dt)
 {
-	dir = InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
-	//std::cout << dir.x << ", " << dir.y << std::endl;
-	position = GetPosition() + dir * curSpeed * dt;
-	SetPosition(position);
-
-	if ( animState == AnimState::Live && animState != AnimState::Ready)
+	if (animState == AnimState::Live && animState != AnimState::Ready)
 	{
-		if (dir.x != 0 && animator.GetCurrentClipId() != "Run")
-		{
-			animator.Play("animation/bazzi_run.csv");
-			animState = AnimState::Live;
-		}
-
-		else if (dir.y < 0 && animator.GetCurrentClipId() != "Up")
-		{
-			animator.Play("animation/bazzi_up.csv");
-			animState = AnimState::Live;
-		}
-
-		else if (dir.y > 0 && animator.GetCurrentClipId() != "Down")
-		{
-			animator.Play("animation/bazzi_down.csv");
-			animState = AnimState::Live;
-		}
-
-		else if (dir == sf::Vector2f(0.f, 0.f) &&
-			(animator.GetCurrentClipId() == "Run" ||
-			animator.GetCurrentClipId() == "Up" ||
-			animator.GetCurrentClipId() == "Down"
-			))
-		{
-			if (animator.GetCurrentClipId() == "Run")
-			{
-				animator.Play("animation/bazzi_run.csv");
-				animState = AnimState::Live;
-			}
-			if (animator.GetCurrentClipId() == "Up")
-			{
-				animator.Play("animation/bazzi_up.csv");
-				animState = AnimState::Live;
-			}
-			if (animator.GetCurrentClipId() == "Down")
-			{
-				animator.Play("animation/bazzi_down.csv");
-				animState = AnimState::Live;
-			}
-		}
-
-		if (dir.x < 0)
-		{
-			SetScale({ -1.f,1.f });
-		}
-		if (dir.x > 0)
-		{
-			SetScale({ 1.f,1.f });
-		}
+		PlayMoveAnimation();
+		dir = InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
+		std::cout << dir.x << ", " << dir.y << std::endl;
+		position = GetPosition() + dir * curSpeed * dt;
+		SetPosition(position);
+		SetScale({ dir.x < 0 ? -1.f : dir.x > 0 ? 1.f : sprite.getScale().x, 1.f });
 	}
 }
-
 
 void Player::AddSpeed(float s)
 {
@@ -158,39 +116,6 @@ void Player::SetGameOver()
 	curSpeed = 0.f;
 	animState = AnimState::Win;
 	animator.Play("animation/bazzi_win.csv");
-}
-
-void Player::SetPosition(const sf::Vector2f& pos)
-{
-	GameObject::SetPosition(pos);
-	sprite.setPosition(pos);
-}
-
-void Player::SetRotation(float rot)
-{
-	GameObject::SetRotation(rot);
-	sprite.setRotation(rot);
-}
-
-void Player::SetScale(const sf::Vector2f& s)
-{
-	GameObject::SetScale(s);
-	sprite.setScale(s);
-}
-
-void Player::SetOrigin(const sf::Vector2f& o)
-{
-	GameObject::SetOrigin(o);
-	sprite.setOrigin(o);
-}
-
-void Player::SetOrigin(Origins preset)
-{
-	GameObject::SetOrigin(preset);
-	if (preset != Origins::Custom)
-	{
-		Utils::SetOrigin(sprite, preset);
-	}
 }
 
 void Player::Init()
@@ -221,7 +146,11 @@ void Player::Release()
 void Player::Reset()
 {
 	sortingLayer = SortingLayers::Default;
-	sortingOrder = 1; // LSY: waterBalloon / sortingOrder = 0
+	sortingOrder = 1;
+	curSpeed = CharacterTable.at(charId).intiPlayerSpeed;
+	balloonCapacity = CharacterTable.at(charId).initBombCount;
+	activeWaterBalloonCount = 1;
+	activeWaterBalloonLength = 1;
 	animator.Play("animation/bazzi_run.csv");
 }
 
@@ -232,7 +161,7 @@ void Player::Update(float dt)
 	if (isStart)
 	{
 		readyTimer += dt;
-		
+		dir = { 0.f, 0.f }; // LSY: stop moving when ready
 		//std::cout << readyTimer << std::endl;
 		if (readyTimer > 1.0f) // LSY: 1.f is the time to wait for the player to enter the game
 		{
@@ -241,7 +170,10 @@ void Player::Update(float dt)
 			isStart = false;
 		}
 	}
-	MoveAnim(dt);
+	else
+	{
+		Move(dt);
+	}
 	animator.Update(dt);
 
 	PlayerEvent(dt);
@@ -252,7 +184,7 @@ void Player::Update(float dt)
 		std::cout << "TrappedTimer: " << dieTimer << std::endl;
 		if (dieTimer > 5.f)
 		{
-			animState == AnimState::Dead;
+			animState = AnimState::Dead;
 			dieTimer = 0.f;
 			animator.Play("animation/bazzi_die.csv");
 			std::cout << "TrappedTimer is finished: AnimeState::Dead" << std::endl;
@@ -294,5 +226,38 @@ void Player::CheckCollWithSplash()
 				break;
 			}
 		}
+	}
+}
+
+void Player::SetPosition(const sf::Vector2f& pos)
+{
+	GameObject::SetPosition(pos);
+	sprite.setPosition(pos);
+}
+
+void Player::SetRotation(float rot)
+{
+	GameObject::SetRotation(rot);
+	sprite.setRotation(rot);
+}
+
+void Player::SetScale(const sf::Vector2f& s)
+{
+	GameObject::SetScale(s);
+	sprite.setScale(s);
+}
+
+void Player::SetOrigin(const sf::Vector2f& o)
+{
+	GameObject::SetOrigin(o);
+	sprite.setOrigin(o);
+}
+
+void Player::SetOrigin(Origins preset)
+{
+	GameObject::SetOrigin(preset);
+	if (preset != Origins::Custom)
+	{
+		Utils::SetOrigin(sprite, preset);
 	}
 }

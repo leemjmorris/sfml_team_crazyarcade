@@ -16,7 +16,7 @@ protected:
 	const int GRID_SIZE = 52;
 
 	Player* bazzi;
-	Player* Dao;
+	Player* dao;
 	Item* item;
 	sf::FloatRect worldBounds = FRAMEWORK.GetWindowBounds();
 	std::vector<GameObject*> objectsNeedingClamp;

@@ -8,7 +8,7 @@
 #include "MapCollisionBuilder.h"
 
 SceneDemo::SceneDemo()
-	: Scene(SceneIds::Demo), builder(layer1)
+	: Scene(SceneIds::Demo), builder(layer1), dao(nullptr),  bazzi(nullptr), item(nullptr) 
 {
 }
 
@@ -69,10 +69,10 @@ void SceneDemo::Init()
 	ANI_CLIP_MGR.Load("animation/bazzi_ready2.csv");
 
 	bazzi = static_cast<Player*>(AddGameObject(new Player("Bazzi", CharacterID::BAZZI, 0)));
-	Dao = static_cast<Player*>(AddGameObject(new Player("Dao", CharacterID::DAO, 1)));
+	dao = static_cast<Player*>(AddGameObject(new Player("Dao", CharacterID::DAO, 1)));
 
 	objectsNeedingClamp.push_back(bazzi);
-	objectsNeedingClamp.push_back(Dao);
+	objectsNeedingClamp.push_back(dao);
 
 	colorMask.LoadFromFile("assets/shaders/transparent.frag");
 	colorMask.SetMaskColor(sf::Color(255, 0, 255));
@@ -86,7 +86,7 @@ void SceneDemo::Enter()
 	Scene::Enter();
 
 	Item::SetPlayer(bazzi);
-	Item::SetPlayer(Dao);
+	Item::SetPlayer(dao);
 	
 	WaterSplashPool::SetCurScene(SCENE_MGR.GetCurrentScene());
 	WaterSplashPool::Init();
@@ -100,10 +100,10 @@ void SceneDemo::Enter()
 	std::cout << "===================" << std::endl;
 
 	bazzi->SetPosition({ 100,100 });
-	Dao->SetPosition({ 200,100 });
+	dao->SetPosition({ 200,100 });
 
 	bazzi->SetEnter(true);
-	Dao->SetEnter(true);
+	dao->SetEnter(true);
 	//Block* testBlock = new Block();
 	//testBlock->SetBlockType(BlockType::SoftBlock);
 
@@ -154,24 +154,26 @@ void SceneDemo::ClampToBounds(GameObject& obj)
 
 bool SceneDemo::CheckCollisionWithPlayer()
 {
-	if (Utils::CheckCollision(Dao->GetHitBox().rect, bazzi->GetHitBox().rect))
+	if (Utils::CheckCollision(dao->GetHitBox().rect, bazzi->GetHitBox().rect))
 	{
-		if (Dao->GetPlayerState() == AnimState::Trapped)
+		if (dao->GetPlayerState() == AnimState::Trapped && bazzi->GetPlayerState() != AnimState::Trapped)
 		{
-			Dao->CheckBubblePop(AnimState::Dead);
+			dao->HandleBubbleDeath(AnimState::Dead);
 			std::cout << " 2P Player Dead " << std::endl;
 			std::cout << "GameOver" << std::endl;
 			bazzi->SetGameOver();
+			return true;
 		}
-		else if (bazzi->GetPlayerState() == AnimState::Trapped)
+		else if (bazzi->GetPlayerState() == AnimState::Trapped && dao->GetPlayerState() != AnimState::Trapped)
 		{
-			bazzi->CheckBubblePop(AnimState::Dead);
+			bazzi->HandleBubbleDeath(AnimState::Dead);
 			std::cout << " 1P Player Dead " << std::endl;
 			std::cout << "GameOver" << std::endl;
-			Dao->SetGameOver();
+			dao->SetGameOver();
+			return true;
 		}
-		return true;
 	}
+	return false;
 }
 
 void SceneDemo::SetLayerForTest()
