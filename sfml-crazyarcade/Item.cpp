@@ -120,17 +120,18 @@ void Item::Use(Player* player)
 	std::cout << itemType << std::endl;
 	if (itemType == ItemType::Balloon)
 	{
-		player->AddBombCount(1);
+		player->AddWaterBalloonCount(1);
 	}
 	else if (itemType == ItemType::Speed)
 	{
 		player->AddSpeed(100);
 	}
+
 	else if (itemType == ItemType::WaterJet)
 	{
-		player->AddBombLength(1);
+		player->AddWaterBalloonLength(1);
 	}
-
+	std::cout << "[Cur balloonCount]" << player->curWaterBalloonCount << ", [Cur balloonLength]" << player->curWaterBalloonLength << ", [Cur Speed]" << player->curSpeed << std::endl;
 	SetActive(false);
 	// KHI: Add sound effect here **
 }
