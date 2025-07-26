@@ -11,6 +11,8 @@ Player::Player(const std::string& name, CharacterID id, int index)
 	dir({ 1.f,1.f }),
 	playerIndex(index),
 	isShowing(true),
+	isStart(false),
+	isDead(false),
 	dieTimer(0.f),
 	aliveTimer(0.f),
 	animState(AnimState::Normal),
@@ -32,12 +34,12 @@ void Player::PlayerEvent(float dt)
 {
 	if (InputMgr::GetKeyDown(installWaterBomb))
 	{
-		CheckInstallBomb();
+		CheckInstallWaterballoon();
 	}
 	//if (isAlive)
 	//{
 	//	isTrapped = false;
-	//	animState = AnimState::live;
+	//	animState = AnimState::Live;
 	//	animator.Play("animation/bazzi_live.csv");
 	//}
 }
@@ -52,10 +54,10 @@ bool Player::CanPlaceBalloon() const
 	return activeBalloons < balloonCapacity;
 }
 
-bool Player::CheckInstallBomb()
+bool Player::CheckInstallWaterballoon()
 {
 	if (!CanPlaceBalloon()) {
-		std::cout << "¸ðµç Ç³¼±ÀÌ ¼³Ä¡µÅ ÀÖ¾î!" << std::endl;
+		std::cout << "all waterballoon is installed" << std::endl;
 		return false;
 	}
 
@@ -75,24 +77,29 @@ bool Player::CheckBubblePop(AnimState s)
 
 void Player::MoveAnim(float dt)
 {
-	if (animState != AnimState::Trapped && animState != AnimState::Dead && animState != AnimState::Win)
+	dir = InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
+	//std::cout << dir.x << ", " << dir.y << std::endl;
+	position = GetPosition() + dir * curSpeed * dt;
+	SetPosition(position);
+
+	if ( animState == AnimState::Live && animState != AnimState::Ready)
 	{
 		if (dir.x != 0 && animator.GetCurrentClipId() != "Run")
 		{
 			animator.Play("animation/bazzi_run.csv");
-			animState = AnimState::live;
+			animState = AnimState::Live;
 		}
 
 		else if (dir.y < 0 && animator.GetCurrentClipId() != "Up")
 		{
 			animator.Play("animation/bazzi_up.csv");
-			animState = AnimState::live;
+			animState = AnimState::Live;
 		}
 
 		else if (dir.y > 0 && animator.GetCurrentClipId() != "Down")
 		{
 			animator.Play("animation/bazzi_down.csv");
-			animState = AnimState::live;
+			animState = AnimState::Live;
 		}
 
 		else if (dir == sf::Vector2f(0.f, 0.f) &&
@@ -104,17 +111,17 @@ void Player::MoveAnim(float dt)
 			if (animator.GetCurrentClipId() == "Run")
 			{
 				animator.Play("animation/bazzi_run.csv");
-				animState = AnimState::live;
+				animState = AnimState::Live;
 			}
 			if (animator.GetCurrentClipId() == "Up")
 			{
 				animator.Play("animation/bazzi_up.csv");
-				animState = AnimState::live;
+				animState = AnimState::Live;
 			}
 			if (animator.GetCurrentClipId() == "Down")
 			{
 				animator.Play("animation/bazzi_down.csv");
-				animState = AnimState::live;
+				animState = AnimState::Live;
 			}
 		}
 
@@ -222,26 +229,34 @@ void Player::Update(float dt)
 {
 	hitBox.UpdateTransform(sprite, sprite.getLocalBounds());
 	SetOrigin(Origins::BC);
+	if (isStart)
+	{
+		readyTimer += dt;
+		
+		//std::cout << readyTimer << std::endl;
+		if (readyTimer > 1.0f) // LSY: 1.f is the time to wait for the player to enter the game
+		{
+			animState = AnimState::Live;
+			readyTimer = 0.0f;
+			isStart = false;
+		}
+	}
 	MoveAnim(dt);
 	animator.Update(dt);
-	dir = InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
-
-	position = GetPosition() + dir * curSpeed * dt;
-	SetPosition(position);
 
 	PlayerEvent(dt);
-	hitBox.UpdateTransform(sprite, sprite.getLocalBounds());
-
 	CheckCollWithSplash(); // KHI
-	if (animState == AnimState::Trapped)
+	if (animState == AnimState::Trapped && !isDead)
 	{
 		dieTimer += dt;
+		std::cout << "TrappedTimer: " << dieTimer << std::endl;
 		if (dieTimer > 5.f)
 		{
 			animState == AnimState::Dead;
 			dieTimer = 0.f;
 			animator.Play("animation/bazzi_die.csv");
 			std::cout << "TrappedTimer is finished: AnimeState::Dead" << std::endl;
+			isDead = true;
 		}
 	}
 }
@@ -267,13 +282,15 @@ void Player::CheckCollWithSplash()
 		if (splashObj && splashObj->GetActive())
 		{
 			sf::FloatRect rect(splashObj->GetGlobalBounds()); // left, top, width, height
-
+	
 			if (rect.contains(GetPosition()))
 			{
 				animState = AnimState::Trapped;
 				curSpeed = 5.f;
 				isTrapped = true;
-				animator.Play("animation/bazzi_trap.csv");
+				animator.PlayQueue("animation/bazzi_trap.csv");
+				animator.Play("animation/bazzi_trap2.csv",true);
+
 				break;
 			}
 		}

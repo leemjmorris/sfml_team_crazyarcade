@@ -1,18 +1,18 @@
-ID,FPS,"LoopType (0: Single, 1: Loop)",,,
-Trap,10,1,,,
-,,,,,
-TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
-assets/player/bazzi/trap.png,0,0,78,74,0
-assets/player/bazzi/trap.png,79,0,78,74,0
-assets/player/bazzi/trap.png,158,0,78,74,0
-assets/player/bazzi/trap.png,237,0,78,74,0
-assets/player/bazzi/trap.png,316,0,78,74,0
-assets/player/bazzi/trap.png,395,0,78,74,0
-assets/player/bazzi/trap.png,474,0,78,74,0
-assets/player/bazzi/trap.png,553,0,78,74,0
-assets/player/bazzi/trap.png,632,0,78,74,0
-assets/player/bazzi/trap.png,711,0,78,74,0
-assets/player/bazzi/trap.png,790,0,78,74,0
-assets/player/bazzi/trap.png,869,0,78,74,0
-assets/player/bazzi/trap.png,948,0,78,74,0
-assets/player/bazzi/trap.png,1127,0,78,74,0
+"ID","FPS","LoopType (0: Single, 1: Loop)","","",""
+"Trap","10","1","","",""
+"","","","","",""
+"TEXTURE ID","LEFT","TOP","WIDTH","HEIGHT","FLIPX (0:Fale, 1:True)"
+"assets/player/bazzi/trap.png","0","0","78","74","0"
+"assets/player/bazzi/trap.png","79","0","78","74","0"
+"assets/player/bazzi/trap.png","158","0","78","74","0"
+"assets/player/bazzi/trap.png","237","0","78","74","0"
+"assets/player/bazzi/trap.png","316","0","78","74","0"
+"assets/player/bazzi/trap.png","395","0","78","74","0"
+"assets/player/bazzi/trap.png","474","0","78","74","0"
+"assets/player/bazzi/trap.png","553","0","78","74","0"
+"assets/player/bazzi/trap.png","632","0","78","74","0"
+"assets/player/bazzi/trap.png","711","0","78","74","0"
+"assets/player/bazzi/trap.png","790","0","78","74","0"
+"assets/player/bazzi/trap.png","869","0","78","74","0"
+"assets/player/bazzi/trap.png","948","0","78","74","0"
+"assets/player/bazzi/trap.png","1127","0","78","74","0"

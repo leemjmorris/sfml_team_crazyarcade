@@ -60,7 +60,6 @@ void SceneDev2::Update(float dt)
 		ClampToBounds(*obj);
 	//std::cout << bazzi->GetPosition().x << ", " << bazzi->GetPosition().y << std::endl;
 
-
 	Scene::Update(dt);
 }
 

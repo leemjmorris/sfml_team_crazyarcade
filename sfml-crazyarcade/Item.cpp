@@ -121,7 +121,7 @@ void Item::Use(Player* player)
 	if (itemType == ItemType::Balloon)
 	{
 		player->AddWaterBalloonCount(1);
-		player->GetBalloon(1);
+		player->GetWaterBalloon(1);
 	}
 	else if (itemType == ItemType::Speed)
 	{

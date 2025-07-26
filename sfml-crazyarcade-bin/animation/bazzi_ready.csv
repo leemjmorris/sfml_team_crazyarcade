@@ -1,0 +1,16 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)",,,
+Ready,10,0,,,
+,,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
+assets/player/bazzi/ready.png,0,0,66,88,0
+assets/player/bazzi/ready.png,66,0,66,88,0
+assets/player/bazzi/ready.png,132,0,66,88,0
+assets/player/bazzi/ready.png,198,0,66,88,0
+assets/player/bazzi/ready.png,264,0,66,88,0
+assets/player/bazzi/ready.png,330,0,66,88,0
+assets/player/bazzi/ready.png,396,0,66,88,0
+assets/player/bazzi/ready.png,462,0,66,88,0
+assets/player/bazzi/ready.png,528,0,66,88,0
+assets/player/bazzi/ready.png,594,0,66,88,0
+assets/player/bazzi/ready.png,660,0,66,88,0
+assets/player/bazzi/ready.png,726,0,66,88,0

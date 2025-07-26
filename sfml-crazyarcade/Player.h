@@ -3,7 +3,7 @@
 #include "Animator.h"
 #include "HitBox.h"
 #include "CharacterStats.h"
-enum class AnimState { Normal, Trapped, Dead, live, Win };
+enum class AnimState { Ready, Normal, Trapped, Dead, Live, Win };
 
 class Player :
 	public GameObject
@@ -28,9 +28,11 @@ protected:
 	sf::Keyboard::Key installWaterBomb;
 
 	float dieTimer;
+	float readyTimer;
 	float aliveTimer;
+	bool isStart = false;
 	bool isShowing;
-	bool checkDieTimer=false;
+	bool isdead=false;
 
 	sf::Vector2f playerHitBoxSize = { 52.f, 52.f }; // KHI
 	sf::Vector2f playerHitBoxOffset = { 7.f, 20.f }; // KHI: 
@@ -51,14 +53,27 @@ public:
 	void PlayerEvent(float dt);
 	void OnBalloonExploded();
 	bool CanPlaceBalloon() const;
-	bool CheckInstallBomb();
+	bool CheckInstallWaterballoon();
 	bool CheckBubblePop(AnimState s);
 	void MoveAnim(float dt);
 	void AddSpeed(float s =1);
 	void AddWaterBalloonCount(int c =1);
 	void AddWaterBalloonLength(int l =1);
-	void GetBalloon(int a) { activeBalloons += a; };
+	void GetWaterBalloon(int a) { activeBalloons += a; };
 	void SetGameOver();
+	void SetEnter(bool t)
+	{
+	
+		animator.Play("animation/bazzi_ready.csv",true);
+		animator.PlayQueue("animation/bazzi_ready2.csv");
+		animator.PlayQueue("animation/bazzi_ready2.csv");
+		animator.PlayQueue("animation/bazzi_ready2.csv");
+		animator.PlayQueue("animation/bazzi_ready2.csv");
+		animator.PlayQueue("animation/bazzi_ready2.csv");
+		
+		animState = AnimState::Ready;
+		isStart = t;
+	}
 
 	float GetSpeed() { return curSpeed; };
 	const int GetWaterBalloonCount() { return activeWaterBalloonCount; };

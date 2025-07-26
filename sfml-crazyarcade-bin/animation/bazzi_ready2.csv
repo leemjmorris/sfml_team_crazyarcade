@@ -1,0 +1,7 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)",,,
+Ready2,30,0,,,
+,,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
+assets/player/bazzi/flash_short.png,0,0,64,76,0
+assets/player/bazzi/flash_short.png,64,0,64,76,0
+assets/player/bazzi/flash_short.png,128,0,64,76,0

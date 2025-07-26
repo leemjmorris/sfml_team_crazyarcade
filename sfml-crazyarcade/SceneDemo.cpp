@@ -42,8 +42,11 @@ void SceneDemo::Init()
 	texIds.push_back("assets/player/bazzi/down.png");
 	texIds.push_back("assets/player/bazzi/die.png");
 	texIds.push_back("assets/player/bazzi/trap.png");
+	texIds.push_back("assets/player/bazzi/trap2.png");
 	texIds.push_back("assets/player/bazzi/live.png");
 	texIds.push_back("assets/player/bazzi/jump.png");
+	texIds.push_back("assets/player/bazzi/ready.png");
+	texIds.push_back("assets/player/bazzi/flash_short.png");
 
 	// KHI: Blocks
 	texIds.push_back("assets/map/forest/tile/tile_9.bmp");
@@ -59,8 +62,11 @@ void SceneDemo::Init()
 	ANI_CLIP_MGR.Load("animation/bazzi_down.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_live.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_trap.csv");
+	ANI_CLIP_MGR.Load("animation/bazzi_trap2.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_die.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_win.csv");
+	ANI_CLIP_MGR.Load("animation/bazzi_ready.csv");
+	ANI_CLIP_MGR.Load("animation/bazzi_ready2.csv");
 
 	bazzi = static_cast<Player*>(AddGameObject(new Player("Bazzi", CharacterID::BAZZI, 0)));
 	Dao = static_cast<Player*>(AddGameObject(new Player("Dao", CharacterID::DAO, 1)));
@@ -96,6 +102,8 @@ void SceneDemo::Enter()
 	bazzi->SetPosition({ 100,100 });
 	Dao->SetPosition({ 200,100 });
 
+	bazzi->SetEnter(true);
+	Dao->SetEnter(true);
 	//Block* testBlock = new Block();
 	//testBlock->SetBlockType(BlockType::SoftBlock);
 
