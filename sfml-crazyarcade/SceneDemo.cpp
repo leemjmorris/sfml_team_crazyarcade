@@ -65,6 +65,10 @@ void SceneDemo::Init()
 	bazzi = static_cast<Player*>(AddGameObject(new Player("Bazzi", CharacterID::BAZZI, 0)));
 	Dao = static_cast<Player*>(AddGameObject(new Player("Dao", CharacterID::DAO, 1)));
 
+	collBuilder.CreateCollisionHitBox();
+	bazzi->SetMapData(collBuilder.GetTileHitBoxes());
+	Dao->SetMapData(collBuilder.GetTileHitBoxes());
+
 	objectsNeedingClamp.push_back(bazzi);
 	objectsNeedingClamp.push_back(Dao);
 
@@ -103,8 +107,6 @@ void SceneDemo::Enter()
 	//testBlockSprite.setPosition({300.f, 300.f});
 
 	SetLayerForTest();
-
-	collBuilder.CreateCollisionHitBox();
 }
 
 void SceneDemo::Update(float dt)

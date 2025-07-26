@@ -3,6 +3,7 @@
 #include "Animator.h"
 #include "HitBox.h"
 #include "CharacterStats.h"
+#include "MapCollisionBuilder.h"
 enum class AnimState { Normal, Trapped, Dead, live, Win };
 
 class Player :
@@ -38,6 +39,8 @@ protected:
 	sf::Vector2f playerHitBoxOffset = { 0.f, 10.f }; // KHI: 
 	HitBox hitBox;
 
+	std::vector<TileHitBox> mapData;
+
 public:
 	// LSY: for std::cout in ItemClass 
 	float curSpeed;
@@ -65,6 +68,7 @@ public:
 	const int GetWaterBalloonCount() { return curWaterBalloonCount; };
 	const int GetWaterBalloonLength() { return curWaterBalloonLength; };
 	AnimState GetPlayerState() { return animState; };
+	void SetMapData(const std::vector<TileHitBox>& data) { mapData = data; }
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;
