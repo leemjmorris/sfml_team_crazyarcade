@@ -3,6 +3,7 @@
 #include "Block.h"
 #include "Scene.h"
 #include "SpriteGo.h"
+#include "MapEditor.h" // LMJ: "For TileData struct"
 #include <fstream>
 #include <nlohmann/json.hpp>
 
@@ -366,38 +367,37 @@ bool Utils::LoadMapFromJson(Scene* scene, const std::string& filename)
     // LMJ: "Construct full file path"
     std::string fullPath = PATH_MAP_JSON + filename;
 
-    // LMJ: "Open and parse JSON file"
-    std::ifstream file(fullPath);
-    if (!file.is_open())
+    // LMJ: "Open and parse JSON file (same as MapEditor)"
+    std::ifstream ifs(fullPath);
+    if (!ifs.is_open())
     {
         std::cerr << "Failed to open map file: " << fullPath << std::endl;
         return false;
     }
 
-    json mapData;
+    json jMap;
     try
     {
-        file >> mapData;
+        ifs >> jMap;
     }
     catch (const std::exception& e)
     {
         std::cerr << "Failed to parse JSON: " << e.what() << std::endl;
+        ifs.close();
         return false;
     }
+    ifs.close();
 
-    // LMJ: "Clear existing map objects (optional)"
-    // ClearMapObjects(scene);
-
-    // LMJ: "Load tiles if they exist"
-    if (mapData.contains("tiles"))
+    // LMJ: "Load tiles if they exist (same structure as MapEditor)"
+    if (jMap.contains("tiles"))
     {
-        LoadTilesFromJson(scene, &mapData["tiles"]);
+        LoadTilesFromJson(scene, &jMap["tiles"]);
     }
 
-    // LMJ: "Load blocks if they exist"
-    if (mapData.contains("blocks"))
+    // LMJ: "Load blocks if they exist (same structure as MapEditor)"
+    if (jMap.contains("blocks"))
     {
-        LoadBlocksFromJson(scene, &mapData["blocks"]);
+        LoadBlocksFromJson(scene, &jMap["blocks"]);
     }
 
     std::cout << "Successfully loaded map: " << filename << std::endl;
@@ -408,16 +408,24 @@ void Utils::LoadTilesFromJson(Scene* scene, const void* tilesJsonPtr)
 {
     const json& tilesJson = *static_cast<const json*>(tilesJsonPtr);
 
-    // LMJ: "Create background sprites for tiles"
-    for (const auto& tileData : tilesJson)
+    // LMJ: "Load tiles same as MapEditor: convert to TileData first"
+    std::vector<TileData> tileDatas;
+    for (const auto& jt : tilesJson)
     {
-        int tileOptionIndex = tileData.at("tileOptionIndex").get<int>();
-        int gridX = tileData.at("gridX").get<int>();
-        int gridY = tileData.at("gridY").get<int>();
-        float rotation = tileData.value("rotation", 0.f);
+        // LMJ: "Create TileData from JSON (same as MapEditor)"
+        int tileOptionIndex = jt.at("tileOptionIndex").get<int>();
+        int gridX = jt.at("gridX").get<int>();
+        int gridY = jt.at("gridY").get<int>();
+        float rotation = jt.value("rotation", 0.f);
 
-        sf::Vector2f worldPos = GridToWorldPosition(gridX, gridY);
-        sf::Sprite* tileSprite = CreateTileSprite(tileOptionIndex, worldPos, rotation);
+        tileDatas.emplace_back(tileOptionIndex, gridX, gridY, rotation);
+    }
+
+    // LMJ: "Create sprites from TileData"
+    for (const auto& tileData : tileDatas)
+    {
+        sf::Vector2f worldPos = GridToWorldPosition(tileData.gridX, tileData.gridY);
+        sf::Sprite* tileSprite = CreateTileSprite(tileData.tileOptionIndex, worldPos, tileData.rotation);
 
         if (tileSprite)
         {
@@ -438,12 +446,16 @@ void Utils::LoadBlocksFromJson(Scene* scene, const void* blocksJsonPtr)
 {
     const json& blocksJson = *static_cast<const json*>(blocksJsonPtr);
 
-    // LMJ: "Create Block objects"
-    for (const auto& blockData : blocksJson)
+    // LMJ: "Create Block objects (same as MapEditor)"
+    for (const auto& jb : blocksJson)
     {
-        Block* block = Block::FromJson(blockData);
+        Block* block = Block::FromJson(jb);
         if (block)
         {
+            // LMJ: "Initialize block same as MapEditor"
+            block->Init();
+            block->SetScale({ 0.588235319f * 1.2f, 0.597014904f * 1.2f }); // LMJ: "Same scale as MapEditor"
+            block->Reset();
             block->sortingLayer = SortingLayers::Foreground;
             scene->AddGameObject(block);
         }
