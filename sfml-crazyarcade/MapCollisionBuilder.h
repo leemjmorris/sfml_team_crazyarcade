@@ -26,5 +26,5 @@ public:
     const std::vector<TileHitBox>& GetTileHitBoxes() const { return tileHitBoxes; }
 
     void DrawDebugHitBox(sf::RenderWindow& window);
-    sf::RectangleShape DrawRect(int i, int j);
+    sf::RectangleShape DrawRect(const TileHitBox& tile);
 };

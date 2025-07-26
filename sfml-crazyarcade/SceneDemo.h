@@ -63,8 +63,10 @@ protected:
 	ColorMaskShader colorMask;
 	// KHI: ==========================================================
 
-public:
 	MapCollisionBuilder collBuilder;
+	bool toggleActiveColl = true;
+
+public:
 
 	SceneDemo();
 	~SceneDemo() override = default;

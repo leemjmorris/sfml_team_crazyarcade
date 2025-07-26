@@ -114,6 +114,7 @@ void SceneDemo::Update(float dt)
 	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
 	{
 		toggleActiveGrid = !toggleActiveGrid;
+		toggleActiveColl = !toggleActiveColl;
 	}
 	
 	for (auto* obj : objectsNeedingClamp)
@@ -132,9 +133,14 @@ void SceneDemo::Draw(sf::RenderWindow& window)
 	}
 
 	if (toggleActiveGrid)
+	{
 		window.draw(gridLines);
+	}
 
-	collBuilder.DrawDebugHitBox(window);
+	if (toggleActiveColl)
+	{
+		collBuilder.DrawDebugHitBox(window);
+	}
 
 	Scene::Draw(window);
 }
