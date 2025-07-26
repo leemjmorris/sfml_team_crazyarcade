@@ -51,16 +51,7 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 0,
-            "x": 340.0,
-            "y": 20.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 420.0,
+            "x": 380.0,
             "y": 20.0
         },
         {
@@ -96,7 +87,7 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 0,
-            "x": 420.0,
+            "x": 380.0,
             "y": 60.0
         },
         {
@@ -168,7 +159,7 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 0,
-            "x": 340.0,
+            "x": 380.0,
             "y": 100.0
         },
         {
@@ -177,7 +168,25 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 0,
-            "x": 420.0,
+            "x": 500.0,
+            "y": 100.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 540.0,
+            "y": 100.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 580.0,
             "y": 100.0
         },
         {
@@ -213,7 +222,7 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 0,
-            "x": 420.0,
+            "x": 380.0,
             "y": 140.0
         },
         {
@@ -249,7 +258,7 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 0,
-            "x": 420.0,
+            "x": 380.0,
             "y": 180.0
         },
         {
@@ -303,7 +312,7 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 0,
-            "x": 340.0,
+            "x": 380.0,
             "y": 220.0
         },
         {
@@ -330,33 +339,6 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 0,
-            "x": 500.0,
-            "y": 220.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 540.0,
-            "y": 220.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 580.0,
-            "y": 220.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
             "x": 20.0,
             "y": 300.0
         },
@@ -366,25 +348,7 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 0,
-            "x": 220.0,
-            "y": 300.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 340.0,
-            "y": 300.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 300.0,
+            "x": 180.0,
             "y": 300.0
         },
         {
@@ -402,6 +366,24 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 0,
+            "x": 220.0,
+            "y": 300.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 340.0,
+            "y": 300.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
             "x": 420.0,
             "y": 300.0
         },
@@ -429,197 +411,8 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 0,
-            "x": 20.0,
+            "x": 180.0,
             "y": 340.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 220.0,
-            "y": 340.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 340.0,
-            "y": 340.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 420.0,
-            "y": 340.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 500.0,
-            "y": 340.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 580.0,
-            "y": 340.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 20.0,
-            "y": 380.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 340.0,
-            "y": 380.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 220.0,
-            "y": 380.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 420.0,
-            "y": 380.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 500.0,
-            "y": 380.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 580.0,
-            "y": 380.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 20.0,
-            "y": 420.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 500.0,
-            "y": 420.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 420.0,
-            "y": 420.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 220.0,
-            "y": 420.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 340.0,
-            "y": 420.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 580.0,
-            "y": 420.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 20.0,
-            "y": 460.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 220.0,
-            "y": 460.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 340.0,
-            "y": 460.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 340.0,
-            "y": 500.0
         },
         {
             "canSpawnItem": false,
@@ -628,7 +421,7 @@
             "isMovable": false,
             "registryIndex": 0,
             "x": 260.0,
-            "y": 500.0
+            "y": 340.0
         },
         {
             "canSpawnItem": false,
@@ -636,8 +429,8 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 0,
-            "x": 300.0,
-            "y": 500.0
+            "x": 340.0,
+            "y": 340.0
         },
         {
             "canSpawnItem": false,
@@ -645,17 +438,8 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 0,
-            "x": 220.0,
-            "y": 500.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 20.0,
-            "y": 500.0
+            "x": 420.0,
+            "y": 340.0
         },
         {
             "canSpawnItem": false,
@@ -664,6 +448,186 @@
             "isMovable": false,
             "registryIndex": 0,
             "x": 500.0,
+            "y": 340.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 20.0,
+            "y": 340.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 580.0,
+            "y": 340.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 20.0,
+            "y": 380.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 260.0,
+            "y": 380.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 180.0,
+            "y": 380.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 340.0,
+            "y": 380.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 420.0,
+            "y": 380.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 500.0,
+            "y": 380.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 580.0,
+            "y": 380.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 180.0,
+            "y": 420.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 260.0,
+            "y": 420.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 500.0,
+            "y": 420.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 340.0,
+            "y": 420.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 420.0,
+            "y": 420.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 20.0,
+            "y": 420.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 580.0,
+            "y": 420.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 180.0,
+            "y": 460.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 260.0,
+            "y": 460.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 20.0,
+            "y": 460.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 340.0,
             "y": 500.0
         },
         {
@@ -672,7 +636,7 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 0,
-            "x": 60.0,
+            "x": 420.0,
             "y": 500.0
         },
         {
@@ -690,7 +654,7 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 0,
-            "x": 140.0,
+            "x": 180.0,
             "y": 500.0
         },
         {
@@ -699,7 +663,43 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 0,
-            "x": 420.0,
+            "x": 500.0,
+            "y": 500.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 220.0,
+            "y": 500.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 260.0,
+            "y": 500.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 20.0,
+            "y": 500.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 60.0,
             "y": 500.0
         },
         {

@@ -591,7 +591,7 @@ void MapEditor::CreateBlockAtPosition(const sf::Vector2f& gridPos)
         sf::Vector2u textureSize = blockSprite.getTexture()->getSize();
         float scaleX = static_cast<float>(GRID_SIZE) / textureSize.x; // LMJ: SCALE BOX SIZE 01081089586
         float scaleY = static_cast<float>(GRID_SIZE) / textureSize.y;
-        blockSprite.setScale(scaleX * 1.2f, scaleY * 1.2f);
+        blockSprite.setScale(scaleX * 1.3f, scaleY * 1.3f);
 
         // LMJ: "Ensure proper origin and position"
         Utils::SetOrigin(blockSprite, Origins::MC);
@@ -738,7 +738,7 @@ void MapEditor::DrawBlockPreview(sf::RenderWindow& window)
         sf::Vector2u textureSize = BlockTextures[blockRegistryIndex].getSize();
         float scaleX = static_cast<float>(GRID_SIZE) / textureSize.x;
         float scaleY = static_cast<float>(GRID_SIZE) / textureSize.y;
-        preview.setScale(scaleX * 1.2f, scaleY * 1.2f);
+        preview.setScale(scaleX * 1.3f, scaleY * 1.3f);
 
         // LMJ: "Set origin and position"
         Utils::SetOrigin(preview, Origins::MC);
@@ -835,7 +835,7 @@ void MapEditor::DrawRightSideUI(sf::RenderWindow& window)
         sf::Sprite currentTile = TileOptions[tileOptionIndex];
         currentTile.setPosition(rightPanelX + 80, 60);
         currentTile.setRotation(currentTileRotation);
-        currentTile.setScale(1.2f, 1.2f);
+        currentTile.setScale(1.3f, 1.3f);
         currentTile.setColor(sf::Color::White);
         window.draw(currentTile);
     }
@@ -1073,7 +1073,7 @@ void MapEditor::LoadMapFromJson(const std::string& filename)
             {
                 PlacedBlocks.push_back(block);
                 block->Init();
-                block->SetScale({ 0.588235319 * 1.2f, 0.597014904 * 1.2f });
+                block->SetScale({ 0.588235319 * 1.3f, 0.597014904 * 1.3f });
                 block->Reset();
             }
         }
