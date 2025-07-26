@@ -60,11 +60,12 @@ protected:
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0 },
 	};
 
-	MapCollisionBuilder builder;
 	ColorMaskShader colorMask;
 	// KHI: ==========================================================
 
 public:
+	MapCollisionBuilder collBuilder;
+
 	SceneDemo();
 	~SceneDemo() override = default;
 

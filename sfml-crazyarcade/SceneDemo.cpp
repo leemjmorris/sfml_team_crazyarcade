@@ -8,7 +8,7 @@
 #include "MapCollisionBuilder.h"
 
 SceneDemo::SceneDemo()
-	: Scene(SceneIds::Demo), builder(layer1)
+	: Scene(SceneIds::Demo), collBuilder(layer1)
 {
 }
 
@@ -93,8 +93,8 @@ void SceneDemo::Enter()
 	std::cout << "     SceneDemo"      << std::endl;
 	std::cout << "===================" << std::endl;
 
-	bazzi->SetPosition({ 100,100 });
-	Dao->SetPosition({ 200,100 });
+	bazzi->SetPosition({ 130, 104 });
+	Dao->SetPosition({ 130, 260 });
 
 	//Block* testBlock = new Block();
 	//testBlock->SetBlockType(BlockType::SoftBlock);
@@ -103,6 +103,8 @@ void SceneDemo::Enter()
 	//testBlockSprite.setPosition({300.f, 300.f});
 
 	SetLayerForTest();
+
+	collBuilder.CreateCollisionHitBox();
 }
 
 void SceneDemo::Update(float dt)
@@ -130,7 +132,7 @@ void SceneDemo::Draw(sf::RenderWindow& window)
 	if (toggleActiveGrid)
 		window.draw(gridLines);
 
-	builder.DrawDebugHitBox(window);
+	collBuilder.DrawDebugHitBox(window);
 
 	Scene::Draw(window);
 }
