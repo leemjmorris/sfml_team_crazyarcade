@@ -136,7 +136,7 @@ void SceneDemo::Enter()
 	dao->SetEnter(true);
 	// LMJ: "Load map from JSON file created in MapEditor"
 	// LMJ: "This replaces the old manual tile/block creation"
-	if (!LOAD_MAP(this, "temp_map.json"))
+	if (!LOAD_MAP(this, "forest_maze.json"))
 	{
 		std::cout << "Failed to load temp_map.json, falling back to manual setup..." << std::endl;
 		// LMJ: "Fallback to old method if JSON loading fails"
