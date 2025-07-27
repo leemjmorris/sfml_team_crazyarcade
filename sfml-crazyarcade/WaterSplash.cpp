@@ -226,3 +226,27 @@ void WaterSplash::CheckCollisionWithItems()
 
 	Item::CheckAndRemoveItem();
 }
+
+bool WaterSplash::CheckCollisionWithBlocks()
+{
+	hitBox.UpdateCustomTransform(waterSplash, { 42.f, 42.f }, Origins::MC, { 0.f, 0.f });
+
+	blockCollData = dynamic_cast<SceneDemo*>(SCENE_MGR.GetCurrentScene())->GetCollData();
+
+	for (const auto& tile : blockCollData)
+	{
+		if (IsCompletelyInside(hitBox.GetGlobalBounds(), tile.bounds))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool WaterSplash::IsCompletelyInside(const sf::FloatRect& inner, const sf::FloatRect& outer)
+{
+	return inner.left >= outer.left &&
+		inner.top >= outer.top &&
+		inner.left + inner.width <= outer.left + outer.width &&
+		inner.top + inner.height <= outer.top + outer.height;
+}

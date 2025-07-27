@@ -50,7 +50,7 @@ bool Player::CheckInstallBomb()
 	}
 	else
 	{
-		WaterBalloon::Spawn("bomb", GetPosition(), curWaterBalloonLength, this);
+		WaterBalloon::Spawn("bomb", { GetPosition().x, GetPosition().y - 10 }, curWaterBalloonLength, this);
 		curWaterBalloonCount--;
 		std::cout << "waterBalloon count: " << curWaterBalloonCount << std::endl;
 		if (curWaterBalloonCount < 0)

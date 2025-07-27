@@ -67,6 +67,7 @@ protected:
 	ColorMaskShader colorMask;
 	// KHI: ==========================================================
 
+	std::vector<TileHitBox> collData;
 	MapCollisionBuilder collBuilder;
 	bool toggleActiveColl = true;
 
@@ -81,6 +82,7 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void ClampToBounds(GameObject& obj);
+	const std::vector<TileHitBox>& GetCollData() const { return collData; }
 
 	// KHI: For TEST !!!
 	void SetLayerForTest();

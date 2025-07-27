@@ -77,6 +77,8 @@ void SceneDemo::Init()
 	Dao = static_cast<Player*>(AddGameObject(new Player("Dao", CharacterID::DAO, 1)));
 
 	collBuilder.CreateCollisionHitBox();
+	collData = collBuilder.GetTileHitBoxes();
+
 	bazzi->SetMapData(collBuilder.GetTileHitBoxes());
 	Dao->SetMapData(collBuilder.GetTileHitBoxes());
 
