@@ -74,6 +74,9 @@ public:
 	static sf::Vector2f GridToWorldPosition(int gridX, int gridY, int gridSize = 52);
 	static void ClearMapObjects(Scene* scene);
 
+	// KHI: Map-related data converted into layer array
+	static int CollBlockLayer[13][15]; // Will separate into detailed layers based on block properties later
+
 private:
 	// LMJ: "Private helper for map loading"
 	static sf::Sprite* CreateTileSprite(int tileOptionIndex, const sf::Vector2f& position, float rotation = 0.f);

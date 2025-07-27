@@ -70,7 +70,7 @@ protected:
 	// KHI: ==========================================================
 
 	std::vector<TileHitBox> collData;
-	MapCollisionBuilder collBuilder;
+	std::unique_ptr<MapCollisionBuilder> collBuilder;
 	bool toggleActiveColl = true;
 
 public:

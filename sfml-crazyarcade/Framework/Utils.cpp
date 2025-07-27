@@ -13,6 +13,8 @@ std::random_device Utils::rd;
 std::mt19937 Utils::gen;
 const float Utils::PI = acosf(-1.f);
 
+int Utils::CollBlockLayer[13][15];
+
 void Utils::Init()
 {
     gen.seed(rd());
@@ -463,6 +465,27 @@ void Utils::LoadBlocksFromJson(Scene* scene, const void* blocksJsonPtr)
             block->SetScale({ 1.f, 1.f/*0.588235319f * 1.3f, 0.597014904f * 1.3f*/ }); // LMJ: "Same scale as MapEditor"
             block->Reset();
             block->sortingLayer = SortingLayers::Foreground;
+
+            // KHI: Store collider layer values based on block properties
+            sf::Vector2f pos = block->GetPosition();
+            int gridX = static_cast<int>(pos.x) / 52;
+            int gridY = static_cast<int>(pos.y) / 52;
+
+            if (block->IsDestroyable() || block->IsHidable() || block->IsMovable())
+            {
+                if (gridY >= 0 && gridY < 13 && gridX >= 0 && gridX < 15)
+                {
+                    Utils::CollBlockLayer[gridY][gridX] = 1;
+                }
+            }
+            else
+            {
+                if (gridY >= 0 && gridY < 13 && gridX >= 0 && gridX < 15)
+                {
+                    Utils::CollBlockLayer[gridY][gridX] = 0;
+                }
+            }
+
             scene->AddGameObject(block);
         }
     }

@@ -9,7 +9,7 @@
 #include "GameSceneUI.h"
 
 SceneDemo::SceneDemo()
-	: Scene(SceneIds::Demo), dao(nullptr),  bazzi(nullptr), item(nullptr), collBuilder(layer1)
+	: Scene(SceneIds::Demo), dao(nullptr),  bazzi(nullptr), item(nullptr)
 {
 }
 
@@ -93,12 +93,6 @@ void SceneDemo::Init()
 	bazzi = static_cast<Player*>(AddGameObject(new Player("Bazzi", CharacterID::BAZZI, 0)));
 	dao = static_cast<Player*>(AddGameObject(new Player("Dao", CharacterID::DAO, 1)));
 
-	collBuilder.CreateCollisionHitBox();
-	collData = collBuilder.GetTileHitBoxes();
-
-	bazzi->SetMapData(collBuilder.GetTileHitBoxes());
-	dao->SetMapData(collBuilder.GetTileHitBoxes());
-
 	objectsNeedingClamp.push_back(bazzi);
 	objectsNeedingClamp.push_back(dao);
 
@@ -129,8 +123,8 @@ void SceneDemo::Enter()
 	std::cout << "     SceneDemo" << std::endl;
 	std::cout << "===================" << std::endl;
 
-	bazzi->SetPosition({ 130, 104 });
-	dao->SetPosition({ 130, 260 });
+	bazzi->SetPosition({ 78, 104 });
+	dao->SetPosition({ 182, 260 });
 
 	bazzi->SetEnter(true);
 	dao->SetEnter(true);
@@ -146,6 +140,21 @@ void SceneDemo::Enter()
 	{
 		std::cout << "Successfully loaded map from temp_map.json!" << std::endl;
 	}
+
+	for (int y = 0; y < 13; ++y)
+	{
+		for (int x = 0; x < 15; ++x)
+		{
+			layer1[y][x] = Utils::CollBlockLayer[y][x];
+		}
+	}
+
+	collBuilder = std::make_unique<MapCollisionBuilder>(layer1);
+	collBuilder->CreateCollisionHitBox();
+	collData = collBuilder->GetTileHitBoxes();
+
+	bazzi->SetMapData(collData);
+	dao->SetMapData(collData);
 }
 
 void SceneDemo::Update(float dt)
@@ -183,7 +192,7 @@ void SceneDemo::Draw(sf::RenderWindow& window)
 
 	if (toggleActiveColl)
 	{
-		collBuilder.DrawDebugHitBox(window);
+		collBuilder->DrawDebugHitBox(window);
 	}
 }
 
