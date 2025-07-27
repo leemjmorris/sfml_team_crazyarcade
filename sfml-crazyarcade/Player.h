@@ -3,7 +3,8 @@
 #include "Animator.h"
 #include "HitBox.h"
 #include "CharacterStats.h"
-enum class AnimState { Ready, Normal, Trapped, Dead, Live, Win };
+#include "MapCollisionBuilder.h"
+enum class AnimState { Ready, Normal, Trapped, Dead, Live, Win};
 
 class Player :
 	public GameObject
@@ -39,9 +40,11 @@ protected:
 	bool isPop = false;
 	bool isAlive;
 
-	sf::Vector2f playerHitBoxSize = { 52.f, 52.f }; // KHI
-	sf::Vector2f playerHitBoxOffset = { 7.f, 20.f }; // KHI: 
+	sf::Vector2f playerHitBoxSize = { 40.f, 40.f }; // KHI
+	sf::Vector2f playerHitBoxOffset = { 0.f, 10.f }; // KHI: 
 	HitBox hitBox;
+
+	std::vector<TileHitBox> mapData;
 
 public:
 	// LSY: for std::cout in ItemClass
@@ -106,6 +109,8 @@ public:
 	void SetOrigin(Origins preset) override;
 
 	void CheckCollWithSplash(); // KHI
+	bool CheckCollisionWithMap(); // KHI
+	void Movement(float dt); // KHI
 
 	sf::FloatRect GetGlobalBounds() const
 	{

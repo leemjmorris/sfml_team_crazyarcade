@@ -5,6 +5,8 @@
 #include "ColorMaskShader.h"
 #include "MapCollisionBuilder.h"
 
+class GameSceneUI;
+
 class SceneDemo : public Scene
 {
 protected:
@@ -22,6 +24,8 @@ protected:
 	Item* item;
 	sf::FloatRect worldBounds = FRAMEWORK.GetWindowBounds();
 	std::vector<GameObject*> objectsNeedingClamp;
+
+	GameSceneUI* ui;
 
 	sf::Sprite testBlockSprite;
 
@@ -62,11 +66,15 @@ protected:
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0 },
 	};
 
-	MapCollisionBuilder builder;
 	ColorMaskShader colorMask;
 	// KHI: ==========================================================
 
+	std::vector<TileHitBox> collData;
+	MapCollisionBuilder collBuilder;
+	bool toggleActiveColl = true;
+
 public:
+
 	SceneDemo();
 	~SceneDemo() override = default;
 
@@ -76,6 +84,7 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void ClampToBounds(GameObject& obj);
+	const std::vector<TileHitBox>& GetCollData() const { return collData; }
 
 	// KHI: For TEST !!!
 	void SetLayerForTest();

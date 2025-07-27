@@ -6,18 +6,28 @@
 #include "Item.h"
 #include "Block.h"
 #include "MapCollisionBuilder.h"
+#include "GameSceneUI.h"
 
 SceneDemo::SceneDemo()
-	: Scene(SceneIds::Demo), builder(layer1), dao(nullptr),  bazzi(nullptr), item(nullptr) 
+	: Scene(SceneIds::Demo), builder(layer1), dao(nullptr),  bazzi(nullptr), item(nullptr), collBuilder(layer1)
 {
 }
 
 void SceneDemo::Init()
 {
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
-	worldView.setSize(windowSize);
-	worldView.setCenter(windowSize * 0.5f);
 
+	float scale = 1.30f;
+	sf::Vector2f worldSize = windowSize * scale;
+
+	sf::Vector2f topLeft = { 27.f, 55.f };
+	worldView.setSize(worldSize);
+	worldView.setCenter( worldSize.x * 0.5f - topLeft.x, worldSize.y * 0.5f - topLeft.y);
+
+	uiView.setSize(windowSize);
+	uiView.setCenter(windowSize * 0.5f);
+	uiView.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+	
 	// KHI: For Testing (Draw Grids)
 	gridLines.setPrimitiveType(sf::Lines);
 	gridLines.clear();
@@ -47,6 +57,7 @@ void SceneDemo::Init()
 	texIds.push_back("assets/player/bazzi/jump.png");
 	texIds.push_back("assets/player/bazzi/ready.png");
 	texIds.push_back("assets/player/bazzi/flash_short.png");
+	texIds.push_back("assets/play_bg.bmp");
 
 	// KHI: Blocks
 	texIds.push_back("assets/map/forest/tile/tile_9.bmp");
@@ -71,12 +82,20 @@ void SceneDemo::Init()
 	bazzi = static_cast<Player*>(AddGameObject(new Player("Bazzi", CharacterID::BAZZI, 0)));
 	dao = static_cast<Player*>(AddGameObject(new Player("Dao", CharacterID::DAO, 1)));
 
+	collBuilder.CreateCollisionHitBox();
+	collData = collBuilder.GetTileHitBoxes();
+
+	bazzi->SetMapData(collBuilder.GetTileHitBoxes());
+	dao->SetMapData(collBuilder.GetTileHitBoxes());
+
 	objectsNeedingClamp.push_back(bazzi);
 	objectsNeedingClamp.push_back(dao);
 
 	colorMask.LoadFromFile("assets/shaders/transparent.frag");
 	colorMask.SetMaskColor(sf::Color(255, 0, 255));
 	colorMask.SetThreshold(0.1f);
+
+	ui = static_cast<GameSceneUI*>(AddGameObject(new GameSceneUI()));
 
 	Scene::Init();
 }
@@ -99,8 +118,8 @@ void SceneDemo::Enter()
 	std::cout << "     SceneDemo"      << std::endl;
 	std::cout << "===================" << std::endl;
 
-	bazzi->SetPosition({ 100,100 });
-	dao->SetPosition({ 200,100 });
+	bazzi->SetPosition({ 130, 104 });
+	dao->SetPosition({ 130, 260 });
 
 	bazzi->SetEnter(true);
 	dao->SetEnter(true);
@@ -118,6 +137,7 @@ void SceneDemo::Update(float dt)
 	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
 	{
 		toggleActiveGrid = !toggleActiveGrid;
+		toggleActiveColl = !toggleActiveColl;
 	}
 	
 	for (auto* obj : objectsNeedingClamp)
@@ -128,15 +148,22 @@ void SceneDemo::Update(float dt)
 
 void SceneDemo::Draw(sf::RenderWindow& window)
 {
+	window.setView(worldView);
+
 	for (int i = 0; i < sprites.size(); i++)
 	{
 		colorMask.Apply(window, sprites[i]);
 	}
 
 	if (toggleActiveGrid)
+	{
 		window.draw(gridLines);
+	}
 
-	builder.DrawDebugHitBox(window);
+	if (toggleActiveColl)
+	{
+		collBuilder.DrawDebugHitBox(window);
+	}
 
 	Scene::Draw(window);
 }

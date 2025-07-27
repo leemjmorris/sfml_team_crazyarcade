@@ -3,6 +3,7 @@
 #include "Animator.h"
 #include "ColorMaskShader.h"
 #include "HitBox.h"
+#include "SceneDemo.h"
 
 class WaterSplash : public GameObject
 {
@@ -40,6 +41,8 @@ protected:
 	ColorMaskShader colorMask;
 
 	HitBox hitBox;
+	
+	std::vector<TileHitBox> blockCollData;
 
 public:
 	WaterSplash(const std::string& name = "WaterSplash");
@@ -62,6 +65,8 @@ public:
 	void PlayAnim();
 	void PlayExitAnim();
 	void CheckCollisionWithItems();
+	bool CheckCollisionWithBlocks();
+	bool IsCompletelyInside(const sf::FloatRect& inner, const sf::FloatRect& outer);
 
 	const HitBox& GetHitBox() const
 	{
