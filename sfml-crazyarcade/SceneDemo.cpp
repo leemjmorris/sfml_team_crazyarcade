@@ -159,7 +159,7 @@ bool SceneDemo::CheckCollisionWithPlayer(float dt)
 			dao->HandleBubbleDeath(AnimState::Dead);
 			std::cout << " 2P Player Dead " << std::endl;
 			std::cout << "GameOver" << std::endl;
-			bazzi->SetGameOver();
+			bazzi->SetGameOver(true);
 			return true;
 		}
 		else if (bazzi->GetPlayerState() == AnimState::Trapped && dao->GetPlayerState() != AnimState::Trapped)
@@ -167,7 +167,7 @@ bool SceneDemo::CheckCollisionWithPlayer(float dt)
 			bazzi->HandleBubbleDeath(AnimState::Dead);
 			std::cout << " 1P Player Dead " << std::endl;
 			std::cout << "GameOver" << std::endl;
-			dao->SetGameOver();
+			dao->SetGameOver(true);
 			return true;
 		}
 	}

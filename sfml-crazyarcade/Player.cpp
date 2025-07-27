@@ -14,7 +14,6 @@ Player::Player(const std::string& name, CharacterID id, int index)
 	isStart(false),
 	isDead(false),
 	isAlive(true),
-	isTrapped(false),
 	dieTimer(0.f),
 	readyTimer(0.f),
 	activeBalloons(0),
@@ -88,7 +87,7 @@ void Player::Move(float dt)
 	{
 		PlayMoveAnimation();
 		dir = InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
-		std::cout << dir.x << ", " << dir.y << std::endl;
+		//std::cout << dir.x << ", " << dir.y << std::endl;
 		position = GetPosition() + dir * curSpeed * dt;
 		SetPosition(position);
 		SetScale({ dir.x < 0 ? -1.f : dir.x > 0 ? 1.f : sprite.getScale().x, 1.f });
@@ -111,10 +110,11 @@ void Player::AddWaterBalloonLength(int l)
 }
 
 //====================================GAME OVER==========================================
-void Player::SetGameOver()
+void Player::SetGameOver(bool t)
 {
 	curSpeed = 0.f;
 	animState = AnimState::Win;
+	isDead = t;
 	animator.Play("animation/bazzi_win.csv");
 }
 
@@ -178,17 +178,25 @@ void Player::Update(float dt)
 
 	PlayerEvent(dt);
 	CheckCollWithSplash(); // KHI
-	if (animState == AnimState::Trapped && !isDead)
+	if (animState == AnimState::Trapped && !isPop)
 	{
 		dieTimer += dt;
-		std::cout << "TrappedTimer: " << dieTimer << std::endl;
+		//std::cout << "TrappedTimer: " << dieTimer << std::endl;
 		if (dieTimer > 5.f)
 		{
 			animState = AnimState::Dead;
 			dieTimer = 0.f;
 			animator.Play("animation/bazzi_die.csv");
 			std::cout << "TrappedTimer is finished: AnimeState::Dead" << std::endl;
-			isDead = true;
+			isPop = true;
+		}
+	}
+	if (isDead)
+	{
+		winTimer += dt;
+		if (winTimer > 2.f)
+		{
+			//animator.Play("animation/bazzi_win.csv");
 		}
 	}
 }
@@ -219,7 +227,6 @@ void Player::CheckCollWithSplash()
 			{
 				animState = AnimState::Trapped;
 				curSpeed = 5.f;
-				isTrapped = true;
 				animator.PlayQueue("animation/bazzi_trap.csv");
 				animator.Play("animation/bazzi_trap2.csv",true);
 

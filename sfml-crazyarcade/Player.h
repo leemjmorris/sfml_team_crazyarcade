@@ -20,10 +20,6 @@ protected:
 	AnimState animState;
 	int playerIndex;
 
-	bool isTrapped;
-	bool isDead;
-	bool isAlive;
-
 	CharacterID charId;
 	GameObject* obj;
 	sf::Vector2f dir;
@@ -36,9 +32,12 @@ protected:
 	sf::Keyboard::Key installWaterBomb;
 
 	float dieTimer;
+	float winTimer;
 	float readyTimer;
 	bool isStart = false;
-	bool isdead=false;
+	bool isDead=false;
+	bool isPop = false;
+	bool isAlive;
 
 	sf::Vector2f playerHitBoxSize = { 52.f, 52.f }; // KHI
 	sf::Vector2f playerHitBoxOffset = { 7.f, 20.f }; // KHI: 
@@ -75,7 +74,7 @@ public:
 	void AddSpeed(float s =1);
 	void AddWaterBalloonCount(int c =1);
 	void AddWaterBalloonLength(int l =1);
-	void SetGameOver();
+	void SetGameOver(bool t);
 	void SetEnter(bool t)
 	{
 		animator.Play("animation/bazzi_ready.csv",true);
