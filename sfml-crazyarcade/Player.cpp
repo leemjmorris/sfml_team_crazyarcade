@@ -181,7 +181,7 @@ void Player::Reset()
 	sortingOrder = 1;
 	curSpeed = CharacterTable.at(charId).intiPlayerSpeed;
 	balloonCapacity = CharacterTable.at(charId).initBombCount;
-	activeBalloons = 1;
+	activeBalloons = 0;
 	activeWaterBalloonLength = 1;
 	animator.Play("animation/bazzi_run.csv");
 }
