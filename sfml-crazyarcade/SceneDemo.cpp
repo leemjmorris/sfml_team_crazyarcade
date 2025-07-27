@@ -134,7 +134,6 @@ void SceneDemo::Enter()
 	{
 		std::cout << "Failed to load temp_map.json, falling back to manual setup..." << std::endl;
 		// LMJ: "Fallback to old method if JSON loading fails"
-		SetLayerForTest();
 	}
 	else
 	{
@@ -145,11 +144,11 @@ void SceneDemo::Enter()
 	{
 		for (int x = 0; x < 15; ++x)
 		{
-			layer1[y][x] = Utils::CollBlockLayer[y][x];
+			blockLayer[y][x] = Utils::CollBlockLayer[y][x];
 		}
 	}
 
-	collBuilder = std::make_unique<MapCollisionBuilder>(layer1);
+	collBuilder = std::make_unique<MapCollisionBuilder>(blockLayer);
 	collBuilder->CreateCollisionHitBox();
 	collData = collBuilder->GetTileHitBoxes();
 
@@ -161,8 +160,7 @@ void SceneDemo::Update(float dt)
 {
 	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
 	{
-		toggleActiveGrid = !toggleActiveGrid;
-		toggleActiveColl = !toggleActiveColl;
+		toggleActiveDebugDraw = !toggleActiveDebugDraw;
 	}
 
 	for (auto* obj : objectsNeedingClamp)
@@ -185,13 +183,9 @@ void SceneDemo::Draw(sf::RenderWindow& window)
 		colorMask.Apply(window, sprites[i]);
 	}
 
-	if (toggleActiveGrid)
+	if (toggleActiveDebugDraw)
 	{
 		window.draw(gridLines);
-	}
-
-	if (toggleActiveColl)
-	{
 		collBuilder->DrawDebugHitBox(window);
 	}
 }
@@ -227,37 +221,4 @@ bool SceneDemo::CheckCollisionWithPlayer(float dt)
 		}
 	}
 	return false;
-}
-
-void SceneDemo::SetLayerForTest()
-{
-	// KHI: background
-	for (int i = 0; i < GRID_HEIGHT; i++)
-	{
-		for (int j = 0; j < GRID_WIDTH; j++)
-		{
-			if (layer0[i][j] == 1)
-			{
-				sf::Sprite sprite;
-				sprite.setTexture(TEXTURE_MGR.Get("assets/map/forest/tile/tile_9.bmp"));
-				sprite.setPosition(sf::Vector2f(j * GRID_SIZE, i * GRID_SIZE));
-				sprites.push_back(sprite);
-			}
-		}
-	}
-
-	// KHI: objects
-	for (int i = 0; i < GRID_HEIGHT; i++)
-	{
-		for (int j = 0; j < GRID_WIDTH; j++)
-		{
-			if (layer1[i][j] == 1)
-			{
-				sf::Sprite sprite;
-				sprite.setTexture(TEXTURE_MGR.Get("assets/map/forest/object/object_3.bmp"));
-				sprite.setPosition(sf::Vector2f(j * GRID_SIZE, i * GRID_SIZE));
-				sprites.push_back(sprite);
-			}
-		}
-	}
 }
