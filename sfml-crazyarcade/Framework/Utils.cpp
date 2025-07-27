@@ -1,5 +1,13 @@
 #include "stdafx.h"
 #include "Utils.h"
+#include "Block.h"
+#include "Scene.h"
+#include "SpriteGo.h"
+#include "MapEditor.h" // LMJ: "For TileData struct"
+#include <fstream>
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 std::random_device Utils::rd;
 std::mt19937 Utils::gen;
@@ -23,7 +31,7 @@ int Utils::RandomRange(int min, int maxExclude)
         return min;
     }
     std::uniform_int_distribution<int> dist(min, maxExclude - 1);
-	return dist(gen);
+    return dist(gen);
 }
 
 float Utils::RandomRange(float min, float max)
@@ -39,7 +47,7 @@ sf::Vector2f Utils::RandomOnUnitCircle()
     {
         point = RandomInUnitCircle();
     } while (SqrMagnitude(point) < std::numeric_limits<float>::epsilon());
-    
+
     return GetNormal(point);
 }
 
@@ -50,7 +58,7 @@ sf::Vector2f Utils::RandomInUnitCircle()
     {
         point = RandomPointInRect(sf::FloatRect(-1.f, -1.f, 2.f, 2.f));
     } while (SqrMagnitude(point) > 1.f);
-    
+
     return point;
 }
 
@@ -205,7 +213,7 @@ bool Utils::CheckCollision(const sf::Sprite& shapeA, const sf::Sprite& shapeB)
 {
     if (!shapeA.getGlobalBounds().intersects(shapeB.getGlobalBounds()))
         return false;
-    
+
     auto pointsA = GetShapePoints(shapeA);
     auto pointsB = GetShapePoints(shapeB);
     return PolygonsIntersect(pointsA, shapeA.getTransform(), pointsB, shapeB.getTransform());
@@ -216,7 +224,7 @@ bool Utils::CheckCollision(const sf::RectangleShape& shapeA, const sf::Rectangle
 {
     if (!shapeA.getGlobalBounds().intersects(shapeB.getGlobalBounds()))
         return false;
-    
+
     auto pointsA = GetShapePoints(shapeA);
     auto pointsB = GetShapePoints(shapeB);
     return PolygonsIntersect(pointsA, shapeA.getTransform(), pointsB, shapeB.getTransform());
@@ -262,19 +270,19 @@ bool Utils::PolygonsIntersect(const std::vector<sf::Vector2f>& polygonA, const s
 {
     std::vector<sf::Vector2f> axes;
     axes.reserve(polygonA.size() + polygonB.size());
-    
+
     int countA = polygonA.size();
     for (int i = 0; i < countA; ++i)
     {
         sf::Vector2f p1 = transformA.transformPoint(polygonA[i]);
         sf::Vector2f p2 = transformA.transformPoint(polygonA[(i + 1) % countA]);
         sf::Vector2f edge = p2 - p1;
-        
+
         if (SqrMagnitude(edge) < std::numeric_limits<float>::epsilon())
             continue;
-            
+
         sf::Vector2f normal(-edge.y, edge.x);
-        
+
         bool isDuplicate = false;
         for (const auto& axis : axes)
         {
@@ -285,7 +293,7 @@ bool Utils::PolygonsIntersect(const std::vector<sf::Vector2f>& polygonA, const s
                 break;
             }
         }
-        
+
         if (!isDuplicate)
             axes.push_back(normal);
     }
@@ -296,12 +304,12 @@ bool Utils::PolygonsIntersect(const std::vector<sf::Vector2f>& polygonA, const s
         sf::Vector2f p1 = transformB.transformPoint(polygonB[i]);
         sf::Vector2f p2 = transformB.transformPoint(polygonB[(i + 1) % countB]);
         sf::Vector2f edge = p2 - p1;
-        
+
         if (SqrMagnitude(edge) < std::numeric_limits<float>::epsilon())
             continue;
-            
+
         sf::Vector2f normal(-edge.y, edge.x);
-        
+
         bool isDuplicate = false;
         for (const auto& axis : axes)
         {
@@ -312,7 +320,7 @@ bool Utils::PolygonsIntersect(const std::vector<sf::Vector2f>& polygonA, const s
                 break;
             }
         }
-        
+
         if (!isDuplicate)
             axes.push_back(normal);
     }
@@ -345,4 +353,163 @@ bool Utils::PolygonsIntersect(const std::vector<sf::Vector2f>& polygonA, const s
         }
     }
     return true;
+}
+
+// LMJ: "Map loading utilities implementation"
+bool Utils::LoadMapFromJson(Scene* scene, const std::string& filename)
+{
+    if (!scene)
+    {
+        std::cerr << "Scene is null!" << std::endl;
+        return false;
+    }
+
+    // LMJ: "Construct full file path"
+    std::string fullPath = PATH_MAP_JSON + filename;
+
+    // LMJ: "Open and parse JSON file (same as MapEditor)"
+    std::ifstream ifs(fullPath);
+    if (!ifs.is_open())
+    {
+        std::cerr << "Failed to open map file: " << fullPath << std::endl;
+        return false;
+    }
+
+    json jMap;
+    try
+    {
+        ifs >> jMap;
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "Failed to parse JSON: " << e.what() << std::endl;
+        ifs.close();
+        return false;
+    }
+    ifs.close();
+
+    // LMJ: "Load tiles if they exist (same structure as MapEditor)"
+    if (jMap.contains("tiles"))
+    {
+        LoadTilesFromJson(scene, &jMap["tiles"]);
+    }
+
+    // LMJ: "Load blocks if they exist (same structure as MapEditor)"
+    if (jMap.contains("blocks"))
+    {
+        LoadBlocksFromJson(scene, &jMap["blocks"]);
+    }
+
+    std::cout << "Successfully loaded map: " << filename << std::endl;
+    return true;
+}
+
+void Utils::LoadTilesFromJson(Scene* scene, const void* tilesJsonPtr)
+{
+    const json& tilesJson = *static_cast<const json*>(tilesJsonPtr);
+
+    std::cout << "LoadTilesFromJson: Processing " << tilesJson.size() << " tiles" << std::endl;
+
+    // LMJ: Load tiles using TileData::FromJson which now handles worldPosition correctly
+    for (const auto& jt : tilesJson)
+    {
+        // LMJ: Create TileData from JSON (now includes worldPosition)
+        TileData tileData = TileData::FromJson(jt);
+
+        // LMJ: Debug output to check loaded values
+        std::cout << "Tile - Index: " << tileData.tileOptionIndex
+            << ", Grid: (" << tileData.gridX << "," << tileData.gridY << ")"
+            << ", WorldPos: (" << tileData.worldPosition.x << "," << tileData.worldPosition.y << ")"
+            << ", Rotation: " << tileData.rotation << std::endl;
+
+        // LMJ: Use the worldPosition from TileData instead of grid calculation
+        sf::Sprite* tileSprite = CreateTileSprite(tileData.tileOptionIndex, tileData.worldPosition, tileData.rotation);
+
+        if (tileSprite)
+        {
+            std::cout << "Created tile sprite at position: (" << tileData.worldPosition.x << "," << tileData.worldPosition.y << ")" << std::endl;
+
+            // LMJ: Add tile sprite to scene as SpriteGo
+            SpriteGo* spriteGo = new SpriteGo();
+            spriteGo->GetSprite() = *tileSprite;
+            spriteGo->SetPosition(tileData.worldPosition); // LMJ: Use saved worldPosition
+            spriteGo->SetScale({ 1.f, 1.f });
+            spriteGo->SetOrigin(Origins::TL);
+            spriteGo->sortingLayer = SortingLayers::Background;
+            scene->AddGameObject(spriteGo);
+
+            delete tileSprite; // LMJ: Clean up temporary sprite
+        }
+        else
+        {
+            std::cout << "ERROR: Failed to create tile sprite for index " << tileData.tileOptionIndex << std::endl;
+        }
+    }
+    std::cout << "LoadTilesFromJson: Finished processing tiles" << std::endl;
+}
+
+void Utils::LoadBlocksFromJson(Scene* scene, const void* blocksJsonPtr)
+{
+    const json& blocksJson = *static_cast<const json*>(blocksJsonPtr);
+
+    // LMJ: "Create Block objects (same as MapEditor)"
+    for (const auto& jb : blocksJson)
+    {
+        Block* block = Block::FromJson(jb);
+        if (block)
+        {
+            // LMJ: "Initialize block same as MapEditor"
+            block->Init();
+            block->SetScale({ 1.f, 1.f/*0.588235319f * 1.3f, 0.597014904f * 1.3f*/ }); // LMJ: "Same scale as MapEditor"
+            block->Reset();
+            block->sortingLayer = SortingLayers::Foreground;
+            scene->AddGameObject(block);
+        }
+    }
+}
+
+sf::Vector2f Utils::GridToWorldPosition(int gridX, int gridY, int gridSize)
+{
+    return sf::Vector2f(static_cast<float>(gridX * gridSize), static_cast<float>(gridY * gridSize));
+}
+
+void Utils::ClearMapObjects(Scene* scene)
+{
+    // LMJ: "Implementation depends on Scene's object management"
+    // LMJ: "This could remove all background and foreground objects"
+    // LMJ: "Left empty for now as it needs Scene's internal access"
+}
+
+sf::Sprite* Utils::CreateTileSprite(int tileOptionIndex, const sf::Vector2f& position, float rotation)
+{
+    // LMJ: "Use forest_tile_set.png like in MapEditor"
+    std::string textureFile = PATH_MAP_FOREST_TILE "forest_tile_set.png";
+
+    // LMJ: "Map tile option index to texture coordinates (same as MapEditor)"
+    sf::IntRect textureRect;
+    const int TILE_SIZE = 52; // LMJ: "Same as MapEditor"
+    const int TILES_PER_ROW = 5; // LMJ: "5 tiles per row in tileset"
+
+    if (tileOptionIndex < 0 || tileOptionIndex >= 10)
+    {
+        std::cerr << "Invalid tile option index: " << tileOptionIndex << std::endl;
+        return nullptr;
+    }
+
+    // LMJ: "Calculate texture coordinates from index"
+    int row = tileOptionIndex / TILES_PER_ROW;
+    int col = tileOptionIndex % TILES_PER_ROW;
+
+    textureRect.left = col * TILE_SIZE;
+    textureRect.top = row * TILE_SIZE;
+    textureRect.width = TILE_SIZE;
+    textureRect.height = TILE_SIZE;
+
+    sf::Sprite* sprite = new sf::Sprite();
+    sprite->setTexture(TEXTURE_MGR.Get(textureFile));
+    sprite->setTextureRect(textureRect); // LMJ: "Set the specific tile area"
+    sprite->setPosition(position);
+    sprite->setRotation(rotation);
+
+    return sprite;
 }

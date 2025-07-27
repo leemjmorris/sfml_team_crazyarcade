@@ -29,10 +29,20 @@ public:
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
 
+	// LMJ: "Added GetLocalBounds and GetGlobalBounds overrides"
+	sf::FloatRect GetLocalBounds() const override
+	{
+		return sprite.getLocalBounds();
+	}
+
+	sf::FloatRect GetGlobalBounds() const override
+	{
+		return sprite.getGlobalBounds();
+	}
+
 	void Init() override;
 	void Release() override;
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 };
-

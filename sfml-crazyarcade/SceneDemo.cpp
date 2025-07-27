@@ -59,7 +59,18 @@ void SceneDemo::Init()
 	texIds.push_back("assets/player/bazzi/flash_short.png");
 	texIds.push_back("assets/play_bg.bmp");
 
-	// KHI: Blocks
+	// LMJ: "Load forest tileset texture for map loading (same as MapEditor)"
+	texIds.push_back(PATH_MAP_FOREST_TILE "forest_tile_set.png");
+	
+	// LMJ: "Load forest blocks for map loading
+	texIds.push_back("assets/map/forest/block/block_1.bmp");
+	texIds.push_back("assets/map/forest/block/block_2.bmp");
+	texIds.push_back("assets/map/forest/block/block_3.bmp");
+	texIds.push_back("assets/map/forest/block/block_4.bmp");
+	texIds.push_back("assets/map/forest/block/block_5.bmp");
+	texIds.push_back("assets/map/forest/block/block_6.bmp");
+
+	// KHI: Blocks - Keep existing block textures
 	texIds.push_back("assets/map/forest/tile/tile_9.bmp");
 	texIds.push_back("assets/map/forest/object/object_3.bmp");
 
@@ -115,7 +126,7 @@ void SceneDemo::Enter()
 	Item::SpawnItem("item", Item::ItemType::WaterJet, { 400.f, 200.f });
 
 	std::cout << "===================" << std::endl;
-	std::cout << "     SceneDemo"      << std::endl;
+	std::cout << "     SceneDemo" << std::endl;
 	std::cout << "===================" << std::endl;
 
 	bazzi->SetPosition({ 130, 104 });
@@ -123,13 +134,18 @@ void SceneDemo::Enter()
 
 	bazzi->SetEnter(true);
 	dao->SetEnter(true);
-	//Block* testBlock = new Block();
-	//testBlock->SetBlockType(BlockType::SoftBlock);
-
-	//testBlockSprite.setTexture(TEXTURE_MGR.Get("assets/map/forest/block/block_1.bmp"));
-	//testBlockSprite.setPosition({300.f, 300.f});
-
-	SetLayerForTest();
+	// LMJ: "Load map from JSON file created in MapEditor"
+	// LMJ: "This replaces the old manual tile/block creation"
+	if (!LOAD_MAP(this, "temp_map.json"))
+	{
+		std::cout << "Failed to load temp_map.json, falling back to manual setup..." << std::endl;
+		// LMJ: "Fallback to old method if JSON loading fails"
+		SetLayerForTest();
+	}
+	else
+	{
+		std::cout << "Successfully loaded map from temp_map.json!" << std::endl;
+	}
 }
 
 void SceneDemo::Update(float dt)
@@ -139,10 +155,13 @@ void SceneDemo::Update(float dt)
 		toggleActiveGrid = !toggleActiveGrid;
 		toggleActiveColl = !toggleActiveColl;
 	}
-	
+
 	for (auto* obj : objectsNeedingClamp)
 		ClampToBounds(*obj);
 	
+
+	CheckCollisionWithPlayer();
+
 	Scene::Update(dt);
 }
 
