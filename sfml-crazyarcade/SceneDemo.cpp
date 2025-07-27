@@ -9,7 +9,7 @@
 #include "GameSceneUI.h"
 
 SceneDemo::SceneDemo()
-	: Scene(SceneIds::Demo), dao(nullptr),  bazzi(nullptr), item(nullptr)
+	: Scene(SceneIds::Demo), dao(nullptr), bazzi(nullptr), item(nullptr)
 {
 }
 
@@ -22,12 +22,12 @@ void SceneDemo::Init()
 
 	sf::Vector2f topLeft = { 27.f, 55.f };
 	worldView.setSize(worldSize);
-	worldView.setCenter( worldSize.x * 0.5f - topLeft.x, worldSize.y * 0.5f - topLeft.y);
+	worldView.setCenter(worldSize.x * 0.5f - topLeft.x, worldSize.y * 0.5f - topLeft.y);
 
 	uiView.setSize(windowSize);
 	uiView.setCenter(windowSize * 0.5f);
 	uiView.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
-	
+
 	// KHI: For Testing (Draw Grids)
 	gridLines.setPrimitiveType(sf::Lines);
 	gridLines.clear();
@@ -61,7 +61,7 @@ void SceneDemo::Init()
 
 	// LMJ: "Load forest tileset texture for map loading (same as MapEditor)"
 	texIds.push_back(PATH_MAP_FOREST_TILE "forest_tile_set.png");
-	
+
 	// LMJ: "Load forest blocks for map loading
 	texIds.push_back("assets/map/forest/block/block_1.bmp");
 	texIds.push_back("assets/map/forest/block/block_2.bmp");
@@ -102,6 +102,18 @@ void SceneDemo::Init()
 
 	ui = static_cast<GameSceneUI*>(AddGameObject(new GameSceneUI()));
 
+	// LSY: "will handle the game result display"
+	//fontIds.push_back("assets/font/ARCADECLASSIC.TTF");
+
+	font.loadFromFile("assets/font/ARCADECLASSIC.TTF");
+	textDraw.setFont(font);
+	textDraw.setOrigin(textDraw.getGlobalBounds().width * 0.5f, textDraw.getGlobalBounds().height * 0.5f);
+	textDraw.setOutlineThickness(2);
+	textDraw.setOutlineColor(sf::Color::Black);
+	textDraw.setCharacterSize(100);
+	textDraw.setFillColor(sf::Color::White);
+	textDraw.setPosition(worldBounds.width * 0.5f - 170.f, 100.f);
+
 	Scene::Init();
 }
 
@@ -111,7 +123,7 @@ void SceneDemo::Enter()
 
 	Item::SetPlayer(bazzi);
 	Item::SetPlayer(dao);
-	
+
 	WaterSplashPool::SetCurScene(SCENE_MGR.GetCurrentScene());
 	WaterSplashPool::Init();
 
@@ -166,19 +178,37 @@ void SceneDemo::Update(float dt)
 
 	for (auto* obj : objectsNeedingClamp)
 		ClampToBounds(*obj);
-	
+
 
 	CheckCollisionWithPlayer(dt);
-		if (bazzi->GetPlayerState() == AnimState::Dead)
-			dao->SetGameOver(true, false, dt);
-		if (dao->GetPlayerState() == AnimState::Dead)
-			bazzi->SetGameOver(true, false, dt);
-	if (gameTimer > 20.f&& bazzi->GetPlayerState()==AnimState::Live && dao->GetPlayerState() == AnimState::Live) // LSY: "Game over after 20 second"
+	if (bazzi->GetPlayerState() == AnimState::Dead)
 	{
+		isShowingText = true;
+		dao->SetGameOver(true, false, dt);
+		textDraw.setString("1P Win");
+	}
+	if (dao->GetPlayerState() == AnimState::Dead)
+	{
+		isShowingText = true;
+		bazzi->SetGameOver(true, false, dt);
+		textDraw.setString("2P Win");
+	}
+	if (gameTimer > 20.f && bazzi->GetPlayerState() == AnimState::Live && dao->GetPlayerState() == AnimState::Live) // LSY: "Game over after 20 second"
+	{
+		isShowingText = true;
+		textDraw.setString("Draw");
 		bazzi->SetGameOver(false, true, dt);
 		dao->SetGameOver(false, true, dt);
 		std::cout << "Time's up! Draw!" << std::endl;
 	}
+
+	// LSY: click to exit
+	if (InputMgr::GetMouseButton(sf::Mouse::Left) &&
+		(clickableArea.contains((sf::Vector2f)InputMgr::GetMousePosition())))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::Ready);
+	}
+
 	Scene::Update(dt);
 }
 
@@ -198,14 +228,19 @@ void SceneDemo::Draw(sf::RenderWindow& window)
 		window.draw(gridLines);
 		collBuilder->DrawDebugHitBox(window);
 	}
+	if (isShowingText)
+	{
+		window.setView(uiView);
+		window.draw(textDraw);
+	}
 }
 
 void SceneDemo::ClampToBounds(GameObject& obj)
 {
 	sf::Vector2f pos = obj.GetPosition();
 	// LSY : if ( origins :: BC ) of obj -> (+) getGlobalBounds().width * 0.5f // Becomes unstable when object sizes are different
-	pos.x = Utils::Clamp(pos.x, worldBounds.left + obj.GetGlobalBounds().width * 0.5f, worldBounds.left + worldBounds.width - obj.GetGlobalBounds().width * 0.5f);
-	pos.y = Utils::Clamp(pos.y, worldBounds.top + obj.GetGlobalBounds().height * 0.5f, worldBounds.top + worldBounds.height);
+	pos.x = Utils::Clamp(pos.x, worldBounds.left + obj.GetGlobalBounds().width * 0.35f, worldBounds.left + worldBounds.width - obj.GetGlobalBounds().width * 0.65f);
+	pos.y = Utils::Clamp(pos.y, worldBounds.top + obj.GetGlobalBounds().height * 0.5f, worldBounds.top + worldBounds.height+78.f);
 	obj.SetPosition(pos);
 }
 

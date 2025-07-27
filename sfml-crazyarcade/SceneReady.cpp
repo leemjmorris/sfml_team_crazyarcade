@@ -33,7 +33,6 @@ void SceneReady::Enter()
 	scale.y = windowSize.y / textureSizeF.y;
 
 	bgSprite.setScale(scale);
-
 	Scene::Enter();
 }
 

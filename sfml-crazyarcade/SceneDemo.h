@@ -10,6 +10,12 @@ class GameSceneUI;
 class SceneDemo : public Scene
 {
 protected:
+	sf::Text textDraw;
+	sf::Font font;
+	bool isShowingText = false;
+
+	sf::FloatRect clickableArea = sf::FloatRect(647.f,561.f,141.f, 32.f);
+
 	const int GRID_HEIGHT = 13;
 	const int GRID_WIDTH = 15;
 	const int GRID_SIZE = 52;
@@ -21,6 +27,7 @@ protected:
 	Player* dao;
 	Item* item;
 	sf::FloatRect worldBounds = FRAMEWORK.GetWindowBounds();
+	//sf::FloatRect worldBounds = { 0, 780, 0, 676 };
 	std::vector<GameObject*> objectsNeedingClamp;
 
 	GameSceneUI* ui;
