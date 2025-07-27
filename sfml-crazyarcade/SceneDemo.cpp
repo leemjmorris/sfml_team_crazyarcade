@@ -9,7 +9,7 @@
 #include "GameSceneUI.h"
 
 SceneDemo::SceneDemo()
-	: Scene(SceneIds::Demo), builder(layer1), dao(nullptr),  bazzi(nullptr), item(nullptr), collBuilder(layer1)
+	: Scene(SceneIds::Demo), dao(nullptr),  bazzi(nullptr), item(nullptr), collBuilder(layer1)
 {
 }
 

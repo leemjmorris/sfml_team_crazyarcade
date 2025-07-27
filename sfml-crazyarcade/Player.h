@@ -73,7 +73,6 @@ public:
 			else if (clipId == "Down") animator.Play("animation/bazzi_down.csv");
 		}
 	}
-	void Move(float dt);
 	void AddSpeed(float s =1);
 	void AddWaterBalloonCount(int c =1);
 	void AddWaterBalloonLength(int l =1);
@@ -95,6 +94,7 @@ public:
 	const int GetWaterBalloonCount() { return activeWaterBalloonCount; };
 	const int GetWaterBalloonLength() { return activeWaterBalloonLength; };
 	AnimState GetPlayerState() { return animState; };
+	void SetMapData(const std::vector<TileHitBox>& data) { mapData = data; }
 
 	void Init() override;
 	void Release() override;
