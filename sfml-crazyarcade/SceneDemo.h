@@ -14,7 +14,8 @@ protected:
 	const int GRID_WIDTH = 15;
 	const int GRID_SIZE = 52;
 
-	float killTimer = 0.0f;
+	float gameTimer;
+	bool isGameOver = false;
 
 	Player* bazzi;
 	Player* dao;

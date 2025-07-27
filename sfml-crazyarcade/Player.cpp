@@ -6,14 +6,11 @@ Player::Player(const std::string& name, CharacterID id, int index)
 	: GameObject(name),
 	charId(id),
 	curSpeed(100.f),
-	activeWaterBalloonCount(1),
 	activeWaterBalloonLength(1),
 	velocity({ 1.f, 1.f }),
 	dir({ 1.f, 1.f }),
 	playerIndex(index),
 	isStart(false),
-	isDead(false),
-	isAlive(true),
 	dieTimer(0.f),
 	readyTimer(0.f),
 	activeBalloons(0),
@@ -26,9 +23,9 @@ Player::Player(const std::string& name, CharacterID id, int index)
 	const auto& stats = CharacterTable.at(charId);
 
 	curSpeed = stats.intiPlayerSpeed;
+	balloonCapacity = stats.initBombCount;
 	maxBalloonCount = stats.maxBombCount;
 	maxBalloonLength = stats.maxbombLength;
-	balloonCapacity = stats.initBombCount;
 }
 
 Player::~Player()
@@ -61,14 +58,21 @@ bool Player::CanPlaceBalloon() const
 
 bool Player::CheckInstallWaterballoon()
 {
+	if (animState != AnimState::Live)
+		return false;
+
 	if (!CanPlaceBalloon()) {
 		std::cout << "all waterballoon is installed" << std::endl;
 		return false;
 	}
 
 	WaterBalloon::Spawn("bomb", { GetPosition().x, GetPosition().y - 10.f }, GetWaterBalloonLength(), this);
-
-	++activeBalloons;                  // �ʵ忡 ����ִ� ǳ�� +1
+	if(playerIndex == 0)
+		std::cout << "Player 1 activeBalloons:" << activeBalloons<<", balloonCapacity: "<< balloonCapacity<<std::endl;
+	else
+		std::cout << "Player 2  activeBalloons:" << activeBalloons<< ", balloonCapacity: "<<balloonCapacity<<std::endl;
+	
+	++activeBalloons;
 	return true;
 }
 
@@ -95,12 +99,22 @@ void Player::AddWaterBalloonLength(int l)
 }
 
 //====================================GAME OVER==========================================
-void Player::SetGameOver(bool t)
+void Player::SetGameOver(bool t, bool l, float dt)
 {
-	curSpeed = 0.f;
-	animState = AnimState::Win;
-	isDead = t;
-	animator.Play("animation/bazzi_win.csv");
+	isAnotherDead = t;
+	isDraw = l;
+	if (isAnotherDead|| isDraw)
+	{
+		winTimer += dt;
+		if (winTimer > 1.f)
+		{
+			winTimer = 0.f;
+
+			animator.Play("animation/bazzi_win.csv");
+			animState = AnimState::Win;
+			std::cout << "WinTimer is finished: AnimeState::Win" << std::endl;
+		}
+	}
 }
 
 void Player::SetPosition(const sf::Vector2f& pos)
@@ -167,7 +181,7 @@ void Player::Reset()
 	sortingOrder = 1;
 	curSpeed = CharacterTable.at(charId).intiPlayerSpeed;
 	balloonCapacity = CharacterTable.at(charId).initBombCount;
-	activeWaterBalloonCount = 1;
+	activeBalloons = 1;
 	activeWaterBalloonLength = 1;
 	animator.Play("animation/bazzi_run.csv");
 }
@@ -192,14 +206,13 @@ void Player::Update(float dt)
 	{
 		Movement(dt);
 	}
-	//MoveAnim(dt);
 	animator.Update(dt);
-	
 	PlayerEvent(dt);
-	//hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, Origins::BC, playerHitBoxOffset);
 
 	CheckCollWithSplash();
-	if (animState == AnimState::Trapped && !isPop)
+	
+	// LSY: if player is trapped, then stop moving
+	if (animState == AnimState::Trapped)
 	{
 		dieTimer += dt;
 		//std::cout << "TrappedTimer: " << dieTimer << std::endl;
@@ -209,7 +222,6 @@ void Player::Update(float dt)
 			dieTimer = 0.f;
 			animator.Play("animation/bazzi_die.csv");
 			std::cout << "TrappedTimer is finished: AnimeState::Dead" << std::endl;
-			isPop = true;
 		}
 	}
 }
@@ -233,7 +245,6 @@ void Player::CheckCollWithSplash()
 
 		if (splashObj && splashObj->GetActive())
 		{
-
 			sf::FloatRect rect(splashObj->GetGlobalBounds()); // left, top, width, height
 
 			if (rect.contains(GetPosition()))
@@ -260,13 +271,15 @@ bool Player::CheckCollisionWithMap()
 			return true;
 		}
 	}
-
 	return false;
 }
 
 // KHI
 void Player::Movement(float dt)
 {
+	if (animState == AnimState::Win || animState == AnimState::Dead)
+		return;
+
 	if (animState == AnimState::Live && animState != AnimState::Ready)
 	{
 		PlayMoveAnimation();

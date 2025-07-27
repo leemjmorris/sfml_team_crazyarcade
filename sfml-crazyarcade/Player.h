@@ -13,7 +13,6 @@ protected:
 	float curSpeed;
 	int balloonCapacity;
 	int activeBalloons;
-	int activeWaterBalloonCount;
 	int activeWaterBalloonLength;
 	int	maxBalloonCount;
 	int	maxBalloonLength;
@@ -36,9 +35,11 @@ protected:
 	float winTimer;
 	float readyTimer;
 	bool isStart = false;
-	bool isDead=false;
+	bool isAnotherDead =false;
+	bool isDead;
+	bool isDraw;
+	bool isAnotherEscapeFailed =false;
 	bool isPop = false;
-	bool isAlive;
 
 	sf::Vector2f playerHitBoxSize = { 40.f, 40.f }; // KHI
 	sf::Vector2f playerHitBoxOffset = { 0.f, 10.f }; // KHI: 
@@ -76,7 +77,7 @@ public:
 	void AddSpeed(float s =1);
 	void AddWaterBalloonCount(int c =1);
 	void AddWaterBalloonLength(int l =1);
-	void SetGameOver(bool t);
+	void SetGameOver(bool t, bool l, float dt);
 	void SetEnter(bool t)
 	{
 		animator.Play("animation/bazzi_ready.csv",true);
@@ -91,7 +92,7 @@ public:
 	}
 
 	float GetSpeed() { return curSpeed; };
-	const int GetWaterBalloonCount() { return activeWaterBalloonCount; };
+	const int GetWaterBalloonCount() { return activeBalloons; };
 	const int GetWaterBalloonLength() { return activeWaterBalloonLength; };
 	AnimState GetPlayerState() { return animState; };
 	void SetMapData(const std::vector<TileHitBox>& data) { mapData = data; }

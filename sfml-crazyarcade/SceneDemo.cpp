@@ -158,6 +158,7 @@ void SceneDemo::Enter()
 
 void SceneDemo::Update(float dt)
 {
+	gameTimer += dt;
 	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
 	{
 		toggleActiveDebugDraw = !toggleActiveDebugDraw;
@@ -168,7 +169,16 @@ void SceneDemo::Update(float dt)
 	
 
 	CheckCollisionWithPlayer(dt);
-
+		if (bazzi->GetPlayerState() == AnimState::Dead)
+			dao->SetGameOver(true, false, dt);
+		if (dao->GetPlayerState() == AnimState::Dead)
+			bazzi->SetGameOver(true, false, dt);
+	if (gameTimer > 20.f&& bazzi->GetPlayerState()==AnimState::Live && dao->GetPlayerState() == AnimState::Live) // LSY: "Game over after 20 second"
+	{
+		bazzi->SetGameOver(false, true, dt);
+		dao->SetGameOver(false, true, dt);
+		std::cout << "Time's up! Draw!" << std::endl;
+	}
 	Scene::Update(dt);
 }
 
@@ -208,7 +218,6 @@ bool SceneDemo::CheckCollisionWithPlayer(float dt)
 			dao->HandleBubbleDeath(AnimState::Dead);
 			std::cout << " 2P Player Dead " << std::endl;
 			std::cout << "GameOver" << std::endl;
-			bazzi->SetGameOver(true);
 			return true;
 		}
 		else if (bazzi->GetPlayerState() == AnimState::Trapped && dao->GetPlayerState() != AnimState::Trapped)
@@ -216,7 +225,6 @@ bool SceneDemo::CheckCollisionWithPlayer(float dt)
 			bazzi->HandleBubbleDeath(AnimState::Dead);
 			std::cout << " 1P Player Dead " << std::endl;
 			std::cout << "GameOver" << std::endl;
-			dao->SetGameOver(true);
 			return true;
 		}
 	}
