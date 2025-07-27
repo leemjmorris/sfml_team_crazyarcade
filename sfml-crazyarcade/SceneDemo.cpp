@@ -160,7 +160,7 @@ void SceneDemo::Update(float dt)
 		ClampToBounds(*obj);
 	
 
-	CheckCollisionWithPlayer();
+	CheckCollisionWithPlayer(dt);
 
 	Scene::Update(dt);
 }
