@@ -167,6 +167,8 @@ void SceneDemo::Update(float dt)
 
 void SceneDemo::Draw(sf::RenderWindow& window)
 {
+	Scene::Draw(window);
+
 	window.setView(worldView);
 
 	for (int i = 0; i < sprites.size(); i++)
@@ -183,8 +185,6 @@ void SceneDemo::Draw(sf::RenderWindow& window)
 	{
 		collBuilder.DrawDebugHitBox(window);
 	}
-
-	Scene::Draw(window);
 }
 
 void SceneDemo::ClampToBounds(GameObject& obj)
