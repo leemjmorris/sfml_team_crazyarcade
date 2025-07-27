@@ -71,7 +71,7 @@ public:
 	static bool LoadMapFromJson(Scene* scene, const std::string& filename);
 	static void LoadTilesFromJson(Scene* scene, const void* tilesJson);
 	static void LoadBlocksFromJson(Scene* scene, const void* blocksJson);
-	static sf::Vector2f GridToWorldPosition(int gridX, int gridY, int gridSize = 40);
+	static sf::Vector2f GridToWorldPosition(int gridX, int gridY, int gridSize = 52);
 	static void ClearMapObjects(Scene* scene);
 
 private:

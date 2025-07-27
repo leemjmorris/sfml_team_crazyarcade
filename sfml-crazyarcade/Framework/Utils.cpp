@@ -408,38 +408,44 @@ void Utils::LoadTilesFromJson(Scene* scene, const void* tilesJsonPtr)
 {
     const json& tilesJson = *static_cast<const json*>(tilesJsonPtr);
 
-    // LMJ: "Load tiles same as MapEditor: convert to TileData first"
-    std::vector<TileData> tileDatas;
+    std::cout << "LoadTilesFromJson: Processing " << tilesJson.size() << " tiles" << std::endl;
+
+    // LMJ: Load tiles using TileData::FromJson which now handles worldPosition correctly
     for (const auto& jt : tilesJson)
     {
-        // LMJ: "Create TileData from JSON (same as MapEditor)"
-        int tileOptionIndex = jt.at("tileOptionIndex").get<int>();
-        int gridX = jt.at("gridX").get<int>();
-        int gridY = jt.at("gridY").get<int>();
-        float rotation = jt.value("rotation", 0.f);
+        // LMJ: Create TileData from JSON (now includes worldPosition)
+        TileData tileData = TileData::FromJson(jt);
 
-        tileDatas.emplace_back(tileOptionIndex, gridX, gridY, rotation);
-    }
+        // LMJ: Debug output to check loaded values
+        std::cout << "Tile - Index: " << tileData.tileOptionIndex
+            << ", Grid: (" << tileData.gridX << "," << tileData.gridY << ")"
+            << ", WorldPos: (" << tileData.worldPosition.x << "," << tileData.worldPosition.y << ")"
+            << ", Rotation: " << tileData.rotation << std::endl;
 
-    // LMJ: "Create sprites from TileData"
-    for (const auto& tileData : tileDatas)
-    {
-        sf::Vector2f worldPos = GridToWorldPosition(tileData.gridX, tileData.gridY);
-        sf::Sprite* tileSprite = CreateTileSprite(tileData.tileOptionIndex, worldPos, tileData.rotation);
+        // LMJ: Use the worldPosition from TileData instead of grid calculation
+        sf::Sprite* tileSprite = CreateTileSprite(tileData.tileOptionIndex, tileData.worldPosition, tileData.rotation);
 
         if (tileSprite)
         {
-            // LMJ: "Add tile sprite to scene as SpriteGo"
+            std::cout << "Created tile sprite at position: (" << tileData.worldPosition.x << "," << tileData.worldPosition.y << ")" << std::endl;
+
+            // LMJ: Add tile sprite to scene as SpriteGo
             SpriteGo* spriteGo = new SpriteGo();
             spriteGo->GetSprite() = *tileSprite;
-            spriteGo->SetPosition(worldPos);
+            spriteGo->SetPosition(tileData.worldPosition); // LMJ: Use saved worldPosition
+            spriteGo->SetScale({ 1.f, 1.f });
             spriteGo->SetOrigin(Origins::TL);
             spriteGo->sortingLayer = SortingLayers::Background;
             scene->AddGameObject(spriteGo);
 
-            delete tileSprite; // LMJ: "Clean up temporary sprite"
+            delete tileSprite; // LMJ: Clean up temporary sprite
+        }
+        else
+        {
+            std::cout << "ERROR: Failed to create tile sprite for index " << tileData.tileOptionIndex << std::endl;
         }
     }
+    std::cout << "LoadTilesFromJson: Finished processing tiles" << std::endl;
 }
 
 void Utils::LoadBlocksFromJson(Scene* scene, const void* blocksJsonPtr)
@@ -454,7 +460,7 @@ void Utils::LoadBlocksFromJson(Scene* scene, const void* blocksJsonPtr)
         {
             // LMJ: "Initialize block same as MapEditor"
             block->Init();
-            block->SetScale({ 0.588235319f * 1.2f, 0.597014904f * 1.2f }); // LMJ: "Same scale as MapEditor"
+            block->SetScale({ 1.f, 1.f/*0.588235319f * 1.3f, 0.597014904f * 1.3f*/ }); // LMJ: "Same scale as MapEditor"
             block->Reset();
             block->sortingLayer = SortingLayers::Foreground;
             scene->AddGameObject(block);
@@ -482,7 +488,7 @@ sf::Sprite* Utils::CreateTileSprite(int tileOptionIndex, const sf::Vector2f& pos
     // LMJ: "Map tile option index to texture coordinates (same as MapEditor)"
     sf::IntRect textureRect;
     const int TILE_SIZE = 52; // LMJ: "Same as MapEditor"
-    const int TILES_PER_ROW = 5; // LMJ: "3 tiles per row in tileset"
+    const int TILES_PER_ROW = 5; // LMJ: "5 tiles per row in tileset"
 
     if (tileOptionIndex < 0 || tileOptionIndex >= 10)
     {
