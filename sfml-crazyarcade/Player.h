@@ -4,12 +4,16 @@
 #include "HitBox.h"
 #include "CharacterStats.h"
 #include "MapCollisionBuilder.h"
+#include "WaterBalloon.h"
+
 enum class AnimState { Ready, Normal, Trapped, Dead, Live, Win};
 
 class Player :
 	public GameObject
 {
 protected:
+	WaterBalloon* spawnBalloon;
+
 	float curSpeed;
 	int balloonCapacity;
 	int activeBalloons;
@@ -97,6 +101,7 @@ public:
 	const int GetWaterBalloonLength() { return activeWaterBalloonLength; };
 	AnimState GetPlayerState() { return animState; };
 	void SetMapData(const std::vector<TileHitBox>& data) { mapData = data; }
+	void ClearspawnBalloonBomb(WaterBalloon* b);
 
 	void Init() override;
 	void Release() override;

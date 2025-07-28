@@ -5,6 +5,8 @@
 #include "WaterSplashPool.h"
 #include "Player.h"
 
+std::unordered_set<int> WaterBalloon::occupiedTiles;
+
 WaterBalloon::WaterBalloon(const std::string& name)
 	: GameObject(name)
 {
@@ -79,7 +81,7 @@ void WaterBalloon::Update(float dt)
 		{
 			currentTime = 0;
 			isCounting = false;
-				
+
 			Explode();
 			active = false; // LSY:
 		}
@@ -89,6 +91,7 @@ void WaterBalloon::Update(float dt)
 void WaterBalloon::Draw(sf::RenderWindow& window)
 {
 	window.draw(balloon);
+	hitBox.Draw(window);
 }
 
 void WaterBalloon::StartCastCountdown()
@@ -101,6 +104,7 @@ void WaterBalloon::Explode()
 {
 	ExplodeInAllDirections(splashLength, splashLength, splashLength, splashLength);
 	player->OnBalloonExploded();
+	occupiedTiles.erase(GridKey(gridPos.x, gridPos.y));
 	Scene* currentScene = SCENE_MGR.GetCurrentScene();
 	currentScene->RemoveGameObject(this);
 }
@@ -128,7 +132,7 @@ void WaterBalloon::SpawnWaterSplash(WaterSplash::AnimType dir, int length)
 	sf::Vector2f centerPos = GetPosition();
 	float texSize = 52.f;
 
-	std::unordered_map<WaterSplash::AnimType, sf::Vector2f> dirs {
+	std::unordered_map<WaterSplash::AnimType, sf::Vector2f> dirs{
 	{ WaterSplash::AnimType::Up, sf::Vector2f(0.f, -1.f) },
 	{ WaterSplash::AnimType::Down, sf::Vector2f(0.f, 1.f) },
 	{ WaterSplash::AnimType::Left, sf::Vector2f(-1.f, 0.f) },
@@ -185,14 +189,35 @@ sf::Vector2f WaterBalloon::GetSnappedGridCenter(const sf::Vector2f& worldPos)
 }
 
 // KHI: Static method
-void WaterBalloon::Spawn(const std::string& name, sf::Vector2f spawnPos, int splashLen, Player* p)
+WaterBalloon* WaterBalloon::Spawn(const std::string& name, sf::Vector2f spawnPos, int splashLen, Player* p)
 {
+
+	sf::Vector2i g = { int(spawnPos.x / GRID_SIZE),
+					   int(spawnPos.y / GRID_SIZE) };
+
+	if (occupiedTiles.count(GridKey(g.x, g.y)) != 0) {
+		return nullptr;
+	}
+
+	occupiedTiles.insert(GridKey(g.x, g.y));
+
 	WaterBalloon* waterBalloon = new WaterBalloon(name);
 	waterBalloon->Init();
 	waterBalloon->StartCastCountdown();
 	waterBalloon->SetSplashLen(splashLen);
 	waterBalloon->SetPosition(GetSnappedGridCenter(spawnPos));
 	waterBalloon->TargetPlayer(p);
+
+	waterBalloon->gridPos = g;
+
+	waterBalloon->hitBox.UpdateCustomTransform(
+		waterBalloon->balloon,
+		waterBalloon->balloonHitBoxSize,
+		waterBalloon->balloonHitBoxOffset,
+		Origins::MC);
+
 	Scene* currentScene = SCENE_MGR.GetCurrentScene();
 	currentScene->AddGameObject(waterBalloon);
+
+	return waterBalloon;
 }

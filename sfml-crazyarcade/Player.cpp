@@ -49,6 +49,7 @@ void Player::PlayerEvent(float dt)
 void Player::OnBalloonExploded()
 {
 	if (activeBalloons > 0) --activeBalloons;
+	//ClearFootBomb(footBomb);
 }
 
 bool Player::CanPlaceBalloon() const
@@ -66,12 +67,18 @@ bool Player::CheckInstallWaterballoon()
 		return false;
 	}
 
-	WaterBalloon::Spawn("bomb", { GetPosition().x, GetPosition().y - 10.f }, GetWaterBalloonLength(), this);
-	if(playerIndex == 0)
-		std::cout << "Player 1 activeBalloons:" << activeBalloons<<", balloonCapacity: "<< balloonCapacity<<std::endl;
+	WaterBalloon* b = WaterBalloon::Spawn("bomb", { GetPosition().x, GetPosition().y - 10.f }, GetWaterBalloonLength(), this);
+	if (!b) {
+		std::cout << "cannot install position\n";
+		return false;
+	}
+	std::cout << "Spawned bomb ptr = " << b << '\n';
+	if (playerIndex == 0)
+		std::cout << "Player 1 activeBalloons:" << activeBalloons << ", balloonCapacity: " << balloonCapacity << std::endl;
 	else
-		std::cout << "Player 2  activeBalloons:" << activeBalloons<< ", balloonCapacity: "<<balloonCapacity<<std::endl;
-	
+		std::cout << "Player 2  activeBalloons:" << activeBalloons << ", balloonCapacity: " << balloonCapacity << std::endl;
+
+	spawnBalloon = b;
 	++activeBalloons;
 	return true;
 }
@@ -90,7 +97,7 @@ void Player::AddSpeed(float s)
 
 void Player::AddWaterBalloonCount(int b)
 {
-	balloonCapacity = Utils::Clamp(balloonCapacity + b, 1, maxBalloonCount); 
+	balloonCapacity = Utils::Clamp(balloonCapacity + b, 1, maxBalloonCount);
 }
 
 void Player::AddWaterBalloonLength(int l)
@@ -152,22 +159,22 @@ void Player::Init()
 
 	switch (playerIndex)
 	{
-		case 0:
-			vAxis = Axis::Vertical_1p;
-			hAxis = Axis::Horizontal_1p;
-			installWaterBomb = sf::Keyboard::LShift;
-			break;
-		case 1:
-			vAxis = Axis::Vertical_2p;
-			hAxis = Axis::Horizontal_2p;
-			installWaterBomb = sf::Keyboard::RShift;
-			break;
+	case 0:
+		vAxis = Axis::Vertical_1p;
+		hAxis = Axis::Horizontal_1p;
+		installWaterBomb = sf::Keyboard::LShift;
+		break;
+	case 1:
+		vAxis = Axis::Vertical_2p;
+		hAxis = Axis::Horizontal_2p;
+		installWaterBomb = sf::Keyboard::RShift;
+		break;
 	}
 }
 
 void Player::Release()
 {
-	
+
 }
 
 void Player::Reset()
@@ -208,7 +215,7 @@ void Player::Update(float dt)
 	PlayerEvent(dt);
 
 	CheckCollWithSplash();
-	
+
 	// LSY: if player is trapped, then stop moving
 	if (animState == AnimState::Trapped)
 	{
@@ -241,31 +248,60 @@ void Player::Draw(sf::RenderWindow& window)
 	hitBox.Draw(window);
 }
 
+inline sf::Vector2i ToGrid(const sf::Vector2f& worldPos)
+{
+	return { int(worldPos.x / 52), int(worldPos.y / 52) };
+}
+
 bool Player::CheckCollWithBalloon()
 {
-	auto waterBalloons = SCENE_MGR.GetCurrentScene()->FindGameObjects("bomb");
-	if(atBalloon)
-		return false; // LSY: if player is at balloon, then no need to check collision with balloon
-    sf::FloatRect playerBounds = hitBox.rect.getGlobalBounds();
-    for (auto* obj : waterBalloons)
-    {
-        WaterBalloon* balloonObj = dynamic_cast<WaterBalloon*>(obj);
-        if (!balloonObj || !balloonObj->GetActive())
-            continue;
+	sf::FloatRect playerBounds = hitBox.rect.getGlobalBounds();
 
-        if (balloonObj->GetGlobalBounds().intersects(playerBounds))
-        {
-			atBalloon = true;
-            return true;
-        }
-    }
+	if (spawnBalloon && spawnBalloon->GetActive())
+	{
+		if (spawnBalloon->GetGlobalBounds().intersects(playerBounds))
+		{
+			//std::cout << "collision" << std::endl;
+			return false;
+		}
+
+		spawnBalloon = nullptr;
+		return false;
+	}
+
+	auto balloons = SCENE_MGR.GetCurrentScene()->FindGameObjects("bomb");
+	for (auto* obj : balloons)
+	{
+		WaterBalloon* b = dynamic_cast<WaterBalloon*>(obj);
+		if (!b || !b->GetActive()) continue;
+		if (b->GetGlobalBounds().intersects(playerBounds))
+			return true;
+	}
 	return false;
+
+	//auto waterBalloons = SCENE_MGR.GetCurrentScene()->FindGameObjects("bomb");
+	//if(atBalloon)
+	//	return false; // LSY: if player is at balloon, then no need to check collision with balloon
+ //   sf::FloatRect playerBounds = hitBox.rect.getGlobalBounds();
+ //   for (auto* obj : waterBalloons)
+ //   {
+ //       WaterBalloon* balloonObj = dynamic_cast<WaterBalloon*>(obj);
+ //       if (!balloonObj || !balloonObj->GetActive())
+ //           continue;
+
+ //       if (balloonObj->GetGlobalBounds().intersects(playerBounds))
+ //       {
+	//		atBalloon = true;
+ //           return true;
+ //       }
+ //   }
+	//return false;
 }
 
 void Player::CheckCollWithSplash()
 {
 	if (animState == AnimState::Trapped)
-			return;
+		return;
 
 	auto waterSplashes = SCENE_MGR.GetCurrentScene()->FindGameObjects("WaterSplash");
 	for (auto* obj : waterSplashes)
@@ -284,6 +320,11 @@ void Player::CheckCollWithSplash()
 			}
 		}
 	}
+}
+
+void Player::ClearspawnBalloonBomb(WaterBalloon* b)
+{
+	if (spawnBalloon == b) spawnBalloon = nullptr;
 }
 
 // KHI
@@ -334,7 +375,7 @@ void Player::Movement(float dt)
 		{
 			tempPos.y = tryY.y;
 		}
-		atBalloon = false;
+		//atBalloon = false;
 
 		SetPosition(tempPos);
 		SetScale({ dir.x < 0 ? -1.f : dir.x > 0 ? 1.f : sprite.getScale().x, 1.f });

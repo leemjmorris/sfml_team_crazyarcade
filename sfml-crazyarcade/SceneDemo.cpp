@@ -298,7 +298,7 @@ void SceneDemo::ClampToBounds(GameObject& obj)
 	sf::Vector2f pos = obj.GetPosition();
 	// LSY : if ( origins :: BC ) of obj -> (+) getGlobalBounds().width * 0.5f // Becomes unstable when object sizes are different
 	pos.x = Utils::Clamp(pos.x, worldBounds.left + obj.GetGlobalBounds().width * 0.35f, worldBounds.left + worldBounds.width - obj.GetGlobalBounds().width * 0.65f);
-	pos.y = Utils::Clamp(pos.y, worldBounds.top + obj.GetGlobalBounds().height * 0.75f, worldBounds.top + worldBounds.height + 78.f);
+	pos.y = Utils::Clamp(pos.y, worldBounds.top + obj.GetGlobalBounds().height * 0.56f, worldBounds.top + worldBounds.height + 78.f);
 	obj.SetPosition(pos);
 }
 

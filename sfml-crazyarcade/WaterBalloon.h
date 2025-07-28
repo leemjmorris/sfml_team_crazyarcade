@@ -3,6 +3,7 @@
 #include "Animator.h"
 #include "WaterSplash.h"
 #include "HitBox.h"
+#include <unordered_set>
 
 class Player;
 class WaterBalloon : public GameObject
@@ -18,14 +19,19 @@ protected:
 	bool isCounting = false;
 	bool active = true;
 	int splashLength = 1;
-	
-	sf::Vector2f balloonHitBoxSize = { 40.f, 40.f }; // LSY:
-	sf::Vector2f balloonHitBoxOffset = { 0.f, 20.f }; // LSY: 
+
+	sf::Vector2f balloonHitBoxSize = { 50.f, 50.f }; // LSY:
+	sf::Vector2f balloonHitBoxOffset = { 0.f, 25.f }; // LSY: 
 
 	static const int GRID_SIZE = 52;
+	static inline int GridKey(int gx, int gy) { return gy * 100 + gx; }
+	static std::unordered_set<int> occupiedTiles;
+	sf::Vector2i gridPos;
 
 public:
 	HitBox hitBox;
+
+	const sf::Sprite& getSf() const { return balloon; }
 	WaterBalloon(const std::string& name = "");
 	virtual ~WaterBalloon() = default;
 
@@ -49,7 +55,7 @@ public:
 	void TargetPlayer(Player* p) { player = p; }
 
 	static sf::Vector2f GetSnappedGridCenter(const sf::Vector2f& worldPos);
-	static void Spawn(const std::string& name, sf::Vector2f spawnPos, int splashLen, Player* p);
+	static WaterBalloon* Spawn(const std::string& name, sf::Vector2f spawnPos, int splashLen, Player* p);
 
 	bool GetActive() const { return active; } // LSY:
 	sf::FloatRect GetGlobalBounds() const { return hitBox.rect.getGlobalBounds(); } // LSY:
