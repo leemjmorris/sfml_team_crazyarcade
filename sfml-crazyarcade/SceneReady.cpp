@@ -8,11 +8,11 @@ SceneReady::SceneReady()
 
 void SceneReady::Init()
 {
+	texIds.push_back("assets/lobby_scene_bg.bmp");
+
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 	worldView.setSize(windowSize);
 	worldView.setCenter(windowSize * 0.5f);
-
-	texIds.push_back("assets/lobby_scene_bg.bmp");
 
 	TEXTURE_MGR.Load(texIds);
 
@@ -21,6 +21,7 @@ void SceneReady::Init()
 
 void SceneReady::Enter()
 {
+	texIds.push_back("assets/lobby_scene_bg.bmp");
 	sf::Texture& bgTexture = TEXTURE_MGR.Get("assets/lobby_scene_bg.bmp");
 	bgSprite.setTexture(bgTexture);
 

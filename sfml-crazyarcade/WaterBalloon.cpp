@@ -55,7 +55,7 @@ void WaterBalloon::Init()
 	SetOrigin(Origins::MC);
 
 	sortingLayer = SortingLayers::Foreground;
-	sortingOrder = -1;
+	sortingOrder = 1;
 }
 
 void WaterBalloon::Release()

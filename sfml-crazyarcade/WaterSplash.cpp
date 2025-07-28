@@ -59,7 +59,7 @@ void WaterSplash::Init()
 	animator.SetTarget(&waterSplash);
 
 	sortingLayer = SortingLayers::Foreground;
-	sortingOrder = -2;
+	sortingOrder = 1;
 
 	SetOrigin(Origins::MC);
 
