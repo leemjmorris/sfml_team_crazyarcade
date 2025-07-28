@@ -104,7 +104,11 @@ void Player::SetGameOver(bool t, bool l, float dt)
 	isAnotherDead = t;
 	isDraw = l;
 	gameOverStarted = true;
-	winTimer = 0.f;
+	if (!gameOverStarted)
+	{
+		gameOverStarted = true;
+		winTimer = 0.f;
+	}
 }
 
 void Player::SetPosition(const sf::Vector2f& pos)
@@ -169,7 +173,7 @@ void Player::Release()
 void Player::Reset()
 {
 	sortingLayer = SortingLayers::Foreground;
-	sortingOrder = 1;
+	sortingOrder = 0;
 	curSpeed = CharacterTable.at(charId).intiPlayerSpeed;
 	balloonCapacity = CharacterTable.at(charId).initBombCount;
 	activeBalloons = 0;
@@ -234,10 +238,29 @@ void Player::Draw(sf::RenderWindow& window)
 	hitBox.Draw(window);
 }
 
+bool Player::CheckCollWithBalloon()
+{
+    sf::FloatRect nextBounds = hitBox.rect.getGlobalBounds();
+
+    auto waterBalloons = SCENE_MGR.GetCurrentScene()->FindGameObjects("WaterBalloon");
+    for (auto* obj : waterBalloons)
+    {
+        WaterBalloon* balloonObj = dynamic_cast<WaterBalloon*>(obj);
+        if (!balloonObj || !balloonObj->GetActive())
+            continue;                               // ¡Ú active Ç³¼±¸¸
+
+        if (balloonObj->GetGlobalBounds().intersects(nextBounds))
+        {
+           
+            return true;
+        }
+    }
+	return false;
+}
+
 void Player::CheckCollWithSplash()
 {
 	if (animState == AnimState::Trapped)
-		if (animState == AnimState::Trapped)
 			return;
 
 	auto waterSplashes = SCENE_MGR.GetCurrentScene()->FindGameObjects("WaterSplash");
@@ -249,7 +272,7 @@ void Player::CheckCollWithSplash()
 		{
 			sf::FloatRect rect(splashObj->GetGlobalBounds()); // left, top, width, height
 
-			if (rect.contains({ GetPosition().x, GetPosition().y - 20.f}))
+			if (rect.contains({ GetPosition().x, GetPosition().y - 20.f }))
 			{
 				animState = AnimState::Trapped;
 				curSpeed = 5.f;
@@ -281,7 +304,7 @@ void Player::Movement(float dt)
 	if (animState == AnimState::Win || animState == AnimState::Dead)
 		return;
 
-	if (animState == AnimState::Live && animState != AnimState::Ready)
+	if (animState == AnimState::Live || animState == AnimState::Trapped)
 	{
 		PlayMoveAnimation();
 		dir = InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
@@ -301,12 +324,24 @@ void Player::Movement(float dt)
 		sf::Vector2f tryY = currentPos + sf::Vector2f(0.f, dir.y * curSpeed * dt);
 		sprite.setPosition(sf::Vector2f(tempPos.x, tryY.y));
 		hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
-		if (!CheckCollisionWithMap())
+		if (!CheckCollisionWithMap())// || !CheckCollWithBalloon()
 		{
 			tempPos.y = tryY.y;
 		}
 
 		SetPosition(tempPos);
 		SetScale({ dir.x < 0 ? -1.f : dir.x > 0 ? 1.f : sprite.getScale().x, 1.f });
+		
+		float tempSpeed;
+		tempSpeed = curSpeed;
+
+		if (animState == AnimState::Trapped)
+		{
+			curSpeed = 10.f;
+		}
+		else
+		{
+			curSpeed = tempSpeed;
+		}
 	}
 }

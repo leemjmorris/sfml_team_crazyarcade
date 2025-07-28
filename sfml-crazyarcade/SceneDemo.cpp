@@ -84,7 +84,6 @@ void SceneDemo::Init()
 	ANI_CLIP_MGR.Load("animation/bazzi_down.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_live.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_trap.csv");
-	//ANI_CLIP_MGR.Load("animation/bazzi_trap2.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_die.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_win.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_ready.csv");
@@ -120,7 +119,7 @@ void SceneDemo::Init()
 void SceneDemo::Enter()
 {
 	Scene::Enter();
-
+	
 	sf::Texture& tex = TEXTURE_MGR.Get("assets/play_bg.bmp");
 	uiSprite.setTexture(tex);
 
@@ -205,6 +204,7 @@ void SceneDemo::Update(float dt)
 		dao->SetGameOver(true, false, dt);
 		textResult.setString("2P Win");
 		gameTimer = 0.f;
+		goReadyRoom = true;
 	}
 
 	if (dao->GetPlayerState() == AnimState::Dead)

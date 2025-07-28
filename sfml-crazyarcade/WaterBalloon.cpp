@@ -55,7 +55,7 @@ void WaterBalloon::Init()
 	SetOrigin(Origins::MC);
 
 	sortingLayer = SortingLayers::Foreground;
-	sortingOrder = 1;
+	sortingOrder = 0;
 }
 
 void WaterBalloon::Release()
@@ -69,18 +69,20 @@ void WaterBalloon::Reset()
 void WaterBalloon::Update(float dt)
 {
 	animator.Update(dt);
+	hitBox.UpdateCustomTransform(balloon, balloonHitBoxSize, balloonHitBoxOffset, Origins::BC);
 
-		if (isCounting)
+	if (isCounting)
+	{
+		currentTime -= dt;
+		if (currentTime <= 0)
 		{
-			currentTime -= dt;
-			if (currentTime <= 0)
-			{
-				currentTime = 0;
-				isCounting = false;
+			currentTime = 0;
+			isCounting = false;
 				
-				Explode();
-			}
+			Explode();
+			active = false; // LSY:
 		}
+	}
 }
 
 void WaterBalloon::Draw(sf::RenderWindow& window)
@@ -191,7 +193,6 @@ void WaterBalloon::Spawn(const std::string& name, sf::Vector2f spawnPos, int spl
 	waterBalloon->SetSplashLen(splashLen);
 	waterBalloon->SetPosition(GetSnappedGridCenter(spawnPos));
 	waterBalloon->TargetPlayer(p);
-
 	Scene* currentScene = SCENE_MGR.GetCurrentScene();
 	currentScene->AddGameObject(waterBalloon);
 }

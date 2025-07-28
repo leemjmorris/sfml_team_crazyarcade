@@ -42,16 +42,13 @@ protected:
 	bool isAnotherEscapeFailed =false;
 	bool isPop = false;
 
-	sf::Vector2f playerHitBoxSize = { 40.f, 20.f }; // KHI
+	sf::Vector2f playerHitBoxSize = { 40.f, 40.f }; // KHI
 	sf::Vector2f playerHitBoxOffset = { 0.f, 20.f }; // KHI: 
 	HitBox hitBox;
 
 	std::vector<TileHitBox> mapData;
 
 public:
-	// LSY: for std::cout in ItemClass
-
-
 	Player(const std::string& name, CharacterID id, int index);
 	~Player();
 	void PlayerEvent(float dt);
@@ -62,17 +59,19 @@ public:
 	void PlayMoveAnimation()
 	{
 		const std::string clipId = animator.GetCurrentClipId();
-
-		if (dir.x != 0 && clipId != "Run")
-			animator.Play("animation/bazzi_run.csv");
-		else if (dir.y < 0 && clipId != "Up")
-			animator.Play("animation/bazzi_up.csv");
-		else if (dir.y > 0 && clipId != "Down")
-			animator.Play("animation/bazzi_down.csv");
-		else if (dir == sf::Vector2f(0.f, 0.f)) {
-			if (clipId == "Run") animator.Play("animation/bazzi_run.csv");
-			else if (clipId == "Up") animator.Play("animation/bazzi_up.csv");
-			else if (clipId == "Down") animator.Play("animation/bazzi_down.csv");
+		if (animState == AnimState::Live)
+		{
+			if (dir.x != 0 && clipId != "Run")
+				animator.Play("animation/bazzi_run.csv");
+			else if (dir.y < 0 && clipId != "Up")
+				animator.Play("animation/bazzi_up.csv");
+			else if (dir.y > 0 && clipId != "Down")
+				animator.Play("animation/bazzi_down.csv");
+			else if (dir == sf::Vector2f(0.f, 0.f)) {
+				if (clipId == "Run") animator.Play("animation/bazzi_run.csv");
+				else if (clipId == "Up") animator.Play("animation/bazzi_up.csv");
+				else if (clipId == "Down") animator.Play("animation/bazzi_down.csv");
+			}
 		}
 	}
 	void AddSpeed(float s =1);
@@ -110,6 +109,7 @@ public:
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
 
+	bool CheckCollWithBalloon(); // LSY
 	void CheckCollWithSplash(); // KHI
 	bool CheckCollisionWithMap(); // KHI
 	void Movement(float dt); // KHI
