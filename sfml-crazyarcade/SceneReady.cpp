@@ -28,6 +28,8 @@ void SceneReady::Enter()
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 	worldView.setSize(windowSize);
 	worldView.setCenter(windowSize * 0.5f);
+	uiView.setSize(windowSize);
+	uiView.setCenter(windowSize * 0.5f);
 
 	sf::Vector2u textureSize = bgTexture.getSize();
 	sf::Vector2f textureSizeF(static_cast<float>(textureSize.x), static_cast<float>(textureSize.y));
@@ -53,5 +55,8 @@ void SceneReady::Update(float dt)
 
 void SceneReady::Draw(sf::RenderWindow& window)
 {
+	window.setView(worldView);
 	window.draw(bgSprite);
+
+	Scene::Draw(window);
 }
