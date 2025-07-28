@@ -49,6 +49,8 @@ protected:
 	// KHI: For Testing
 	bool toggleActiveDebugDraw = false;
 
+	sf::Sprite uiSprite;
+
 public:
 
 	SceneDemo();

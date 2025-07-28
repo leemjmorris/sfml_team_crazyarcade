@@ -402,7 +402,7 @@ bool Utils::LoadMapFromJson(Scene* scene, const std::string& filename)
         LoadBlocksFromJson(scene, &jMap["blocks"]);
     }
 
-    std::cout << "Successfully loaded map: " << filename << std::endl;
+    //std::cout << "Successfully loaded map: " << filename << std::endl;
     return true;
 }
 
@@ -410,7 +410,7 @@ void Utils::LoadTilesFromJson(Scene* scene, const void* tilesJsonPtr)
 {
     const json& tilesJson = *static_cast<const json*>(tilesJsonPtr);
 
-    std::cout << "LoadTilesFromJson: Processing " << tilesJson.size() << " tiles" << std::endl;
+    //std::cout << "LoadTilesFromJson: Processing " << tilesJson.size() << " tiles" << std::endl;
 
     // LMJ: Load tiles using TileData::FromJson which now handles worldPosition correctly
     for (const auto& jt : tilesJson)
@@ -419,17 +419,17 @@ void Utils::LoadTilesFromJson(Scene* scene, const void* tilesJsonPtr)
         TileData tileData = TileData::FromJson(jt);
 
         // LMJ: Debug output to check loaded values
-        std::cout << "Tile - Index: " << tileData.tileOptionIndex
-            << ", Grid: (" << tileData.gridX << "," << tileData.gridY << ")"
-            << ", WorldPos: (" << tileData.worldPosition.x << "," << tileData.worldPosition.y << ")"
-            << ", Rotation: " << tileData.rotation << std::endl;
+        //std::cout << "Tile - Index: " << tileData.tileOptionIndex
+            // ", Grid: (" << tileData.gridX << "," << tileData.gridY << ")"
+            //<< ", WorldPos: (" << tileData.worldPosition.x << "," << tileData.worldPosition.y << ")"
+            //<< ", Rotation: " << tileData.rotation << std::endl;
 
         // LMJ: Use the worldPosition from TileData instead of grid calculation
         sf::Sprite* tileSprite = CreateTileSprite(tileData.tileOptionIndex, tileData.worldPosition, tileData.rotation);
 
         if (tileSprite)
         {
-            std::cout << "Created tile sprite at position: (" << tileData.worldPosition.x << "," << tileData.worldPosition.y << ")" << std::endl;
+            //std::cout << "Created tile sprite at position: (" << tileData.worldPosition.x << "," << tileData.worldPosition.y << ")" << std::endl;
 
             // LMJ: Add tile sprite to scene as SpriteGo
             SpriteGo* spriteGo = new SpriteGo();
@@ -444,10 +444,10 @@ void Utils::LoadTilesFromJson(Scene* scene, const void* tilesJsonPtr)
         }
         else
         {
-            std::cout << "ERROR: Failed to create tile sprite for index " << tileData.tileOptionIndex << std::endl;
+            //std::cout << "ERROR: Failed to create tile sprite for index " << tileData.tileOptionIndex << std::endl;
         }
     }
-    std::cout << "LoadTilesFromJson: Finished processing tiles" << std::endl;
+    //std::cout << "LoadTilesFromJson: Finished processing tiles" << std::endl;
 }
 
 void Utils::LoadBlocksFromJson(Scene* scene, const void* blocksJsonPtr)

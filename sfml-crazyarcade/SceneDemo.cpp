@@ -100,7 +100,7 @@ void SceneDemo::Init()
 	colorMask.SetMaskColor(sf::Color(255, 0, 255));
 	colorMask.SetThreshold(0.1f);
 
-	ui = static_cast<GameSceneUI*>(AddGameObject(new GameSceneUI()));
+	//ui = static_cast<GameSceneUI*>(AddGameObject(new GameSceneUI()));
 
 	// LSY: "will handle the game result display"
 	//fontIds.push_back("assets/font/ARCADECLASSIC.TTF");
@@ -120,6 +120,22 @@ void SceneDemo::Init()
 void SceneDemo::Enter()
 {
 	Scene::Enter();
+
+	sf::Texture& tex = TEXTURE_MGR.Get("assets/play_bg.bmp");
+	uiSprite.setTexture(tex);
+
+	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
+	sf::Vector2u texSize = tex.getSize();
+
+	sf::Vector2f scale;
+	scale.x = windowSize.x / static_cast<float>(texSize.x);
+	scale.y = windowSize.y / static_cast<float>(texSize.y);
+
+	uiSprite.setScale(scale);
+
+	uiSprite.setPosition(0.f, 0.f);
+	Utils::SetOrigin(uiSprite, Origins::TL);
+
 
 	Item::SetPlayer(bazzi);
 	Item::SetPlayer(dao);
@@ -230,13 +246,15 @@ void SceneDemo::Exit()
 
 void SceneDemo::Draw(sf::RenderWindow& window)
 {
-	Scene::Draw(window);
+	window.setView(window.getDefaultView());
+	colorMask.Apply(window, uiSprite);
 
 	window.setView(worldView);
+	Scene::Draw(window);
 
-	for (int i = 0; i < sprites.size(); i++)
+	for (const auto& sprite : sprites)
 	{
-		colorMask.Apply(window, sprites[i]);
+		colorMask.Apply(window, sprite);
 	}
 
 	if (toggleActiveDebugDraw)
@@ -244,6 +262,7 @@ void SceneDemo::Draw(sf::RenderWindow& window)
 		window.draw(gridLines);
 		collBuilder->DrawDebugHitBox(window);
 	}
+
 	if (isShowingText)
 	{
 		window.setView(uiView);
