@@ -90,6 +90,7 @@ void Item::SetItemType(ItemType type)
 	}
 
 	itemSprite.setTexture(TEXTURE_MGR.Get(texId));
+	itemSprite.setScale(1.3f, 1.3f);
 }
 
 void Item::FloatingEffect(float dt, float verticalRange, float speed)
@@ -124,7 +125,7 @@ void Item::Use(Player* player)
 	}
 	else if (itemType == ItemType::Speed)
 	{
-		player->AddSpeed(100);
+		player->AddSpeed(50);
 	}
 
 	else if (itemType == ItemType::WaterJet)

@@ -103,7 +103,7 @@ void Player::SetGameOver(bool t, bool l, float dt)
 {
 	isAnotherDead = t;
 	isDraw = l;
-	if (isAnotherDead|| isDraw)
+	if (isAnotherDead || isDraw)
 	{
 		winTimer += dt;
 		if (winTimer > 1.f)
@@ -173,11 +173,12 @@ void Player::Init()
 
 void Player::Release()
 {
+	
 }
 
 void Player::Reset()
 {
-	sortingLayer = SortingLayers::Default;
+	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = 1;
 	curSpeed = CharacterTable.at(charId).intiPlayerSpeed;
 	balloonCapacity = CharacterTable.at(charId).initBombCount;
@@ -216,7 +217,7 @@ void Player::Update(float dt)
 	{
 		dieTimer += dt;
 		//std::cout << "TrappedTimer: " << dieTimer << std::endl;
-		if (dieTimer > 5.f)
+		if (dieTimer > 3.7f)
 		{
 			animState = AnimState::Dead;
 			dieTimer = 0.f;
@@ -247,12 +248,11 @@ void Player::CheckCollWithSplash()
 		{
 			sf::FloatRect rect(splashObj->GetGlobalBounds()); // left, top, width, height
 
-			if (rect.contains({ GetPosition().x, GetPosition().y - 20.f }))
+			if (rect.contains({ GetPosition().x, GetPosition().y - 20.f}))
 			{
 				animState = AnimState::Trapped;
 				curSpeed = 5.f;
-				animator.PlayQueue("animation/bazzi_trap.csv");
-				animator.Play("animation/bazzi_trap2.csv", true);
+				animator.Play("animation/bazzi_trap.csv", true);
 				break;
 			}
 		}
