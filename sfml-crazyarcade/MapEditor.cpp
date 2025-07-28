@@ -315,6 +315,7 @@ void MapEditor::Draw(sf::RenderWindow& window)
 
     // LMJ: Render UI elements with UI view
     window.setView(uiView);
+    DrawSaveLoadInfo(window);
     DrawRightSideUI(window);
 
     Scene::Draw(window);
@@ -961,6 +962,29 @@ void MapEditor::DrawRightSideUI(sf::RenderWindow& window)
     {
         DrawLayer2Info(window, rightPanelX, 320);
     }
+}
+
+void MapEditor::DrawSaveLoadInfo(sf::RenderWindow& window)
+{
+    sf::Text Text;
+    Utils::SetOrigin(Text, Origins::BL);
+    Text.setFont(FONT_MGR.Get("assets/font/Daum_Regular.ttf"));
+    Text.setCharacterSize(25);
+    Text.setFillColor(sf::Color::Magenta);
+    Text.setString(L"저장: LCtrl + S\n불러오기: LCtrl + O");
+
+    sf::View currentView = window.getView();
+    sf::Vector2f viewSize = currentView.getSize();
+    sf::Vector2f viewCenter = currentView.getCenter();
+
+    const float margin = 70.f;
+    sf::Vector2f textPos;
+    textPos.x = viewCenter.x - viewSize.x * 0.5f + 10.f;
+    textPos.y = viewCenter.y + viewSize.y * 0.5f - margin;
+
+    Text.setPosition(textPos);
+
+    window.draw(Text);
 }
 
 void MapEditor::DrawLayerInfo(sf::RenderWindow& window, float x, float y)

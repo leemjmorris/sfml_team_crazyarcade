@@ -129,6 +129,7 @@ private:
     void DrawBlockPreview(sf::RenderWindow& window);
     void DrawBlockPropertyIndicators(sf::RenderWindow& window);
     void DrawRightSideUI(sf::RenderWindow& window);
+    void DrawSaveLoadInfo(sf::RenderWindow& window);
     void DrawLayerInfo(sf::RenderWindow& window, float x, float y);
     void DrawControlsInfo(sf::RenderWindow& window, float x, float y);
     void DrawLayer2Info(sf::RenderWindow& window, float x, float y);
