@@ -34,14 +34,14 @@ TileData TileData::FromJson(const json& j)
     {
         worldPos.x = j.at("positionX").get<float>();
         worldPos.y = j.at("positionY").get<float>();
-        std::cout << "FromJson: Using saved worldPosition (" << worldPos.x << "," << worldPos.y << ")" << std::endl;
+        //std::cout << "FromJson: Using saved worldPosition (" << worldPos.x << "," << worldPos.y << ")" << std::endl;
     }
     else
     {
         // LMJ: Fallback for old save files without worldPosition
         worldPos = Utils::GridToWorldPosition(gridX, gridY, 52); // LMJ: Use MapEditor's GRID_SIZE
-        std::cout << "FromJson: Calculated worldPosition from grid (" << gridX << "," << gridY << ") -> ("
-            << worldPos.x << "," << worldPos.y << ")" << std::endl;
+        //std::cout << "FromJson: Calculated worldPosition from grid (" << gridX << "," << gridY << ") -> ("
+        //    << worldPos.x << "," << worldPos.y << ")" << std::endl;
     }
 
     // LMJ: Use constructor with worldPosition
@@ -169,7 +169,7 @@ void MapEditor::LoadTileSet()
 
     if (!textureLoaded)
     {
-        std::cerr << "Failed to load tileset texture" << std::endl;
+        //std::cerr << "Failed to load tileset texture" << std::endl;
         return;
     }
 
@@ -1175,16 +1175,16 @@ void MapEditor::SaveMapToJson(const std::string& filename) const
         {
             ofs << jMap.dump(4); // LMJ: Pretty print with 4-space indentation
             ofs.close();
-            std::cout << "Map saved successfully to: " << filename << std::endl;
+            //std::cout << "Map saved successfully to: " << filename << std::endl;
         }
         else
         {
-            std::cerr << "Error: Could not open file for writing: " << filename << std::endl;
+            //std::cerr << "Error: Could not open file for writing: " << filename << std::endl;
         }
     }
     catch (const std::exception& e)
     {
-        std::cerr << "Error saving map: " << e.what() << std::endl;
+        //std::cerr << "Error saving map: " << e.what() << std::endl;
     }
 }
 
@@ -1193,7 +1193,7 @@ void MapEditor::LoadMapFromJson(const std::string& filename)
     std::ifstream ifs(filename);
     if (!ifs.is_open())
     {
-        std::cerr << "Error: Could not open file for reading: " << filename << std::endl;
+        //std::cerr << "Error: Could not open file for reading: " << filename << std::endl;
         return;
     }
 
@@ -1238,11 +1238,11 @@ void MapEditor::LoadMapFromJson(const std::string& filename)
             }
         }
 
-        std::cout << "Map loaded successfully from: " << filename << std::endl;
-        std::cout << "Loaded " << tileDatas.size() << " tiles and " << PlacedBlocks.size() << " blocks" << std::endl;
+        //std::cout << "Map loaded successfully from: " << filename << std::endl;
+        //std::cout << "Loaded " << tileDatas.size() << " tiles and " << PlacedBlocks.size() << " blocks" << std::endl;
     }
     catch (const std::exception& e)
     {
-        std::cerr << "Error loading map: " << e.what() << std::endl;
+        //std::cerr << "Error loading map: " << e.what() << std::endl;
     }
 }

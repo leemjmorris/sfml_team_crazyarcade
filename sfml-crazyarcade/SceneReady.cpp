@@ -22,11 +22,13 @@ void SceneReady::Init()
 void SceneReady::Enter()
 {
 	TEXTURE_MGR.Load(texIds);
-
 	sf::Texture& bgTexture = TEXTURE_MGR.Get("assets/lobby_scene_bg.bmp");
 	bgSprite.setTexture(bgTexture);
 
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
+	worldView.setSize(windowSize);
+	worldView.setCenter(windowSize * 0.5f);
+
 	sf::Vector2u textureSize = bgTexture.getSize();
 	sf::Vector2f textureSizeF(static_cast<float>(textureSize.x), static_cast<float>(textureSize.y));
 
