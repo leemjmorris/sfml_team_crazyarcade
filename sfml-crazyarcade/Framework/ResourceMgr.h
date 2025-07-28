@@ -83,7 +83,7 @@ public:
 		auto it = resources.find(id);
 		if (it == resources.end())
 		{
-			std::cerr << "Resource not found: " << id << std::endl;
+			//std::cerr << "Resource not found: " << id << std::endl;
 			return Empty;
 		}
 		return *(it->second);

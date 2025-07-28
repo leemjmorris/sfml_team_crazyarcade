@@ -103,18 +103,8 @@ void Player::SetGameOver(bool t, bool l, float dt)
 {
 	isAnotherDead = t;
 	isDraw = l;
-	if (isAnotherDead || isDraw)
-	{
-		winTimer += dt;
-		if (winTimer > 1.f)
-		{
-			winTimer = 0.f;
-
-			animator.Play("animation/bazzi_win.csv");
-			animState = AnimState::Win;
-			std::cout << "WinTimer is finished: AnimeState::Win" << std::endl;
-		}
-	}
+	gameOverStarted = true;
+	winTimer = 0.f;
 }
 
 void Player::SetPosition(const sf::Vector2f& pos)
@@ -223,6 +213,17 @@ void Player::Update(float dt)
 			dieTimer = 0.f;
 			animator.Play("animation/bazzi_die.csv");
 			std::cout << "TrappedTimer is finished: AnimeState::Dead" << std::endl;
+		}
+	}
+	if (gameOverStarted && animState != AnimState::Win)
+	{
+		winTimer += dt;
+		if (winTimer > 1.f)
+		{
+			winTimer = 0.f;
+			gameOverStarted = false;
+			animator.Play("animation/bazzi_win.csv");
+			animState = AnimState::Win;
 		}
 	}
 }

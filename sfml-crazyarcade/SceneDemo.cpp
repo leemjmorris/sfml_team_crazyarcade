@@ -216,16 +216,16 @@ void SceneDemo::Update(float dt)
 		goReadyRoom = true;
 	}
 
-	//if (gameTimer > 20.f && bazzi->GetPlayerState() == AnimState::Live && dao->GetPlayerState() == AnimState::Live) // LSY: "Game over after 20 second"
-	//{
-	//	isShowingText = true;
-	//	textResult.setString("Draw");
-	//	bazzi->SetGameOver(false, true, dt);
-	//	dao->SetGameOver(false, true, dt);
-	//	gameTimer = 0.f;
-	//	goReadyRoom = true;
-	//	std::cout << "Time's up! Draw!" << std::endl;
-	//}
+	if (gameTimer > 15.f && bazzi->GetPlayerState() == AnimState::Live && dao->GetPlayerState() == AnimState::Live) // LSY: "Game over after 20 second"
+	{
+		isShowingText = true;
+		textResult.setString("Draw");
+		bazzi->SetGameOver(false, true, dt);
+		dao->SetGameOver(false, true, dt);
+		gameTimer = 0.f;
+		goReadyRoom = true;
+		std::cout << "Time's up! Draw!" << std::endl;
+	}
 
 	// LSY: click to exit
 	if (InputMgr::GetMouseButton(sf::Mouse::Left) &&
@@ -234,17 +234,17 @@ void SceneDemo::Update(float dt)
 		SCENE_MGR.ChangeScene(SceneIds::Ready);
 	}
 
-	//if (goReadyRoom)
-	//{
-	//	readyRoomTimer += dt;
-	//	if (readyRoomTimer > 8.f)
-	//	{
-	//		goReadyRoom = false;
-	//		isShowingText = false;
-	//		readyRoomTimer = 0.f;
-	//		SCENE_MGR.ChangeScene(SceneIds::Ready);
-	//	}
-	//}
+	if (goReadyRoom)
+	{
+		readyRoomTimer += dt;
+		if (readyRoomTimer > 5.f)
+		{
+			isShowingText = false;
+			goReadyRoom = false;
+			readyRoomTimer = 0.f;
+			SCENE_MGR.ChangeScene(SceneIds::Ready);
+		}
+	}
 	Scene::Update(dt);
 }
 
@@ -287,7 +287,6 @@ void SceneDemo::Draw(sf::RenderWindow& window)
 	{
 		window.setView(uiView);
 		window.draw(textResult);
-		isShowingText = false;
 	}
 }
 
