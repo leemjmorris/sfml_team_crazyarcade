@@ -136,7 +136,6 @@ void SceneDemo::Enter()
 	uiSprite.setPosition(0.f, 0.f);
 	Utils::SetOrigin(uiSprite, Origins::TL);
 
-
 	Item::SetPlayer(bazzi);
 	Item::SetPlayer(dao);
 

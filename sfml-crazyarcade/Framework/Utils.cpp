@@ -469,7 +469,7 @@ void Utils::LoadBlocksFromJson(Scene* scene, const void* blocksJsonPtr)
             // KHI: Store collider layer values based on block properties
             sf::Vector2f pos = block->GetPosition();
             int gridX = static_cast<int>(pos.x) / 52;
-            int gridY = static_cast<int>(pos.y) / 52;
+            int gridY = (static_cast<int>(pos.y) - 26) / 52;
 
             if (block->IsDestroyable() || block->IsHidable() || block->IsMovable())
             {

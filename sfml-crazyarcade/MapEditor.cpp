@@ -660,7 +660,7 @@ void MapEditor::CreateBlockAtPosition(const sf::Vector2f& gridPos)
     // LMJ: Calculate snapped position at grid center
     sf::Vector2f snappedPosition(
         gridPos.x * GRID_SIZE + GRID_SIZE / 2.0f,
-        gridPos.y * GRID_SIZE + GRID_SIZE / 2.0f
+        gridPos.y * GRID_SIZE + GRID_SIZE
     );
 
     // LMJ: Create new block using registry system
@@ -736,7 +736,7 @@ Block* MapEditor::GetBlockAtPosition(const sf::Vector2f& gridPos)
 {
     sf::Vector2f worldPos = sf::Vector2f(
         gridPos.x * GRID_SIZE + GRID_SIZE / 2,
-        gridPos.y * GRID_SIZE + GRID_SIZE / 2
+        gridPos.y * GRID_SIZE + GRID_SIZE
     );
 
     for (Block* block : PlacedBlocks)

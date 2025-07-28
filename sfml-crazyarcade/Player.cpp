@@ -179,7 +179,7 @@ void Player::Release()
 void Player::Reset()
 {
 	sortingLayer = SortingLayers::Foreground;
-	sortingOrder = 1;
+	sortingOrder = 0;
 	curSpeed = CharacterTable.at(charId).intiPlayerSpeed;
 	balloonCapacity = CharacterTable.at(charId).initBombCount;
 	activeBalloons = 0;
