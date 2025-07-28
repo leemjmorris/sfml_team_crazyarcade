@@ -241,10 +241,11 @@ bool WaterSplash::CheckCollisionWithBlocks()
 		Block* block = dynamic_cast<Block*>(obj);
 		if (block && block->IsDestroyable())
 		{
-			sf::Vector2f  blockCenter = block->GetPosition();
-			sf::FloatRect blockRect(blockCenter.x - 26.f, blockCenter.y - 52.f, 52.f, 52.f);
+			sf::FloatRect blockRect = block->GetGlobalBounds();
+			/*sf::Vector2f  blockCenter = block->GetPosition();
+			sf::FloatRect blockRect(blockCenter.x - 26.f, blockCenter.y - 52.f, 52.f, 52.f);*/
 
-			if (hitBox.rect.getGlobalBounds().intersects(blockRect))
+			if (IsCompletelyInside(hitBox.rect.getGlobalBounds(), blockRect))
 			{
 				block->DestroyBlock(curScene);
 				return true;
@@ -252,14 +253,7 @@ bool WaterSplash::CheckCollisionWithBlocks()
 		}
 	}
 
-	//for (const auto& tile : blockCollData)
-	//{
-	//	if (IsCompletelyInside(hitBox.GetGlobalBounds(), tile.bounds))
-	//	{
-	//		return true;
-	//	}
-	//}
-	//return false;
+	return false;
 }
 
 bool WaterSplash::IsCompletelyInside(const sf::FloatRect& inner, const sf::FloatRect& outer)
