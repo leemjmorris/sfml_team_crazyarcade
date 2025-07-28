@@ -42,7 +42,7 @@ protected:
 	bool isAnotherEscapeFailed =false;
 	bool isPop = false;
 
-	sf::Vector2f playerHitBoxSize = { 40.f, 20.f }; // KHI
+	sf::Vector2f playerHitBoxSize = { 20.f, 20.f }; // KHI
 	sf::Vector2f playerHitBoxOffset = { 0.f, 20.f }; // KHI: 
 	HitBox hitBox;
 
@@ -111,8 +111,8 @@ public:
 	void SetOrigin(Origins preset) override;
 
 	void CheckCollWithSplash(); // KHI
-	bool CheckCollisionWithMap(); // KHI
 	void Movement(float dt); // KHI
+	bool GetCollidedTileInfo(sf::FloatRect& outTileBounds); // KHI
 
 	sf::FloatRect GetGlobalBounds() const
 	{

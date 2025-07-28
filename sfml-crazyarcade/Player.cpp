@@ -261,21 +261,6 @@ void Player::CheckCollWithSplash()
 }
 
 // KHI
-bool Player::CheckCollisionWithMap()
-{
-	sf::FloatRect nextBounds = hitBox.rect.getGlobalBounds();
-
-	for (const auto& tile : mapData)
-	{
-		if (tile.bounds.intersects(nextBounds))
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
-// KHI
 void Player::Movement(float dt)
 {
 	if (animState == AnimState::Win || animState == AnimState::Dead)
@@ -287,26 +272,107 @@ void Player::Movement(float dt)
 		dir = InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
 
 		sf::Vector2f currentPos = GetPosition();
-
 		sf::Vector2f tempPos = currentPos;
 
+		const float correction = curSpeed * 0.3f * dt; // KHI: Distance to nudge the player during collision (slide correction offset)
+		const float tileSize = 52.f;
+
+		// KHI: Get Player Center
+		sf::FloatRect bounds = hitBox.rect.getGlobalBounds();
+		sf::Vector2f playerCenter = {
+			bounds.left + bounds.width * 0.5f,
+			bounds.top + bounds.height * 0.5f
+		};
+
+		sf::FloatRect collidedBounds;
+
+		// KHI: Move X
 		sf::Vector2f tryX = currentPos + sf::Vector2f(dir.x * curSpeed * dt, 0.f);
 		sprite.setPosition(tryX);
 		hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
-		if (!CheckCollisionWithMap())
+		bool collidedX = GetCollidedTileInfo(collidedBounds);
+
+		if (!collidedX)
 		{
 			tempPos.x = tryX.x;
 		}
+		else
+		{
+			float third = tileSize / 3.f;
+			float upper = collidedBounds.top + third * 1;
+			float lower = collidedBounds.top + third * 2;
 
-		sf::Vector2f tryY = currentPos + sf::Vector2f(0.f, dir.y * curSpeed * dt);
+			if (playerCenter.y < upper)
+			{
+				tempPos.y -= correction;
+			}
+			else if (playerCenter.y > lower)
+			{
+				tempPos.y += correction;
+			}
+
+			sf::Vector2f retryX = tempPos + sf::Vector2f(dir.x * curSpeed * dt, 0.f);
+			sprite.setPosition(retryX);
+			hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
+			if (!GetCollidedTileInfo(collidedBounds))
+			{
+				tempPos.x = retryX.x;
+			}
+		}
+
+		// KHI: Move Y
+		sf::Vector2f tryY = tempPos + sf::Vector2f(0.f, dir.y * curSpeed * dt);
 		sprite.setPosition(sf::Vector2f(tempPos.x, tryY.y));
 		hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
-		if (!CheckCollisionWithMap())
+		bool collidedY = GetCollidedTileInfo(collidedBounds);
+
+		if (!collidedY)
 		{
 			tempPos.y = tryY.y;
+		}
+		else
+		{
+			float third = tileSize / 3.f;
+			float left = collidedBounds.left + third * 1;
+			float right = collidedBounds.left + third * 2;
+
+			if (playerCenter.x < left)
+				tempPos.x -= correction;
+			else if (playerCenter.x > right)
+				tempPos.x += correction;
+
+			sf::Vector2f retryY = tempPos + sf::Vector2f(0.f, dir.y * curSpeed * dt);
+			sprite.setPosition(sf::Vector2f(tempPos.x, retryY.y));
+			hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
+			if (!GetCollidedTileInfo(collidedBounds))
+			{
+				tempPos.y = retryY.y;
+			}
 		}
 
 		SetPosition(tempPos);
 		SetScale({ dir.x < 0 ? -1.f : dir.x > 0 ? 1.f : sprite.getScale().x, 1.f });
 	}
+}
+
+// KHI
+bool Player::GetCollidedTileInfo(sf::FloatRect& outTileBounds)
+{
+	Scene* curScene = SCENE_MGR.GetCurrentScene();
+	auto gameObjects = curScene->FindGameObjects("Block");
+
+	for (auto* obj : gameObjects)
+	{
+		Block* block = dynamic_cast<Block*>(obj);
+		if (block && block->IsDestroyable())
+		{
+			sf::FloatRect blockBounds = block->GetGlobalBounds();
+			if (hitBox.rect.getGlobalBounds().intersects(blockBounds))
+			{
+				outTileBounds = blockBounds;
+				return true;
+			}
+		}
+	}
+	return false;
 }
