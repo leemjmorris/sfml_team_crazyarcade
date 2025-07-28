@@ -193,7 +193,7 @@ void SceneDemo::Update(float dt)
 		bazzi->SetGameOver(true, false, dt);
 		textDraw.setString("2P Win");
 	}
-	if (gameTimer > 20.f && bazzi->GetPlayerState() == AnimState::Live && dao->GetPlayerState() == AnimState::Live) // LSY: "Game over after 20 second"
+	if (gameTimer > 999999.f && bazzi->GetPlayerState() == AnimState::Live && dao->GetPlayerState() == AnimState::Live) // LSY: "Game over after 20 second"
 	{
 		isShowingText = true;
 		textDraw.setString("Draw");
