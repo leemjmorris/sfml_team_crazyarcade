@@ -18,9 +18,9 @@ public:
 	static void SpawnItem(const std::string& name, ItemType type, sf::Vector2f spawnPos);
 	static void CheckAndRemoveItem();
 	static void SetPlayer(Player* player);
+	static std::vector<Player*> players;
 
 protected:
-	static std::vector<Player*> players;
 
 	ItemType itemType = ItemType::Balloon;
 	sf::Sprite itemSprite;

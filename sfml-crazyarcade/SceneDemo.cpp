@@ -212,6 +212,22 @@ void SceneDemo::Update(float dt)
 	Scene::Update(dt);
 }
 
+void SceneDemo::Exit()
+{
+	auto items = FindGameObjects("item");
+
+	for (auto* obj : items)
+	{
+		obj->SetActive(false);
+	}
+
+	Item::CheckAndRemoveItem();
+	Item::allItems.clear();
+	Item::players.clear();
+
+	Scene::Exit();
+}
+
 void SceneDemo::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
