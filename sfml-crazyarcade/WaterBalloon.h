@@ -16,7 +16,7 @@ protected:
 	float countdownTime = 1.5f;
 	float currentTime = 0;
 	bool isCounting = false;
-	bool active = false;
+	bool active = true;
 	int splashLength = 1;
 	
 	sf::Vector2f balloonHitBoxSize = { 40.f, 40.f }; // LSY:

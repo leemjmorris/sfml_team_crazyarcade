@@ -154,7 +154,6 @@ void SceneDemo::Enter()
 	dao->SetPosition({ 546, 468 });
 
 	goReadyRoom = false;
-
 	bazzi->SetEnter(true);
 	dao->SetEnter(true);
 	// LMJ: "Load map from JSON file created in MapEditor"
@@ -195,7 +194,6 @@ void SceneDemo::Update(float dt)
 
 	for (auto* obj : objectsNeedingClamp)
 		ClampToBounds(*obj);
-
 
 	CheckCollisionWithPlayer(dt);
 	if (bazzi->GetPlayerState() == AnimState::Dead)
@@ -256,7 +254,12 @@ void SceneDemo::Exit()
 	{
 		obj->SetActive(false);
 	}
+	isShowingText = false;
+	goReadyRoom = false;
+	readyRoomTimer = 0.f;
 
+	bazzi->Reset();
+	dao->Reset();
 	Item::CheckAndRemoveItem();
 	Item::allItems.clear();
 	Item::players.clear();
@@ -295,7 +298,7 @@ void SceneDemo::ClampToBounds(GameObject& obj)
 	sf::Vector2f pos = obj.GetPosition();
 	// LSY : if ( origins :: BC ) of obj -> (+) getGlobalBounds().width * 0.5f // Becomes unstable when object sizes are different
 	pos.x = Utils::Clamp(pos.x, worldBounds.left + obj.GetGlobalBounds().width * 0.35f, worldBounds.left + worldBounds.width - obj.GetGlobalBounds().width * 0.65f);
-	pos.y = Utils::Clamp(pos.y, worldBounds.top + obj.GetGlobalBounds().height * 0.75f, worldBounds.top + worldBounds.height+78.f);
+	pos.y = Utils::Clamp(pos.y, worldBounds.top + obj.GetGlobalBounds().height * 0.75f, worldBounds.top + worldBounds.height + 78.f);
 	obj.SetPosition(pos);
 }
 

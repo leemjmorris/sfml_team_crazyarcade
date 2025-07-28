@@ -110,6 +110,7 @@ public:
 	void SetOrigin(Origins preset) override;
 
 	bool CheckCollWithBalloon(); // LSY
+	void MoveCollWithBalloon(float dt);
 	void CheckCollWithSplash(); // KHI
 	bool CheckCollisionWithMap(); // KHI
 	void Movement(float dt); // KHI

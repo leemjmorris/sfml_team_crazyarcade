@@ -53,7 +53,6 @@ protected:
 	sf::Sprite uiSprite;
 
 public:
-
 	SceneDemo();
 	~SceneDemo() override = default;
 

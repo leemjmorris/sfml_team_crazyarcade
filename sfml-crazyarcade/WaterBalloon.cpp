@@ -56,6 +56,7 @@ void WaterBalloon::Init()
 
 	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = 0;
+	active = true;
 }
 
 void WaterBalloon::Release()
@@ -165,7 +166,6 @@ void WaterBalloon::SpawnWaterSplash(WaterSplash::AnimType dir, int length)
 				WaterSplashPool::ReturnToPool(splashObj);
 				break;
 			}
-			
 			splashObj->Reset();
 			splashObj->PlayAnim();
 		}

@@ -172,7 +172,9 @@ void Player::Release()
 
 void Player::Reset()
 {
+	gameOverStarted = false;
 	sortingLayer = SortingLayers::Foreground;
+	animState = AnimState::Normal;
 	sortingOrder = 0;
 	curSpeed = CharacterTable.at(charId).intiPlayerSpeed;
 	balloonCapacity = CharacterTable.at(charId).initBombCount;
@@ -251,7 +253,6 @@ bool Player::CheckCollWithBalloon()
 
         if (balloonObj->GetGlobalBounds().intersects(nextBounds))
         {
-           
             return true;
         }
     }
@@ -275,7 +276,6 @@ void Player::CheckCollWithSplash()
 			if (rect.contains({ GetPosition().x, GetPosition().y - 20.f }))
 			{
 				animState = AnimState::Trapped;
-				curSpeed = 5.f;
 				animator.Play("animation/bazzi_trap.csv", true);
 				break;
 			}
@@ -316,7 +316,7 @@ void Player::Movement(float dt)
 		sf::Vector2f tryX = currentPos + sf::Vector2f(dir.x * curSpeed * dt, 0.f);
 		sprite.setPosition(tryX);
 		hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
-		if (!CheckCollisionWithMap())
+		if (!CheckCollisionWithMap())//|| !CheckCollWithBalloon()
 		{
 			tempPos.x = tryX.x;
 		}
@@ -324,7 +324,7 @@ void Player::Movement(float dt)
 		sf::Vector2f tryY = currentPos + sf::Vector2f(0.f, dir.y * curSpeed * dt);
 		sprite.setPosition(sf::Vector2f(tempPos.x, tryY.y));
 		hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
-		if (!CheckCollisionWithMap())// || !CheckCollWithBalloon()
+		if (!CheckCollisionWithMap() )
 		{
 			tempPos.y = tryY.y;
 		}
