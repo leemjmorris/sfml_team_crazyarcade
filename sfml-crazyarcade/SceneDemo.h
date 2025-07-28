@@ -58,6 +58,7 @@ public:
 	void Enter() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+	void Exit() override;
 
 	void ClampToBounds(GameObject& obj);
 	const std::vector<TileHitBox>& GetCollData() const { return collData; }
