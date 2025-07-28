@@ -185,13 +185,13 @@ void SceneDemo::Update(float dt)
 	{
 		isShowingText = true;
 		dao->SetGameOver(true, false, dt);
-		textDraw.setString("1P Win");
+		textDraw.setString("2P Win");
 	}
 	if (dao->GetPlayerState() == AnimState::Dead)
 	{
 		isShowingText = true;
 		bazzi->SetGameOver(true, false, dt);
-		textDraw.setString("2P Win");
+		textDraw.setString("1P Win");
 	}
 	if (gameTimer > 20.f && bazzi->GetPlayerState() == AnimState::Live && dao->GetPlayerState() == AnimState::Live) // LSY: "Game over after 20 second"
 	{
@@ -240,7 +240,7 @@ void SceneDemo::ClampToBounds(GameObject& obj)
 	sf::Vector2f pos = obj.GetPosition();
 	// LSY : if ( origins :: BC ) of obj -> (+) getGlobalBounds().width * 0.5f // Becomes unstable when object sizes are different
 	pos.x = Utils::Clamp(pos.x, worldBounds.left + obj.GetGlobalBounds().width * 0.35f, worldBounds.left + worldBounds.width - obj.GetGlobalBounds().width * 0.65f);
-	pos.y = Utils::Clamp(pos.y, worldBounds.top + obj.GetGlobalBounds().height * 0.5f, worldBounds.top + worldBounds.height+78.f);
+	pos.y = Utils::Clamp(pos.y, worldBounds.top + obj.GetGlobalBounds().height * 0.75f, worldBounds.top + worldBounds.height+78.f);
 	obj.SetPosition(pos);
 }
 
