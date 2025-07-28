@@ -84,7 +84,7 @@ void SceneDemo::Init()
 	ANI_CLIP_MGR.Load("animation/bazzi_down.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_live.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_trap.csv");
-	ANI_CLIP_MGR.Load("animation/bazzi_trap2.csv");
+	//ANI_CLIP_MGR.Load("animation/bazzi_trap2.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_die.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_win.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_ready.csv");
@@ -106,13 +106,13 @@ void SceneDemo::Init()
 	//fontIds.push_back("assets/font/ARCADECLASSIC.TTF");
 
 	font.loadFromFile("assets/font/ARCADECLASSIC.TTF");
-	textDraw.setFont(font);
-	textDraw.setOrigin(textDraw.getGlobalBounds().width * 0.5f, textDraw.getGlobalBounds().height * 0.5f);
-	textDraw.setOutlineThickness(2);
-	textDraw.setOutlineColor(sf::Color::Black);
-	textDraw.setCharacterSize(100);
-	textDraw.setFillColor(sf::Color::White);
-	textDraw.setPosition(worldBounds.width * 0.5f - 170.f, 100.f);
+	textResult.setFont(font);
+	textResult.setOrigin(textResult.getGlobalBounds().width * 0.5f, textResult.getGlobalBounds().height * 0.5f);
+	textResult.setOutlineThickness(2);
+	textResult.setOutlineColor(sf::Color::Black);
+	textResult.setCharacterSize(100);
+	textResult.setFillColor(sf::Color::White);
+	textResult.setPosition(worldBounds.width * 0.5f - 170.f, 100.f);
 
 	Scene::Init();
 }
@@ -137,6 +137,8 @@ void SceneDemo::Enter()
 
 	bazzi->SetPosition({ 234, 260 });
 	dao->SetPosition({ 546, 468 });
+
+	goReadyRoom = false;
 
 	bazzi->SetEnter(true);
 	dao->SetEnter(true);
@@ -185,22 +187,29 @@ void SceneDemo::Update(float dt)
 	{
 		isShowingText = true;
 		dao->SetGameOver(true, false, dt);
-		textDraw.setString("2P Win");
+		textResult.setString("2P Win");
+		gameTimer = 0.f;
 	}
+
 	if (dao->GetPlayerState() == AnimState::Dead)
 	{
 		isShowingText = true;
 		bazzi->SetGameOver(true, false, dt);
-		textDraw.setString("1P Win");
+		textResult.setString("1P Win");
+		gameTimer = 0.f;
+		goReadyRoom = true;
 	}
-	if (gameTimer > 20.f && bazzi->GetPlayerState() == AnimState::Live && dao->GetPlayerState() == AnimState::Live) // LSY: "Game over after 20 second"
-	{
-		isShowingText = true;
-		textDraw.setString("Draw");
-		bazzi->SetGameOver(false, true, dt);
-		dao->SetGameOver(false, true, dt);
-		std::cout << "Time's up! Draw!" << std::endl;
-	}
+
+	//if (gameTimer > 20.f && bazzi->GetPlayerState() == AnimState::Live && dao->GetPlayerState() == AnimState::Live) // LSY: "Game over after 20 second"
+	//{
+	//	isShowingText = true;
+	//	textResult.setString("Draw");
+	//	bazzi->SetGameOver(false, true, dt);
+	//	dao->SetGameOver(false, true, dt);
+	//	gameTimer = 0.f;
+	//	goReadyRoom = true;
+	//	std::cout << "Time's up! Draw!" << std::endl;
+	//}
 
 	// LSY: click to exit
 	if (InputMgr::GetMouseButton(sf::Mouse::Left) &&
@@ -209,6 +218,17 @@ void SceneDemo::Update(float dt)
 		SCENE_MGR.ChangeScene(SceneIds::Ready);
 	}
 
+	//if (goReadyRoom)
+	//{
+	//	readyRoomTimer += dt;
+	//	if (readyRoomTimer > 8.f)
+	//	{
+	//		goReadyRoom = false;
+	//		isShowingText = false;
+	//		readyRoomTimer = 0.f;
+	//		SCENE_MGR.ChangeScene(SceneIds::Ready);
+	//	}
+	//}
 	Scene::Update(dt);
 }
 
@@ -247,7 +267,8 @@ void SceneDemo::Draw(sf::RenderWindow& window)
 	if (isShowingText)
 	{
 		window.setView(uiView);
-		window.draw(textDraw);
+		window.draw(textResult);
+		isShowingText = false;
 	}
 }
 

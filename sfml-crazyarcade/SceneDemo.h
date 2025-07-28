@@ -10,9 +10,10 @@ class GameSceneUI;
 class SceneDemo : public Scene
 {
 protected:
-	sf::Text textDraw;
+	sf::Text textResult;
 	sf::Font font;
 	bool isShowingText = false;
+	float readyRoomTimer = 0.f;
 
 	sf::FloatRect clickableArea = sf::FloatRect(647.f,561.f,141.f, 32.f);
 
@@ -22,7 +23,7 @@ protected:
 
 	float gameTimer;
 	bool isGameOver = false;
-
+	bool goReadyRoom = false;
 	Player* bazzi;
 	Player* dao;
 	Item* item;

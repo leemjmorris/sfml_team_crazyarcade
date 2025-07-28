@@ -103,7 +103,7 @@ void Player::SetGameOver(bool t, bool l, float dt)
 {
 	isAnotherDead = t;
 	isDraw = l;
-	if (isAnotherDead|| isDraw)
+	if (isAnotherDead || isDraw)
 	{
 		winTimer += dt;
 		if (winTimer > 1.f)
@@ -178,7 +178,7 @@ void Player::Release()
 
 void Player::Reset()
 {
-	sortingLayer = SortingLayers::Default;
+	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = 1;
 	curSpeed = CharacterTable.at(charId).intiPlayerSpeed;
 	balloonCapacity = CharacterTable.at(charId).initBombCount;
