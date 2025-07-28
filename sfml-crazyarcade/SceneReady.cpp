@@ -21,7 +21,8 @@ void SceneReady::Init()
 
 void SceneReady::Enter()
 {
-	texIds.push_back("assets/lobby_scene_bg.bmp");
+	TEXTURE_MGR.Load(texIds);
+
 	sf::Texture& bgTexture = TEXTURE_MGR.Get("assets/lobby_scene_bg.bmp");
 	bgSprite.setTexture(bgTexture);
 
@@ -34,6 +35,7 @@ void SceneReady::Enter()
 	scale.y = windowSize.y / textureSizeF.y;
 
 	bgSprite.setScale(scale);
+
 	Scene::Enter();
 }
 

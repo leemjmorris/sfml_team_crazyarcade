@@ -247,7 +247,7 @@ void Player::CheckCollWithSplash()
 		{
 			sf::FloatRect rect(splashObj->GetGlobalBounds()); // left, top, width, height
 
-			if (rect.contains(GetPosition()))
+			if (rect.contains({ GetPosition().x, GetPosition().y - 20.f }))
 			{
 				animState = AnimState::Trapped;
 				curSpeed = 5.f;
