@@ -90,6 +90,7 @@ void Item::SetItemType(ItemType type)
 	}
 
 	itemSprite.setTexture(TEXTURE_MGR.Get(texId));
+	itemSprite.setScale(1.3f, 1.3f);
 }
 
 void Item::FloatingEffect(float dt, float verticalRange, float speed)
