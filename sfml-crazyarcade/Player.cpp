@@ -173,6 +173,7 @@ void Player::Release()
 void Player::Reset()
 {
 	gameOverStarted = false;
+	atBalloon = false;
 	sortingLayer = SortingLayers::Foreground;
 	animState = AnimState::Normal;
 	sortingOrder = 0;
@@ -242,17 +243,19 @@ void Player::Draw(sf::RenderWindow& window)
 
 bool Player::CheckCollWithBalloon()
 {
-    sf::FloatRect nextBounds = hitBox.rect.getGlobalBounds();
-
-    auto waterBalloons = SCENE_MGR.GetCurrentScene()->FindGameObjects("WaterBalloon");
+	auto waterBalloons = SCENE_MGR.GetCurrentScene()->FindGameObjects("bomb");
+	if(atBalloon)
+		return false; // LSY: if player is at balloon, then no need to check collision with balloon
+    sf::FloatRect playerBounds = hitBox.rect.getGlobalBounds();
     for (auto* obj : waterBalloons)
     {
         WaterBalloon* balloonObj = dynamic_cast<WaterBalloon*>(obj);
         if (!balloonObj || !balloonObj->GetActive())
-            continue;                               // ★ active 풍선만
+            continue;
 
-        if (balloonObj->GetGlobalBounds().intersects(nextBounds))
+        if (balloonObj->GetGlobalBounds().intersects(playerBounds))
         {
+			atBalloon = true;
             return true;
         }
     }
@@ -316,22 +319,25 @@ void Player::Movement(float dt)
 		sf::Vector2f tryX = currentPos + sf::Vector2f(dir.x * curSpeed * dt, 0.f);
 		sprite.setPosition(tryX);
 		hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
-		if (!CheckCollisionWithMap())//|| !CheckCollWithBalloon()
+
+		if (!CheckCollisionWithMap() && !CheckCollWithBalloon())
 		{
 			tempPos.x = tryX.x;
 		}
 
+		// Y축 시도
 		sf::Vector2f tryY = currentPos + sf::Vector2f(0.f, dir.y * curSpeed * dt);
 		sprite.setPosition(sf::Vector2f(tempPos.x, tryY.y));
 		hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
-		if (!CheckCollisionWithMap() )
+
+		if (!CheckCollisionWithMap() && !CheckCollWithBalloon())
 		{
 			tempPos.y = tryY.y;
 		}
+		atBalloon = false;
 
 		SetPosition(tempPos);
 		SetScale({ dir.x < 0 ? -1.f : dir.x > 0 ? 1.f : sprite.getScale().x, 1.f });
-		
 		float tempSpeed;
 		tempSpeed = curSpeed;
 

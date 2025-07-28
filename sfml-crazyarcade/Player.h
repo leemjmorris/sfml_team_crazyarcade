@@ -35,6 +35,7 @@ protected:
 	float winTimer;
 	float readyTimer;
 	bool gameOverStarted = false;
+	bool atBalloon = false;
 	bool isStart = false;
 	bool isAnotherDead =false;
 	bool isDead;
@@ -110,7 +111,6 @@ public:
 	void SetOrigin(Origins preset) override;
 
 	bool CheckCollWithBalloon(); // LSY
-	void MoveCollWithBalloon(float dt);
 	void CheckCollWithSplash(); // KHI
 	bool CheckCollisionWithMap(); // KHI
 	void Movement(float dt); // KHI
