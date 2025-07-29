@@ -379,6 +379,12 @@ void Player::Movement(float dt)
 			}
 		}
 
+		if (collidedX && (InputMgr::GetAxisRaw(vAxis) != 0 || InputMgr::GetAxisRaw(hAxis) != 0))
+		{
+			pushedCount += dt;
+			std::cout << pushedCount << std::endl;
+		}
+
 		// KHI: Move Y
 		sf::Vector2f tryY = tempPos + sf::Vector2f(0.f, dir.y * curSpeed * dt);
 		sprite.setPosition(sf::Vector2f(tempPos.x, tryY.y));
@@ -403,6 +409,12 @@ void Player::Movement(float dt)
 			{
 				tempPos.x += correction;
 			}
+		}
+
+		if (collidedY && (InputMgr::GetAxisRaw(vAxis) != 0 || InputMgr::GetAxisRaw(hAxis) != 0))
+		{
+			pushedCount += dt;
+			std::cout << pushedCount << std::endl;
 		}
 
 		SetPosition(tempPos);

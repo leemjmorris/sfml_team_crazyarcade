@@ -172,9 +172,7 @@ void Item::SpawnItem(const std::string& name, ItemType type, sf::Vector2f spawnP
 	Item* item = new Item(name);
 	item->SetItemType(type);
 	item->Reset();
-	std::cout << "Item: " << spawnPos.x << ", " << spawnPos.y << std::endl;
 	item->SetOrigin(Origins::BC);
-
 	item->SetPosition(spawnPos);
 	item->SetOriginPos(spawnPos);
 	allItems.push_back(item);

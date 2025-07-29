@@ -53,6 +53,9 @@ protected:
 
 	std::vector<TileHitBox> mapData;
 
+	float pushCount = 2.f;
+	float pushedCount = 0.f;
+
 public:
 	Player(const std::string& name, CharacterID id, int index);
 	~Player();
