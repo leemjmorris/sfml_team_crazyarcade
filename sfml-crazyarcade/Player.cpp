@@ -377,14 +377,6 @@ void Player::Movement(float dt)
 			{
 				tempPos.y += correction;
 			}
-
-			//sf::Vector2f retryX = tempPos + sf::Vector2f(dir.x * curSpeed * dt, 0.f);
-			//sprite.setPosition(retryX);
-			//hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
-			//if (!GetCollidedTileInfo(collidedBounds))
-			//{
-			//	tempPos.x = retryX.x;
-			//}
 		}
 
 		// KHI: Move Y
@@ -411,14 +403,6 @@ void Player::Movement(float dt)
 			{
 				tempPos.x += correction;
 			}
-
-			//sf::Vector2f retryY = tempPos + sf::Vector2f(0.f, dir.y * curSpeed * dt);
-			//sprite.setPosition(sf::Vector2f(tempPos.x, retryY.y));
-			//hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
-			//if (!GetCollidedTileInfo(collidedBounds))
-			//{
-			//	tempPos.y = retryY.y;
-			//}
 		}
 
 		SetPosition(tempPos);
@@ -448,7 +432,7 @@ bool Player::GetCollidedTileInfo(sf::FloatRect& outTileBounds)
 		Block* block = dynamic_cast<Block*>(obj);
 		if (block && block->IsDestroyable())
 		{
-			sf::FloatRect blockBounds = block->GetGlobalBounds();
+			sf::FloatRect blockBounds = block->GetHitBox().GetGlobalBounds();
 			if (hitBox.rect.getGlobalBounds().intersects(blockBounds))
 			{
 				outTileBounds = blockBounds;

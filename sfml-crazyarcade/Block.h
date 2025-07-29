@@ -1,6 +1,7 @@
 #pragma once
 #include "SpriteGo.h"
 #include "ColorMaskShader.h"
+#include "HitBox.h"
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
@@ -58,6 +59,11 @@ protected:
     static bool registryInitialized;
 
     int registryIndex = -1;
+
+    // KHI: about HitBox
+    HitBox hitBox;
+    sf::Vector2f hitBoxSize = { 52.f, 52.f };
+    sf::Vector2f hitBoxOffset = { 0.f, 0.f };
 
 public:
     Block(const std::string& name = "Block");
@@ -153,5 +159,11 @@ public:
             block->SetBlockProperties(isDestroyable, isHidable, isMovable, canSpawnItem);
         }
         return block;
+    }
+
+    // KHI
+    const HitBox& GetHitBox() const
+    {
+        return hitBox;
     }
 };

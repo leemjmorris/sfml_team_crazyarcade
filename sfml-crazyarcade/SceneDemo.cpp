@@ -177,13 +177,6 @@ void SceneDemo::Enter()
 			blockLayer[y][x] = Utils::CollBlockLayer[y][x];
 		}
 	}
-
-	collBuilder = std::make_unique<MapCollisionBuilder>(blockLayer);
-	collBuilder->CreateCollisionHitBox();
-	collData = collBuilder->GetTileHitBoxes();
-
-	bazzi->SetMapData(collData);
-	dao->SetMapData(collData);
 }
 
 void SceneDemo::Update(float dt)
@@ -285,7 +278,6 @@ void SceneDemo::Draw(sf::RenderWindow& window)
 	if (toggleActiveDebugDraw)
 	{
 		window.draw(gridLines);
-		collBuilder->DrawDebugHitBox(window);
 	}
 
 	if (isShowingText)

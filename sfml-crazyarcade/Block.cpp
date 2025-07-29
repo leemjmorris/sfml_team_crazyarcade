@@ -94,11 +94,12 @@ void Block::Reset()
 void Block::Update(float dt)
 {
     SpriteGo::Update(dt);
+    hitBox.UpdateCustomTransform(sprite, hitBoxSize, hitBoxOffset, Origins::BC);
 }
 
 void Block::Draw(sf::RenderWindow& window)
 {
-
+    hitBox.Draw(window);
     SpriteGo::Draw(window);
 }
 
