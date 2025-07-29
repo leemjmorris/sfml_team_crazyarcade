@@ -5,7 +5,9 @@
 #include "CharacterStats.h"
 #include "MapCollisionBuilder.h"
 #include "WaterBalloon.h"
-constexpr float slidePixelsPerSecond = 100.f;
+constexpr float slidePixelsPerSecond = 80.f;
+constexpr float tileSize = 52.f;
+
 enum class AnimState { Ready, Normal, Trapped, Dead, Live, Win};
 
 class Player :
@@ -46,7 +48,7 @@ protected:
 	bool isDraw;
 	bool isAnotherEscapeFailed =false;
 	bool isPop = false;
-
+	bool slidePlayer = false;
 	sf::Vector2f playerHitBoxSize = { 30.f, 30.f }; // KHI
 	sf::Vector2f playerHitBoxOffset = { 0.f, 10.f }; // KHI
 	HitBox hitBox;
@@ -118,7 +120,8 @@ public:
 	bool CheckCollWithBalloon(); // LSY
 	void CheckCollWithSplash(); // KHI
 	void Movement(float dt); // KHI
-	bool GetCollidedTileInfo(sf::FloatRect& outTileBounds); // KHI
+	size_t GetCollidedTileInfo(sf::FloatRect& outTileBounds);
+	//bool GetCollidedTileInfo(sf::FloatRect& outTileBounds); // KHI
 
 	sf::FloatRect GetGlobalBounds() const
 	{
