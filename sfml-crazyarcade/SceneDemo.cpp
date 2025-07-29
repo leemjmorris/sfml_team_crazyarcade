@@ -59,6 +59,9 @@ void SceneDemo::Init()
 	texIds.push_back("assets/player/bazzi/flash_short.png");
 	texIds.push_back("assets/play_bg.bmp");
 
+	// KHI: Effect
+	texIds.push_back("assets/map/common_block.png");
+
 	// LMJ: "Load forest tileset texture for map loading (same as MapEditor)"
 	texIds.push_back(PATH_MAP_FOREST_TILE "forest_tile_set.png");
 

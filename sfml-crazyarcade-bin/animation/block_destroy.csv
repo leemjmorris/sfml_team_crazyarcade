@@ -1,0 +1,8 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)		",,,
+block_destroy,13,0,,,
+"				",,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
+assets/map/common_block.png,0,0,52,52,0
+assets/map/common_block.png,52,0,52,52,0
+assets/map/common_block.png,104,0,52,52,0
+assets/map/common_block.png,156,0,52,52,0

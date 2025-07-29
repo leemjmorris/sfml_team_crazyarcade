@@ -243,7 +243,7 @@ bool WaterSplash::CheckCollisionWithBlocks()
 
 			if (IsCompletelyInside(hitBox.rect.getGlobalBounds(), blockRect))
 			{
-				block->DestroyBlock(curScene);
+				block->PlayExitAnim(); // KHI: Destroy the object after the block destruction animation ends
 				return true;
 			}
 		}
