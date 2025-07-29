@@ -182,8 +182,8 @@ void Player::Reset()
 	gameOverStarted = false;
 	atBalloon = false;
 	sortingLayer = SortingLayers::Foreground;
-	sortingOrder = 0;
 	animState = AnimState::Normal;
+	sortingOrder = 0;
 	curSpeed = CharacterTable.at(charId).intiPlayerSpeed;
 	balloonCapacity = CharacterTable.at(charId).initBombCount;
 	activeBalloons = 0;
@@ -341,8 +341,7 @@ void Player::Movement(float dt)
 		sf::Vector2f currentPos = GetPosition();
 		sf::Vector2f tempPos = currentPos;
 
-		//==================================================================change
-		const float correction = slidePixelsPerSecond * dt;// LSY
+		const float correction = curSpeed * 0.3f * dt; // KHI: Distance to nudge the player during collision (slide correction offset)
 		const float tileSize = 52.f;
 
 		// KHI: Get Player Center
@@ -359,7 +358,6 @@ void Player::Movement(float dt)
 		sprite.setPosition(tryX);
 		hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
 		bool collidedX = GetCollidedTileInfo(collidedBounds);
-		
 
 		if (!collidedX)
 		{
@@ -368,8 +366,8 @@ void Player::Movement(float dt)
 		else
 		{
 			float third = tileSize / 3.f;
-			float upper = collidedBounds.top + third * 0.7;
-			float lower = collidedBounds.top + third * 2.3;
+			float upper = collidedBounds.top + third * 1;
+			float lower = collidedBounds.top + third * 2;
 
 			if (playerCenter.y < upper)
 			{
