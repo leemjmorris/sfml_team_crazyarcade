@@ -233,13 +233,26 @@ bool WaterSplash::CheckCollisionWithBlocks()
 
 	blockCollData = dynamic_cast<SceneDemo*>(SCENE_MGR.GetCurrentScene())->GetCollData();
 
-	for (const auto& tile : blockCollData)
+	Scene* curScene = SCENE_MGR.GetCurrentScene();
+	auto gameObjects = curScene->FindGameObjects("Block");
+
+	for (auto* obj : gameObjects)
 	{
-		if (IsCompletelyInside(hitBox.GetGlobalBounds(), tile.bounds))
+		Block* block = dynamic_cast<Block*>(obj);
+		if (block && block->IsDestroyable())
 		{
-			return true;
+			sf::FloatRect blockRect = block->GetGlobalBounds();
+			/*sf::Vector2f  blockCenter = block->GetPosition();
+			sf::FloatRect blockRect(blockCenter.x - 26.f, blockCenter.y - 52.f, 52.f, 52.f);*/
+
+			if (IsCompletelyInside(hitBox.rect.getGlobalBounds(), blockRect))
+			{
+				block->DestroyBlock(curScene);
+				return true;
+			}
 		}
 	}
+
 	return false;
 }
 
