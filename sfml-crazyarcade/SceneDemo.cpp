@@ -132,7 +132,6 @@ void SceneDemo::Enter()
 	scale.y = windowSize.y / static_cast<float>(texSize.y);
 
 	uiSprite.setScale(scale);
-
 	uiSprite.setPosition(0.f, 0.f);
 	Utils::SetOrigin(uiSprite, Origins::TL);
 
@@ -150,25 +149,29 @@ void SceneDemo::Enter()
 	std::cout << "     SceneDemo" << std::endl;
 	std::cout << "===================" << std::endl;
 
-	bazzi->SetPosition({ 234, 260 });
-	dao->SetPosition({ 546, 468 });
+	// LMJ: Load map from JSON file created in MapEditor
+	if (!LOAD_MAP(this, "DemoMap.json"))
+	{
+		std::cout << "Failed to load DemoMap.json, using default positions..." << std::endl;
+	}
+	else
+	{
+		std::cout << "Successfully loaded map from DemoMap.json!" << std::endl;
+	}
+
+	// LMJ: Set player positions using helper functions
+	bazzi->SetPosition(Utils::GetPlayerSpawnPoint(0));
+	dao->SetPosition(Utils::GetPlayerSpawnPoint(1));
+
+	std::cout << "Player 1 position: (" << bazzi->GetPosition().x << ", " << bazzi->GetPosition().y << ")" << std::endl;
+	std::cout << "Player 2 position: (" << dao->GetPosition().x	<< ", " << dao->GetPosition().y << ")" << std::endl;
 
 	goReadyRoom = false;
 
 	bazzi->SetEnter(true);
 	dao->SetEnter(true);
-	// LMJ: "Load map from JSON file created in MapEditor"
-	// LMJ: "This replaces the old manual tile/block creation"
-	if (!LOAD_MAP(this, "DemoMap.json"))
-	{
-		std::cout << "Failed to load temp_map.json, falling back to manual setup..." << std::endl;
-		// LMJ: "Fallback to old method if JSON loading fails"
-	}
-	else
-	{
-		std::cout << "Successfully loaded map from temp_map.json!" << std::endl;
-	}
 
+	// LMJ: Initialize collision system
 	for (int y = 0; y < 13; ++y)
 	{
 		for (int x = 0; x < 15; ++x)

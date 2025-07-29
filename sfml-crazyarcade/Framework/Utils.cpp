@@ -11,6 +11,7 @@ using json = nlohmann::json;
 
 std::random_device Utils::rd;
 std::mt19937 Utils::gen;
+std::vector<sf::Vector2f> Utils::PlayerSpawnPoints;
 const float Utils::PI = acosf(-1.f);
 
 int Utils::CollBlockLayer[13][15];
@@ -366,10 +367,10 @@ bool Utils::LoadMapFromJson(Scene* scene, const std::string& filename)
         return false;
     }
 
-    // LMJ: "Construct full file path"
+    // LMJ: Construct full file path
     std::string fullPath = PATH_MAP_JSON + filename;
 
-    // LMJ: "Open and parse JSON file (same as MapEditor)"
+    // LMJ: Open and parse JSON file
     std::ifstream ifs(fullPath);
     if (!ifs.is_open())
     {
@@ -390,19 +391,24 @@ bool Utils::LoadMapFromJson(Scene* scene, const std::string& filename)
     }
     ifs.close();
 
-    // LMJ: "Load tiles if they exist (same structure as MapEditor)"
+    // LMJ: Load tiles if they exist
     if (jMap.contains("tiles"))
     {
         LoadTilesFromJson(scene, &jMap["tiles"]);
     }
 
-    // LMJ: "Load blocks if they exist (same structure as MapEditor)"
+    // LMJ: Load blocks if they exist
     if (jMap.contains("blocks"))
     {
         LoadBlocksFromJson(scene, &jMap["blocks"]);
     }
 
-    ////std::cout << "Successfully loaded map: " << filename << std::endl;
+    // LMJ: Load spawn points if they exist
+    if (jMap.contains("spawnPoints"))
+    {
+        LoadSpawnPointsFromJson(scene, &jMap["spawnPoints"]);
+    }
+
     return true;
 }
 
@@ -491,6 +497,28 @@ void Utils::LoadBlocksFromJson(Scene* scene, const void* blocksJsonPtr)
     }
 }
 
+void Utils::LoadSpawnPointsFromJson(Scene* scene, const void* spawnPointsJsonPtr)
+{
+    const json& spawnPointsJson = *static_cast<const json*>(spawnPointsJsonPtr);
+
+    // LMJ: Clear existing spawn points
+    PlayerSpawnPoints.clear();
+    PlayerSpawnPoints.resize(2, sf::Vector2f(-1, -1)); // LMJ: Initialize with invalid positions
+
+    // LMJ: Load spawn points from JSON
+    for (const auto& jSpawn : spawnPointsJson)
+    {
+        int playerIndex = jSpawn.at("playerIndex").get<int>();
+        float x = jSpawn.at("positionX").get<float>();
+        float y = jSpawn.at("positionY").get<float>();
+
+        if (playerIndex >= 0 && playerIndex < 2)
+        {
+            PlayerSpawnPoints[playerIndex] = sf::Vector2f(x, y + 26.f);
+        }
+    }
+}
+
 sf::Vector2f Utils::GridToWorldPosition(int gridX, int gridY, int gridSize)
 {
     return sf::Vector2f(static_cast<float>(gridX * gridSize), static_cast<float>(gridY * gridSize));
@@ -501,6 +529,60 @@ void Utils::ClearMapObjects(Scene* scene)
     // LMJ: "Implementation depends on Scene's object management"
     // LMJ: "This could remove all background and foreground objects"
     // LMJ: "Left empty for now as it needs Scene's internal access"
+}
+
+sf::Vector2f Utils::GetPlayerSpawnPoint(int playerIndex)
+{
+    if (playerIndex < 0 || playerIndex >= static_cast<int>(PlayerSpawnPoints.size()))
+    {
+        return GetDefaultSpawnPoint(playerIndex);
+    }
+
+    sf::Vector2f spawnPoint = PlayerSpawnPoints[playerIndex];
+
+    // LMJ: Check if spawn point is valid (not -1, -1)
+    if (spawnPoint.x < 0 || spawnPoint.y < 0)
+    {
+        return GetDefaultSpawnPoint(playerIndex);
+    }
+
+    return spawnPoint;
+}
+
+bool Utils::HasValidSpawnPoint(int playerIndex)
+{
+    if (playerIndex < 0 || playerIndex >= static_cast<int>(PlayerSpawnPoints.size()))
+    {
+        return false;
+    }
+
+    sf::Vector2f spawnPoint = PlayerSpawnPoints[playerIndex];
+    return (spawnPoint.x >= 0 && spawnPoint.y >= 0);
+}
+
+void Utils::SetPlayerSpawnPoint(int playerIndex, const sf::Vector2f& position)
+{
+    if (playerIndex < 0)
+        return;
+
+    // LMJ: Resize vector if necessary
+    if (playerIndex >= static_cast<int>(PlayerSpawnPoints.size()))
+    {
+        PlayerSpawnPoints.resize(playerIndex + 1, sf::Vector2f(-1, -1));
+    }
+
+    PlayerSpawnPoints[playerIndex] = position;
+}
+
+sf::Vector2f Utils::GetDefaultSpawnPoint(int playerIndex)
+{
+    // LMJ: Default spawn positions for fallback
+    switch (playerIndex)
+    {
+    case 0: return sf::Vector2f(234.f, 260.f);  // Player 1 default
+    case 1: return sf::Vector2f(546.f, 468.f);  // Player 2 default
+    default: return sf::Vector2f(400.f, 300.f); // Generic default
+    }
 }
 
 sf::Sprite* Utils::CreateTileSprite(int tileOptionIndex, const sf::Vector2f& position, float rotation)

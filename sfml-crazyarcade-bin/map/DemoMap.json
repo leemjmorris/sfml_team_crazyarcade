@@ -514,6 +514,18 @@
             "y": 676.0
         }
     ],
+    "spawnPoints": [
+        {
+            "playerIndex": 0,
+            "positionX": 78.0,
+            "positionY": 598.0
+        },
+        {
+            "playerIndex": 1,
+            "positionX": 702.0,
+            "positionY": 78.0
+        }
+    ],
     "tiles": [
         {
             "gridX": 3,

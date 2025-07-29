@@ -71,11 +71,21 @@ public:
 	static bool LoadMapFromJson(Scene* scene, const std::string& filename);
 	static void LoadTilesFromJson(Scene* scene, const void* tilesJson);
 	static void LoadBlocksFromJson(Scene* scene, const void* blocksJson);
+	static void LoadSpawnPointsFromJson(Scene* scene, const void* spawnPointsJson);
 	static sf::Vector2f GridToWorldPosition(int gridX, int gridY, int gridSize = 52);
 	static void ClearMapObjects(Scene* scene);
 
+	// LMJ: Spawn point helper functions
+	static sf::Vector2f GetPlayerSpawnPoint(int playerIndex);
+	static bool HasValidSpawnPoint(int playerIndex);
+	static void SetPlayerSpawnPoint(int playerIndex, const sf::Vector2f& position);
+	static sf::Vector2f GetDefaultSpawnPoint(int playerIndex);  // LMJ: Fallback positions
+
 	// KHI: Map-related data converted into layer array
 	static int CollBlockLayer[13][15]; // Will separate into detailed layers based on block properties later
+
+	// LMJ: Spawn point storage for other scenes to access
+	static std::vector<sf::Vector2f> PlayerSpawnPoints;
 
 private:
 	// LMJ: "Private helper for map loading"
