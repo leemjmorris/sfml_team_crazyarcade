@@ -88,7 +88,7 @@ void Block::Release()
 void Block::Reset()
 {
     SpriteGo::Reset();
-    SetOrigin(Origins::MC);
+    SetOrigin(Origins::BC);
 }
 
 void Block::Update(float dt)

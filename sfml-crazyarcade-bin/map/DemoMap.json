@@ -6,8 +6,62 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 0,
-            "x": 442.0,
-            "y": 26.0
+            "x": 286.0,
+            "y": 52.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 390.0,
+            "y": 52.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 494.0,
+            "y": 52.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 4,
+            "x": 26.0,
+            "y": 52.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 4,
+            "x": 78.0,
+            "y": 52.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 4,
+            "x": 702.0,
+            "y": 52.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 4,
+            "x": 754.0,
+            "y": 52.0
         },
         {
             "canSpawnItem": false,
@@ -16,7 +70,7 @@
             "isMovable": false,
             "registryIndex": 0,
             "x": 338.0,
-            "y": 26.0
+            "y": 104.0
         },
         {
             "canSpawnItem": false,
@@ -24,134 +78,71 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 0,
+            "x": 442.0,
+            "y": 104.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 4,
+            "x": 26.0,
+            "y": 104.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 4,
+            "x": 754.0,
+            "y": 104.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 1,
+            "x": 546.0,
+            "y": 208.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 1,
+            "x": 234.0,
+            "y": 208.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 2,
+            "x": 390.0,
+            "y": 208.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 1,
             "x": 494.0,
-            "y": 78.0
+            "y": 260.0
         },
         {
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
-            "registryIndex": 0,
-            "x": 390.0,
-            "y": 78.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
+            "registryIndex": 1,
             "x": 286.0,
-            "y": 78.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 702.0,
-            "y": 78.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 78.0,
-            "y": 78.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 650.0,
-            "y": 130.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 130.0,
-            "y": 130.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
-            "x": 390.0,
-            "y": 182.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 598.0,
-            "y": 182.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 182.0,
-            "y": 182.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
-            "x": 78.0,
-            "y": 234.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
-            "x": 702.0,
-            "y": 234.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
-            "x": 390.0,
-            "y": 286.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
-            "x": 494.0,
-            "y": 286.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
-            "x": 286.0,
-            "y": 286.0
+            "y": 260.0
         },
         {
             "canSpawnItem": false,
@@ -160,7 +151,7 @@
             "isMovable": false,
             "registryIndex": 0,
             "x": 754.0,
-            "y": 286.0
+            "y": 260.0
         },
         {
             "canSpawnItem": false,
@@ -169,7 +160,34 @@
             "isMovable": false,
             "registryIndex": 0,
             "x": 26.0,
-            "y": 286.0
+            "y": 260.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 2,
+            "x": 390.0,
+            "y": 260.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 1,
+            "x": 442.0,
+            "y": 312.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 1,
+            "x": 338.0,
+            "y": 312.0
         },
         {
             "canSpawnItem": false,
@@ -178,7 +196,7 @@
             "isMovable": false,
             "registryIndex": 0,
             "x": 702.0,
-            "y": 338.0
+            "y": 312.0
         },
         {
             "canSpawnItem": false,
@@ -187,7 +205,88 @@
             "isMovable": false,
             "registryIndex": 0,
             "x": 78.0,
-            "y": 338.0
+            "y": 312.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 2,
+            "x": 390.0,
+            "y": 312.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 2,
+            "x": 442.0,
+            "y": 364.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 2,
+            "x": 494.0,
+            "y": 364.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 2,
+            "x": 546.0,
+            "y": 364.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 2,
+            "x": 338.0,
+            "y": 364.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 2,
+            "x": 286.0,
+            "y": 364.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 2,
+            "x": 234.0,
+            "y": 364.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 26.0,
+            "y": 364.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 754.0,
+            "y": 364.0
         },
         {
             "canSpawnItem": false,
@@ -196,7 +295,43 @@
             "isMovable": false,
             "registryIndex": 3,
             "x": 390.0,
-            "y": 338.0
+            "y": 364.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 1,
+            "x": 442.0,
+            "y": 416.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 1,
+            "x": 338.0,
+            "y": 416.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 702.0,
+            "y": 416.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 78.0,
+            "y": 416.0
         },
         {
             "canSpawnItem": false,
@@ -204,8 +339,17 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 2,
+            "x": 390.0,
+            "y": 416.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 1,
             "x": 494.0,
-            "y": 390.0
+            "y": 468.0
         },
         {
             "canSpawnItem": false,
@@ -214,7 +358,7 @@
             "isMovable": false,
             "registryIndex": 0,
             "x": 754.0,
-            "y": 390.0
+            "y": 468.0
         },
         {
             "canSpawnItem": false,
@@ -223,43 +367,16 @@
             "isMovable": false,
             "registryIndex": 0,
             "x": 26.0,
-            "y": 390.0
+            "y": 468.0
         },
         {
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
-            "registryIndex": 2,
-            "x": 390.0,
-            "y": 390.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
+            "registryIndex": 1,
             "x": 286.0,
-            "y": 390.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
-            "x": 78.0,
-            "y": 442.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
-            "x": 702.0,
-            "y": 442.0
+            "y": 468.0
         },
         {
             "canSpawnItem": false,
@@ -268,7 +385,7 @@
             "isMovable": false,
             "registryIndex": 2,
             "x": 390.0,
-            "y": 494.0
+            "y": 468.0
         },
         {
             "canSpawnItem": false,
@@ -276,8 +393,8 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 1,
-            "x": 182.0,
-            "y": 494.0
+            "x": 546.0,
+            "y": 520.0
         },
         {
             "canSpawnItem": false,
@@ -285,71 +402,17 @@
             "isHidable": false,
             "isMovable": false,
             "registryIndex": 1,
-            "x": 598.0,
-            "y": 494.0
+            "x": 234.0,
+            "y": 520.0
         },
         {
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
-            "registryIndex": 1,
-            "x": 130.0,
-            "y": 546.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 650.0,
-            "y": 546.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 286.0,
-            "y": 598.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
+            "registryIndex": 2,
             "x": 390.0,
-            "y": 598.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 0,
-            "x": 494.0,
-            "y": 598.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 78.0,
-            "y": 598.0
-        },
-        {
-            "canSpawnItem": false,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 702.0,
-            "y": 598.0
+            "y": 520.0
         },
         {
             "canSpawnItem": false,
@@ -358,7 +421,16 @@
             "isMovable": false,
             "registryIndex": 0,
             "x": 338.0,
-            "y": 650.0
+            "y": 624.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 4,
+            "x": 754.0,
+            "y": 624.0
         },
         {
             "canSpawnItem": false,
@@ -367,33 +439,101 @@
             "isMovable": false,
             "registryIndex": 0,
             "x": 442.0,
-            "y": 650.0
+            "y": 624.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 4,
+            "x": 26.0,
+            "y": 624.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 4,
+            "x": 702.0,
+            "y": 676.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 4,
+            "x": 78.0,
+            "y": 676.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 286.0,
+            "y": 676.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 4,
+            "x": 26.0,
+            "y": 676.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 390.0,
+            "y": 676.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 0,
+            "x": 494.0,
+            "y": 676.0
+        },
+        {
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "registryIndex": 4,
+            "x": 754.0,
+            "y": 676.0
+        }
+    ],
+    "spawnPoints": [
+        {
+            "playerIndex": 0,
+            "positionX": 78.0,
+            "positionY": 598.0
+        },
+        {
+            "playerIndex": 1,
+            "positionX": 702.0,
+            "positionY": 78.0
         }
     ],
     "tiles": [
         {
-            "gridX": 11,
+            "gridX": 3,
             "gridY": 0,
-            "positionX": 572.0,
+            "positionX": 156.0,
             "positionY": 0.0,
             "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 13,
-            "gridY": 0,
-            "positionX": 676.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 9,
-            "gridY": 0,
-            "positionX": 468.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
+            "tileOptionIndex": 5
         },
         {
             "gridX": 8,
@@ -401,127 +541,47 @@
             "positionX": 416.0,
             "positionY": 0.0,
             "rotation": 0.0,
-            "tileOptionIndex": 7
+            "tileOptionIndex": 5
         },
         {
-            "gridX": 7,
+            "gridX": 11,
             "gridY": 0,
-            "positionX": 364.0,
+            "positionX": 572.0,
             "positionY": 0.0,
             "rotation": 0.0,
-            "tileOptionIndex": 7
+            "tileOptionIndex": 5
         },
         {
-            "gridX": 6,
+            "gridX": 12,
             "gridY": 0,
-            "positionX": 312.0,
+            "positionX": 624.0,
             "positionY": 0.0,
             "rotation": 0.0,
-            "tileOptionIndex": 7
+            "tileOptionIndex": 5
         },
         {
-            "gridX": 5,
+            "gridX": 13,
             "gridY": 0,
-            "positionX": 260.0,
+            "positionX": 676.0,
             "positionY": 0.0,
             "rotation": 0.0,
-            "tileOptionIndex": 7
+            "tileOptionIndex": 5
         },
         {
-            "gridX": 4,
+            "gridX": 14,
             "gridY": 0,
-            "positionX": 208.0,
+            "positionX": 728.0,
             "positionY": 0.0,
             "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 3,
-            "gridY": 0,
-            "positionX": 156.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
+            "tileOptionIndex": 5
         },
         {
             "gridX": 2,
-            "gridY": 0,
+            "gridY": 1,
             "positionX": 104.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 1,
-            "gridY": 0,
-            "positionX": 52.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 0,
-            "gridY": 1,
-            "positionX": 0.0,
             "positionY": 52.0,
             "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 1,
-            "gridY": 1,
-            "positionX": 52.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 3,
-            "gridY": 1,
-            "positionX": 156.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 4,
-            "gridY": 1,
-            "positionX": 208.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 5,
-            "gridY": 1,
-            "positionX": 260.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 6,
-            "gridY": 1,
-            "positionX": 312.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 7,
-            "gridY": 1,
-            "positionX": 364.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 8,
-            "gridY": 1,
-            "positionX": 416.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
+            "tileOptionIndex": 5
         },
         {
             "gridX": 9,
@@ -529,23 +589,7 @@
             "positionX": 468.0,
             "positionY": 52.0,
             "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 11,
-            "gridY": 1,
-            "positionX": 572.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 12,
-            "gridY": 1,
-            "positionX": 624.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
+            "tileOptionIndex": 5
         },
         {
             "gridX": 13,
@@ -553,7 +597,7 @@
             "positionX": 676.0,
             "positionY": 52.0,
             "rotation": 0.0,
-            "tileOptionIndex": 7
+            "tileOptionIndex": 5
         },
         {
             "gridX": 14,
@@ -561,7 +605,23 @@
             "positionX": 728.0,
             "positionY": 52.0,
             "rotation": 0.0,
-            "tileOptionIndex": 7
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 14,
+            "gridY": 3,
+            "positionX": 728.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 12,
+            "gridY": 3,
+            "positionX": 624.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
         },
         {
             "gridX": 14,
@@ -569,15 +629,7 @@
             "positionX": 728.0,
             "positionY": 104.0,
             "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 12,
-            "gridY": 2,
-            "positionX": 624.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
+            "tileOptionIndex": 5
         },
         {
             "gridX": 11,
@@ -585,943 +637,15 @@
             "positionX": 572.0,
             "positionY": 104.0,
             "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 10,
-            "gridY": 2,
-            "positionX": 520.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 8,
-            "gridY": 2,
-            "positionX": 416.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 7,
-            "gridY": 2,
-            "positionX": 364.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 6,
-            "gridY": 2,
-            "positionX": 312.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 4,
-            "gridY": 2,
-            "positionX": 208.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 3,
-            "gridY": 2,
-            "positionX": 156.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 2,
-            "gridY": 2,
-            "positionX": 104.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 1,
-            "gridY": 2,
-            "positionX": 52.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
+            "tileOptionIndex": 5
         },
         {
             "gridX": 0,
-            "gridY": 3,
+            "gridY": 4,
             "positionX": 0.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 7,
-            "gridY": 3,
-            "positionX": 364.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 10,
-            "gridY": 3,
-            "positionX": 520.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 11,
-            "gridY": 3,
-            "positionX": 572.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 12,
-            "gridY": 3,
-            "positionX": 624.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 13,
-            "gridY": 3,
-            "positionX": 676.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 14,
-            "gridY": 3,
-            "positionX": 728.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 3,
-            "gridY": 3,
-            "positionX": 156.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 1,
-            "gridY": 3,
-            "positionX": 52.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 1,
-            "gridY": 4,
-            "positionX": 52.0,
             "positionY": 208.0,
             "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 3,
-            "gridY": 4,
-            "positionX": 156.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 4,
-            "gridY": 4,
-            "positionX": 208.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 10,
-            "gridY": 4,
-            "positionX": 520.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 12,
-            "gridY": 4,
-            "positionX": 624.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 13,
-            "gridY": 4,
-            "positionX": 676.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 14,
-            "gridY": 4,
-            "positionX": 728.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 14,
-            "gridY": 5,
-            "positionX": 728.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 13,
-            "gridY": 5,
-            "positionX": 676.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 5,
-            "gridY": 5,
-            "positionX": 260.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 2,
-            "gridY": 5,
-            "positionX": 104.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 0,
-            "gridY": 5,
-            "positionX": 0.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 13,
-            "gridY": 6,
-            "positionX": 676.0,
-            "positionY": 312.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 14,
-            "gridY": 6,
-            "positionX": 728.0,
-            "positionY": 312.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 2,
-            "gridY": 6,
-            "positionX": 104.0,
-            "positionY": 312.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 0,
-            "gridY": 6,
-            "positionX": 0.0,
-            "positionY": 312.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 4,
-            "gridY": 7,
-            "positionX": 208.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 1,
-            "gridY": 7,
-            "positionX": 52.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 0,
-            "gridY": 7,
-            "positionX": 0.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 0,
-            "gridY": 8,
-            "positionX": 0.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 1,
-            "gridY": 8,
-            "positionX": 52.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 14,
-            "gridY": 9,
-            "positionX": 728.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 2,
-            "gridY": 9,
-            "positionX": 104.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 1,
-            "gridY": 9,
-            "positionX": 52.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 0,
-            "gridY": 9,
-            "positionX": 0.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 1,
-            "gridY": 10,
-            "positionX": 52.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 2,
-            "gridY": 10,
-            "positionX": 104.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 3,
-            "gridY": 10,
-            "positionX": 156.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 5,
-            "gridY": 10,
-            "positionX": 260.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 6,
-            "gridY": 10,
-            "positionX": 312.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 7,
-            "gridY": 10,
-            "positionX": 364.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 12,
-            "gridY": 10,
-            "positionX": 624.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 13,
-            "gridY": 10,
-            "positionX": 676.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 14,
-            "gridY": 11,
-            "positionX": 728.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 13,
-            "gridY": 11,
-            "positionX": 676.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 12,
-            "gridY": 11,
-            "positionX": 624.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 9,
-            "gridY": 11,
-            "positionX": 468.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 8,
-            "gridY": 11,
-            "positionX": 416.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 7,
-            "gridY": 11,
-            "positionX": 364.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 6,
-            "gridY": 11,
-            "positionX": 312.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 5,
-            "gridY": 11,
-            "positionX": 260.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 4,
-            "gridY": 11,
-            "positionX": 208.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 2,
-            "gridY": 11,
-            "positionX": 104.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 1,
-            "gridY": 11,
-            "positionX": 52.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 0,
-            "gridY": 11,
-            "positionX": 0.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 0,
-            "gridY": 12,
-            "positionX": 0.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 2,
-            "gridY": 12,
-            "positionX": 104.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 14,
-            "gridY": 12,
-            "positionX": 728.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 13,
-            "gridY": 12,
-            "positionX": 676.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 3,
-            "gridY": 12,
-            "positionX": 156.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 4,
-            "gridY": 12,
-            "positionX": 208.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 5,
-            "gridY": 12,
-            "positionX": 260.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 6,
-            "gridY": 12,
-            "positionX": 312.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 7,
-            "gridY": 12,
-            "positionX": 364.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 8,
-            "gridY": 12,
-            "positionX": 416.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 9,
-            "gridY": 12,
-            "positionX": 468.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 10,
-            "gridY": 12,
-            "positionX": 520.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 11,
-            "gridY": 12,
-            "positionX": 572.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 11,
-            "gridY": 10,
-            "positionX": 572.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 13,
-            "gridY": 9,
-            "positionX": 676.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 13,
-            "gridY": 8,
-            "positionX": 676.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 14,
-            "gridY": 8,
-            "positionX": 728.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 14,
-            "gridY": 7,
-            "positionX": 728.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 13,
-            "gridY": 7,
-            "positionX": 676.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 11,
-            "gridY": 9,
-            "positionX": 572.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 12,
-            "gridY": 9,
-            "positionX": 624.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 12,
-            "gridY": 8,
-            "positionX": 624.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 2,
-            "gridY": 3,
-            "positionX": 104.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 1,
-            "gridY": 5,
-            "positionX": 52.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 1,
-            "gridY": 6,
-            "positionX": 52.0,
-            "positionY": 312.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 2,
-            "gridY": 7,
-            "positionX": 104.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 3,
-            "gridY": 8,
-            "positionX": 156.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 3,
-            "gridY": 9,
-            "positionX": 156.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 4,
-            "gridY": 9,
-            "positionX": 208.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 7,
-            "gridY": 6,
-            "positionX": 364.0,
-            "positionY": 312.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 8,
-            "gridY": 5,
-            "positionX": 416.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 6,
-            "gridY": 4,
-            "positionX": 312.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 6,
-            "gridY": 5,
-            "positionX": 312.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 5,
-            "gridY": 6,
-            "positionX": 260.0,
-            "positionY": 312.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 5,
-            "gridY": 7,
-            "positionX": 260.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 5,
-            "gridY": 8,
-            "positionX": 260.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 7,
-            "gridY": 8,
-            "positionX": 364.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 9,
-            "gridY": 4,
-            "positionX": 468.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 7,
-            "gridY": 5,
-            "positionX": 364.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 6,
-            "gridY": 6,
-            "positionX": 312.0,
-            "positionY": 312.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 6,
-            "gridY": 8,
-            "positionX": 312.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 6,
-            "gridY": 9,
-            "positionX": 312.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 7,
-            "gridY": 9,
-            "positionX": 364.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 8,
-            "gridY": 6,
-            "positionX": 416.0,
-            "positionY": 312.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 8,
-            "gridY": 7,
-            "positionX": 416.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 8,
-            "gridY": 9,
-            "positionX": 416.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 8,
-            "gridY": 10,
-            "positionX": 416.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 9,
-            "gridY": 10,
-            "positionX": 468.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 9,
-            "gridY": 5,
-            "positionX": 468.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 9,
-            "gridY": 6,
-            "positionX": 468.0,
-            "positionY": 312.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 9,
-            "gridY": 7,
-            "positionX": 468.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 9,
-            "gridY": 8,
-            "positionX": 468.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 12,
-            "gridY": 5,
-            "positionX": 624.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 11,
-            "gridY": 5,
-            "positionX": 572.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 11,
-            "gridY": 8,
-            "positionX": 572.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
+            "tileOptionIndex": 5
         },
         {
             "gridX": 12,
@@ -1529,159 +653,39 @@
             "positionX": 624.0,
             "positionY": 312.0,
             "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 10,
-            "gridY": 6,
-            "positionX": 520.0,
-            "positionY": 312.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
-        },
-        {
-            "gridX": 11,
-            "gridY": 7,
-            "positionX": 572.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 7
+            "tileOptionIndex": 5
         },
         {
             "gridX": 2,
-            "gridY": 1,
+            "gridY": 5,
             "positionX": 104.0,
-            "positionY": 52.0,
+            "positionY": 260.0,
             "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 11,
-            "gridY": 4,
-            "positionX": 572.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 4,
-            "gridY": 6,
-            "positionX": 208.0,
-            "positionY": 312.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 9,
-            "gridY": 9,
-            "positionX": 468.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 10,
-            "gridY": 11,
-            "positionX": 520.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 12,
-            "gridY": 7,
-            "positionX": 624.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 3,
-            "gridY": 7,
-            "positionX": 156.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
+            "tileOptionIndex": 5
         },
         {
             "gridX": 0,
-            "gridY": 2,
+            "gridY": 5,
             "positionX": 0.0,
-            "positionY": 104.0,
+            "positionY": 260.0,
             "rotation": 0.0,
-            "tileOptionIndex": 8
+            "tileOptionIndex": 5
         },
         {
-            "gridX": 3,
-            "gridY": 11,
-            "positionX": 156.0,
-            "positionY": 572.0,
+            "gridX": 0,
+            "gridY": 6,
+            "positionX": 0.0,
+            "positionY": 312.0,
             "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 14,
-            "gridY": 10,
-            "positionX": 728.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 13,
-            "gridY": 2,
-            "positionX": 676.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 10,
-            "gridY": 1,
-            "positionX": 520.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 4,
-            "gridY": 3,
-            "positionX": 208.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 5,
-            "gridY": 4,
-            "positionX": 260.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 5
         },
         {
             "gridX": 9,
-            "gridY": 2,
+            "gridY": 8,
             "positionX": 468.0,
-            "positionY": 104.0,
+            "positionY": 416.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 10,
-            "gridY": 5,
-            "positionX": 520.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 7,
-            "gridY": 7,
-            "positionX": 364.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 5
         },
         {
             "gridX": 8,
@@ -1689,101 +693,45 @@
             "positionX": 416.0,
             "positionY": 416.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 6,
-            "gridY": 7,
-            "positionX": 312.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 5
         },
         {
             "gridX": 2,
-            "gridY": 4,
+            "gridY": 8,
             "positionX": 104.0,
-            "positionY": 208.0,
+            "positionY": 416.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 5
         },
         {
             "gridX": 0,
-            "gridY": 4,
+            "gridY": 9,
             "positionX": 0.0,
-            "positionY": 208.0,
+            "positionY": 468.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 5
         },
         {
-            "gridX": 0,
-            "gridY": 0,
-            "positionX": 0.0,
-            "positionY": 0.0,
+            "gridX": 13,
+            "gridY": 10,
+            "positionX": 676.0,
+            "positionY": 520.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 10,
-            "gridY": 0,
-            "positionX": 520.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 12,
-            "gridY": 0,
-            "positionX": 624.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 5
         },
         {
             "gridX": 14,
-            "gridY": 0,
+            "gridY": 9,
             "positionX": 728.0,
-            "positionY": 0.0,
+            "positionY": 468.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 5
         },
         {
-            "gridX": 4,
+            "gridX": 14,
             "gridY": 10,
-            "positionX": 208.0,
+            "positionX": 728.0,
             "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 1,
-            "gridY": 12,
-            "positionX": 52.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 0,
-            "gridY": 10,
-            "positionX": 0.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 12,
-            "gridY": 12,
-            "positionX": 624.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 11,
-            "gridY": 6,
-            "positionX": 572.0,
-            "positionY": 312.0,
             "rotation": 0.0,
             "tileOptionIndex": 5
         },
@@ -1796,20 +744,284 @@
             "tileOptionIndex": 5
         },
         {
-            "gridX": 10,
-            "gridY": 10,
-            "positionX": 520.0,
-            "positionY": 520.0,
+            "gridX": 12,
+            "gridY": 11,
+            "positionX": 624.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 13,
+            "gridY": 11,
+            "positionX": 676.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 14,
+            "gridY": 11,
+            "positionX": 728.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 14,
+            "gridY": 12,
+            "positionX": 728.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 13,
+            "gridY": 12,
+            "positionX": 676.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 12,
+            "gridY": 12,
+            "positionX": 624.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 5,
+            "gridY": 11,
+            "positionX": 260.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 4,
+            "gridY": 11,
+            "positionX": 208.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 2,
+            "gridY": 12,
+            "positionX": 104.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 6,
+            "gridY": 12,
+            "positionX": 312.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 8,
+            "gridY": 12,
+            "positionX": 416.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 9,
+            "gridY": 12,
+            "positionX": 468.0,
+            "positionY": 624.0,
             "rotation": 0.0,
             "tileOptionIndex": 5
         },
         {
             "gridX": 10,
-            "gridY": 9,
+            "gridY": 12,
             "positionX": 520.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 8,
+            "gridY": 11,
+            "positionX": 416.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 2,
+            "gridY": 10,
+            "positionX": 104.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 0,
+            "gridY": 12,
+            "positionX": 0.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 1,
+            "gridY": 12,
+            "positionX": 52.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 3,
+            "gridY": 11,
+            "positionX": 156.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 1,
+            "gridY": 1,
+            "positionX": 52.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 1,
+            "gridY": 2,
+            "positionX": 52.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 1,
+            "gridY": 3,
+            "positionX": 52.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 9,
+            "gridY": 2,
+            "positionX": 468.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 10,
+            "gridY": 2,
+            "positionX": 520.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 10,
+            "gridY": 3,
+            "positionX": 520.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 11,
+            "gridY": 8,
+            "positionX": 572.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 1,
+            "gridY": 10,
+            "positionX": 52.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 0,
+            "gridY": 10,
+            "positionX": 0.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 0,
+            "gridY": 11,
+            "positionX": 0.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 1,
+            "gridY": 11,
+            "positionX": 52.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 2,
+            "gridY": 11,
+            "positionX": 104.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 3,
+            "gridY": 12,
+            "positionX": 156.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 4,
+            "gridY": 12,
+            "positionX": 208.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 5,
+            "gridY": 12,
+            "positionX": 260.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 6,
+            "gridY": 11,
+            "positionX": 312.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 9,
+            "gridY": 9,
+            "positionX": 468.0,
             "positionY": 468.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 6
         },
         {
             "gridX": 10,
@@ -1817,7 +1029,351 @@
             "positionX": 520.0,
             "positionY": 416.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 8,
+            "gridY": 2,
+            "positionX": 416.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 7,
+            "gridY": 2,
+            "positionX": 364.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 6,
+            "gridY": 2,
+            "positionX": 312.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 2,
+            "gridY": 2,
+            "positionX": 104.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 2,
+            "gridY": 3,
+            "positionX": 104.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 8,
+            "gridY": 7,
+            "positionX": 416.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 9,
+            "gridY": 7,
+            "positionX": 468.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 6,
+            "gridY": 7,
+            "positionX": 312.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 9,
+            "gridY": 4,
+            "positionX": 468.0,
+            "positionY": 208.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 11,
+            "gridY": 3,
+            "positionX": 572.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 11,
+            "gridY": 4,
+            "positionX": 572.0,
+            "positionY": 208.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 10,
+            "gridY": 4,
+            "positionX": 520.0,
+            "positionY": 208.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 4,
+            "gridY": 6,
+            "positionX": 208.0,
+            "positionY": 312.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 2,
+            "gridY": 6,
+            "positionX": 104.0,
+            "positionY": 312.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 1,
+            "gridY": 7,
+            "positionX": 52.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 0,
+            "gridY": 7,
+            "positionX": 0.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 0,
+            "gridY": 8,
+            "positionX": 0.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 1,
+            "gridY": 8,
+            "positionX": 52.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 4,
+            "gridY": 10,
+            "positionX": 208.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 14,
+            "gridY": 7,
+            "positionX": 728.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 14,
+            "gridY": 6,
+            "positionX": 728.0,
+            "positionY": 312.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 14,
+            "gridY": 5,
+            "positionX": 728.0,
+            "positionY": 260.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 14,
+            "gridY": 4,
+            "positionX": 728.0,
+            "positionY": 208.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 10,
+            "gridY": 0,
+            "positionX": 520.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 9,
+            "gridY": 0,
+            "positionX": 468.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 7,
+            "gridY": 0,
+            "positionX": 364.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 6,
+            "gridY": 0,
+            "positionX": 312.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 5,
+            "gridY": 0,
+            "positionX": 260.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 4,
+            "gridY": 0,
+            "positionX": 208.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 3,
+            "gridY": 2,
+            "positionX": 156.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 5,
+            "gridY": 1,
+            "positionX": 260.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 6,
+            "gridY": 1,
+            "positionX": 312.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 7,
+            "gridY": 1,
+            "positionX": 364.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 8,
+            "gridY": 1,
+            "positionX": 416.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 10,
+            "gridY": 1,
+            "positionX": 520.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 11,
+            "gridY": 1,
+            "positionX": 572.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 12,
+            "gridY": 1,
+            "positionX": 624.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 12,
+            "gridY": 4,
+            "positionX": 624.0,
+            "positionY": 208.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 12,
+            "gridY": 5,
+            "positionX": 624.0,
+            "positionY": 260.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 11,
+            "gridY": 5,
+            "positionX": 572.0,
+            "positionY": 260.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 10,
+            "gridY": 5,
+            "positionX": 520.0,
+            "positionY": 260.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 11,
+            "gridY": 7,
+            "positionX": 572.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 14,
+            "gridY": 8,
+            "positionX": 728.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
         },
         {
             "gridX": 10,
@@ -1825,47 +1381,7 @@
             "positionX": 520.0,
             "positionY": 364.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 9,
-            "gridY": 3,
-            "positionX": 468.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 8,
-            "gridY": 3,
-            "positionX": 416.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 8,
-            "gridY": 4,
-            "positionX": 416.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 7,
-            "gridY": 4,
-            "positionX": 364.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 6,
-            "gridY": 3,
-            "positionX": 312.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
+            "tileOptionIndex": 8
         },
         {
             "gridX": 5,
@@ -1873,23 +1389,7 @@
             "positionX": 260.0,
             "positionY": 156.0,
             "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 5,
-            "gridY": 2,
-            "positionX": 260.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 4,
-            "gridY": 5,
-            "positionX": 208.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
+            "tileOptionIndex": 8
         },
         {
             "gridX": 3,
@@ -1897,7 +1397,7 @@
             "positionX": 156.0,
             "positionY": 260.0,
             "rotation": 0.0,
-            "tileOptionIndex": 6
+            "tileOptionIndex": 8
         },
         {
             "gridX": 3,
@@ -1905,15 +1405,215 @@
             "positionX": 156.0,
             "positionY": 312.0,
             "rotation": 0.0,
-            "tileOptionIndex": 6
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 3,
+            "gridY": 7,
+            "positionX": 156.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 6,
+            "gridY": 8,
+            "positionX": 312.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 7,
+            "gridY": 8,
+            "positionX": 364.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 7,
+            "gridY": 7,
+            "positionX": 364.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 5,
+            "gridY": 2,
+            "positionX": 260.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 4,
+            "gridY": 1,
+            "positionX": 208.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 3,
+            "gridY": 1,
+            "positionX": 156.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
         },
         {
             "gridX": 2,
-            "gridY": 8,
+            "gridY": 0,
             "positionX": 104.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 1,
+            "gridY": 0,
+            "positionX": 52.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 0,
+            "gridY": 0,
+            "positionX": 0.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 0,
+            "gridY": 1,
+            "positionX": 0.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 0,
+            "gridY": 2,
+            "positionX": 0.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 0,
+            "gridY": 3,
+            "positionX": 0.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 1,
+            "gridY": 6,
+            "positionX": 52.0,
+            "positionY": 312.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 2,
+            "gridY": 7,
+            "positionX": 104.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 3,
+            "gridY": 8,
+            "positionX": 156.0,
             "positionY": 416.0,
             "rotation": 0.0,
-            "tileOptionIndex": 6
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 1,
+            "gridY": 9,
+            "positionX": 52.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 2,
+            "gridY": 9,
+            "positionX": 104.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 5,
+            "gridY": 10,
+            "positionX": 260.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 7,
+            "gridY": 10,
+            "positionX": 364.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 8,
+            "gridY": 10,
+            "positionX": 416.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 9,
+            "gridY": 11,
+            "positionX": 468.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 10,
+            "gridY": 11,
+            "positionX": 520.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 9,
+            "gridY": 3,
+            "positionX": 468.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 8,
+            "gridY": 3,
+            "positionX": 416.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 4,
+            "gridY": 7,
+            "positionX": 208.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
         },
         {
             "gridX": 4,
@@ -1921,7 +1621,263 @@
             "positionX": 208.0,
             "positionY": 416.0,
             "rotation": 0.0,
-            "tileOptionIndex": 6
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 7,
+            "gridY": 9,
+            "positionX": 364.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 8,
+            "gridY": 9,
+            "positionX": 416.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 10,
+            "gridY": 9,
+            "positionX": 520.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 11,
+            "gridY": 9,
+            "positionX": 572.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 11,
+            "gridY": 12,
+            "positionX": 572.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 7,
+            "gridY": 12,
+            "positionX": 364.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 7,
+            "gridY": 11,
+            "positionX": 364.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 6,
+            "gridY": 10,
+            "positionX": 312.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 6,
+            "gridY": 9,
+            "positionX": 312.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 5,
+            "gridY": 8,
+            "positionX": 260.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 5,
+            "gridY": 7,
+            "positionX": 260.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 7,
+            "gridY": 5,
+            "positionX": 364.0,
+            "positionY": 260.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 9,
+            "gridY": 5,
+            "positionX": 468.0,
+            "positionY": 260.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 8,
+            "gridY": 5,
+            "positionX": 416.0,
+            "positionY": 260.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 8,
+            "gridY": 4,
+            "positionX": 416.0,
+            "positionY": 208.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 7,
+            "gridY": 4,
+            "positionX": 364.0,
+            "positionY": 208.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 6,
+            "gridY": 4,
+            "positionX": 312.0,
+            "positionY": 208.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 1,
+            "gridY": 5,
+            "positionX": 52.0,
+            "positionY": 260.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 1,
+            "gridY": 4,
+            "positionX": 52.0,
+            "positionY": 208.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 2,
+            "gridY": 4,
+            "positionX": 104.0,
+            "positionY": 208.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 5,
+            "gridY": 4,
+            "positionX": 260.0,
+            "positionY": 208.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 6,
+            "gridY": 3,
+            "positionX": 312.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 7,
+            "gridY": 3,
+            "positionX": 364.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 12,
+            "gridY": 2,
+            "positionX": 624.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 13,
+            "gridY": 2,
+            "positionX": 676.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 13,
+            "gridY": 3,
+            "positionX": 676.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 13,
+            "gridY": 4,
+            "positionX": 676.0,
+            "positionY": 208.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 13,
+            "gridY": 5,
+            "positionX": 676.0,
+            "positionY": 260.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 13,
+            "gridY": 6,
+            "positionX": 676.0,
+            "positionY": 312.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 13,
+            "gridY": 7,
+            "positionX": 676.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 13,
+            "gridY": 8,
+            "positionX": 676.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 13,
+            "gridY": 9,
+            "positionX": 676.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
         },
         {
             "gridX": 5,
@@ -1929,7 +1885,207 @@
             "positionX": 260.0,
             "positionY": 468.0,
             "rotation": 0.0,
-            "tileOptionIndex": 6
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 4,
+            "gridY": 9,
+            "positionX": 208.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 3,
+            "gridY": 9,
+            "positionX": 156.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 3,
+            "gridY": 10,
+            "positionX": 156.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 9
+        },
+        {
+            "gridX": 4,
+            "gridY": 2,
+            "positionX": 208.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 4,
+            "gridY": 3,
+            "positionX": 208.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 4,
+            "gridY": 4,
+            "positionX": 208.0,
+            "positionY": 208.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 3,
+            "gridY": 4,
+            "positionX": 156.0,
+            "positionY": 208.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 3,
+            "gridY": 3,
+            "positionX": 156.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 4,
+            "gridY": 5,
+            "positionX": 208.0,
+            "positionY": 260.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 5,
+            "gridY": 5,
+            "positionX": 260.0,
+            "positionY": 260.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 6,
+            "gridY": 5,
+            "positionX": 312.0,
+            "positionY": 260.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 5,
+            "gridY": 6,
+            "positionX": 260.0,
+            "positionY": 312.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 6,
+            "gridY": 6,
+            "positionX": 312.0,
+            "positionY": 312.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 7,
+            "gridY": 6,
+            "positionX": 364.0,
+            "positionY": 312.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 8,
+            "gridY": 6,
+            "positionX": 416.0,
+            "positionY": 312.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 9,
+            "gridY": 6,
+            "positionX": 468.0,
+            "positionY": 312.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 10,
+            "gridY": 6,
+            "positionX": 520.0,
+            "positionY": 312.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 11,
+            "gridY": 6,
+            "positionX": 572.0,
+            "positionY": 312.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 12,
+            "gridY": 7,
+            "positionX": 624.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 12,
+            "gridY": 8,
+            "positionX": 624.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 12,
+            "gridY": 9,
+            "positionX": 624.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 12,
+            "gridY": 10,
+            "positionX": 624.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 11,
+            "gridY": 10,
+            "positionX": 572.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 10,
+            "gridY": 10,
+            "positionX": 520.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 9,
+            "gridY": 10,
+            "positionX": 468.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
         }
     ]
 }

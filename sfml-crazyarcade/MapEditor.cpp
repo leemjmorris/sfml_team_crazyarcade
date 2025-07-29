@@ -56,6 +56,7 @@ MapEditor::MapEditor()
     , currentPropertyMode(PropertyMode::Destroyable)
     , selectedBlock(nullptr)
     , currentTileRotation(0.0f)
+    , currentSpawnPlayerIndex(0)  // LMJ: Initialize spawn player index
 {
     // LMJ: Initialize selection highlight visual properties
     selectionHighlight.setSize(sf::Vector2f(GRID_SIZE, GRID_SIZE));
@@ -152,8 +153,6 @@ void MapEditor::LoadTileSet()
     std::string tilesetPaths[] = {
         "assets/map/forest/tile/forest_tile_set.png",
         "../assets/map/forest/tile/forest_tile_set.png",
-        "assets/map/forest/tile_1.bmp",
-        "assets/map/forest/tile_2.bmp"
     };
 
     bool textureLoaded = false;
@@ -265,9 +264,9 @@ void MapEditor::Draw(sf::RenderWindow& window)
 
     window.draw(gridLines);
 
-    // LMJ: Draw grid boundary outline (adjust size for UI consistency)
+    // LMJ: Draw grid boundary outline
     sf::RectangleShape outline;
-    outline.setSize(sf::Vector2f(GRID_WIDTH * GRID_SIZE, GRID_HEIGHT * GRID_SIZE));  // LMJ: Keep actual grid size for outline
+    outline.setSize(sf::Vector2f(GRID_WIDTH * GRID_SIZE, GRID_HEIGHT * GRID_SIZE));
     outline.setPosition(0, 0);
     outline.setFillColor(sf::Color::Transparent);
     outline.setOutlineColor(sf::Color::Yellow);
@@ -301,6 +300,9 @@ void MapEditor::Draw(sf::RenderWindow& window)
             block->Draw(window);
         }
     }
+
+    // LMJ: Draw spawn points
+    DrawSpawnPoints(window);
 
     DrawMapEditor(window);
 
@@ -340,6 +342,11 @@ void MapEditor::HandleInput()
         HandleLayer2Input();
     }
 
+    if (currentLayer == LayerType::SpawnPoint)  // LMJ: Handle spawn point layer
+    {
+        HandleSpawnPointInput();
+    }
+
     // LMJ: Handle mouse input for object placement
     sf::Vector2i mousePos = InputMgr::GetMousePosition();
     sf::Vector2f worldPos = ScreenToWorld(mousePos);
@@ -357,6 +364,10 @@ void MapEditor::HandleInput()
             {
                 CreateBlockAtPosition(gridPos);
             }
+            else if (currentLayer == LayerType::SpawnPoint)  // LMJ: Create spawn point
+            {
+                CreateSpawnPointAtPosition(gridPos);
+            }
         }
     }
 
@@ -371,6 +382,10 @@ void MapEditor::HandleInput()
             else if (currentLayer == LayerType::Block)
             {
                 DeleteBlockAtPosition(gridPos);
+            }
+            else if (currentLayer == LayerType::SpawnPoint)  // LMJ: Delete spawn point
+            {
+                DeleteSpawnPointAtPosition(gridPos);
             }
         }
     }
@@ -484,7 +499,7 @@ void MapEditor::HandleLayerSwitching()
     if (InputMgr::GetKeyDown(sf::Keyboard::Tab))
     {
         int currentLayerInt = static_cast<int>(currentLayer);
-        currentLayerInt = (currentLayerInt + 1) % 3;
+        currentLayerInt = (currentLayerInt + 1) % 4;
         currentLayer = static_cast<LayerType>(currentLayerInt);
 
         if (currentLayer != LayerType::BlockState)
@@ -529,6 +544,19 @@ void MapEditor::HandleScrollInput()
                 }
             }
         }
+    }
+}
+
+void MapEditor::HandleSpawnPointInput()
+{
+    // LMJ: Switch between player 1 and player 2 with number keys
+    if (InputMgr::GetKeyDown(sf::Keyboard::Num1))
+    {
+        currentSpawnPlayerIndex = 0;  // Player 1
+    }
+    else if (InputMgr::GetKeyDown(sf::Keyboard::Num2))
+    {
+        currentSpawnPlayerIndex = 1;  // Player 2
     }
 }
 
@@ -660,7 +688,7 @@ void MapEditor::CreateBlockAtPosition(const sf::Vector2f& gridPos)
     // LMJ: Calculate snapped position at grid center
     sf::Vector2f snappedPosition(
         gridPos.x * GRID_SIZE + GRID_SIZE / 2.0f,
-        gridPos.y * GRID_SIZE + GRID_SIZE / 2.0f
+        gridPos.y * GRID_SIZE + GRID_SIZE
     );
 
     // LMJ: Create new block using registry system
@@ -736,7 +764,7 @@ Block* MapEditor::GetBlockAtPosition(const sf::Vector2f& gridPos)
 {
     sf::Vector2f worldPos = sf::Vector2f(
         gridPos.x * GRID_SIZE + GRID_SIZE / 2,
-        gridPos.y * GRID_SIZE + GRID_SIZE / 2
+        gridPos.y * GRID_SIZE + GRID_SIZE
     );
 
     for (Block* block : PlacedBlocks)
@@ -775,6 +803,47 @@ void MapEditor::DrawMapEditor(sf::RenderWindow& window)
     else if (currentLayer == LayerType::Block)
     {
         DrawBlockPreview(window);
+    }
+    else if (currentLayer == LayerType::SpawnPoint)  // LMJ: Draw spawn point preview
+    {
+        DrawSpawnPointPreview(window);
+    }
+}
+
+void MapEditor::DrawSpawnPoints(sf::RenderWindow& window)
+{
+    for (const auto& spawnPoint : spawnPoints)
+    {
+        sf::CircleShape point(25.0f);
+        point.setFillColor(GetSpawnPointColor(spawnPoint.playerIndex));
+        point.setOutlineColor(sf::Color::White);
+        point.setOutlineThickness(2.0f);
+        Utils::SetOrigin(point, Origins::MC);
+        point.setPosition(spawnPoint.position);
+        window.draw(point);
+
+        // LMJ: Draw player number text
+        sf::Text playerText;
+        if (FONT_MGR.Exists("assets/font/Daum_Regular.ttf"))
+        {
+            playerText.setFont(FONT_MGR.Get("assets/font/Daum_Regular.ttf"));
+            playerText.setCharacterSize(20);
+            playerText.setFillColor(sf::Color::White);
+            playerText.setString(std::to_string(spawnPoint.playerIndex + 1));
+            Utils::SetOrigin(playerText, Origins::MC);
+            playerText.setPosition(spawnPoint.position);
+            window.draw(playerText);
+        }
+    }
+}
+
+sf::Color MapEditor::GetSpawnPointColor(int playerIndex) const
+{
+    switch (playerIndex)
+    {
+    case 0: return sf::Color::Cyan;    // Player 1
+    case 1: return sf::Color::Magenta; // Player 2
+    default: return sf::Color::White;
     }
 }
 
@@ -853,6 +922,42 @@ void MapEditor::DrawBlockPreview(sf::RenderWindow& window)
     }
 }
 
+void MapEditor::DrawSpawnPointPreview(sf::RenderWindow& window)
+{
+    sf::Vector2i mousePos = InputMgr::GetMousePosition();
+    sf::Vector2f worldPos = ScreenToWorld(mousePos);
+    sf::Vector2f gridPos = GetGridPosition(worldPos);
+
+    if (IsValidGridPosition(gridPos))
+    {
+        sf::Vector2f snappedPos(
+            gridPos.x * GRID_SIZE + GRID_SIZE / 2.0f,
+            gridPos.y * GRID_SIZE + GRID_SIZE / 2.0f
+        );
+
+        // LMJ: Draw spawn point preview circle
+        sf::CircleShape preview(20.0f);
+        preview.setFillColor(sf::Color(GetSpawnPointColor(currentSpawnPlayerIndex).r,
+            GetSpawnPointColor(currentSpawnPlayerIndex).g,
+            GetSpawnPointColor(currentSpawnPlayerIndex).b, 150));
+        preview.setOutlineColor(GetSpawnPointColor(currentSpawnPlayerIndex));
+        preview.setOutlineThickness(3.0f);
+        Utils::SetOrigin(preview, Origins::MC);
+        preview.setPosition(snappedPos);
+        window.draw(preview);
+
+        // LMJ: Draw grid highlight
+        sf::RectangleShape highlight;
+        highlight.setSize(sf::Vector2f(GRID_SIZE, GRID_SIZE));
+        highlight.setPosition(gridPos.x * GRID_SIZE, gridPos.y * GRID_SIZE);
+        highlight.setFillColor(sf::Color(255, 0, 255, 50));
+        highlight.setOutlineColor(sf::Color::Magenta);
+        highlight.setOutlineThickness(2.0f);
+        window.draw(highlight);
+    }
+}
+
+
 void MapEditor::DrawBlockPropertyIndicators(sf::RenderWindow& window)
 {
     if (currentLayer != LayerType::BlockState) return;
@@ -906,8 +1011,8 @@ void MapEditor::DrawBlockPropertyIndicators(sf::RenderWindow& window)
 
 void MapEditor::DrawRightSideUI(sf::RenderWindow& window)
 {
-    // LMJ: UI positioning is now consistent since worldView scaling handles the visual appearance
-    const float rightPanelX = GRID_WIDTH * 40.0f + 20;  // LMJ: Use target grid size (40px) for UI calculation
+    // LMJ: UI positioning
+    const float rightPanelX = GRID_WIDTH * 40.0f + 20;
     const float rightPanelWidth = 160;
 
     // LMJ: Draw UI background panel
@@ -952,6 +1057,29 @@ void MapEditor::DrawRightSideUI(sf::RenderWindow& window)
             window.draw(blockPreview);
         }
     }
+    else if (currentLayer == LayerType::SpawnPoint)  // LMJ: Draw spawn point preview in UI
+    {
+        sf::CircleShape spawnPreview(30.0f);
+        spawnPreview.setFillColor(GetSpawnPointColor(currentSpawnPlayerIndex));
+        spawnPreview.setOutlineColor(sf::Color::White);
+        spawnPreview.setOutlineThickness(2.0f);
+        Utils::SetOrigin(spawnPreview, Origins::MC);
+        spawnPreview.setPosition(rightPanelX + 80, 60);
+        window.draw(spawnPreview);
+
+        // LMJ: Draw player number
+        if (FONT_MGR.Exists("assets/font/Daum_Regular.ttf"))
+        {
+            sf::Text playerText;
+            playerText.setFont(FONT_MGR.Get("assets/font/Daum_Regular.ttf"));
+            playerText.setCharacterSize(20);
+            playerText.setFillColor(sf::Color::White);
+            playerText.setString(std::to_string(currentSpawnPlayerIndex + 1));
+            Utils::SetOrigin(playerText, Origins::MC);
+            playerText.setPosition(rightPanelX + 80, 60);
+            window.draw(playerText);
+        }
+    }
 
     // LMJ: Draw information sections
     DrawLayerInfo(window, rightPanelX, 110);
@@ -961,7 +1089,12 @@ void MapEditor::DrawRightSideUI(sf::RenderWindow& window)
     {
         DrawLayer2Info(window, rightPanelX, 320);
     }
+    else if (currentLayer == LayerType::SpawnPoint)  // LMJ: Draw spawn point info
+    {
+        DrawSpawnPointInfo(window, rightPanelX, 320);
+    }
 }
+
 
 void MapEditor::DrawSaveLoadInfo(sf::RenderWindow& window)
 {
@@ -1010,6 +1143,9 @@ void MapEditor::DrawLayerInfo(sf::RenderWindow& window, float x, float y)
     case LayerType::BlockState:
         layerInfo += L"속성\n모드: " + GetPropertyModeString(currentPropertyMode);
         break;
+    case LayerType::SpawnPoint:  // LMJ: New spawn point layer info
+        layerInfo += L"스폰\n플레이어: " + std::to_wstring(currentSpawnPlayerIndex + 1);
+        break;
     }
 
     layerText.setString(layerInfo);
@@ -1054,6 +1190,15 @@ void MapEditor::DrawControlsInfo(sf::RenderWindow& window, float x, float y)
         controls += L"스페이스: 토글\n";
         controls += L"T / F: 참/거짓\n";
         controls += L"C / V: 복사/붙여넣기";
+    }
+    else if (currentLayer == LayerType::SpawnPoint)  // LMJ: New spawn point controls
+    {
+        controls = L"=== 스폰 포인트 ===\n";
+        controls += L"Tab: 레이어 전환\n";
+        controls += L"1 / 2: 플레이어 선택\n";
+        controls += L"좌 클릭: 스폰 포인트 배치\n";
+        controls += L"우 클릭: 스폰 포인트 삭제\n";
+        controls += L"※ 플레이어당 1개만 가능";
     }
 
     controlsText.setString(controls);
@@ -1118,6 +1263,42 @@ void MapEditor::DrawLayer2Info(sf::RenderWindow& window, float x, float y)
     }
 }
 
+void MapEditor::DrawSpawnPointInfo(sf::RenderWindow& window, float x, float y)
+{
+    if (!FONT_MGR.Exists("assets/font/Daum_Regular.ttf"))
+        return;
+
+    sf::Text spawnInfoText;
+    spawnInfoText.setFont(FONT_MGR.Get("assets/font/Daum_Regular.ttf"));
+    spawnInfoText.setCharacterSize(11);
+    spawnInfoText.setFillColor(sf::Color::White);
+    spawnInfoText.setPosition(x + 10, y);
+    spawnInfoText.setString(L"=== 스폰 포인트 ===");
+    window.draw(spawnInfoText);
+
+    // LMJ: Show current spawn points
+    std::wstring spawnInfo = L"배치된 스폰 포인트:\n";
+    bool hasPlayer1 = false, hasPlayer2 = false;
+
+    for (const auto& spawn : spawnPoints)
+    {
+        if (spawn.playerIndex == 0) hasPlayer1 = true;
+        if (spawn.playerIndex == 1) hasPlayer2 = true;
+    }
+
+    spawnInfo += L"플레이어 1: " + std::wstring(hasPlayer1 ? L"배치됨" : L"미배치") + L"\n";
+    spawnInfo += L"플레이어 2: " + std::wstring(hasPlayer2 ? L"배치됨" : L"미배치") + L"\n\n";
+    spawnInfo += L"현재 선택: 플레이어 " + std::to_wstring(currentSpawnPlayerIndex + 1);
+
+    sf::Text detailText;
+    detailText.setFont(FONT_MGR.Get("assets/font/Daum_Regular.ttf"));
+    detailText.setCharacterSize(10);
+    detailText.setFillColor(sf::Color::Yellow);
+    detailText.setPosition(x + 10, y + 20);
+    detailText.setString(spawnInfo);
+    window.draw(detailText);
+}
+
 std::wstring MapEditor::GetPropertyModeString(PropertyMode mode) const
 {
     switch (mode)
@@ -1144,6 +1325,70 @@ sf::Color MapEditor::GetPropertyColor(PropertyMode mode, bool enabled) const
     }
 }
 
+void MapEditor::CreateSpawnPointAtPosition(const sf::Vector2f& gridPos)
+{
+    if (!IsValidGridPosition(gridPos))
+        return;
+
+    sf::Vector2f worldPos = sf::Vector2f(
+        gridPos.x * GRID_SIZE + GRID_SIZE / 2.0f,
+        gridPos.y * GRID_SIZE + GRID_SIZE / 2.0f
+    );
+
+    // LMJ: Remove existing spawn point for this player
+    for (auto it = spawnPoints.begin(); it != spawnPoints.end(); ++it)
+    {
+        if (it->playerIndex == currentSpawnPlayerIndex)
+        {
+            spawnPoints.erase(it);
+            break;
+        }
+    }
+
+    // LMJ: Add new spawn point
+    spawnPoints.emplace_back(currentSpawnPlayerIndex, worldPos);
+}
+
+void MapEditor::DeleteSpawnPointAtPosition(const sf::Vector2f& gridPos)
+{
+    if (!IsValidGridPosition(gridPos))
+        return;
+
+    SpawnPointData* spawnPoint = GetSpawnPointAtPosition(gridPos);
+    if (spawnPoint)
+    {
+        auto it = std::find_if(spawnPoints.begin(), spawnPoints.end(),
+            [spawnPoint](const SpawnPointData& sp) {
+                return &sp == spawnPoint;
+            });
+
+        if (it != spawnPoints.end())
+        {
+            spawnPoints.erase(it);
+        }
+    }
+}
+
+SpawnPointData* MapEditor::GetSpawnPointAtPosition(const sf::Vector2f& gridPos)
+{
+    sf::Vector2f worldPos = sf::Vector2f(
+        gridPos.x * GRID_SIZE + GRID_SIZE / 2.0f,
+        gridPos.y * GRID_SIZE + GRID_SIZE / 2.0f
+    );
+
+    for (auto& spawnPoint : spawnPoints)
+    {
+        if (std::abs(spawnPoint.position.x - worldPos.x) < 1.0f &&
+            std::abs(spawnPoint.position.y - worldPos.y) < 1.0f)
+        {
+            return &spawnPoint;
+        }
+    }
+
+    return nullptr;
+}
+
+
 void MapEditor::SaveMapToJson(const std::string& filename) const
 {
     try
@@ -1168,31 +1413,33 @@ void MapEditor::SaveMapToJson(const std::string& filename) const
             }
         }
 
+        // LMJ: Save spawn points to JSON array
+        jMap["spawnPoints"] = json::array();
+        for (const auto& spawnPoint : spawnPoints)
+        {
+            jMap["spawnPoints"].push_back(spawnPoint.ToJson());
+        }
+
         // LMJ: Write to file with proper error handling
         std::ofstream ofs(filename);
         if (ofs.is_open())
         {
             ofs << jMap.dump(4); // LMJ: Pretty print with 4-space indentation
             ofs.close();
-            ////std::cout << "Map saved successfully to: " << filename << std::endl;
-        }
-        else
-        {
-            ////std::cerr << "Error: Could not open file for writing: " << filename << std::endl;
         }
     }
     catch (const std::exception& e)
     {
-        //std::cerr << "Error saving map: " << e.what() << std::endl;
+        // Error handling
     }
 }
+
 
 void MapEditor::LoadMapFromJson(const std::string& filename)
 {
     std::ifstream ifs(filename);
     if (!ifs.is_open())
     {
-        //std::cerr << "Error: Could not open file for reading: " << filename << std::endl;
         return;
     }
 
@@ -1209,6 +1456,7 @@ void MapEditor::LoadMapFromJson(const std::string& filename)
             delete block;
         }
         PlacedBlocks.clear();
+        spawnPoints.clear();  // LMJ: Clear spawn points
         selectedBlock = nullptr;
 
         // LMJ: Load tile data from JSON
@@ -1230,18 +1478,22 @@ void MapEditor::LoadMapFromJson(const std::string& filename)
 
                 PlacedBlocks.push_back(block);
                 block->Init();
-
                 ApplyBlockDefaultScale(block);
-
                 block->Reset();
             }
         }
 
-        ////std::cout << "Map loaded successfully from: " << filename << std::endl;
-        ////std::cout << "Loaded " << tileDatas.size() << " tiles and " << PlacedBlocks.size() << " blocks" << std::endl;
+        // LMJ: Load spawn points from JSON
+        if (jMap.contains("spawnPoints") && jMap["spawnPoints"].is_array())
+        {
+            for (const auto& jSpawn : jMap["spawnPoints"])
+            {
+                spawnPoints.push_back(SpawnPointData::FromJson(jSpawn));
+            }
+        }
     }
     catch (const std::exception& e)
     {
-        ////std::cerr << "Error loading map: " << e.what() << std::endl;
+        // Error handling
     }
 }
