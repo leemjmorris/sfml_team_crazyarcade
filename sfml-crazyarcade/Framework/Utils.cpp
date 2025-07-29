@@ -514,7 +514,7 @@ void Utils::LoadSpawnPointsFromJson(Scene* scene, const void* spawnPointsJsonPtr
 
         if (playerIndex >= 0 && playerIndex < 2)
         {
-            PlayerSpawnPoints[playerIndex] = sf::Vector2f(x, y + 26.f);
+            PlayerSpawnPoints[playerIndex] = sf::Vector2f(x, y + 26.f); // LMJ: Change Player Spawn Position inside the Grid.
         }
     }
 }
