@@ -435,8 +435,11 @@ bool Player::GetCollidedTileInfo(sf::FloatRect& outTileBounds)
 			sf::FloatRect blockBounds = block->GetHitBox().GetGlobalBounds();
 			if (hitBox.rect.getGlobalBounds().intersects(blockBounds))
 			{
-				outTileBounds = blockBounds;
-				return true;
+				if (block && block->GetActive() && block->IsDestroyable())
+				{
+					outTileBounds = blockBounds;
+					return true;
+				}
 			}
 		}
 	}
