@@ -327,11 +327,55 @@ void Player::ClearspawnBalloonBomb(WaterBalloon* b)
 	if (spawnBalloon == b) spawnBalloon = nullptr;
 }
 
+bool Player::CollectObstacleRects(std::vector<sf::FloatRect>& outRects)
+{
+	Scene* cur = SCENE_MGR.GetCurrentScene();
+
+	for (auto* obj : cur->FindGameObjects("Block"))
+	{
+		Block* blk = dynamic_cast<Block*>(obj);
+		if (blk && blk->GetActive() && blk->IsDestroyable())
+			outRects.push_back(blk->GetHitBox().GetGlobalBounds());
+	}
+
+	for (auto* obj : cur->FindGameObjects("bomb"))
+	{
+		auto* wb = dynamic_cast<WaterBalloon*>(obj);
+		if (!wb || !wb->GetActive()) continue;
+
+		bool sameTile = (spawnBalloon == wb) &&
+			wb->GetGlobalBounds().intersects(hitBox.rect.getGlobalBounds());
+
+		if (sameTile) continue;   
+		outRects.push_back(wb->GetGlobalBounds());
+	}
+	return !outRects.empty();
+}
+
+size_t Player::GetCollidedObstacleInfo(sf::FloatRect& outBounds)
+{
+	std::vector<sf::FloatRect> rects;
+	CollectObstacleRects(rects);
+
+	size_t cnt = 0;
+	for (auto& r : rects)
+	{
+		if (hitBox.rect.getGlobalBounds().intersects(r))
+		{
+			outBounds = r;     
+			++cnt;
+		}
+	}
+	return cnt;
+}
+
 // KHI
 void Player::Movement(float dt)
 {
 	if (animState == AnimState::Win || animState == AnimState::Dead)
 		return;
+
+	CheckCollWithBalloon();
 
 	if (animState == AnimState::Live || animState == AnimState::Trapped)
 	{
@@ -356,7 +400,8 @@ void Player::Movement(float dt)
 		sf::Vector2f tryX = currentPos + sf::Vector2f(dir.x * curSpeed * dt, 0.f);
 		sprite.setPosition(tryX);
 		hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
-		size_t collidedX = GetCollidedTileInfo(collidedBounds);
+		//size_t collidedX = GetCollidedTileInfo(collidedBounds);
+		size_t collidedX = GetCollidedObstacleInfo(collidedBounds);
 
 		if (collidedX==0)
 		{
@@ -383,7 +428,8 @@ void Player::Movement(float dt)
 		sf::Vector2f tryY = tempPos + sf::Vector2f(0.f, dir.y * curSpeed * dt);
 		sprite.setPosition(sf::Vector2f(tempPos.x, tryY.y));
 		hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
-		size_t collidedY = GetCollidedTileInfo(collidedBounds);
+		//size_t collidedY = GetCollidedTileInfo(collidedBounds);
+		size_t collidedY = GetCollidedObstacleInfo(collidedBounds);
 
 		if (collidedY == 0 && !slidePlayer)
 		{

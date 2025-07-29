@@ -152,6 +152,8 @@ void SceneDemo::Enter()
 	std::cout << "===================" << std::endl;
 
 	// LMJ: Load map from JSON file created in MapEditor
+	auto blocks = FindGameObjects("Block");
+	for (auto* obj : blocks) RemoveGameObject(obj);
 	if (!LOAD_MAP(this, "DemoMap.json"))
 	{
 		std::cout << "Failed to load DemoMap.json, using default positions..." << std::endl;
@@ -255,6 +257,10 @@ void SceneDemo::Exit()
 	isShowingText = false;
 	goReadyRoom = false;
 	readyRoomTimer = 0.f;
+
+	auto blocks = FindGameObjects("Block");
+	for (auto* obj : blocks)
+		RemoveGameObject(obj);
 
 	bazzi->Reset();
 	dao->Reset();

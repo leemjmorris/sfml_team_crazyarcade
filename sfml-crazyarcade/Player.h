@@ -62,6 +62,8 @@ public:
 	void OnBalloonExploded();
 	bool CanPlaceBalloon() const;
 	bool CheckInstallWaterballoon();
+	bool CollectObstacleRects(std::vector<sf::FloatRect>& outRects);
+	size_t GetCollidedObstacleInfo(sf::FloatRect& outBounds);
 	bool HandleBubbleDeath(AnimState s);
 	void PlayMoveAnimation()
 	{

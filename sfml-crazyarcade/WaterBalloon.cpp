@@ -83,7 +83,6 @@ void WaterBalloon::Update(float dt)
 			isCounting = false;
 
 			Explode();
-			active = false; // LSY:
 		}
 	}
 }
