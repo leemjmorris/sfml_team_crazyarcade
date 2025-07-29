@@ -167,6 +167,8 @@ void Item::CheckCollisionWithPlayers()
 // KHI: Static method
 void Item::SpawnItem(const std::string& name, ItemType type, sf::Vector2f spawnPos)
 {
+	spawnPos.y -= 10.f;
+
 	Item* item = new Item(name);
 	item->SetItemType(type);
 	item->Reset();
