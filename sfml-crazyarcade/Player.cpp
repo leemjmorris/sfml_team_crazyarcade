@@ -378,13 +378,13 @@ void Player::Movement(float dt)
 				tempPos.y += correction;
 			}
 
-			sf::Vector2f retryX = tempPos + sf::Vector2f(dir.x * curSpeed * dt, 0.f);
-			sprite.setPosition(retryX);
-			hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
-			if (!GetCollidedTileInfo(collidedBounds))
-			{
-				tempPos.x = retryX.x;
-			}
+			//sf::Vector2f retryX = tempPos + sf::Vector2f(dir.x * curSpeed * dt, 0.f);
+			//sprite.setPosition(retryX);
+			//hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
+			//if (!GetCollidedTileInfo(collidedBounds))
+			//{
+			//	tempPos.x = retryX.x;
+			//}
 		}
 
 		// KHI: Move Y
@@ -404,17 +404,21 @@ void Player::Movement(float dt)
 			float right = collidedBounds.left + third * 2;
 
 			if (playerCenter.x < left)
-				tempPos.x -= correction;
-			else if (playerCenter.x > right)
-				tempPos.x += correction;
-
-			sf::Vector2f retryY = tempPos + sf::Vector2f(0.f, dir.y * curSpeed * dt);
-			sprite.setPosition(sf::Vector2f(tempPos.x, retryY.y));
-			hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
-			if (!GetCollidedTileInfo(collidedBounds))
 			{
-				tempPos.y = retryY.y;
+				tempPos.x -= correction;
 			}
+			else if (playerCenter.x > right)
+			{
+				tempPos.x += correction;
+			}
+
+			//sf::Vector2f retryY = tempPos + sf::Vector2f(0.f, dir.y * curSpeed * dt);
+			//sprite.setPosition(sf::Vector2f(tempPos.x, retryY.y));
+			//hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
+			//if (!GetCollidedTileInfo(collidedBounds))
+			//{
+			//	tempPos.y = retryY.y;
+			//}
 		}
 
 		SetPosition(tempPos);
