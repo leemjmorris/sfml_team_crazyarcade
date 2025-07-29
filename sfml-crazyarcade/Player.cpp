@@ -328,21 +328,6 @@ void Player::ClearspawnBalloonBomb(WaterBalloon* b)
 }
 
 // KHI
-bool Player::CheckCollisionWithMap()
-{
-	sf::FloatRect nextBounds = hitBox.rect.getGlobalBounds();
-
-	for (const auto& tile : mapData)
-	{
-		if (tile.bounds.intersects(nextBounds))
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
-// KHI
 void Player::Movement(float dt)
 {
 	if (animState == AnimState::Win || animState == AnimState::Dead)
@@ -433,7 +418,18 @@ void Player::Movement(float dt)
 		}
 
 		SetPosition(tempPos);
+		float tempSpeed = GetSpeed();
+		if(animState == AnimState::Live)
 		SetScale({ dir.x < 0 ? -1.f : dir.x > 0 ? 1.f : sprite.getScale().x, 1.f });
+
+		if (animState == AnimState::Trapped)
+		{
+			curSpeed = 10.f;
+		}
+		else
+		{
+			curSpeed = tempSpeed;
+		}
 	}
 }
 

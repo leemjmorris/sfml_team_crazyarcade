@@ -214,7 +214,7 @@ void SceneDemo::Update(float dt)
 		goReadyRoom = true;
 	}
 
-	if (gameTimer > 15.f && bazzi->GetPlayerState() == AnimState::Live && dao->GetPlayerState() == AnimState::Live) // LSY: "Game over after 20 second"
+	if (gameTimer > 1500.f && bazzi->GetPlayerState() == AnimState::Live && dao->GetPlayerState() == AnimState::Live) // LSY: "Game over after 20 second"
 	{
 		isShowingText = true;
 		textResult.setString("Draw");
