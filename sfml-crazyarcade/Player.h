@@ -5,7 +5,7 @@
 #include "CharacterStats.h"
 #include "MapCollisionBuilder.h"
 #include "WaterBalloon.h"
-
+constexpr float slidePixelsPerSecond = 100.f;
 enum class AnimState { Ready, Normal, Trapped, Dead, Live, Win};
 
 class Player :

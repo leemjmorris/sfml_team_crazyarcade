@@ -341,7 +341,7 @@ void Player::Movement(float dt)
 		sf::Vector2f currentPos = GetPosition();
 		sf::Vector2f tempPos = currentPos;
 
-		const float correction = curSpeed * 0.3f * dt; // KHI: Distance to nudge the player during collision (slide correction offset)
+		const float correction = slidePixelsPerSecond * dt; // KHI: Distance to nudge the player during collision (slide correction offset)
 		const float tileSize = 52.f;
 
 		// KHI: Get Player Center
