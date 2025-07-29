@@ -5,7 +5,7 @@
 #include "CharacterStats.h"
 #include "MapCollisionBuilder.h"
 #include "WaterBalloon.h"
-
+constexpr float slidePixelsPerSecond = 100.f; // LSY: define const
 enum class AnimState { Ready, Normal, Trapped, Dead, Live, Win};
 
 class Player :
@@ -48,7 +48,7 @@ protected:
 	bool isPop = false;
 
 	sf::Vector2f playerHitBoxSize = { 30.f, 30.f }; // KHI
-	sf::Vector2f playerHitBoxOffset = { 0.f, 20.f }; // KHIs
+	sf::Vector2f playerHitBoxOffset = { 0.f, 10.f }; // KHIs
 	HitBox hitBox;
 
 	std::vector<TileHitBox> mapData;
