@@ -30,7 +30,7 @@ protected:
 	bool moveUp = false;
 	bool canDestroy = false;
 	
-	float destroyTimer = 1.f;
+	float destroyTimer = 2.f;
 
 	HitBox hitBox;
 

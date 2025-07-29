@@ -81,21 +81,18 @@ void WaterSplash::Reset()
 
 void WaterSplash::Update(float dt)
 {
+	auto localBounds = waterSplash.getLocalBounds();
+	hitBox.UpdateCustomTransform(waterSplash, { localBounds.width, localBounds.height }, Origins::MC);
+
 	animator.Update(dt);
 
 	if (isCounting)
-	{
 		UpdateSkillDuration(dt);
-	}
 
 	CheckCollisionWithItems();
 
 	if (!animator.IsPlaying())
-	{
 		WaterSplashPool::ReturnToPool(this);
-	}
-
-	hitBox.UpdateTransform(waterSplash, waterSplash.getLocalBounds());
 }
 
 void WaterSplash::Draw(sf::RenderWindow& window)
@@ -216,9 +213,18 @@ void WaterSplash::CheckCollisionWithItems()
 
 	for (Item* item : Item::allItems)
 	{
-		if (item == nullptr) continue;
+		if (item == nullptr) 
+			continue;
 
-		if (Utils::CheckCollision(hitBox.rect, item->GetHitBox().rect))
+		if (!item->GetCanDestroy()) 
+			continue;
+
+		sf::Vector2f itemCenter = { item->GetHitBox().rect.getGlobalBounds().left + item->GetHitBox().rect.getGlobalBounds().width * 0.5f,
+									item->GetHitBox().rect.getGlobalBounds().top + item->GetHitBox().rect.getGlobalBounds().height * 0.5f };
+
+		sf::FloatRect splashRect = hitBox.rect.getGlobalBounds();
+
+		if (splashRect.contains(itemCenter))
 		{
 			item->SetActive(false);
 		}

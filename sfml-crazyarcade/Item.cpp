@@ -59,7 +59,7 @@ void Item::Reset()
 	sortingOrder = 0;
 	SetOrigin(Origins::BC);
 	canDestroy = false;
-	destroyTimer = 0;
+	destroyTimer = 2;
 }
 
 void Item::Update(float dt)
