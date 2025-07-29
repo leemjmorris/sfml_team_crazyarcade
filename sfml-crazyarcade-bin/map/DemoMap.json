@@ -1,7 +1,7 @@
 {
     "blocks": [
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -10,7 +10,7 @@
             "y": 52.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -19,7 +19,7 @@
             "y": 52.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -28,7 +28,7 @@
             "y": 52.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -37,7 +37,7 @@
             "y": 52.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -46,7 +46,7 @@
             "y": 52.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -55,7 +55,7 @@
             "y": 52.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -64,7 +64,7 @@
             "y": 52.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -73,7 +73,7 @@
             "y": 104.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -82,7 +82,7 @@
             "y": 104.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -91,7 +91,7 @@
             "y": 104.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -100,7 +100,7 @@
             "y": 104.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -109,7 +109,7 @@
             "y": 208.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -118,7 +118,7 @@
             "y": 208.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -127,7 +127,7 @@
             "y": 208.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -136,7 +136,7 @@
             "y": 260.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -145,7 +145,7 @@
             "y": 260.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -154,7 +154,7 @@
             "y": 260.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -163,7 +163,7 @@
             "y": 260.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -172,7 +172,7 @@
             "y": 260.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -181,7 +181,7 @@
             "y": 312.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -190,7 +190,7 @@
             "y": 312.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -199,7 +199,7 @@
             "y": 312.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -208,7 +208,7 @@
             "y": 312.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -217,7 +217,7 @@
             "y": 312.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -226,7 +226,7 @@
             "y": 364.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -235,7 +235,7 @@
             "y": 364.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -244,7 +244,7 @@
             "y": 364.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -253,7 +253,7 @@
             "y": 364.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -262,7 +262,7 @@
             "y": 364.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -271,7 +271,7 @@
             "y": 364.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -280,7 +280,7 @@
             "y": 364.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -298,7 +298,7 @@
             "y": 364.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -307,7 +307,7 @@
             "y": 416.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -316,7 +316,7 @@
             "y": 416.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -325,7 +325,7 @@
             "y": 416.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -334,7 +334,7 @@
             "y": 416.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -343,7 +343,7 @@
             "y": 416.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -352,7 +352,7 @@
             "y": 468.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -361,7 +361,7 @@
             "y": 468.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -370,7 +370,7 @@
             "y": 468.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -388,7 +388,7 @@
             "y": 468.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -397,7 +397,7 @@
             "y": 520.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -406,7 +406,7 @@
             "y": 520.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -415,7 +415,7 @@
             "y": 520.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -424,7 +424,7 @@
             "y": 624.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -433,7 +433,7 @@
             "y": 624.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -442,7 +442,7 @@
             "y": 624.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -451,7 +451,7 @@
             "y": 624.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -460,7 +460,7 @@
             "y": 676.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -469,7 +469,7 @@
             "y": 676.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -478,7 +478,7 @@
             "y": 676.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -487,7 +487,7 @@
             "y": 676.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -496,7 +496,7 @@
             "y": 676.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
@@ -505,7 +505,7 @@
             "y": 676.0
         },
         {
-            "canSpawnItem": false,
+            "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,

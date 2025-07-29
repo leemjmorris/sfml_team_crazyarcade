@@ -136,8 +136,10 @@ void Block::DestroyBlock(Scene* scene)
         Item::ItemType itemType = static_cast<Item::ItemType>(randomItemType);
 
         // LMJ: "Spawn item at block position using existing SpawnItem method"
-        std::string itemName = "SpawnedItem_" + std::to_string(rand());
+        std::string itemName = "item";
         Item::SpawnItem(itemName, itemType, blockPosition);
+
+        std::cout << "Block position : " << blockPosition.x << ", " << blockPosition.y << std::endl;
     }
 
     // LMJ: "Deactivate the block (will be removed by scene)"
@@ -340,4 +342,5 @@ void Block::PlayExitAnim()
 {
     animator.Play("animation/block_destroy.csv");
     hasAnimStarted = true;
+
 }

@@ -28,6 +28,9 @@ protected:
 
 	sf::Vector2f originPos = { 0.f, 0.f };
 	bool moveUp = false;
+	bool canDestroy = false;
+	
+	float destroyTimer = 1.f;
 
 	HitBox hitBox;
 
@@ -52,6 +55,8 @@ public:
 	void FloatingEffect(float dt, float verticalRange = 5.f, float speed = 10.f);
 	void Use(Player* player);
 	void CheckCollisionWithPlayers();
+
+	bool GetCanDestroy() const { return canDestroy; }
 
 	const HitBox& GetHitBox() const
 	{

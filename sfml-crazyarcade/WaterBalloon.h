@@ -14,7 +14,7 @@ protected:
 	sf::Sprite balloon;
 	Animator animator;
 
-	float countdownTime = 4.f;
+	float countdownTime = 1.f;
 	float currentTime = 0;
 	bool isCounting = false;
 	bool active = true;

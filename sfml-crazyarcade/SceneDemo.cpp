@@ -143,10 +143,6 @@ void SceneDemo::Enter()
 	WaterSplashPool::SetCurScene(SCENE_MGR.GetCurrentScene());
 	WaterSplashPool::Init();
 
-	Item::SpawnItem("item", Item::ItemType::Balloon, { 200.f, 200.f });
-	Item::SpawnItem("item", Item::ItemType::Speed, { 300.f, 200.f });
-	Item::SpawnItem("item", Item::ItemType::WaterJet, { 400.f, 200.f });
-
 	std::cout << "===================" << std::endl;
 	std::cout << "     SceneDemo" << std::endl;
 	std::cout << "===================" << std::endl;
@@ -173,13 +169,13 @@ void SceneDemo::Enter()
 	dao->SetEnter(true);
 
 	// LMJ: Initialize collision system
-	for (int y = 0; y < 13; ++y)
-	{
-		for (int x = 0; x < 15; ++x)
-		{
-			blockLayer[y][x] = Utils::CollBlockLayer[y][x];
-		}
-	}
+	//for (int y = 0; y < 13; ++y)
+	//{
+	//	for (int x = 0; x < 15; ++x)
+	//	{
+	//		blockLayer[y][x] = Utils::CollBlockLayer[y][x];
+	//	}
+	//}
 }
 
 void SceneDemo::Update(float dt)
