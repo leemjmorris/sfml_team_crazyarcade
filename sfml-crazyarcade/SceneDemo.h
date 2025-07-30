@@ -28,7 +28,6 @@ protected:
 	Player* dao;
 	Item* item;
 	sf::FloatRect worldBounds = FRAMEWORK.GetWindowBounds();
-	//sf::FloatRect worldBounds = { 0, 780, 0, 676 };
 	std::vector<GameObject*> objectsNeedingClamp;
 
 	GameSceneUI* ui;

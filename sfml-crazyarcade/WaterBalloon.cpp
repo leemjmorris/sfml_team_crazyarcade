@@ -72,7 +72,7 @@ void WaterBalloon::Reset()
 void WaterBalloon::Update(float dt)
 {
 	animator.Update(dt);
-	hitBox.UpdateCustomTransform(balloon, balloonHitBoxSize, balloonHitBoxOffset, Origins::BC);
+	hitBox.UpdateCustomTransform(balloon, balloonHitBoxSize, balloonHitBoxOffset, Origins::MC);
 
 	if (isCounting)
 	{

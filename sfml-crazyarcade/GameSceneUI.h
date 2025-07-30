@@ -8,6 +8,12 @@ protected:
 	sf::Sprite draftSprite;
 	ColorMaskShader colorMask;
 
+	//LSY : SceneDemo have same those
+	sf::Text textResult;
+	sf::Font font;
+	bool isShowingText = false;
+
+	sf::FloatRect worldBounds = FRAMEWORK.GetWindowBounds();
 public:
 	GameSceneUI();
 	~GameSceneUI() = default;

@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="ColorMaskShader.cpp" />
     <ClCompile Include="Framework\AnimationClip.cpp" />
     <ClCompile Include="Framework\Animator.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="libtinyfiledialogs-master\tinyfiledialogs.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="lobbyUi.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapEditor.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -172,12 +174,14 @@
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="Framework\Variables.cpp" />
     <ClCompile Include="TestMap.cpp" />
+    <ClCompile Include="UiHud.cpp" />
     <ClCompile Include="WaterBalloon.cpp" />
     <ClCompile Include="WaterSplash.cpp" />
     <ClCompile Include="WaterSplashPool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="CharacterStats.h" />
     <ClInclude Include="ColorMaskShader.h" />
     <ClInclude Include="Framework\AnimationClip.h" />
@@ -195,6 +199,7 @@
     <ClInclude Include="GameSceneUI.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="libtinyfiledialogs-master\tinyfiledialogs.h" />
+    <ClInclude Include="lobbyUi.h" />
     <ClInclude Include="MapEditor.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneDemo.h" />
@@ -209,6 +214,7 @@
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="Framework\Variables.h" />
     <ClInclude Include="TestMap.h" />
+    <ClInclude Include="UiHud.h" />
     <ClInclude Include="WaterBalloon.h" />
     <ClInclude Include="WaterSplash.h" />
     <ClInclude Include="WaterSplashPool.h" />
