@@ -6,49 +6,25 @@ class Button :
 protected:
 	sf::Font font;
 	sf::Texture tex;
-	sf::RectangleShape box;
-	sf::Sprite bg;
-	sf::Text text;
-	std::string fontId;
+	sf::Sprite button;
 	std::string texId;
+	bool isButton = false;
 
-	sf::Color buttonColor;
-	sf::Color MouseOverbuttonColor;
-
-	bool isBg = false;
-	
 	std::function<void()> onClick;
+
 public:
-	bool isMouseOverColor = false;
 	Button(const std::string& name = "");
 	virtual ~Button()=default;
 
-	void ButtonSetFillColor(const sf::Color& color);
-	void TextSetFillColor(const sf::Color& color);
-	void SetOutlineColor(sf::Color c);
-	void SetOutlineThickness(float f);
 	void SetSize(sf::Vector2f v);
-
-	const std::string& GetFontId() const { return fontId; }
-	void SetFontId(const std::string& fId) { fontId = fId; }
-
-	void SetBackGroud(const sf::String& str, float w, float h) {
-		isBg = true;
+	void SetButton(const sf::String& str, sf::FloatRect r)
+	{
+		isButton = true;
 		texId = str;
-		bg.setScale(w, h);
+		button.setScale(1.f, 1.f);
+		button.setPosition(r.left, r.top);
 	}
-	const sf::Sprite& getBg() const { return bg; }
-
-	void TextSetPosition(const sf::Vector2f& pos);
-	//void SetString(const sf::String& str);
-	void SetCharacterSize(unsigned int size);
-	std::string GetString() const;
-
-	sf::Text& GetText() { return text; }
-	const sf::Text& GetText() const { return text; }
-
-	void SetButton(const sf::Vector2f& v, const sf::Color& c, const std::string& f, const sf::Color& oc = sf::Color::White, float t = 3.f);
-	//void AddButton(const sf::String& str, unsigned int size, const sf::Color& color);
+	const sf::Sprite& getBox() const { return button; }
 
 	void SetOnClick(std::function<void()> func);
 	void SetPosition(const sf::Vector2f& pos) override;

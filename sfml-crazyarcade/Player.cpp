@@ -78,7 +78,7 @@ bool Player::CheckInstallWaterballoon()
 	else
 		std::cout << "Player 2  activeBalloons:" << activeBalloons << ", balloonCapacity: " << balloonCapacity << std::endl;
 
-	spawnBalloon = b;
+	passThroughBombs.insert(b);
 	++activeBalloons;
 	return true;
 }
@@ -209,6 +209,7 @@ void Player::Update(float dt)
 	}
 	else
 	{
+		RefreshPassThroughSet();
 		Movement(dt);
 	}
 	animator.Update(dt);
@@ -253,34 +254,6 @@ inline sf::Vector2i ToGrid(const sf::Vector2f& worldPos)
 	return { int(worldPos.x / 52), int(worldPos.y / 52) };
 }
 
-// LSY
-bool Player::CheckCollWithBalloon()
-{
-	sf::FloatRect playerBounds = hitBox.rect.getGlobalBounds();
-
-	if (spawnBalloon && spawnBalloon->GetActive())
-	{
-		if (spawnBalloon->GetGlobalBounds().intersects(playerBounds))
-		{
-			//std::cout << "collision" << std::endl;
-			return false;
-		}
-
-		spawnBalloon = nullptr;
-		return false;
-	}
-
-	auto balloons = SCENE_MGR.GetCurrentScene()->FindGameObjects("bomb");
-	for (auto* obj : balloons)
-	{
-		WaterBalloon* b = dynamic_cast<WaterBalloon*>(obj);
-		if (!b || !b->GetActive()) continue;
-		if (b->GetGlobalBounds().intersects(playerBounds))
-			return true;
-	}
-	return false;
-}
-
 void Player::CheckCollWithSplash()
 {
 	if (animState == AnimState::Trapped)
@@ -305,9 +278,24 @@ void Player::CheckCollWithSplash()
 	}
 }
 
-void Player::ClearspawnBalloonBomb(WaterBalloon* b)
+
+void Player::RefreshPassThroughSet()
 {
-	if (spawnBalloon == b) spawnBalloon = nullptr;
+	sf::FloatRect me = hitBox.rect.getGlobalBounds();
+
+	for (auto it = passThroughBombs.begin(); it != passThroughBombs.end(); )
+	{
+		WaterBalloon* wb = *it;
+
+
+		bool stillOverlap = wb->GetActive() &&
+			wb->GetGlobalBounds().intersects(me);
+
+		if (!stillOverlap)
+			it = passThroughBombs.erase(it);
+		else
+			++it;
+	}
 }
 
 bool Player::CollectObstacleRects(std::vector<sf::FloatRect>& outRects)
@@ -326,11 +314,9 @@ bool Player::CollectObstacleRects(std::vector<sf::FloatRect>& outRects)
 		auto* wb = dynamic_cast<WaterBalloon*>(obj);
 		if (!wb || !wb->GetActive()) continue;
 
-		bool sameTile = (spawnBalloon == wb) &&
-			wb->GetGlobalBounds().intersects(hitBox.rect.getGlobalBounds());
-
-		if (sameTile) continue;   
+		if (passThroughBombs.count(wb)) continue;
 		outRects.push_back(wb->GetGlobalBounds());
+
 	}
 	return !outRects.empty();
 }
@@ -345,7 +331,7 @@ size_t Player::GetCollidedObstacleInfo(sf::FloatRect& outBounds)
 	{
 		if (hitBox.rect.getGlobalBounds().intersects(r))
 		{
-			outBounds = r;     
+			outBounds = r;
 			++cnt;
 		}
 	}
@@ -358,7 +344,6 @@ void Player::Movement(float dt)
 	if (animState == AnimState::Win || animState == AnimState::Dead)
 		return;
 
-	CheckCollWithBalloon();
 
 	if (animState == AnimState::Live || animState == AnimState::Trapped)
 	{
@@ -386,7 +371,7 @@ void Player::Movement(float dt)
 		//size_t collidedX = GetCollidedTileInfo(collidedBounds);
 		size_t collidedX = GetCollidedObstacleInfo(collidedBounds);
 
-		if (collidedX==0)
+		if (collidedX == 0)
 		{
 			tempPos.x = tryX.x;
 		}
@@ -424,7 +409,7 @@ void Player::Movement(float dt)
 		{
 			tempPos.y = tryY.y;
 		}
-		else if(collidedY == 1 )
+		else if (collidedY == 1)
 		{
 			float third = tileSize / 3.f;
 			float left = collidedBounds.left + third * 0.2;
@@ -450,8 +435,8 @@ void Player::Movement(float dt)
 
 		SetPosition(tempPos);
 		float tempSpeed = GetSpeed();
-		if(animState == AnimState::Live)
-		SetScale({ dir.x < 0 ? -1.f : dir.x > 0 ? 1.f : sprite.getScale().x, 1.f });
+		if (animState == AnimState::Live)
+			SetScale({ dir.x < 0 ? -1.f : dir.x > 0 ? 1.f : sprite.getScale().x, 1.f });
 
 		if (animState == AnimState::Trapped)
 		{
@@ -486,7 +471,7 @@ size_t Player::GetCollidedTileInfo(sf::FloatRect& outTileBounds)
 					cnt++;
 				}
 			}
-		 } 
+		}
 	}
 	return cnt;
 }

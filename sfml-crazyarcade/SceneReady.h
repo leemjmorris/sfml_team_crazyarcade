@@ -1,10 +1,14 @@
 #pragma once
 #include "Scene.h"
+#include "Button.h"
+#include "lobbyUi.h"
 
 class SceneReady : public Scene
 {
 protected:
 	sf::Sprite bgSprite; // KHI: DRAFT!!
+
+	lobbyUi* ui;
 
 public:
 	SceneReady();
