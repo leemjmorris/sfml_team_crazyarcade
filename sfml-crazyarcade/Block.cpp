@@ -394,15 +394,25 @@ bool Block::IsBlockedAtTarget()
     Scene* curScene = SCENE_MGR.GetCurrentScene();
     auto gameObjects = curScene->FindGameObjects("Block");
 
+    sf::FloatRect windowBounds = FRAMEWORK.GetWindowBounds();
+    sf::FloatRect splashBounds = GetHitBox().rect.getGlobalBounds();
+
     sprite.setPosition(targetPos);
     hitBox.UpdateCustomTransform(sprite, hitBoxSize, hitBoxOffset, Origins::BC);
     sf::FloatRect targetBounds = hitBox.GetGlobalBounds();
 
-    sf::Vector2f centerPoint = {
+    sf::Vector2f targetPosCenter = {
         targetBounds.left + targetBounds.width * 0.5f,
         targetBounds.top + targetBounds.height * 0.5f
     };
 
+    // KHI: Window
+    if (!windowBounds.contains(targetPosCenter))
+    {
+        return true;
+    }
+
+    // KHI: Block
     for (auto* obj : gameObjects)
     {
         Block* block = dynamic_cast<Block*>(obj);
@@ -412,7 +422,7 @@ bool Block::IsBlockedAtTarget()
         }
 
         sf::FloatRect blockBounds = block->GetHitBox().GetGlobalBounds();
-        if (blockBounds.contains(centerPoint))
+        if (blockBounds.contains(targetPosCenter))
         {
             return true;
         }
