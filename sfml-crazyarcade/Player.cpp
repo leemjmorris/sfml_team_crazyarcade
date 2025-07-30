@@ -378,6 +378,8 @@ void Player::Movement(float dt)
 		};
 
 		sf::FloatRect collidedBounds;
+		bool collX = false;
+		bool collY = false;
 
 		// KHI: Move X
 		sf::Vector2f tryX = currentPos + sf::Vector2f(dir.x * curSpeed * dt, 0.f);
@@ -392,6 +394,7 @@ void Player::Movement(float dt)
 		}
 		else if (collidedX == 1)
 		{
+			collX = true;
 			float third = tileSize / 3.f;
 			float upper = collidedBounds.top + third * 0.2;
 			float lower = collidedBounds.top + third * 2.8;
@@ -407,12 +410,6 @@ void Player::Movement(float dt)
 			slidePlayer = true;
 		}
 
-		if (collidedX && (InputMgr::GetAxisRaw(vAxis) != 0 || InputMgr::GetAxisRaw(hAxis) != 0))
-		{
-			pushedCount += dt;
-			std::cout << pushedCount << std::endl;
-		}
-
 		// KHI: Move Y
 		sf::Vector2f tryY = tempPos + sf::Vector2f(0.f, dir.y * curSpeed * dt);
 		sprite.setPosition(sf::Vector2f(tempPos.x, tryY.y));
@@ -426,6 +423,7 @@ void Player::Movement(float dt)
 		}
 		else if(collidedY == 1 )
 		{
+			collY = true;
 			float third = tileSize / 3.f;
 			float left = collidedBounds.left + third * 0.2;
 			float right = collidedBounds.left + third * 2.8;
@@ -442,10 +440,20 @@ void Player::Movement(float dt)
 		}
 		slidePlayer = false;
 
-		if (collidedY && (InputMgr::GetAxisRaw(vAxis) != 0 || InputMgr::GetAxisRaw(hAxis) != 0))
+		bool hasInput = (InputMgr::GetAxisRaw(vAxis) != 0 || InputMgr::GetAxisRaw(hAxis) != 0);
+		if ((collX || collY) && hasInput)
 		{
 			pushedCount += dt;
-			std::cout << pushedCount << std::endl;
+			if (pushedCount >= pushCount)
+			{
+				std::cout << "¹Ð±â" << std::endl;
+				std::cout << dir.x << ", " << dir.y << std::endl;
+				pushedCount = 0;
+			}
+		}
+		else
+		{
+			pushedCount = 0.f;
 		}
 
 		SetPosition(tempPos);
