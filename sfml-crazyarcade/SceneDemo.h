@@ -44,9 +44,6 @@ protected:
 
 	ColorMaskShader colorMask;
 
-	std::vector<TileHitBox> collData;
-	std::unique_ptr<MapCollisionBuilder> collBuilder;
-
 	// KHI: For Testing
 	bool toggleActiveDebugDraw = false;
 
@@ -63,7 +60,6 @@ public:
 	void Exit() override;
 
 	void ClampToBounds(GameObject& obj);
-	const std::vector<TileHitBox>& GetCollData() const { return collData; }
 
 	// KHI: For TEST !!!
 	bool CheckCollisionWithPlayer(float dt);

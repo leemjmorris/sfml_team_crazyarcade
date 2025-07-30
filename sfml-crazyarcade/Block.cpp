@@ -78,6 +78,10 @@ void Block::SetBlockProperties(bool destroyable, bool hidable, bool movable, boo
 void Block::Init()
 {
     SpriteGo::Init();
+
+    ANI_CLIP_MGR.Load("animation/block_destroy.csv"); // KHI 
+
+    animator.SetTarget(&sprite); // KHI
 }
 
 void Block::Release()
@@ -88,17 +92,32 @@ void Block::Release()
 void Block::Reset()
 {
     SpriteGo::Reset();
+
     SetOrigin(Origins::BC);
+    hasAnimStarted = false;
 }
 
 void Block::Update(float dt)
 {
     SpriteGo::Update(dt);
+
+    // KHI: Update HitBox
+    hitBox.UpdateCustomTransform(sprite, hitBoxSize, hitBoxOffset, Origins::BC);
+
+    // KHI: Update Animation
+    animator.Update(dt);
+
+    if (!animator.IsPlaying() && hasAnimStarted)
+    {
+        Scene* curScene = SCENE_MGR.GetCurrentScene();
+        this->DestroyBlock(curScene);
+        hasAnimStarted = false;
+    }
 }
 
 void Block::Draw(sf::RenderWindow& window)
 {
-
+    hitBox.Draw(window);
     SpriteGo::Draw(window);
 }
 
@@ -117,8 +136,10 @@ void Block::DestroyBlock(Scene* scene)
         Item::ItemType itemType = static_cast<Item::ItemType>(randomItemType);
 
         // LMJ: "Spawn item at block position using existing SpawnItem method"
-        std::string itemName = "SpawnedItem_" + std::to_string(rand());
+        std::string itemName = "item";
         Item::SpawnItem(itemName, itemType, blockPosition);
+
+        std::cout << "Block position : " << blockPosition.x << ", " << blockPosition.y << std::endl;
     }
 
     // LMJ: "Deactivate the block (will be removed by scene)"
@@ -314,4 +335,12 @@ Block* Block::CreateBlockWithProperties(const std::string& textureId, const sf::
     block->Reset();
     block->SetPosition(position);
     return block;
+}
+
+// KHI
+void Block::PlayExitAnim()
+{
+    animator.Play("animation/block_destroy.csv");
+    hasAnimStarted = true;
+
 }

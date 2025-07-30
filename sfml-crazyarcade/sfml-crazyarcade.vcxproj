@@ -156,7 +156,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MapCollisionBuilder.cpp" />
     <ClCompile Include="MapEditor.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneDemo.cpp" />
@@ -196,7 +195,6 @@
     <ClInclude Include="GameSceneUI.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="libtinyfiledialogs-master\tinyfiledialogs.h" />
-    <ClInclude Include="MapCollisionBuilder.h" />
     <ClInclude Include="MapEditor.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneDemo.h" />

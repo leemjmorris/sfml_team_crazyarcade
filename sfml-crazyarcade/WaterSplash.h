@@ -66,6 +66,7 @@ public:
 	void PlayExitAnim();
 	void CheckCollisionWithItems();
 	bool CheckCollisionWithBlocks();
+	bool CheckCollisionWithWindow();
 	bool IsCompletelyInside(const sf::FloatRect& inner, const sf::FloatRect& outer);
 
 	const HitBox& GetHitBox() const

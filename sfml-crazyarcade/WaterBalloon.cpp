@@ -83,7 +83,6 @@ void WaterBalloon::Update(float dt)
 			isCounting = false;
 
 			Explode();
-			active = false; // LSY:
 		}
 	}
 }
@@ -102,11 +101,10 @@ void WaterBalloon::StartCastCountdown()
 
 void WaterBalloon::Explode()
 {
+	SetActive(false);
 	ExplodeInAllDirections(splashLength, splashLength, splashLength, splashLength);
 	player->OnBalloonExploded();
 	occupiedTiles.erase(GridKey(gridPos.x, gridPos.y));
-	Scene* currentScene = SCENE_MGR.GetCurrentScene();
-	currentScene->RemoveGameObject(this);
 }
 
 void WaterBalloon::ExplodeInAllDirections(int upLen, int downLen, int leftLen, int rightLen)
@@ -165,7 +163,7 @@ void WaterBalloon::SpawnWaterSplash(WaterSplash::AnimType dir, int length)
 
 			splashObj->SetPosition(pos);
 
-			if (splashObj->CheckCollisionWithBlocks())
+			if (splashObj->CheckCollisionWithBlocks() || splashObj->CheckCollisionWithWindow())
 			{
 				WaterSplashPool::ReturnToPool(splashObj);
 				break;

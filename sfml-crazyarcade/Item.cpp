@@ -45,16 +45,21 @@ void Item::SetOrigin(Origins preset)
 
 void Item::Init()
 {
+	sortingLayer = SortingLayers::Foreground;
+	sortingOrder = 0;
 }
 
 void Item::Release()
 {
-	
 }
 
 void Item::Reset()
 {
-	SetOrigin(Origins::MC);
+	sortingLayer = SortingLayers::Foreground;
+	sortingOrder = 0;
+	SetOrigin(Origins::BC);
+	canDestroy = false;
+	destroyTimer = 2;
 }
 
 void Item::Update(float dt)
@@ -64,6 +69,12 @@ void Item::Update(float dt)
 	hitBox.UpdateTransform(itemSprite, itemSprite.getLocalBounds());
 
 	CheckCollisionWithPlayers();
+
+	destroyTimer -= dt;
+	if (destroyTimer <= 0)
+	{
+		canDestroy = true;
+	}
 }
 
 void Item::Draw(sf::RenderWindow& window)
@@ -156,8 +167,12 @@ void Item::CheckCollisionWithPlayers()
 // KHI: Static method
 void Item::SpawnItem(const std::string& name, ItemType type, sf::Vector2f spawnPos)
 {
+	spawnPos.y -= 10.f;
+
 	Item* item = new Item(name);
 	item->SetItemType(type);
+	item->Reset();
+	item->SetOrigin(Origins::BC);
 	item->SetPosition(spawnPos);
 	item->SetOriginPos(spawnPos);
 	allItems.push_back(item);
@@ -182,7 +197,7 @@ void Item::CheckAndRemoveItem()
 
 	for (auto it = allItems.begin(); it != allItems.end(); )
 	{
-		if (*it == nullptr || !(*it)->GetActive())
+		if ((*it == nullptr || !(*it)->GetActive()) && (*it)->GetCanDestroy())
 		{
 			currentScene->RemoveGameObject(*it);
 			it = allItems.erase(it);
