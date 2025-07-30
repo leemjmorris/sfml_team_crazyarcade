@@ -84,7 +84,7 @@ void lobbyUi::Init()
 
 	choiceColorRed->SetButton("assets/ui/lobby/Button_ColorChoice_Red_Pick.png", { 488.f, 282.f, 33.f, 35.f });
 	choiceColorYellow->SetButton("assets/ui/lobby/Button_ColorChoice_Yellow_Pick.png", { 524.f, 282.f, 33.f, 35.f });
-	choiceColorOrange->SetButton("Button_ColorChoice_Yellow_Pick.png", { 560.f, 282.f, 33.f, 35.f });
+	choiceColorOrange->SetButton("assets/ui/lobby/Button_ColorChoice_Orange_Pick.png", { 560.f, 282.f, 33.f, 35.f });
 	choiceColorGreen->SetButton("assets/ui/lobby/Button_ColorChoice_Green_Pick.png", { 596.f, 282.f, 33.f, 35.f });
 	choiceColorSkyBlue->SetButton("assets/ui/lobby/Button_ColorChoice_Skyblue_Pick.png", { 632.f, 282.f, 33.f, 35.f });
 	choiceColorBlue->SetButton("assets/ui/lobby/Button_ColorChoice_Blue_Pick.png", { 668.f, 282.f, 33.f, 35.f });
