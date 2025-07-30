@@ -151,8 +151,8 @@ void MapEditor::LoadTileSet()
 {
     // LMJ: Try multiple paths for tileset loading
     std::string tilesetPaths[] = {
-        "assets/map/forest/tile/forest_tile_set.png",
-        "../assets/map/forest/tile/forest_tile_set.png",
+        "assets/map/forest/tile/tile_set.png",
+        "../assets/map/forest/tile/tile_set.png",
     };
 
     bool textureLoaded = false;
@@ -173,15 +173,15 @@ void MapEditor::LoadTileSet()
 
     // LMJ: Create tile sprites from loaded texture
     sf::Vector2u textureSize = tileMapTexture.getSize();
-    const float tileWidth = textureSize.x / 5.0f;   // LMJ: 5 tiles per row
-    const float tileHeight = textureSize.y / 2.0f;  // LMJ: 2 rows total
+    const float tileWidth = textureSize.x / 10.0f;   // LMJ: 10 tiles per row
+    const float tileHeight = textureSize.y / 7.0f;  // LMJ: 7 rows total
 
     TileOptions.clear();
 
-    // LMJ: Generate sprites for 10 tiles in 5x2 grid layout
-    for (int y = 0; y < 2; ++y)
+    // LMJ: Generate sprites for 70 tiles in 10x7 grid layout
+    for (int y = 0; y < 7; ++y)
     {
-        for (int x = 0; x < 5; ++x)
+        for (int x = 0; x < 10; ++x)
         {
             sf::Sprite tile;
             tile.setTexture(tileMapTexture);
@@ -957,12 +957,12 @@ void MapEditor::DrawSpawnPointPreview(sf::RenderWindow& window)
     }
 }
 
-
 void MapEditor::DrawBlockPropertyIndicators(sf::RenderWindow& window)
 {
     if (currentLayer != LayerType::BlockState) return;
 
     const float indicatorSize = 8.0f;
+    const float yOffset = 26.f;
 
     for (Block* block : PlacedBlocks)
     {
@@ -975,7 +975,7 @@ void MapEditor::DrawBlockPropertyIndicators(sf::RenderWindow& window)
         {
             sf::RectangleShape indicator;
             indicator.setSize(sf::Vector2f(indicatorSize, indicatorSize));
-            indicator.setPosition(blockPos.x - GRID_SIZE / 2, blockPos.y - GRID_SIZE / 2);
+            indicator.setPosition(blockPos.x - GRID_SIZE / 2, blockPos.y - GRID_SIZE / 2 - yOffset);
             indicator.setFillColor(GetPropertyColor(PropertyMode::Destroyable, true));
             window.draw(indicator);
         }
@@ -984,7 +984,7 @@ void MapEditor::DrawBlockPropertyIndicators(sf::RenderWindow& window)
         {
             sf::RectangleShape indicator;
             indicator.setSize(sf::Vector2f(indicatorSize, indicatorSize));
-            indicator.setPosition(blockPos.x + GRID_SIZE / 2 - indicatorSize, blockPos.y - GRID_SIZE / 2);
+            indicator.setPosition(blockPos.x + GRID_SIZE / 2 - indicatorSize, blockPos.y - GRID_SIZE / 2 - yOffset);
             indicator.setFillColor(GetPropertyColor(PropertyMode::Hidable, true));
             window.draw(indicator);
         }
@@ -993,7 +993,7 @@ void MapEditor::DrawBlockPropertyIndicators(sf::RenderWindow& window)
         {
             sf::RectangleShape indicator;
             indicator.setSize(sf::Vector2f(indicatorSize, indicatorSize));
-            indicator.setPosition(blockPos.x - GRID_SIZE / 2, blockPos.y + GRID_SIZE / 2 - indicatorSize);
+            indicator.setPosition(blockPos.x - GRID_SIZE / 2, blockPos.y + GRID_SIZE / 2 - indicatorSize - yOffset);
             indicator.setFillColor(GetPropertyColor(PropertyMode::Movable, true));
             window.draw(indicator);
         }
@@ -1002,7 +1002,7 @@ void MapEditor::DrawBlockPropertyIndicators(sf::RenderWindow& window)
         {
             sf::RectangleShape indicator;
             indicator.setSize(sf::Vector2f(indicatorSize, indicatorSize));
-            indicator.setPosition(blockPos.x + GRID_SIZE / 2 - indicatorSize, blockPos.y + GRID_SIZE / 2 - indicatorSize);
+            indicator.setPosition(blockPos.x + GRID_SIZE / 2 - indicatorSize, blockPos.y + GRID_SIZE / 2 - indicatorSize - yOffset);
             indicator.setFillColor(GetPropertyColor(PropertyMode::SpawnItem, true));
             window.draw(indicator);
         }
@@ -1094,7 +1094,6 @@ void MapEditor::DrawRightSideUI(sf::RenderWindow& window)
         DrawSpawnPointInfo(window, rightPanelX, 320);
     }
 }
-
 
 void MapEditor::DrawSaveLoadInfo(sf::RenderWindow& window)
 {
@@ -1388,7 +1387,6 @@ SpawnPointData* MapEditor::GetSpawnPointAtPosition(const sf::Vector2f& gridPos)
     return nullptr;
 }
 
-
 void MapEditor::SaveMapToJson(const std::string& filename) const
 {
     try
@@ -1433,7 +1431,6 @@ void MapEditor::SaveMapToJson(const std::string& filename) const
         // Error handling
     }
 }
-
 
 void MapEditor::LoadMapFromJson(const std::string& filename)
 {

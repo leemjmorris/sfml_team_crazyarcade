@@ -159,7 +159,7 @@ void SceneDemo::Enter()
 	}
 
 	// LMJ: Set player positions using helper functions
-	bazzi->SetPosition(Utils::GetPlayerSpawnPoint(0));
+	bazzi->SetPosition(Utils::GetPlayerSpawnPoint(0));	
 	dao->SetPosition(Utils::GetPlayerSpawnPoint(1));
 
 	std::cout << "Player 1 position: (" << bazzi->GetPosition().x << ", " << bazzi->GetPosition().y << ")" << std::endl;
