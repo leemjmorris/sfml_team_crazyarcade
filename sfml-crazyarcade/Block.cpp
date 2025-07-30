@@ -354,10 +354,20 @@ void Block::PushBlock(sf::Vector2f dir)
 {
     originPos = GetPosition();
     targetPos = originPos + (dir * 52.f);
-    std::cout << targetPos.x << ", " << targetPos.y << std::endl;
-    isMoving = true;
+
+    if (IsBlockedAtTarget())
+    {
+        isMoving = false;
+    }
+    else
+    {
+        isMoving = true;
+    }
+
+    sprite.setPosition(originPos);
 }
 
+// KHI
 void Block::Movement(float dt)
 {
     sf::Vector2f currentPos = GetPosition();
@@ -376,4 +386,37 @@ void Block::Movement(float dt)
         sf::Vector2f moveDir = Utils::GetNormal(toTarget);
         SetPosition(currentPos + moveDir * moveAmount);
     }
+}
+
+// KHI
+bool Block::IsBlockedAtTarget()
+{
+    Scene* curScene = SCENE_MGR.GetCurrentScene();
+    auto gameObjects = curScene->FindGameObjects("Block");
+
+    sprite.setPosition(targetPos);
+    hitBox.UpdateCustomTransform(sprite, hitBoxSize, hitBoxOffset, Origins::BC);
+    sf::FloatRect targetBounds = hitBox.GetGlobalBounds();
+
+    sf::Vector2f centerPoint = {
+        targetBounds.left + targetBounds.width * 0.5f,
+        targetBounds.top + targetBounds.height * 0.5f
+    };
+
+    for (auto* obj : gameObjects)
+    {
+        Block* block = dynamic_cast<Block*>(obj);
+        if (!block || block == this || !block->GetActive())
+        {
+            continue;
+        }
+
+        sf::FloatRect blockBounds = block->GetHitBox().GetGlobalBounds();
+        if (blockBounds.contains(centerPoint))
+        {
+            return true;
+        }
+    }
+
+    return false;
 }

@@ -165,12 +165,7 @@ public:
         return block;
     }
 
-    // KHI
-    const HitBox& GetHitBox() const
-    {
-        return hitBox;
-    }
-
+    // KHI --------
     void PlayExitAnim();
 
     sf::Vector2f originPos = { 0.f, 0.f };
@@ -178,4 +173,13 @@ public:
     bool isMoving = false;
     void PushBlock(sf::Vector2f dir);
     void Movement(float dt);
+    bool IsBlockedAtTarget();
+
+    const HitBox& GetHitBox() const
+    {
+        return hitBox;
+    }
+
+    public:
+    bool GetIsMoving() const { return isMoving; }
 };

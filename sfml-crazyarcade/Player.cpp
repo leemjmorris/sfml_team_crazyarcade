@@ -447,26 +447,20 @@ void Player::Movement(float dt)
 		slidePlayer = false;
 
 		bool hasInput = (InputMgr::GetAxisRaw(vAxis) != 0 || InputMgr::GetAxisRaw(hAxis) != 0);
-		if ((collX || collY) && hasInput && (collidedBlockX != nullptr || collidedBlockY != nullptr))
-		{
-			//if (GetCollidedBlock()->IsMovable())
-			{
-				pushedCount += dt;
-				if (pushedCount >= pushCount)
-				{
-					std::cout << "¹Ð±â" << std::endl;
-				
-					if (collidedBlockX != nullptr)
-					{
-						collidedBlockX->PushBlock(dir);
-					}
-					else
-					{
-						collidedBlockY->PushBlock(dir);
-					}
+		bool collided = collX || collY;
+		Block* targetBlock = (collidedBlockX != nullptr) ? collidedBlockX : collidedBlockY;
 
-					pushedCount = 0;
+		if (collided && hasInput)
+		{
+			pushedCount += dt;
+
+			if (pushedCount >= pushCount)
+			{
+				if (targetBlock && targetBlock->IsMovable() && !targetBlock->GetIsMoving())
+				{
+					targetBlock->PushBlock(dir);
 				}
+				pushedCount = 0.f;
 			}
 		}
 		else
