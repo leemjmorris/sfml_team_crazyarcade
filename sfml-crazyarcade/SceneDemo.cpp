@@ -239,11 +239,23 @@ void SceneDemo::Update(float dt)
 			SCENE_MGR.ChangeScene(SceneIds::Ready);
 		}
 	}
+
 	Scene::Update(dt);
 }
 
 void SceneDemo::Exit()
 {
+	// KHI: delete balloons
+	auto balloons = FindGameObjects("bomb");
+	for (auto* obj : balloons)
+	{
+		WaterBalloon* b = dynamic_cast<WaterBalloon*>(obj);
+		if (b->GetActive() == false)
+		{
+			RemoveGameObject(obj);
+		}
+	}
+
 	auto items = FindGameObjects("item");
 
 	for (auto* obj : items)

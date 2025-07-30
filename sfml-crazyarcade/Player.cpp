@@ -253,6 +253,7 @@ inline sf::Vector2i ToGrid(const sf::Vector2f& worldPos)
 	return { int(worldPos.x / 52), int(worldPos.y / 52) };
 }
 
+// LSY
 bool Player::CheckCollWithBalloon()
 {
 	sf::FloatRect playerBounds = hitBox.rect.getGlobalBounds();
@@ -278,24 +279,6 @@ bool Player::CheckCollWithBalloon()
 			return true;
 	}
 	return false;
-
-	//auto waterBalloons = SCENE_MGR.GetCurrentScene()->FindGameObjects("bomb");
-	//if(atBalloon)
-	//	return false; // LSY: if player is at balloon, then no need to check collision with balloon
- //   sf::FloatRect playerBounds = hitBox.rect.getGlobalBounds();
- //   for (auto* obj : waterBalloons)
- //   {
- //       WaterBalloon* balloonObj = dynamic_cast<WaterBalloon*>(obj);
- //       if (!balloonObj || !balloonObj->GetActive())
- //           continue;
-
- //       if (balloonObj->GetGlobalBounds().intersects(playerBounds))
- //       {
-	//		atBalloon = true;
- //           return true;
- //       }
- //   }
-	//return false;
 }
 
 void Player::CheckCollWithSplash()

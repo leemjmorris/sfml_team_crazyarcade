@@ -101,11 +101,10 @@ void WaterBalloon::StartCastCountdown()
 
 void WaterBalloon::Explode()
 {
+	SetActive(false);
 	ExplodeInAllDirections(splashLength, splashLength, splashLength, splashLength);
 	player->OnBalloonExploded();
 	occupiedTiles.erase(GridKey(gridPos.x, gridPos.y));
-	Scene* currentScene = SCENE_MGR.GetCurrentScene();
-	currentScene->RemoveGameObject(this);
 }
 
 void WaterBalloon::ExplodeInAllDirections(int upLen, int downLen, int leftLen, int rightLen)
