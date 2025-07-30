@@ -380,6 +380,8 @@ void Player::Movement(float dt)
 		sf::FloatRect collidedBounds;
 		bool collX = false;
 		bool collY = false;
+		Block* collidedBlockX = nullptr;
+		Block* collidedBlockY = nullptr;
 
 		// KHI: Move X
 		sf::Vector2f tryX = currentPos + sf::Vector2f(dir.x * curSpeed * dt, 0.f);
@@ -395,6 +397,8 @@ void Player::Movement(float dt)
 		else if (collidedX == 1)
 		{
 			collX = true;
+			collidedBlockX = GetCollidedBlock();
+
 			float third = tileSize / 3.f;
 			float upper = collidedBounds.top + third * 0.2;
 			float lower = collidedBounds.top + third * 2.8;
@@ -424,6 +428,8 @@ void Player::Movement(float dt)
 		else if(collidedY == 1 )
 		{
 			collY = true;
+			collidedBlockY = GetCollidedBlock();
+
 			float third = tileSize / 3.f;
 			float left = collidedBounds.left + third * 0.2;
 			float right = collidedBounds.left + third * 2.8;
@@ -441,7 +447,7 @@ void Player::Movement(float dt)
 		slidePlayer = false;
 
 		bool hasInput = (InputMgr::GetAxisRaw(vAxis) != 0 || InputMgr::GetAxisRaw(hAxis) != 0);
-		if ((collX || collY) && hasInput && GetCollidedBlock() != nullptr)
+		if ((collX || collY) && hasInput && (collidedBlockX != nullptr || collidedBlockY != nullptr))
 		{
 			//if (GetCollidedBlock()->IsMovable())
 			{
@@ -450,7 +456,14 @@ void Player::Movement(float dt)
 				{
 					std::cout << "¹Ð±â" << std::endl;
 				
-					GetCollidedBlock()->PushBlock(dir);
+					if (collidedBlockX != nullptr)
+					{
+						collidedBlockX->PushBlock(dir);
+					}
+					else
+					{
+						collidedBlockY->PushBlock(dir);
+					}
 
 					pushedCount = 0;
 				}
