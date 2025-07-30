@@ -113,6 +113,11 @@ void Block::Update(float dt)
         this->DestroyBlock(curScene);
         hasAnimStarted = false;
     }
+
+    if (isMoving)
+    {
+        Movement(dt);
+    }
 }
 
 void Block::Draw(sf::RenderWindow& window)
@@ -342,5 +347,33 @@ void Block::PlayExitAnim()
 {
     animator.Play("animation/block_destroy.csv");
     hasAnimStarted = true;
+}
 
+// KHI
+void Block::PushBlock(sf::Vector2f dir)
+{
+    originPos = GetPosition();
+    targetPos = originPos + (dir * 52.f);
+    std::cout << targetPos.x << ", " << targetPos.y << std::endl;
+    isMoving = true;
+}
+
+void Block::Movement(float dt)
+{
+    sf::Vector2f currentPos = GetPosition();
+    sf::Vector2f toTarget = targetPos - currentPos;
+    float distance = Utils::Magnitude(toTarget);
+
+    float moveAmount = 150 * dt;
+
+    if (distance <= moveAmount)
+    {
+        SetPosition(targetPos);
+        isMoving = false;
+    }
+    else
+    {
+        sf::Vector2f moveDir = Utils::GetNormal(toTarget);
+        SetPosition(currentPos + moveDir * moveAmount);
+    }
 }

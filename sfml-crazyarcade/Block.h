@@ -172,4 +172,10 @@ public:
     }
 
     void PlayExitAnim();
+
+    sf::Vector2f originPos = { 0.f, 0.f };
+    sf::Vector2f targetPos = { 0.f, 0.f };
+    bool isMoving = false;
+    void PushBlock(sf::Vector2f dir);
+    void Movement(float dt);
 };

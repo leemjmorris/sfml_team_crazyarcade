@@ -441,14 +441,19 @@ void Player::Movement(float dt)
 		slidePlayer = false;
 
 		bool hasInput = (InputMgr::GetAxisRaw(vAxis) != 0 || InputMgr::GetAxisRaw(hAxis) != 0);
-		if ((collX || collY) && hasInput)
+		if ((collX || collY) && hasInput && GetCollidedBlock() != nullptr)
 		{
-			pushedCount += dt;
-			if (pushedCount >= pushCount)
+			//if (GetCollidedBlock()->IsMovable())
 			{
-				std::cout << "밀기" << std::endl;
-				std::cout << dir.x << ", " << dir.y << std::endl;
-				pushedCount = 0;
+				pushedCount += dt;
+				if (pushedCount >= pushCount)
+				{
+					std::cout << "밀기" << std::endl;
+				
+					GetCollidedBlock()->PushBlock(dir);
+
+					pushedCount = 0;
+				}
 			}
 		}
 		else
@@ -498,6 +503,31 @@ size_t Player::GetCollidedTileInfo(sf::FloatRect& outTileBounds)
 	}
 	return cnt;
 }
+
+Block* Player::GetCollidedBlock()
+{
+	Scene* curScene = SCENE_MGR.GetCurrentScene();
+	auto gameObjects = curScene->FindGameObjects("Block");
+
+	sf::FloatRect playerBounds = hitBox.rect.getGlobalBounds();
+
+	for (auto* obj : gameObjects)
+	{
+		Block* block = dynamic_cast<Block*>(obj);
+		if (!block || !block->GetActive())
+		{
+			continue;
+		}
+
+		if (playerBounds.intersects(block->GetHitBox().GetGlobalBounds()))
+		{
+			return block;
+		}
+	}
+
+	return nullptr;
+}
+
 
 //  //KHI(ver)
 //bool Player::GetCollidedTileInfo(sf::FloatRect& outTileBounds)
