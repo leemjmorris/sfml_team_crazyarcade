@@ -43,6 +43,9 @@ protected:
 
 	Button* exitButton = nullptr;
 
+	int numRooms = 0;
+	int numColors = 0;
+
 
 	//sf::FloatRect characterArea1 = { 132.f, 93.f, 100.f, 100.f };
 	//sf::FloatRect characterArea2 = { 238.f, 93.f, 100.f, 100.f };

@@ -22,7 +22,7 @@ void SceneReady::Init()
 	btnMap->SetButton({ 120.f, 50.f }, sf::Color{ 40, 144, 240 },
 		"Fonts/NanumGothic.ttf", sf::Color::Black, 2.f);
 	btnMap->SetPosition({ 610.f, 420.f });
-	btnMap->SetText("¸Ê¼±ÅÃ");
+	btnMap->SetText("¢¬?¨ù¡¾??");
 	btnMap->UseBackground(false);
 	btnMap->SetOnClick([this]() { OpenMapSelectPopup(); });*/
 	ui = new lobbyUi("loobyUi");
@@ -57,11 +57,11 @@ void SceneReady::Enter()
 
 void SceneReady::Update(float dt)
 {
-	if (InputMgr::GetMouseButtonDown(sf::Mouse::Left)) // && readyButton.Contains(mousePos)
-	{
-		SCENE_MGR.ChangeScene(SceneIds::Demo);
-	}
-
+	//if (InputMgr::GetMouseButtonDown(sf::Mouse::Left)) // && readyButton.Contains(mousePos)
+	//{
+	//	//SCENE_MGR.ChangeScene(SceneIds::Demo);
+	//}
+	ui->Update(dt);
 	Scene::Update(dt);
 }
 

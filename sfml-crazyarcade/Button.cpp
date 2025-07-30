@@ -46,7 +46,7 @@ void Button::Update(float dt)
 
 	bool isMouseOver = Utils::PointInTransformBounds(button, button.getLocalBounds(), mouseWorld);
 
-	if (isMouseOver && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	if (isMouseOver && InputMgr::GetMouseButtonDown(sf::Mouse::Left))
 	{
 		if (onClick) onClick();
 	}
