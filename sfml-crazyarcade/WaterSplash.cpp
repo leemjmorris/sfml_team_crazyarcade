@@ -87,12 +87,16 @@ void WaterSplash::Update(float dt)
 	animator.Update(dt);
 
 	if (isCounting)
+	{ 
 		UpdateSkillDuration(dt);
+	}
 
 	CheckCollisionWithItems();
 
 	if (!animator.IsPlaying())
+	{
 		WaterSplashPool::ReturnToPool(this);
+	}
 }
 
 void WaterSplash::Draw(sf::RenderWindow& window)
@@ -253,6 +257,19 @@ bool WaterSplash::CheckCollisionWithBlocks()
 				return true;
 			}
 		}
+	}
+
+	return false;
+}
+
+bool WaterSplash::CheckCollisionWithWindow()
+{
+	sf::FloatRect windowBounds = FRAMEWORK.GetWindowBounds();
+	sf::FloatRect splashBounds = GetHitBox().rect.getGlobalBounds();
+
+	if (!windowBounds.intersects(splashBounds))
+	{
+		return true;
 	}
 
 	return false;
