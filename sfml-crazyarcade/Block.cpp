@@ -2,6 +2,7 @@
 #include "Block.h"
 #include "Item.h"
 #include "Scene.h"
+#include "Player.h"
 
 // LMJ: "Default item spawn probability (50%)"
 float Block::defaultItemSpawnProbability = 0.5f;
@@ -392,7 +393,6 @@ void Block::Movement(float dt)
 bool Block::IsBlockedAtTarget()
 {
     Scene* curScene = SCENE_MGR.GetCurrentScene();
-    auto gameObjects = curScene->FindGameObjects("Block");
 
     sf::FloatRect windowBounds = FRAMEWORK.GetWindowBounds();
     sf::FloatRect splashBounds = GetHitBox().rect.getGlobalBounds();
@@ -413,6 +413,7 @@ bool Block::IsBlockedAtTarget()
     }
 
     // KHI: Block
+    auto gameObjects = curScene->FindGameObjects("Block");
     for (auto* obj : gameObjects)
     {
         Block* block = dynamic_cast<Block*>(obj);
@@ -427,6 +428,21 @@ bool Block::IsBlockedAtTarget()
             return true;
         }
     }
+
+    // KHI: Player
+    auto players = curScene->FindGameObjects("Player");
+    for (auto* obj : players)
+    {
+        Player* player = dynamic_cast<Player*>(obj);
+
+        sf::FloatRect playerBounds = player->GetHitBox().GetGlobalBounds();
+        if (playerBounds.contains(targetPosCenter))
+        {
+            return true;
+        }
+    }
+
+
 
     return false;
 }
