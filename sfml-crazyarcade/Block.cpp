@@ -442,7 +442,5 @@ bool Block::IsBlockedAtTarget()
         }
     }
 
-
-
     return false;
 }
