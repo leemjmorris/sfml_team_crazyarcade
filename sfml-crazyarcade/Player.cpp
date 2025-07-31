@@ -305,7 +305,7 @@ bool Player::CollectObstacleRects(std::vector<sf::FloatRect>& outRects)
 	for (auto* obj : cur->FindGameObjects("Block"))
 	{
 		Block* blk = dynamic_cast<Block*>(obj);
-		if (blk && blk->GetActive())
+		if (blk && blk->GetActive() && !blk->IsHidable())
 			outRects.push_back(blk->GetHitBox().GetGlobalBounds());
 	}
 
@@ -381,19 +381,23 @@ void Player::Movement(float dt)
 			collX = true;
 			collidedBlockX = GetCollidedBlock();
 
-			float third = tileSize / 3.f;
-			float upper = collidedBounds.top + third * 0.2;
-			float lower = collidedBounds.top + third * 2.8;
+			if (collidedBlockX != nullptr && !collidedBlockX->IsHidable())
+			{
+				float third = tileSize / 3.f;
+				float upper = collidedBounds.top + third * 0.2;
+				float lower = collidedBounds.top + third * 2.8;
 
-			if (playerCenter.y < upper)
-			{
-				tempPos.y -= correction;
+				if (playerCenter.y < upper)
+				{
+					tempPos.y -= correction;
+				}
+				else if (playerCenter.y > lower)
+				{
+					tempPos.y += correction;
+				}
+				slidePlayer = true;
 			}
-			else if (playerCenter.y > lower)
-			{
-				tempPos.y += correction;
-			}
-			slidePlayer = true;
+
 		}
 
 		// KHI: Move Y
@@ -412,19 +416,22 @@ void Player::Movement(float dt)
 			collY = true;
 			collidedBlockY = GetCollidedBlock();
 
-			float third = tileSize / 3.f;
-			float left = collidedBounds.left + third * 0.2;
-			float right = collidedBounds.left + third * 2.8;
+			if (collidedBlockY != nullptr && !collidedBlockY->IsHidable())
+			{
+				float third = tileSize / 3.f;
+				float left = collidedBounds.left + third * 0.2;
+				float right = collidedBounds.left + third * 2.8;
 
-			if (playerCenter.x < left)
-			{
-				tempPos.x -= correction;
+				if (playerCenter.x < left)
+				{
+					tempPos.x -= correction;
+				}
+				else if (playerCenter.x > right)
+				{
+					tempPos.x += correction;
+				}
+				slidePlayer = true;
 			}
-			else if (playerCenter.x > right)
-			{
-				tempPos.x += correction;
-			}
-			slidePlayer = true;
 		}
 		slidePlayer = false;
 
@@ -448,6 +455,11 @@ void Player::Movement(float dt)
 		else
 		{
 			pushedCount = 0.f;
+		}
+
+		if (collided && targetBlock->IsHidable())
+		{
+			std::cout << "Hidable()" << std::endl;
 		}
 
 		SetPosition(tempPos);
