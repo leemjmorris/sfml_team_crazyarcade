@@ -14,6 +14,8 @@ SceneDemo::SceneDemo()
 
 void SceneDemo::Init()
 {
+	ui = new GameSceneUI("ui");
+	ui->Init();
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 
 	float scale = 1.30f;
@@ -57,6 +59,7 @@ void SceneDemo::Init()
 	texIds.push_back("assets/player/bazzi/ready.png");
 	texIds.push_back("assets/player/bazzi/flash_short.png");
 	texIds.push_back("assets/play_bg.bmp");
+	texIds.push_back("assets/play_ui.png");
 
 	// KHI: Effect
 	texIds.push_back("assets/map/common_block.png");
@@ -117,7 +120,8 @@ void SceneDemo::Enter()
 {
 	Scene::Enter();
 	
-	sf::Texture& tex = TEXTURE_MGR.Get("assets/play_bg.bmp");
+	//sf::Texture& tex = TEXTURE_MGR.Get("assets/play_bg.bmp");
+	sf::Texture& tex = TEXTURE_MGR.Get("assets/play_ui.png");
 	uiSprite.setTexture(tex);
 
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
@@ -172,6 +176,7 @@ void SceneDemo::Enter()
 	//		blockLayer[y][x] = Utils::CollBlockLayer[y][x];
 	//	}
 	//}
+	ui->Reset();
 }
 
 void SceneDemo::Update(float dt)
@@ -216,11 +221,11 @@ void SceneDemo::Update(float dt)
 	}
 
 	// LSY: click to exit
-	if (InputMgr::GetMouseButton(sf::Mouse::Left) &&
-		(clickableArea.contains((sf::Vector2f)InputMgr::GetMousePosition())))
-	{
-		SCENE_MGR.ChangeScene(SceneIds::Ready);
-	}
+	//if (InputMgr::GetMouseButton(sf::Mouse::Left) &&
+	//	(clickableArea.contains((sf::Vector2f)InputMgr::GetMousePosition())))
+	//{
+	//	SCENE_MGR.ChangeScene(SceneIds::Ready);
+	//}
 
 	if (goReadyRoom)
 	{
@@ -233,7 +238,7 @@ void SceneDemo::Update(float dt)
 			SCENE_MGR.ChangeScene(SceneIds::Ready);
 		}
 	}
-
+	ui->Update(dt);
 	Scene::Update(dt);
 }
 
@@ -278,6 +283,7 @@ void SceneDemo::Draw(sf::RenderWindow& window)
 	window.setView(window.getDefaultView());
 	colorMask.Apply(window, uiSprite);
 
+	ui->Draw(window);
 	window.setView(worldView);
 	Scene::Draw(window);
 
