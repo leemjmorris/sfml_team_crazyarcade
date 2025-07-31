@@ -55,7 +55,7 @@ protected:
 
 	std::vector<TileHitBox> mapData;
 
-	float pushCount = 2.f;
+	float pushCount = 0.4f;
 	float pushedCount = 0.f;
 
 public:
@@ -125,6 +125,7 @@ public:
 	void CheckCollWithSplash(); // KHI
 	void Movement(float dt); // KHI
 	size_t GetCollidedTileInfo(sf::FloatRect& outTileBounds);
+	Block* GetCollidedBlock();
 	//bool GetCollidedTileInfo(sf::FloatRect& outTileBounds); // KHI
 
 	sf::FloatRect GetGlobalBounds() const

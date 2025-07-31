@@ -55,6 +55,7 @@ public:
 	void FloatingEffect(float dt, float verticalRange = 5.f, float speed = 10.f);
 	void Use(Player* player);
 	void CheckCollisionWithPlayers();
+	void CheckCollisionWithBlock();
 
 	bool GetCanDestroy() const { return canDestroy; }
 

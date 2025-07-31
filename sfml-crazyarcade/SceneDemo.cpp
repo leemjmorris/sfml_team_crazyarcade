@@ -92,8 +92,8 @@ void SceneDemo::Init()
 	ANI_CLIP_MGR.Load("animation/bazzi_ready.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_ready2.csv");
 
-	bazzi = static_cast<Player*>(AddGameObject(new Player("Bazzi", CharacterID::BAZZI, 0)));
-	dao = static_cast<Player*>(AddGameObject(new Player("Dao", CharacterID::DAO, 1)));
+	bazzi = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::BAZZI, 0)));
+	dao = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 1)));
 
 	objectsNeedingClamp.push_back(bazzi);
 	objectsNeedingClamp.push_back(dao);

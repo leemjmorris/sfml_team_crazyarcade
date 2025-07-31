@@ -2,6 +2,7 @@
 #include "Block.h"
 #include "Item.h"
 #include "Scene.h"
+#include "Player.h"
 
 // LMJ: "Default item spawn probability (50%)"
 float Block::defaultItemSpawnProbability = 0.5f;
@@ -112,6 +113,11 @@ void Block::Update(float dt)
         Scene* curScene = SCENE_MGR.GetCurrentScene();
         this->DestroyBlock(curScene);
         hasAnimStarted = false;
+    }
+
+    if (isMoving)
+    {
+        Movement(dt);
     }
 }
 
@@ -342,5 +348,99 @@ void Block::PlayExitAnim()
 {
     animator.Play("animation/block_destroy.csv");
     hasAnimStarted = true;
+}
 
+// KHI
+void Block::PushBlock(sf::Vector2f dir)
+{
+    originPos = GetPosition();
+    targetPos = originPos + (dir * 52.f);
+
+    if (IsBlockedAtTarget())
+    {
+        isMoving = false;
+    }
+    else
+    {
+        isMoving = true;
+    }
+
+    sprite.setPosition(originPos);
+}
+
+// KHI
+void Block::Movement(float dt)
+{
+    sf::Vector2f currentPos = GetPosition();
+    sf::Vector2f toTarget = targetPos - currentPos;
+    float distance = Utils::Magnitude(toTarget);
+
+    float moveAmount = 150 * dt;
+
+    if (distance <= moveAmount)
+    {
+        SetPosition(targetPos);
+        isMoving = false;
+    }
+    else
+    {
+        sf::Vector2f moveDir = Utils::GetNormal(toTarget);
+        SetPosition(currentPos + moveDir * moveAmount);
+    }
+}
+
+// KHI
+bool Block::IsBlockedAtTarget()
+{
+    Scene* curScene = SCENE_MGR.GetCurrentScene();
+
+    sf::FloatRect windowBounds = FRAMEWORK.GetWindowBounds();
+    sf::FloatRect splashBounds = GetHitBox().rect.getGlobalBounds();
+
+    sprite.setPosition(targetPos);
+    hitBox.UpdateCustomTransform(sprite, hitBoxSize, hitBoxOffset, Origins::BC);
+    sf::FloatRect targetBounds = hitBox.GetGlobalBounds();
+
+    sf::Vector2f targetPosCenter = {
+        targetBounds.left + targetBounds.width * 0.5f,
+        targetBounds.top + targetBounds.height * 0.5f
+    };
+
+    // KHI: Window
+    if (!windowBounds.contains(targetPosCenter))
+    {
+        return true;
+    }
+
+    // KHI: Block
+    auto gameObjects = curScene->FindGameObjects("Block");
+    for (auto* obj : gameObjects)
+    {
+        Block* block = dynamic_cast<Block*>(obj);
+        if (!block || block == this || !block->GetActive())
+        {
+            continue;
+        }
+
+        sf::FloatRect blockBounds = block->GetHitBox().GetGlobalBounds();
+        if (blockBounds.contains(targetPosCenter))
+        {
+            return true;
+        }
+    }
+
+    // KHI: Player
+    auto players = curScene->FindGameObjects("Player");
+    for (auto* obj : players)
+    {
+        Player* player = dynamic_cast<Player*>(obj);
+
+        sf::FloatRect playerBounds = player->GetHitBox().GetGlobalBounds();
+        if (playerBounds.contains(targetPosCenter))
+        {
+            return true;
+        }
+    }
+
+    return false;
 }

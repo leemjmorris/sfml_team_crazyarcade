@@ -363,6 +363,10 @@ void Player::Movement(float dt)
 		};
 
 		sf::FloatRect collidedBounds;
+		bool collX = false;
+		bool collY = false;
+		Block* collidedBlockX = nullptr;
+		Block* collidedBlockY = nullptr;
 
 		// KHI: Move X
 		sf::Vector2f tryX = currentPos + sf::Vector2f(dir.x * curSpeed * dt, 0.f);
@@ -377,6 +381,9 @@ void Player::Movement(float dt)
 		}
 		else if (collidedX == 1)
 		{
+			collX = true;
+			collidedBlockX = GetCollidedBlock();
+
 			float third = tileSize / 3.f;
 			float upper = collidedBounds.top + third * 0.2;
 			float lower = collidedBounds.top + third * 2.8;
@@ -392,12 +399,6 @@ void Player::Movement(float dt)
 			slidePlayer = true;
 		}
 
-		if (collidedX && (InputMgr::GetAxisRaw(vAxis) != 0 || InputMgr::GetAxisRaw(hAxis) != 0))
-		{
-			pushedCount += dt;
-			std::cout << pushedCount << std::endl;
-		}
-
 		// KHI: Move Y
 		sf::Vector2f tryY = tempPos + sf::Vector2f(0.f, dir.y * curSpeed * dt);
 		sprite.setPosition(sf::Vector2f(tempPos.x, tryY.y));
@@ -411,6 +412,9 @@ void Player::Movement(float dt)
 		}
 		else if (collidedY == 1)
 		{
+			collY = true;
+			collidedBlockY = GetCollidedBlock();
+
 			float third = tileSize / 3.f;
 			float left = collidedBounds.left + third * 0.2;
 			float right = collidedBounds.left + third * 2.8;
@@ -427,10 +431,26 @@ void Player::Movement(float dt)
 		}
 		slidePlayer = false;
 
-		if (collidedY && (InputMgr::GetAxisRaw(vAxis) != 0 || InputMgr::GetAxisRaw(hAxis) != 0))
+		bool hasInput = (InputMgr::GetAxisRaw(vAxis) != 0 || InputMgr::GetAxisRaw(hAxis) != 0);
+		bool collided = collX || collY;
+		Block* targetBlock = (collidedBlockX != nullptr) ? collidedBlockX : collidedBlockY;
+
+		if (collided && hasInput)
 		{
 			pushedCount += dt;
-			std::cout << pushedCount << std::endl;
+
+			if (pushedCount >= pushCount)
+			{
+				if (targetBlock && targetBlock->IsMovable() && !targetBlock->GetIsMoving())
+				{
+					targetBlock->PushBlock(dir);
+				}
+				pushedCount = 0.f;
+			}
+		}
+		else
+		{
+			pushedCount = 0.f;
 		}
 
 		SetPosition(tempPos);
@@ -475,6 +495,31 @@ size_t Player::GetCollidedTileInfo(sf::FloatRect& outTileBounds)
 	}
 	return cnt;
 }
+
+Block* Player::GetCollidedBlock()
+{
+	Scene* curScene = SCENE_MGR.GetCurrentScene();
+	auto gameObjects = curScene->FindGameObjects("Block");
+
+	sf::FloatRect playerBounds = hitBox.rect.getGlobalBounds();
+
+	for (auto* obj : gameObjects)
+	{
+		Block* block = dynamic_cast<Block*>(obj);
+		if (!block || !block->GetActive())
+		{
+			continue;
+		}
+
+		if (playerBounds.intersects(block->GetHitBox().GetGlobalBounds()))
+		{
+			return block;
+		}
+	}
+
+	return nullptr;
+}
+
 
 //  //KHI(ver)
 //bool Player::GetCollidedTileInfo(sf::FloatRect& outTileBounds)

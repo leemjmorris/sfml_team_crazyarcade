@@ -69,6 +69,7 @@ void Item::Update(float dt)
 	hitBox.UpdateTransform(itemSprite, itemSprite.getLocalBounds());
 
 	CheckCollisionWithPlayers();
+	CheckCollisionWithBlock();
 
 	destroyTimer -= dt;
 	if (destroyTimer <= 0)
@@ -160,6 +161,36 @@ void Item::CheckCollisionWithPlayers()
 		{
 			std::cout << "Item collided with player: " << players[i]->GetName() << std::endl;
 			Use(players[i]);
+		}
+	}
+}
+
+void Item::CheckCollisionWithBlock()
+{
+	Scene* curScene = SCENE_MGR.GetCurrentScene();
+	auto gameObjects = curScene->FindGameObjects("Block");
+
+	sf::FloatRect itemBound = hitBox.GetGlobalBounds();
+
+	sf::Vector2f itemCenter = {
+		itemBound.left + itemBound.width * 0.5f,
+		itemBound.top + itemBound.height * 0.5f
+	};
+
+	for (auto* obj : gameObjects)
+	{
+		Block* block = dynamic_cast<Block*>(obj);
+
+		if (!block || !block->GetActive())
+		{
+			continue;
+		}
+
+		sf::FloatRect blockBounds = block->GetHitBox().GetGlobalBounds();
+		if (blockBounds.contains(itemCenter))
+		{
+			SetActive(false);
+			CheckAndRemoveItem();
 		}
 	}
 }
