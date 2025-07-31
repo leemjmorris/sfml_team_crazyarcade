@@ -13,32 +13,36 @@ ResultPop::~ResultPop()
 
 void ResultPop::SetResult()
 {
+	resultTexts.clear();
 	int num = 1;
-	for (auto player : resultPlayers)
+
+	for (auto* player : resultPlayers)
 	{
+		sf::Text line;
+		line.setFont(FONT_MGR.Get("assets/font/ARCADECLASSIC.TTF"));
+		line.setCharacterSize(28);
+		line.setFillColor(sf::Color::White);
+
 		if (player->GetPlayerState() == AnimState::Win)
-		{
-			resultText.setString(std::to_string(num) + ": win");
-			resultTexts.push_back(resultText);
-		}
+			line.setString(std::to_string(num) + ": Win");
 		else if (player->GetPlayerState() == AnimState::Dead)
-		{
-			resultText.setString(std::to_string(num) + ": Lose");
-			resultTexts.push_back(resultText);
-		}
-		else if (player->GetPlayerState() == AnimState::Live)
-		{
-			resultText.setString(std::to_string(num) + ": Draw");
-			resultTexts.push_back(resultText);
-		}
-			num++;
+			line.setString(std::to_string(num) + ": Lose");
+		else if(player->GetPlayerState()==AnimState::Draw)
+			line.setString(std::to_string(num) + ": Draw");
+
+		line.setPosition({ 77.f, 180.f + 26.f * (num - 1) });
+		resultTexts.push_back(line);
+		++num;
 	}
 }
 
 void ResultPop::Init()
 {
+	FONT_MGR.Load("assets/font/ARCADECLASSIC.TTF");
 	tex.loadFromFile("assets/ui/game/result.png");
 	popUp.setTexture(tex);
+	popUp.setPosition({ 38.f, 137.f });
+	SetActive(false);
 }
 
 void ResultPop::Release()
@@ -60,11 +64,17 @@ void ResultPop::Reset()
 
 void ResultPop::Update(float dt)
 {
-	SetResult();
+
 }
 
 void ResultPop::Draw(sf::RenderWindow& window)
 {
-	if(GetActive())
-	window.draw(resultText);
+	if (GetActive())
+	{
+		window.draw(popUp);
+		for (auto it : resultTexts)
+		{
+			window.draw(it);
+		}
+	}
 }

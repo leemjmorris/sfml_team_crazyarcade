@@ -5,7 +5,7 @@
 #include "ColorMaskShader.h"
 
 class GameSceneUI;
-
+class ResultPop;
 class SceneDemo : public Scene
 {
 protected:
@@ -30,6 +30,7 @@ protected:
 	std::vector<GameObject*> objectsNeedingClamp;
 
 	GameSceneUI* ui;
+	ResultPop* popUi;
 
 	sf::Sprite testBlockSprite;
 

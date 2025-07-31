@@ -6,6 +6,7 @@
 #include "Item.h"
 #include "Block.h"
 #include "GameSceneUI.h"
+#include "ResultPop.h"
 
 SceneDemo::SceneDemo()
 	: Scene(SceneIds::Demo), dao(nullptr), bazzi(nullptr), item(nullptr)
@@ -16,6 +17,9 @@ void SceneDemo::Init()
 {
 	ui = new GameSceneUI("ui");
 	ui->Init();
+	popUi = new ResultPop("popUi");
+	popUi->Init();
+
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 
 	float scale = 1.30f;
@@ -167,7 +171,7 @@ void SceneDemo::Enter()
 	goReadyRoom = false;
 	bazzi->SetEnter(true);
 	dao->SetEnter(true);
-
+	popUi->SetPlayerList({ bazzi,dao });
 	// LMJ: Initialize collision system
 	//for (int y = 0; y < 13; ++y)
 	//{
@@ -177,6 +181,7 @@ void SceneDemo::Enter()
 	//	}
 	//}
 	ui->Reset();
+	popUi->Reset();
 }
 
 void SceneDemo::Update(float dt)
@@ -198,6 +203,9 @@ void SceneDemo::Update(float dt)
 		textResult.setString("2P Win");
 		gameTimer = 0.f;
 		goReadyRoom = true;
+		popUi->SetPlayerList({ bazzi, dao });
+		popUi->SetActive(true);
+		popUi->SetResult();
 	}
 
 	if (dao->GetPlayerState() == AnimState::Dead)
@@ -207,10 +215,15 @@ void SceneDemo::Update(float dt)
 		textResult.setString("1P Win");
 		gameTimer = 0.f;
 		goReadyRoom = true;
+		popUi->SetPlayerList({ bazzi, dao });
+		popUi->SetActive(true);
+		popUi->SetResult();
 	}
 
 	if (gameTimer > 1500.f && bazzi->GetPlayerState() == AnimState::Live && dao->GetPlayerState() == AnimState::Live) // LSY: "Game over after 20 second"
 	{
+		bazzi->SetPlayerState(AnimState::Draw);
+		dao->SetPlayerState(AnimState::Draw);
 		isShowingText = true;
 		textResult.setString("Draw");
 		bazzi->SetGameOver(false, true, dt);
@@ -218,6 +231,9 @@ void SceneDemo::Update(float dt)
 		gameTimer = 0.f;
 		goReadyRoom = true;
 		std::cout << "Time's up! Draw!" << std::endl;
+		popUi->SetPlayerList({ bazzi, dao });
+		popUi->SetActive(true);
+		popUi->SetResult();
 	}
 
 	// LSY: click to exit
@@ -239,11 +255,13 @@ void SceneDemo::Update(float dt)
 		}
 	}
 	ui->Update(dt);
+	popUi->Update(dt);
 	Scene::Update(dt);
 }
 
 void SceneDemo::Exit()
 {
+	popUi->SetActive(false);
 	// KHI: delete balloons
 	auto balloons = FindGameObjects("bomb");
 	for (auto* obj : balloons)
@@ -284,6 +302,7 @@ void SceneDemo::Draw(sf::RenderWindow& window)
 	colorMask.Apply(window, uiSprite);
 
 	ui->Draw(window);
+	
 	window.setView(worldView);
 	Scene::Draw(window);
 
@@ -302,6 +321,8 @@ void SceneDemo::Draw(sf::RenderWindow& window)
 		window.setView(uiView);
 		window.draw(textResult);
 	}
+
+	popUi->Draw(window);
 }
 
 void SceneDemo::ClampToBounds(GameObject& obj)
