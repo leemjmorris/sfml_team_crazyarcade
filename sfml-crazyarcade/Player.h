@@ -3,7 +3,6 @@
 #include "Animator.h"
 #include "HitBox.h"
 #include "CharacterStats.h"
-#include "MapCollisionBuilder.h"
 #include "WaterBalloon.h"
 constexpr float slidePixelsPerSecond = 80.f;
 constexpr float tileSize = 52.f;
@@ -52,8 +51,6 @@ protected:
 	sf::Vector2f playerHitBoxSize = { 30.f, 30.f }; // KHI
 	sf::Vector2f playerHitBoxOffset = { 0.f, 10.f }; // KHI
 	HitBox hitBox;
-
-	std::vector<TileHitBox> mapData;
 
 	float pushCount = 0.4f;
 	float pushedCount = 0.f;
@@ -108,7 +105,6 @@ public:
 	const int GetWaterBalloonCount() { return activeBalloons; };
 	const int GetWaterBalloonLength() { return activeWaterBalloonLength; };
 	AnimState GetPlayerState() { return animState; };
-	void SetMapData(const std::vector<TileHitBox>& data) { mapData = data; }
 
 	void Init() override;
 	void Release() override;

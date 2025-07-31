@@ -42,8 +42,6 @@ protected:
 
 	HitBox hitBox;
 	
-	std::vector<TileHitBox> blockCollData;
-
 public:
 	WaterSplash(const std::string& name = "WaterSplash");
 	virtual ~WaterSplash() = default;

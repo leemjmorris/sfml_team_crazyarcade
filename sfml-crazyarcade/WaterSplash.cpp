@@ -233,7 +233,8 @@ void WaterSplash::CheckCollisionWithItems()
 
 bool WaterSplash::CheckCollisionWithBlocks()
 {
-	hitBox.UpdateCustomTransform(waterSplash, { 42.f, 42.f }, Origins::MC, { 0.f, 0.f });
+	auto localBounds = waterSplash.getLocalBounds();
+	hitBox.UpdateCustomTransform(waterSplash, { localBounds.width, localBounds.height }, Origins::MC);
 
 	Scene* curScene = SCENE_MGR.GetCurrentScene();
 	auto gameObjects = curScene->FindGameObjects("Block");
@@ -258,16 +259,16 @@ bool WaterSplash::CheckCollisionWithBlocks()
 
 bool WaterSplash::CheckCollisionWithWindow()
 {
-	sf::FloatRect windowBounds = FRAMEWORK.GetWindowBounds();
-	sf::FloatRect splashBounds = GetHitBox().rect.getGlobalBounds();
+	auto localBounds = waterSplash.getLocalBounds();
+	hitBox.UpdateCustomTransform(waterSplash, { localBounds.width, localBounds.height }, Origins::MC);
 
-	if (!windowBounds.intersects(splashBounds))
-	{
-		return true;
-	}
+	constexpr int GRID_SIZE = 52;
+	const sf::FloatRect worldBounds(0.f, 0.f, 15 * GRID_SIZE, 13 * GRID_SIZE);
+	const sf::FloatRect splashBounds = hitBox.GetGlobalBounds();
 
-	return false;
+	return !IsCompletelyInside(splashBounds, worldBounds);
 }
+
 
 bool WaterSplash::IsCompletelyInside(const sf::FloatRect& inner, const sf::FloatRect& outer)
 {

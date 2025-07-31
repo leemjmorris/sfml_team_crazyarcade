@@ -3,7 +3,6 @@
 #include "CharacterStats.h"
 #include "Item.h"
 #include "ColorMaskShader.h"
-#include "MapCollisionBuilder.h"
 
 class GameSceneUI;
 
