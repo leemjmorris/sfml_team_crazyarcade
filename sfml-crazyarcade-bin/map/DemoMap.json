@@ -1,563 +1,840 @@
 {
     "blocks": [
         {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
-            "x": 286.0,
-            "y": 52.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
-            "x": 390.0,
-            "y": 52.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
-            "x": 494.0,
-            "y": 52.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": true,
-            "isMovable": false,
-            "registryIndex": 4,
-            "x": 26.0,
-            "y": 52.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": true,
-            "isMovable": false,
-            "registryIndex": 4,
-            "x": 78.0,
-            "y": 52.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": true,
-            "isMovable": false,
-            "registryIndex": 4,
-            "x": 702.0,
-            "y": 52.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": true,
-            "isMovable": false,
-            "registryIndex": 4,
-            "x": 754.0,
-            "y": 52.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
-            "x": 338.0,
-            "y": 104.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
-            "x": 442.0,
-            "y": 104.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": true,
-            "isMovable": false,
-            "registryIndex": 4,
-            "x": 26.0,
-            "y": 104.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": true,
-            "isMovable": false,
-            "registryIndex": 4,
-            "x": 754.0,
-            "y": 104.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 546.0,
-            "y": 208.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 234.0,
-            "y": 208.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
-            "x": 390.0,
-            "y": 208.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 494.0,
-            "y": 260.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 286.0,
-            "y": 260.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
-            "x": 754.0,
-            "y": 260.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
-            "x": 26.0,
-            "y": 260.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
-            "x": 390.0,
-            "y": 260.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 442.0,
-            "y": 312.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 338.0,
-            "y": 312.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
-            "x": 702.0,
-            "y": 312.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
-            "x": 78.0,
-            "y": 312.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
-            "x": 390.0,
-            "y": 312.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
-            "x": 442.0,
-            "y": 364.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
-            "x": 494.0,
-            "y": 364.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
-            "x": 546.0,
-            "y": 364.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
-            "x": 338.0,
-            "y": 364.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
-            "x": 286.0,
-            "y": 364.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
-            "x": 234.0,
-            "y": 364.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
-            "x": 26.0,
-            "y": 364.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
-            "x": 754.0,
-            "y": 364.0
-        },
-        {
+            "blockIndex": 0,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 0,
+            "x": 26.0,
+            "y": 52.0
+        },
+        {
+            "blockIndex": 1,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 1,
+            "x": 78.0,
+            "y": 52.0
+        },
+        {
+            "blockIndex": 2,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 2,
+            "x": 130.0,
+            "y": 52.0
+        },
+        {
+            "blockIndex": 3,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
-            "x": 390.0,
-            "y": 364.0
+            "x": 182.0,
+            "y": 52.0
         },
         {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 442.0,
-            "y": 416.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 338.0,
-            "y": 416.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
-            "x": 702.0,
-            "y": 416.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
-            "x": 78.0,
-            "y": 416.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 2,
-            "x": 390.0,
-            "y": 416.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 494.0,
-            "y": 468.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
-            "x": 754.0,
-            "y": 468.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
-            "x": 26.0,
-            "y": 468.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 286.0,
-            "y": 468.0
-        },
-        {
+            "blockIndex": 4,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
-            "registryIndex": 2,
-            "x": 390.0,
-            "y": 468.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
-            "x": 546.0,
-            "y": 520.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": false,
-            "registryIndex": 1,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 4,
             "x": 234.0,
-            "y": 520.0
+            "y": 52.0
         },
         {
-            "canSpawnItem": true,
+            "blockIndex": 5,
+            "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
-            "registryIndex": 2,
-            "x": 390.0,
-            "y": 520.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
-            "x": 338.0,
-            "y": 624.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": true,
-            "isMovable": false,
-            "registryIndex": 4,
-            "x": 754.0,
-            "y": 624.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
-            "x": 442.0,
-            "y": 624.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": true,
-            "isMovable": false,
-            "registryIndex": 4,
-            "x": 26.0,
-            "y": 624.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": true,
-            "isMovable": false,
-            "registryIndex": 4,
-            "x": 702.0,
-            "y": 676.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": true,
-            "isMovable": false,
-            "registryIndex": 4,
-            "x": 78.0,
-            "y": 676.0
-        },
-        {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 5,
             "x": 286.0,
-            "y": 676.0
+            "y": 52.0
         },
         {
-            "canSpawnItem": true,
-            "isDestroyable": true,
-            "isHidable": true,
-            "isMovable": false,
-            "registryIndex": 4,
-            "x": 26.0,
-            "y": 676.0
-        },
-        {
-            "canSpawnItem": true,
+            "blockIndex": 6,
+            "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 6,
+            "x": 338.0,
+            "y": 52.0
+        },
+        {
+            "blockIndex": 7,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 7,
             "x": 390.0,
-            "y": 676.0
+            "y": 52.0
         },
         {
-            "canSpawnItem": true,
+            "blockIndex": 8,
+            "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
-            "isMovable": true,
-            "registryIndex": 0,
-            "x": 494.0,
-            "y": 676.0
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 8,
+            "x": 442.0,
+            "y": 52.0
         },
         {
-            "canSpawnItem": true,
+            "blockIndex": 9,
+            "canSpawnItem": false,
             "isDestroyable": true,
-            "isHidable": true,
+            "isHidable": false,
             "isMovable": false,
-            "registryIndex": 4,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 9,
+            "x": 494.0,
+            "y": 52.0
+        },
+        {
+            "blockIndex": 10,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 10,
+            "x": 546.0,
+            "y": 52.0
+        },
+        {
+            "blockIndex": 11,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 11,
+            "x": 598.0,
+            "y": 52.0
+        },
+        {
+            "blockIndex": 12,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 12,
+            "x": 650.0,
+            "y": 52.0
+        },
+        {
+            "blockIndex": 13,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 13,
+            "x": 702.0,
+            "y": 52.0
+        },
+        {
+            "blockIndex": 14,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 14,
             "x": 754.0,
-            "y": 676.0
+            "y": 52.0
+        },
+        {
+            "blockIndex": 15,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 15,
+            "x": 26.0,
+            "y": 104.0
+        },
+        {
+            "blockIndex": 16,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 16,
+            "x": 78.0,
+            "y": 104.0
+        },
+        {
+            "blockIndex": 17,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 17,
+            "x": 130.0,
+            "y": 104.0
+        },
+        {
+            "blockIndex": 18,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 18,
+            "x": 182.0,
+            "y": 104.0
+        },
+        {
+            "blockIndex": 19,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 19,
+            "x": 234.0,
+            "y": 104.0
+        },
+        {
+            "blockIndex": 20,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 20,
+            "x": 286.0,
+            "y": 104.0
+        },
+        {
+            "blockIndex": 21,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 21,
+            "x": 338.0,
+            "y": 104.0
+        },
+        {
+            "blockIndex": 22,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 22,
+            "x": 390.0,
+            "y": 104.0
+        },
+        {
+            "blockIndex": 23,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 23,
+            "x": 442.0,
+            "y": 104.0
+        },
+        {
+            "blockIndex": 24,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 24,
+            "x": 494.0,
+            "y": 104.0
+        },
+        {
+            "blockIndex": 25,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 25,
+            "x": 546.0,
+            "y": 104.0
+        },
+        {
+            "blockIndex": 26,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 26,
+            "x": 598.0,
+            "y": 104.0
+        },
+        {
+            "blockIndex": 27,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 27,
+            "x": 650.0,
+            "y": 104.0
+        },
+        {
+            "blockIndex": 28,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 28,
+            "x": 702.0,
+            "y": 104.0
+        },
+        {
+            "blockIndex": 29,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 29,
+            "x": 754.0,
+            "y": 104.0
+        },
+        {
+            "blockIndex": 30,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 30,
+            "x": 26.0,
+            "y": 156.0
+        },
+        {
+            "blockIndex": 31,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 31,
+            "x": 78.0,
+            "y": 156.0
+        },
+        {
+            "blockIndex": 32,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 32,
+            "x": 130.0,
+            "y": 156.0
+        },
+        {
+            "blockIndex": 33,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 33,
+            "x": 182.0,
+            "y": 156.0
+        },
+        {
+            "blockIndex": 34,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 34,
+            "x": 234.0,
+            "y": 156.0
+        },
+        {
+            "blockIndex": 35,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 35,
+            "x": 286.0,
+            "y": 156.0
+        },
+        {
+            "blockIndex": 36,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 36,
+            "x": 338.0,
+            "y": 156.0
+        },
+        {
+            "blockIndex": 37,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 37,
+            "x": 390.0,
+            "y": 156.0
+        },
+        {
+            "blockIndex": 38,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 38,
+            "x": 442.0,
+            "y": 156.0
+        },
+        {
+            "blockIndex": 39,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 39,
+            "x": 494.0,
+            "y": 156.0
+        },
+        {
+            "blockIndex": 40,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 40,
+            "x": 546.0,
+            "y": 156.0
+        },
+        {
+            "blockIndex": 41,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 41,
+            "x": 598.0,
+            "y": 156.0
+        },
+        {
+            "blockIndex": 42,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 42,
+            "x": 650.0,
+            "y": 156.0
+        },
+        {
+            "blockIndex": 43,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 43,
+            "x": 702.0,
+            "y": 156.0
+        },
+        {
+            "blockIndex": 44,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 44,
+            "x": 754.0,
+            "y": 156.0
+        },
+        {
+            "blockIndex": 45,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 45,
+            "x": 26.0,
+            "y": 208.0
+        },
+        {
+            "blockIndex": 46,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 46,
+            "x": 78.0,
+            "y": 208.0
+        },
+        {
+            "blockIndex": 47,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 47,
+            "x": 130.0,
+            "y": 208.0
+        },
+        {
+            "blockIndex": 48,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 48,
+            "x": 182.0,
+            "y": 208.0
+        },
+        {
+            "blockIndex": 49,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 49,
+            "x": 234.0,
+            "y": 208.0
+        },
+        {
+            "blockIndex": 50,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 50,
+            "x": 286.0,
+            "y": 208.0
+        },
+        {
+            "blockIndex": 51,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 51,
+            "x": 338.0,
+            "y": 208.0
+        },
+        {
+            "blockIndex": 52,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 52,
+            "x": 390.0,
+            "y": 208.0
+        },
+        {
+            "blockIndex": 53,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 53,
+            "x": 442.0,
+            "y": 208.0
+        },
+        {
+            "blockIndex": 54,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 54,
+            "x": 494.0,
+            "y": 208.0
+        },
+        {
+            "blockIndex": 55,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 55,
+            "x": 546.0,
+            "y": 208.0
+        },
+        {
+            "blockIndex": 56,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 56,
+            "x": 598.0,
+            "y": 208.0
+        },
+        {
+            "blockIndex": 57,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 57,
+            "x": 650.0,
+            "y": 208.0
+        },
+        {
+            "blockIndex": 58,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 58,
+            "x": 702.0,
+            "y": 208.0
+        },
+        {
+            "blockIndex": 59,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 59,
+            "x": 754.0,
+            "y": 208.0
+        },
+        {
+            "blockIndex": 60,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 60,
+            "x": 26.0,
+            "y": 260.0
+        },
+        {
+            "blockIndex": 61,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 61,
+            "x": 78.0,
+            "y": 260.0
+        },
+        {
+            "blockIndex": 62,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 62,
+            "x": 130.0,
+            "y": 260.0
+        },
+        {
+            "blockIndex": 63,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 63,
+            "x": 182.0,
+            "y": 260.0
+        },
+        {
+            "blockIndex": 64,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 64,
+            "x": 234.0,
+            "y": 260.0
+        },
+        {
+            "blockIndex": 65,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 65,
+            "x": 286.0,
+            "y": 260.0
+        },
+        {
+            "blockIndex": 66,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 66,
+            "x": 338.0,
+            "y": 260.0
+        },
+        {
+            "blockIndex": 67,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 67,
+            "x": 390.0,
+            "y": 260.0
+        },
+        {
+            "blockIndex": 68,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 68,
+            "x": 442.0,
+            "y": 260.0
+        },
+        {
+            "blockIndex": 70,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 70,
+            "x": 494.0,
+            "y": 260.0
+        },
+        {
+            "blockIndex": 71,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 71,
+            "x": 546.0,
+            "y": 260.0
+        },
+        {
+            "blockIndex": 72,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 72,
+            "x": 598.0,
+            "y": 260.0
+        },
+        {
+            "blockIndex": 73,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 73,
+            "x": 650.0,
+            "y": 260.0
+        },
+        {
+            "blockIndex": 0,
+            "canSpawnItem": false,
+            "isDestroyable": true,
+            "isHidable": false,
+            "isMovable": false,
+            "itemSpawnProbability": 0.5,
+            "registryIndex": 0,
+            "x": 702.0,
+            "y": 260.0
         }
     ],
     "spawnPoints": [
         {
             "playerIndex": 0,
-            "positionX": 78.0,
-            "positionY": 598.0
+            "positionX": 130.0,
+            "positionY": 494.0
         },
         {
             "playerIndex": 1,
-            "positionX": 702.0,
-            "positionY": 78.0
+            "positionX": 598.0,
+            "positionY": 494.0
         }
     ],
     "tiles": [
         {
-            "gridX": 3,
+            "gridX": 14,
             "gridY": 0,
-            "positionX": 156.0,
+            "positionX": 728.0,
             "positionY": 0.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 8,
-            "gridY": 0,
-            "positionX": 416.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 11,
-            "gridY": 0,
-            "positionX": 572.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 12,
-            "gridY": 0,
-            "positionX": 624.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 0
         },
         {
             "gridX": 13,
@@ -565,15 +842,47 @@
             "positionX": 676.0,
             "positionY": 0.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 0
         },
         {
-            "gridX": 14,
+            "gridX": 2,
             "gridY": 0,
-            "positionX": 728.0,
+            "positionX": 104.0,
             "positionY": 0.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 0
+        },
+        {
+            "gridX": 1,
+            "gridY": 0,
+            "positionX": 52.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 0
+        },
+        {
+            "gridX": 0,
+            "gridY": 0,
+            "positionX": 0.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 0
+        },
+        {
+            "gridX": 0,
+            "gridY": 1,
+            "positionX": 0.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 69
+        },
+        {
+            "gridX": 1,
+            "gridY": 1,
+            "positionX": 52.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 69
         },
         {
             "gridX": 2,
@@ -581,7 +890,47 @@
             "positionX": 104.0,
             "positionY": 52.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 69
+        },
+        {
+            "gridX": 4,
+            "gridY": 1,
+            "positionX": 208.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 69
+        },
+        {
+            "gridX": 5,
+            "gridY": 1,
+            "positionX": 260.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 69
+        },
+        {
+            "gridX": 6,
+            "gridY": 1,
+            "positionX": 312.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 69
+        },
+        {
+            "gridX": 7,
+            "gridY": 1,
+            "positionX": 364.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 69
+        },
+        {
+            "gridX": 8,
+            "gridY": 1,
+            "positionX": 416.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 69
         },
         {
             "gridX": 9,
@@ -589,23 +938,135 @@
             "positionX": 468.0,
             "positionY": 52.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 69
+        },
+        {
+            "gridX": 10,
+            "gridY": 1,
+            "positionX": 520.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 69
+        },
+        {
+            "gridX": 11,
+            "gridY": 1,
+            "positionX": 572.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 69
+        },
+        {
+            "gridX": 0,
+            "gridY": 3,
+            "positionX": 0.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 67
+        },
+        {
+            "gridX": 1,
+            "gridY": 3,
+            "positionX": 52.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 67
+        },
+        {
+            "gridX": 2,
+            "gridY": 3,
+            "positionX": 104.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 67
+        },
+        {
+            "gridX": 3,
+            "gridY": 3,
+            "positionX": 156.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 67
+        },
+        {
+            "gridX": 4,
+            "gridY": 3,
+            "positionX": 208.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 67
+        },
+        {
+            "gridX": 5,
+            "gridY": 3,
+            "positionX": 260.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 67
+        },
+        {
+            "gridX": 6,
+            "gridY": 3,
+            "positionX": 312.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 67
+        },
+        {
+            "gridX": 7,
+            "gridY": 3,
+            "positionX": 364.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 67
+        },
+        {
+            "gridX": 8,
+            "gridY": 3,
+            "positionX": 416.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 67
+        },
+        {
+            "gridX": 9,
+            "gridY": 3,
+            "positionX": 468.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 67
+        },
+        {
+            "gridX": 10,
+            "gridY": 3,
+            "positionX": 520.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 67
+        },
+        {
+            "gridX": 11,
+            "gridY": 3,
+            "positionX": 572.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 67
+        },
+        {
+            "gridX": 12,
+            "gridY": 3,
+            "positionX": 624.0,
+            "positionY": 156.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 67
         },
         {
             "gridX": 13,
-            "gridY": 1,
+            "gridY": 3,
             "positionX": 676.0,
-            "positionY": 52.0,
+            "positionY": 156.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 14,
-            "gridY": 1,
-            "positionX": 728.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 67
         },
         {
             "gridX": 14,
@@ -613,47 +1074,23 @@
             "positionX": 728.0,
             "positionY": 156.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 12,
-            "gridY": 3,
-            "positionX": 624.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 14,
-            "gridY": 2,
-            "positionX": 728.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 11,
-            "gridY": 2,
-            "positionX": 572.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 67
         },
         {
             "gridX": 0,
-            "gridY": 4,
+            "gridY": 5,
             "positionX": 0.0,
-            "positionY": 208.0,
+            "positionY": 260.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 65
         },
         {
-            "gridX": 12,
-            "gridY": 6,
-            "positionX": 624.0,
-            "positionY": 312.0,
+            "gridX": 1,
+            "gridY": 5,
+            "positionX": 52.0,
+            "positionY": 260.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 65
         },
         {
             "gridX": 2,
@@ -661,95 +1098,255 @@
             "positionX": 104.0,
             "positionY": 260.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 65
         },
         {
-            "gridX": 0,
+            "gridX": 3,
             "gridY": 5,
-            "positionX": 0.0,
+            "positionX": 156.0,
             "positionY": 260.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 65
         },
         {
-            "gridX": 0,
-            "gridY": 6,
-            "positionX": 0.0,
-            "positionY": 312.0,
+            "gridX": 4,
+            "gridY": 5,
+            "positionX": 208.0,
+            "positionY": 260.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 65
         },
         {
-            "gridX": 9,
-            "gridY": 8,
-            "positionX": 468.0,
-            "positionY": 416.0,
+            "gridX": 5,
+            "gridY": 5,
+            "positionX": 260.0,
+            "positionY": 260.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 65
+        },
+        {
+            "gridX": 6,
+            "gridY": 5,
+            "positionX": 312.0,
+            "positionY": 260.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 65
+        },
+        {
+            "gridX": 7,
+            "gridY": 5,
+            "positionX": 364.0,
+            "positionY": 260.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 65
         },
         {
             "gridX": 8,
-            "gridY": 8,
+            "gridY": 5,
             "positionX": 416.0,
-            "positionY": 416.0,
+            "positionY": 260.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 65
         },
         {
-            "gridX": 2,
-            "gridY": 8,
-            "positionX": 104.0,
-            "positionY": 416.0,
+            "gridX": 9,
+            "gridY": 5,
+            "positionX": 468.0,
+            "positionY": 260.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 65
         },
         {
-            "gridX": 0,
-            "gridY": 9,
-            "positionX": 0.0,
-            "positionY": 468.0,
+            "gridX": 10,
+            "gridY": 5,
+            "positionX": 520.0,
+            "positionY": 260.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 65
+        },
+        {
+            "gridX": 11,
+            "gridY": 5,
+            "positionX": 572.0,
+            "positionY": 260.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 65
+        },
+        {
+            "gridX": 12,
+            "gridY": 5,
+            "positionX": 624.0,
+            "positionY": 260.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 65
         },
         {
             "gridX": 13,
-            "gridY": 10,
+            "gridY": 5,
             "positionX": 676.0,
-            "positionY": 520.0,
+            "positionY": 260.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 65
         },
         {
             "gridX": 14,
-            "gridY": 9,
+            "gridY": 5,
             "positionX": 728.0,
-            "positionY": 468.0,
+            "positionY": 260.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 65
         },
         {
-            "gridX": 14,
-            "gridY": 10,
-            "positionX": 728.0,
-            "positionY": 520.0,
+            "gridX": 0,
+            "gridY": 7,
+            "positionX": 0.0,
+            "positionY": 364.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 63
+        },
+        {
+            "gridX": 1,
+            "gridY": 7,
+            "positionX": 52.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 63
+        },
+        {
+            "gridX": 2,
+            "gridY": 7,
+            "positionX": 104.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 63
+        },
+        {
+            "gridX": 3,
+            "gridY": 7,
+            "positionX": 156.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 63
+        },
+        {
+            "gridX": 4,
+            "gridY": 7,
+            "positionX": 208.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 63
+        },
+        {
+            "gridX": 5,
+            "gridY": 7,
+            "positionX": 260.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 63
+        },
+        {
+            "gridX": 6,
+            "gridY": 7,
+            "positionX": 312.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 63
+        },
+        {
+            "gridX": 7,
+            "gridY": 7,
+            "positionX": 364.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 63
+        },
+        {
+            "gridX": 8,
+            "gridY": 7,
+            "positionX": 416.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 63
+        },
+        {
+            "gridX": 9,
+            "gridY": 7,
+            "positionX": 468.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 63
+        },
+        {
+            "gridX": 10,
+            "gridY": 7,
+            "positionX": 520.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 63
         },
         {
             "gridX": 11,
-            "gridY": 11,
+            "gridY": 7,
             "positionX": 572.0,
-            "positionY": 572.0,
+            "positionY": 364.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 63
         },
         {
             "gridX": 12,
-            "gridY": 11,
+            "gridY": 7,
             "positionX": 624.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 63
+        },
+        {
+            "gridX": 13,
+            "gridY": 7,
+            "positionX": 676.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 63
+        },
+        {
+            "gridX": 14,
+            "gridY": 7,
+            "positionX": 728.0,
+            "positionY": 364.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 63
+        },
+        {
+            "gridX": 3,
+            "gridY": 11,
+            "positionX": 156.0,
             "positionY": 572.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 59
+        },
+        {
+            "gridX": 4,
+            "gridY": 11,
+            "positionX": 208.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 59
+        },
+        {
+            "gridX": 5,
+            "gridY": 11,
+            "positionX": 260.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 59
+        },
+        {
+            "gridX": 9,
+            "gridY": 11,
+            "positionX": 468.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 59
         },
         {
             "gridX": 13,
@@ -757,7 +1354,7 @@
             "positionX": 676.0,
             "positionY": 572.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 59
         },
         {
             "gridX": 14,
@@ -765,7 +1362,55 @@
             "positionX": 728.0,
             "positionY": 572.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 59
+        },
+        {
+            "gridX": 5,
+            "gridY": 12,
+            "positionX": 260.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 58
+        },
+        {
+            "gridX": 6,
+            "gridY": 12,
+            "positionX": 312.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 58
+        },
+        {
+            "gridX": 7,
+            "gridY": 12,
+            "positionX": 364.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 58
+        },
+        {
+            "gridX": 10,
+            "gridY": 12,
+            "positionX": 520.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 58
+        },
+        {
+            "gridX": 11,
+            "gridY": 12,
+            "positionX": 572.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 58
+        },
+        {
+            "gridX": 12,
+            "gridY": 12,
+            "positionX": 624.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 58
         },
         {
             "gridX": 14,
@@ -773,327 +1418,199 @@
             "positionX": 728.0,
             "positionY": 624.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 58
+        },
+        {
+            "gridX": 0,
+            "gridY": 2,
+            "positionX": 0.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 54
+        },
+        {
+            "gridX": 1,
+            "gridY": 2,
+            "positionX": 52.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 54
+        },
+        {
+            "gridX": 2,
+            "gridY": 2,
+            "positionX": 104.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 54
+        },
+        {
+            "gridX": 3,
+            "gridY": 2,
+            "positionX": 156.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 54
+        },
+        {
+            "gridX": 4,
+            "gridY": 2,
+            "positionX": 208.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 54
+        },
+        {
+            "gridX": 5,
+            "gridY": 2,
+            "positionX": 260.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 54
+        },
+        {
+            "gridX": 6,
+            "gridY": 2,
+            "positionX": 312.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 54
+        },
+        {
+            "gridX": 7,
+            "gridY": 2,
+            "positionX": 364.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 54
+        },
+        {
+            "gridX": 8,
+            "gridY": 2,
+            "positionX": 416.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 54
+        },
+        {
+            "gridX": 9,
+            "gridY": 2,
+            "positionX": 468.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 54
+        },
+        {
+            "gridX": 10,
+            "gridY": 2,
+            "positionX": 520.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 54
+        },
+        {
+            "gridX": 11,
+            "gridY": 2,
+            "positionX": 572.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 54
+        },
+        {
+            "gridX": 12,
+            "gridY": 2,
+            "positionX": 624.0,
+            "positionY": 104.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 54
         },
         {
             "gridX": 13,
-            "gridY": 12,
+            "gridY": 2,
             "positionX": 676.0,
-            "positionY": 624.0,
+            "positionY": 104.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 54
         },
         {
-            "gridX": 12,
-            "gridY": 12,
-            "positionX": 624.0,
-            "positionY": 624.0,
+            "gridX": 14,
+            "gridY": 2,
+            "positionX": 728.0,
+            "positionY": 104.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 5,
-            "gridY": 11,
-            "positionX": 260.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 4,
-            "gridY": 11,
-            "positionX": 208.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 2,
-            "gridY": 12,
-            "positionX": 104.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 6,
-            "gridY": 12,
-            "positionX": 312.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 8,
-            "gridY": 12,
-            "positionX": 416.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 9,
-            "gridY": 12,
-            "positionX": 468.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 10,
-            "gridY": 12,
-            "positionX": 520.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 8,
-            "gridY": 11,
-            "positionX": 416.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 2,
-            "gridY": 10,
-            "positionX": 104.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 54
         },
         {
             "gridX": 0,
-            "gridY": 12,
+            "gridY": 4,
             "positionX": 0.0,
-            "positionY": 624.0,
+            "positionY": 208.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 52
         },
         {
             "gridX": 1,
-            "gridY": 12,
+            "gridY": 4,
             "positionX": 52.0,
-            "positionY": 624.0,
+            "positionY": 208.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
+            "tileOptionIndex": 52
+        },
+        {
+            "gridX": 2,
+            "gridY": 4,
+            "positionX": 104.0,
+            "positionY": 208.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 52
         },
         {
             "gridX": 3,
-            "gridY": 11,
+            "gridY": 4,
             "positionX": 156.0,
-            "positionY": 572.0,
+            "positionY": 208.0,
             "rotation": 0.0,
-            "tileOptionIndex": 5
-        },
-        {
-            "gridX": 1,
-            "gridY": 1,
-            "positionX": 52.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 1,
-            "gridY": 2,
-            "positionX": 52.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 1,
-            "gridY": 3,
-            "positionX": 52.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 9,
-            "gridY": 2,
-            "positionX": 468.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 10,
-            "gridY": 2,
-            "positionX": 520.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 10,
-            "gridY": 3,
-            "positionX": 520.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 11,
-            "gridY": 8,
-            "positionX": 572.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 1,
-            "gridY": 10,
-            "positionX": 52.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 0,
-            "gridY": 10,
-            "positionX": 0.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 0,
-            "gridY": 11,
-            "positionX": 0.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 1,
-            "gridY": 11,
-            "positionX": 52.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 2,
-            "gridY": 11,
-            "positionX": 104.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 3,
-            "gridY": 12,
-            "positionX": 156.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
+            "tileOptionIndex": 52
         },
         {
             "gridX": 4,
-            "gridY": 12,
+            "gridY": 4,
             "positionX": 208.0,
-            "positionY": 624.0,
+            "positionY": 208.0,
             "rotation": 0.0,
-            "tileOptionIndex": 6
+            "tileOptionIndex": 52
         },
         {
             "gridX": 5,
-            "gridY": 12,
+            "gridY": 4,
             "positionX": 260.0,
-            "positionY": 624.0,
+            "positionY": 208.0,
             "rotation": 0.0,
-            "tileOptionIndex": 6
+            "tileOptionIndex": 52
         },
         {
             "gridX": 6,
-            "gridY": 11,
+            "gridY": 4,
             "positionX": 312.0,
-            "positionY": 572.0,
+            "positionY": 208.0,
             "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 9,
-            "gridY": 9,
-            "positionX": 468.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 10,
-            "gridY": 8,
-            "positionX": 520.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 8,
-            "gridY": 2,
-            "positionX": 416.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
+            "tileOptionIndex": 52
         },
         {
             "gridX": 7,
-            "gridY": 2,
+            "gridY": 4,
             "positionX": 364.0,
-            "positionY": 104.0,
+            "positionY": 208.0,
             "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 6,
-            "gridY": 2,
-            "positionX": 312.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 2,
-            "gridY": 2,
-            "positionX": 104.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 2,
-            "gridY": 3,
-            "positionX": 104.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
+            "tileOptionIndex": 52
         },
         {
             "gridX": 8,
-            "gridY": 7,
+            "gridY": 4,
             "positionX": 416.0,
-            "positionY": 364.0,
+            "positionY": 208.0,
             "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 9,
-            "gridY": 7,
-            "positionX": 468.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 6,
-            "gridY": 7,
-            "positionX": 312.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
+            "tileOptionIndex": 52
         },
         {
             "gridX": 9,
@@ -1101,15 +1618,15 @@
             "positionX": 468.0,
             "positionY": 208.0,
             "rotation": 0.0,
-            "tileOptionIndex": 6
+            "tileOptionIndex": 52
         },
         {
-            "gridX": 11,
-            "gridY": 3,
-            "positionX": 572.0,
-            "positionY": 156.0,
+            "gridX": 10,
+            "gridY": 4,
+            "positionX": 520.0,
+            "positionY": 208.0,
             "rotation": 0.0,
-            "tileOptionIndex": 6
+            "tileOptionIndex": 52
         },
         {
             "gridX": 11,
@@ -1117,215 +1634,7 @@
             "positionX": 572.0,
             "positionY": 208.0,
             "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 10,
-            "gridY": 4,
-            "positionX": 520.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 4,
-            "gridY": 6,
-            "positionX": 208.0,
-            "positionY": 312.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 2,
-            "gridY": 6,
-            "positionX": 104.0,
-            "positionY": 312.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 1,
-            "gridY": 7,
-            "positionX": 52.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 0,
-            "gridY": 7,
-            "positionX": 0.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 0,
-            "gridY": 8,
-            "positionX": 0.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 1,
-            "gridY": 8,
-            "positionX": 52.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 4,
-            "gridY": 10,
-            "positionX": 208.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 14,
-            "gridY": 7,
-            "positionX": 728.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 14,
-            "gridY": 6,
-            "positionX": 728.0,
-            "positionY": 312.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 14,
-            "gridY": 5,
-            "positionX": 728.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 14,
-            "gridY": 4,
-            "positionX": 728.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 10,
-            "gridY": 0,
-            "positionX": 520.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 9,
-            "gridY": 0,
-            "positionX": 468.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 7,
-            "gridY": 0,
-            "positionX": 364.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 6,
-            "gridY": 0,
-            "positionX": 312.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 5,
-            "gridY": 0,
-            "positionX": 260.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 4,
-            "gridY": 0,
-            "positionX": 208.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 3,
-            "gridY": 2,
-            "positionX": 156.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 6
-        },
-        {
-            "gridX": 5,
-            "gridY": 1,
-            "positionX": 260.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 6,
-            "gridY": 1,
-            "positionX": 312.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 7,
-            "gridY": 1,
-            "positionX": 364.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 8,
-            "gridY": 1,
-            "positionX": 416.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 10,
-            "gridY": 1,
-            "positionX": 520.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 11,
-            "gridY": 1,
-            "positionX": 572.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 12,
-            "gridY": 1,
-            "positionX": 624.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
+            "tileOptionIndex": 52
         },
         {
             "gridX": 12,
@@ -1333,183 +1642,31 @@
             "positionX": 624.0,
             "positionY": 208.0,
             "rotation": 0.0,
-            "tileOptionIndex": 8
+            "tileOptionIndex": 52
         },
         {
-            "gridX": 12,
-            "gridY": 5,
-            "positionX": 624.0,
-            "positionY": 260.0,
+            "gridX": 13,
+            "gridY": 4,
+            "positionX": 676.0,
+            "positionY": 208.0,
             "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 11,
-            "gridY": 5,
-            "positionX": 572.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 10,
-            "gridY": 5,
-            "positionX": 520.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 11,
-            "gridY": 7,
-            "positionX": 572.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
+            "tileOptionIndex": 52
         },
         {
             "gridX": 14,
-            "gridY": 8,
+            "gridY": 4,
             "positionX": 728.0,
-            "positionY": 416.0,
+            "positionY": 208.0,
             "rotation": 0.0,
-            "tileOptionIndex": 8
+            "tileOptionIndex": 52
         },
         {
-            "gridX": 10,
-            "gridY": 7,
-            "positionX": 520.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 5,
-            "gridY": 3,
-            "positionX": 260.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 3,
-            "gridY": 5,
-            "positionX": 156.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 3,
+            "gridX": 0,
             "gridY": 6,
-            "positionX": 156.0,
+            "positionX": 0.0,
             "positionY": 312.0,
             "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 3,
-            "gridY": 7,
-            "positionX": 156.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 6,
-            "gridY": 8,
-            "positionX": 312.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 7,
-            "gridY": 8,
-            "positionX": 364.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 7,
-            "gridY": 7,
-            "positionX": 364.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 5,
-            "gridY": 2,
-            "positionX": 260.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 4,
-            "gridY": 1,
-            "positionX": 208.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 3,
-            "gridY": 1,
-            "positionX": 156.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 2,
-            "gridY": 0,
-            "positionX": 104.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 1,
-            "gridY": 0,
-            "positionX": 52.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 0,
-            "gridY": 0,
-            "positionX": 0.0,
-            "positionY": 0.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 0,
-            "gridY": 1,
-            "positionX": 0.0,
-            "positionY": 52.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 0,
-            "gridY": 2,
-            "positionX": 0.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 0,
-            "gridY": 3,
-            "positionX": 0.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
+            "tileOptionIndex": 50
         },
         {
             "gridX": 1,
@@ -1517,335 +1674,95 @@
             "positionX": 52.0,
             "positionY": 312.0,
             "rotation": 0.0,
-            "tileOptionIndex": 8
+            "tileOptionIndex": 50
         },
         {
             "gridX": 2,
-            "gridY": 7,
+            "gridY": 6,
             "positionX": 104.0,
-            "positionY": 364.0,
+            "positionY": 312.0,
             "rotation": 0.0,
-            "tileOptionIndex": 8
+            "tileOptionIndex": 50
         },
         {
             "gridX": 3,
-            "gridY": 8,
+            "gridY": 6,
             "positionX": 156.0,
-            "positionY": 416.0,
+            "positionY": 312.0,
             "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 1,
-            "gridY": 9,
-            "positionX": 52.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 2,
-            "gridY": 9,
-            "positionX": 104.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 5,
-            "gridY": 10,
-            "positionX": 260.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 7,
-            "gridY": 10,
-            "positionX": 364.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 8,
-            "gridY": 10,
-            "positionX": 416.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 9,
-            "gridY": 11,
-            "positionX": 468.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 10,
-            "gridY": 11,
-            "positionX": 520.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 8
-        },
-        {
-            "gridX": 9,
-            "gridY": 3,
-            "positionX": 468.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 8,
-            "gridY": 3,
-            "positionX": 416.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
+            "tileOptionIndex": 50
         },
         {
             "gridX": 4,
-            "gridY": 7,
+            "gridY": 6,
             "positionX": 208.0,
-            "positionY": 364.0,
+            "positionY": 312.0,
             "rotation": 0.0,
-            "tileOptionIndex": 9
+            "tileOptionIndex": 50
         },
         {
-            "gridX": 4,
-            "gridY": 8,
-            "positionX": 208.0,
-            "positionY": 416.0,
+            "gridX": 5,
+            "gridY": 6,
+            "positionX": 260.0,
+            "positionY": 312.0,
             "rotation": 0.0,
-            "tileOptionIndex": 9
+            "tileOptionIndex": 50
+        },
+        {
+            "gridX": 6,
+            "gridY": 6,
+            "positionX": 312.0,
+            "positionY": 312.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 50
         },
         {
             "gridX": 7,
-            "gridY": 9,
+            "gridY": 6,
             "positionX": 364.0,
-            "positionY": 468.0,
+            "positionY": 312.0,
             "rotation": 0.0,
-            "tileOptionIndex": 9
+            "tileOptionIndex": 50
         },
         {
             "gridX": 8,
-            "gridY": 9,
+            "gridY": 6,
             "positionX": 416.0,
-            "positionY": 468.0,
+            "positionY": 312.0,
             "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 10,
-            "gridY": 9,
-            "positionX": 520.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 11,
-            "gridY": 9,
-            "positionX": 572.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 11,
-            "gridY": 12,
-            "positionX": 572.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 7,
-            "gridY": 12,
-            "positionX": 364.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 7,
-            "gridY": 11,
-            "positionX": 364.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 6,
-            "gridY": 10,
-            "positionX": 312.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 6,
-            "gridY": 9,
-            "positionX": 312.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 5,
-            "gridY": 8,
-            "positionX": 260.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 5,
-            "gridY": 7,
-            "positionX": 260.0,
-            "positionY": 364.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 7,
-            "gridY": 5,
-            "positionX": 364.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
+            "tileOptionIndex": 50
         },
         {
             "gridX": 9,
-            "gridY": 5,
+            "gridY": 6,
             "positionX": 468.0,
-            "positionY": 260.0,
+            "positionY": 312.0,
             "rotation": 0.0,
-            "tileOptionIndex": 9
+            "tileOptionIndex": 50
         },
         {
-            "gridX": 8,
-            "gridY": 5,
-            "positionX": 416.0,
-            "positionY": 260.0,
+            "gridX": 10,
+            "gridY": 6,
+            "positionX": 520.0,
+            "positionY": 312.0,
             "rotation": 0.0,
-            "tileOptionIndex": 9
+            "tileOptionIndex": 50
         },
         {
-            "gridX": 8,
-            "gridY": 4,
-            "positionX": 416.0,
-            "positionY": 208.0,
+            "gridX": 11,
+            "gridY": 6,
+            "positionX": 572.0,
+            "positionY": 312.0,
             "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 7,
-            "gridY": 4,
-            "positionX": 364.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 6,
-            "gridY": 4,
-            "positionX": 312.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 1,
-            "gridY": 5,
-            "positionX": 52.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 1,
-            "gridY": 4,
-            "positionX": 52.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 2,
-            "gridY": 4,
-            "positionX": 104.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 5,
-            "gridY": 4,
-            "positionX": 260.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 6,
-            "gridY": 3,
-            "positionX": 312.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 7,
-            "gridY": 3,
-            "positionX": 364.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
+            "tileOptionIndex": 50
         },
         {
             "gridX": 12,
-            "gridY": 2,
+            "gridY": 6,
             "positionX": 624.0,
-            "positionY": 104.0,
+            "positionY": 312.0,
             "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 13,
-            "gridY": 2,
-            "positionX": 676.0,
-            "positionY": 104.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 13,
-            "gridY": 3,
-            "positionX": 676.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 13,
-            "gridY": 4,
-            "positionX": 676.0,
-            "positionY": 208.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
-        },
-        {
-            "gridX": 13,
-            "gridY": 5,
-            "positionX": 676.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 9
+            "tileOptionIndex": 50
         },
         {
             "gridX": 13,
@@ -1853,15 +1770,119 @@
             "positionX": 676.0,
             "positionY": 312.0,
             "rotation": 0.0,
-            "tileOptionIndex": 9
+            "tileOptionIndex": 50
         },
         {
-            "gridX": 13,
-            "gridY": 7,
-            "positionX": 676.0,
-            "positionY": 364.0,
+            "gridX": 14,
+            "gridY": 6,
+            "positionX": 728.0,
+            "positionY": 312.0,
             "rotation": 0.0,
-            "tileOptionIndex": 9
+            "tileOptionIndex": 50
+        },
+        {
+            "gridX": 0,
+            "gridY": 8,
+            "positionX": 0.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 49
+        },
+        {
+            "gridX": 1,
+            "gridY": 8,
+            "positionX": 52.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 48
+        },
+        {
+            "gridX": 2,
+            "gridY": 8,
+            "positionX": 104.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 52
+        },
+        {
+            "gridX": 3,
+            "gridY": 8,
+            "positionX": 156.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 54
+        },
+        {
+            "gridX": 4,
+            "gridY": 8,
+            "positionX": 208.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 2
+        },
+        {
+            "gridX": 5,
+            "gridY": 8,
+            "positionX": 260.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 2
+        },
+        {
+            "gridX": 6,
+            "gridY": 8,
+            "positionX": 312.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 2
+        },
+        {
+            "gridX": 7,
+            "gridY": 8,
+            "positionX": 364.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 2
+        },
+        {
+            "gridX": 8,
+            "gridY": 8,
+            "positionX": 416.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 2
+        },
+        {
+            "gridX": 9,
+            "gridY": 8,
+            "positionX": 468.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 2
+        },
+        {
+            "gridX": 10,
+            "gridY": 8,
+            "positionX": 520.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 2
+        },
+        {
+            "gridX": 11,
+            "gridY": 8,
+            "positionX": 572.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 2
+        },
+        {
+            "gridX": 12,
+            "gridY": 8,
+            "positionX": 624.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 2
         },
         {
             "gridX": 13,
@@ -1869,15 +1890,47 @@
             "positionX": 676.0,
             "positionY": 416.0,
             "rotation": 0.0,
-            "tileOptionIndex": 9
+            "tileOptionIndex": 2
         },
         {
-            "gridX": 13,
+            "gridX": 14,
+            "gridY": 8,
+            "positionX": 728.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 2
+        },
+        {
+            "gridX": 12,
             "gridY": 9,
-            "positionX": 676.0,
+            "positionX": 624.0,
             "positionY": 468.0,
             "rotation": 0.0,
-            "tileOptionIndex": 9
+            "tileOptionIndex": 3
+        },
+        {
+            "gridX": 11,
+            "gridY": 9,
+            "positionX": 572.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 3
+        },
+        {
+            "gridX": 7,
+            "gridY": 9,
+            "positionX": 364.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 3
+        },
+        {
+            "gridX": 6,
+            "gridY": 9,
+            "positionX": 312.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 3
         },
         {
             "gridX": 5,
@@ -1885,7 +1938,7 @@
             "positionX": 260.0,
             "positionY": 468.0,
             "rotation": 0.0,
-            "tileOptionIndex": 9
+            "tileOptionIndex": 3
         },
         {
             "gridX": 4,
@@ -1893,13 +1946,165 @@
             "positionX": 208.0,
             "positionY": 468.0,
             "rotation": 0.0,
-            "tileOptionIndex": 9
+            "tileOptionIndex": 3
         },
         {
             "gridX": 3,
             "gridY": 9,
             "positionX": 156.0,
             "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 3
+        },
+        {
+            "gridX": 2,
+            "gridY": 9,
+            "positionX": 104.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 3
+        },
+        {
+            "gridX": 1,
+            "gridY": 9,
+            "positionX": 52.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 3
+        },
+        {
+            "gridX": 0,
+            "gridY": 9,
+            "positionX": 0.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 3
+        },
+        {
+            "gridX": 8,
+            "gridY": 9,
+            "positionX": 416.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 9,
+            "gridY": 9,
+            "positionX": 468.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 10,
+            "gridY": 9,
+            "positionX": 520.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 13,
+            "gridY": 9,
+            "positionX": 676.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 14,
+            "gridY": 9,
+            "positionX": 728.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 5
+        },
+        {
+            "gridX": 12,
+            "gridY": 10,
+            "positionX": 624.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 11,
+            "gridY": 10,
+            "positionX": 572.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 10,
+            "gridY": 10,
+            "positionX": 520.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 9,
+            "gridY": 10,
+            "positionX": 468.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 8,
+            "gridY": 10,
+            "positionX": 416.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 7,
+            "gridY": 10,
+            "positionX": 364.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 6
+        },
+        {
+            "gridX": 5,
+            "gridY": 10,
+            "positionX": 260.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 7
+        },
+        {
+            "gridX": 4,
+            "gridY": 10,
+            "positionX": 208.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 7
+        },
+        {
+            "gridX": 6,
+            "gridY": 10,
+            "positionX": 312.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 13,
+            "gridY": 10,
+            "positionX": 676.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 8
+        },
+        {
+            "gridX": 14,
+            "gridY": 10,
+            "positionX": 728.0,
+            "positionY": 520.0,
             "rotation": 0.0,
             "tileOptionIndex": 9
         },
@@ -1909,183 +2114,279 @@
             "positionX": 156.0,
             "positionY": 520.0,
             "rotation": 0.0,
-            "tileOptionIndex": 9
+            "tileOptionIndex": 12
         },
         {
-            "gridX": 4,
-            "gridY": 2,
-            "positionX": 208.0,
-            "positionY": 104.0,
+            "gridX": 2,
+            "gridY": 10,
+            "positionX": 104.0,
+            "positionY": 520.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 12
         },
         {
-            "gridX": 4,
-            "gridY": 3,
-            "positionX": 208.0,
-            "positionY": 156.0,
+            "gridX": 1,
+            "gridY": 10,
+            "positionX": 52.0,
+            "positionY": 520.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 12
         },
         {
-            "gridX": 4,
-            "gridY": 4,
-            "positionX": 208.0,
-            "positionY": 208.0,
+            "gridX": 0,
+            "gridY": 10,
+            "positionX": 0.0,
+            "positionY": 520.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 12
+        },
+        {
+            "gridX": 0,
+            "gridY": 11,
+            "positionX": 0.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 13
+        },
+        {
+            "gridX": 1,
+            "gridY": 11,
+            "positionX": 52.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 13
+        },
+        {
+            "gridX": 2,
+            "gridY": 11,
+            "positionX": 104.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 13
+        },
+        {
+            "gridX": 0,
+            "gridY": 12,
+            "positionX": 0.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 14
+        },
+        {
+            "gridX": 1,
+            "gridY": 12,
+            "positionX": 52.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 14
+        },
+        {
+            "gridX": 2,
+            "gridY": 12,
+            "positionX": 104.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 14
         },
         {
             "gridX": 3,
-            "gridY": 4,
+            "gridY": 12,
             "positionX": 156.0,
-            "positionY": 208.0,
+            "positionY": 624.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 3,
-            "gridY": 3,
-            "positionX": 156.0,
-            "positionY": 156.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 14
         },
         {
             "gridX": 4,
-            "gridY": 5,
+            "gridY": 12,
             "positionX": 208.0,
-            "positionY": 260.0,
+            "positionY": 624.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 5,
-            "gridY": 5,
-            "positionX": 260.0,
-            "positionY": 260.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 14
         },
         {
             "gridX": 6,
-            "gridY": 5,
+            "gridY": 11,
             "positionX": 312.0,
-            "positionY": 260.0,
+            "positionY": 572.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 5,
-            "gridY": 6,
-            "positionX": 260.0,
-            "positionY": 312.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 6,
-            "gridY": 6,
-            "positionX": 312.0,
-            "positionY": 312.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 15
         },
         {
             "gridX": 7,
-            "gridY": 6,
+            "gridY": 11,
             "positionX": 364.0,
-            "positionY": 312.0,
+            "positionY": 572.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 15
         },
         {
             "gridX": 8,
-            "gridY": 6,
+            "gridY": 11,
             "positionX": 416.0,
-            "positionY": 312.0,
+            "positionY": 572.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 15
+        },
+        {
+            "gridX": 8,
+            "gridY": 12,
+            "positionX": 416.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 16
         },
         {
             "gridX": 9,
-            "gridY": 6,
+            "gridY": 12,
             "positionX": 468.0,
-            "positionY": 312.0,
+            "positionY": 624.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 16
         },
         {
             "gridX": 10,
-            "gridY": 6,
+            "gridY": 11,
             "positionX": 520.0,
-            "positionY": 312.0,
+            "positionY": 572.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 17
         },
         {
             "gridX": 11,
-            "gridY": 6,
+            "gridY": 11,
             "positionX": 572.0,
-            "positionY": 312.0,
+            "positionY": 572.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 17
         },
         {
             "gridX": 12,
-            "gridY": 7,
+            "gridY": 11,
             "positionX": 624.0,
-            "positionY": 364.0,
+            "positionY": 572.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 17
         },
         {
-            "gridX": 12,
-            "gridY": 8,
-            "positionX": 624.0,
-            "positionY": 416.0,
+            "gridX": 13,
+            "gridY": 12,
+            "positionX": 676.0,
+            "positionY": 624.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 12,
-            "gridY": 9,
-            "positionX": 624.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 12,
-            "gridY": 10,
-            "positionX": 624.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 11,
-            "gridY": 10,
-            "positionX": 572.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 10,
-            "gridY": 10,
-            "positionX": 520.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 17
         },
         {
             "gridX": 9,
-            "gridY": 10,
+            "gridY": 0,
             "positionX": 468.0,
-            "positionY": 520.0,
+            "positionY": 0.0,
             "rotation": 0.0,
-            "tileOptionIndex": 4
+            "tileOptionIndex": 22
+        },
+        {
+            "gridX": 8,
+            "gridY": 0,
+            "positionX": 416.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 22
+        },
+        {
+            "gridX": 7,
+            "gridY": 0,
+            "positionX": 364.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 22
+        },
+        {
+            "gridX": 6,
+            "gridY": 0,
+            "positionX": 312.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 22
+        },
+        {
+            "gridX": 5,
+            "gridY": 0,
+            "positionX": 260.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 22
+        },
+        {
+            "gridX": 4,
+            "gridY": 0,
+            "positionX": 208.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 22
+        },
+        {
+            "gridX": 3,
+            "gridY": 0,
+            "positionX": 156.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 22
+        },
+        {
+            "gridX": 3,
+            "gridY": 1,
+            "positionX": 156.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 22
+        },
+        {
+            "gridX": 10,
+            "gridY": 0,
+            "positionX": 520.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 23
+        },
+        {
+            "gridX": 11,
+            "gridY": 0,
+            "positionX": 572.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 23
+        },
+        {
+            "gridX": 12,
+            "gridY": 0,
+            "positionX": 624.0,
+            "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 23
+        },
+        {
+            "gridX": 12,
+            "gridY": 1,
+            "positionX": 624.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 23
+        },
+        {
+            "gridX": 13,
+            "gridY": 1,
+            "positionX": 676.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 23
+        },
+        {
+            "gridX": 14,
+            "gridY": 1,
+            "positionX": 728.0,
+            "positionY": 52.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 23
         }
     ]
 }

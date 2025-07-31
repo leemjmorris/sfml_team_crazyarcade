@@ -63,15 +63,10 @@ void SceneDemo::Init()
 	texIds.push_back("assets/map/common_block.png");
 
 	// LMJ: "Load forest tileset texture for map loading (same as MapEditor)"
-	texIds.push_back(PATH_MAP_FOREST_TILE "forest_tile_set.png");
+	texIds.push_back(PATH_TILE_SHEET "tile_set.png");
 
 	// LMJ: "Load forest blocks for map loading
-	texIds.push_back("assets/map/forest/block/block_1.bmp");
-	texIds.push_back("assets/map/forest/block/block_2.bmp");
-	texIds.push_back("assets/map/forest/block/block_3.bmp");
-	texIds.push_back("assets/map/forest/block/block_4.bmp");
-	texIds.push_back("assets/map/forest/block/block_5.bmp");
-	texIds.push_back("assets/map/forest/block/block_6.bmp");
+	texIds.push_back(PATH_BLOCK_SHEET "block_sheet.png");
 
 	// KHI: Blocks - Keep existing block textures
 	texIds.push_back("assets/map/forest/tile/tile_9.bmp");

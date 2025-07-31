@@ -28,22 +28,31 @@ TileData TileData::FromJson(const json& j)
     int gridY = j.at("gridY").get<int>();
     float rotation = j.value("rotation", 0.f);
 
-    // LMJ: Load worldPosition if available, fallback to grid calculation
+    // LMJ: "Fix invalid tile option index for new tileset (0-69 only)"
+    const int MAX_TILES = 70;
+    if (tileOptionIndex >= MAX_TILES || tileOptionIndex < 0)
+    {
+        int originalIndex = tileOptionIndex;
+        tileOptionIndex = tileOptionIndex % MAX_TILES;
+        if (tileOptionIndex < 0) tileOptionIndex = 0;
+
+        std::cout << "WARNING: TileData index " << originalIndex << " fixed to " << tileOptionIndex << std::endl;
+    }
+
+    // LMJ: "Load worldPosition if available, fallback to grid calculation"
     sf::Vector2f worldPos;
     if (j.contains("positionX") && j.contains("positionY"))
     {
         worldPos.x = j.at("positionX").get<float>();
         worldPos.y = j.at("positionY").get<float>();
-        ////std::cout << "FromJson: Using saved worldPosition (" << worldPos.x << "," << worldPos.y << ")" << std::endl;
     }
     else
     {
-        // LMJ: Fallback for old save files without worldPosition
-        worldPos = Utils::GridToWorldPosition(gridX, gridY, 52); // LMJ: Use MapEditor's GRID_SIZE
-        //std::cout << "FromJson: Calculated worldPosition from grid (" << gridX << "," << gridY << ") -> (" << worldPos.x << "," << worldPos.y << ")" << std::endl;
+        // LMJ: "Fallback for old save files without worldPosition"
+        worldPos = Utils::GridToWorldPosition(gridX, gridY, 52); // LMJ: "Use MapEditor's GRID_SIZE"
     }
 
-    // LMJ: Use constructor with worldPosition
+    // LMJ: "Use constructor with worldPosition"
     return TileData(tileOptionIndex, gridX, gridY, worldPos, rotation);
 }
 
@@ -150,10 +159,7 @@ void MapEditor::Exit()
 void MapEditor::LoadTileSet()
 {
     // LMJ: Try multiple paths for tileset loading
-    std::string tilesetPaths[] = {
-        "assets/map/forest/tile/tile_set.png",
-        "../assets/map/forest/tile/tile_set.png",
-    };
+    std::string tilesetPaths[] = { PATH_TILE_SHEET "tile_set.png" };
 
     bool textureLoaded = false;
     for (const auto& path : tilesetPaths)

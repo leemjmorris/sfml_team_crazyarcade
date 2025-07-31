@@ -472,25 +472,6 @@ void Utils::LoadBlocksFromJson(Scene* scene, const void* blocksJsonPtr)
             block->Reset(); // LMJ: "This will set up sprite sheet texture and rect"
             block->sortingLayer = SortingLayers::Foreground;
 
-            // KHI: Store collider layer values based on block properties
-            //sf::Vector2f pos = block->GetPosition();
-            //int gridX = static_cast<int>(pos.x) / 52;
-            //int gridY = (static_cast<int>(pos.y) - 26) / 52;
-
-            //if (block->IsDestroyable() || block->IsHidable() || block->IsMovable())
-            //{
-            //    if (gridY >= 0 && gridY < 13 && gridX >= 0 && gridX < 15)
-            //    {
-            //        Utils::CollBlockLayer[gridY][gridX] = 1;
-            //    }
-            //}
-            //else
-            //{
-            //    if (gridY >= 0 && gridY < 13 && gridX >= 0 && gridX < 15)
-            //    {
-            //        Utils::CollBlockLayer[gridY][gridX] = 0;
-            //    }
-            //}
             scene->AddGameObject(block);
         }
     }
@@ -585,17 +566,20 @@ sf::Vector2f Utils::GetDefaultSpawnPoint(int playerIndex)
 sf::Sprite* Utils::CreateTileSprite(int tileOptionIndex, const sf::Vector2f& position, float rotation)
 {
     // LMJ: "Use forest_tile_set.png like in MapEditor"
-    std::string textureFile = PATH_MAP_FOREST_TILE "forest_tile_set.png";
+    std::string textureFile = PATH_TILE_SHEET "tile_set.png";
 
     // LMJ: "Map tile option index to texture coordinates (same as MapEditor)"
     sf::IntRect textureRect;
     const int TILE_SIZE = 52; // LMJ: "Same as MapEditor"
-    const int TILES_PER_ROW = 5; // LMJ: "5 tiles per row in tileset"
+    const int TILES_PER_ROW = 10; // LMJ: "10 tiles per row in tileset"
+    const int TOTAL_ROWS = 7;
+    const int MAX_TILES = 70;
 
-    if (tileOptionIndex < 0 || tileOptionIndex >= 10)
+    if (tileOptionIndex < 0 || tileOptionIndex >= MAX_TILES)
     {
-        std::cerr << "Invalid tile option index: " << tileOptionIndex << std::endl;
-        return nullptr;
+        int originalIndex = tileOptionIndex;
+        tileOptionIndex = tileOptionIndex % MAX_TILES; // LMJ: "Wrap to 0-69 range"
+        if (tileOptionIndex < 0) tileOptionIndex = 0;
     }
 
     // LMJ: "Calculate texture coordinates from index"

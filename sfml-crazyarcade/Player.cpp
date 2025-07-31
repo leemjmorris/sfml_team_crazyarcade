@@ -299,7 +299,7 @@ void Player::RefreshPassThroughSet()
 }
 
 bool Player::CollectObstacleRects(std::vector<sf::FloatRect>& outRects)
-{
+ {
 	Scene* cur = SCENE_MGR.GetCurrentScene();
 
 	for (auto* obj : cur->FindGameObjects("Block"))
@@ -353,14 +353,11 @@ void Player::Movement(float dt)
 		sf::Vector2f currentPos = GetPosition();
 		sf::Vector2f tempPos = currentPos;
 
-		const float correction = slidePixelsPerSecond * dt; // KHI: Distance to nudge the player during collision (slide correction offset)
+		const float correction = slidePixelsPerSecond * dt; // KHI: Distance for making player slide during collision (slide correction offset)
 
 		// KHI: Get Player Center
 		sf::FloatRect bounds = hitBox.rect.getGlobalBounds();
-		sf::Vector2f playerCenter = {
-			bounds.left + bounds.width * 0.5f,
-			bounds.top + bounds.height * 0.5f
-		};
+		sf::Vector2f playerCenter = { bounds.left + bounds.width * 0.5f, bounds.top + bounds.height * 0.5f };
 
 		sf::FloatRect collidedBounds;
 		bool collX = false;

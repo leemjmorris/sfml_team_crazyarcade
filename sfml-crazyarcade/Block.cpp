@@ -111,7 +111,14 @@ void Block::Update(float dt)
 
     // KHI: Update HitBox
     hitBox.UpdateCustomTransform(sprite, hitBoxSize, hitBoxOffset, Origins::BC);
-
+    
+    // LMJ: Debug - HitBox 위치 출력
+    sf::FloatRect hitBounds = hitBox.GetGlobalBounds();
+    sf::Vector2f spritePos = sprite.getPosition();
+    std::cout << "Block Sprite Pos: (" << spritePos.x << ", " << spritePos.y << ")"
+        << " HitBox: (" << hitBounds.left << ", " << hitBounds.top
+        << ", " << hitBounds.width << ", " << hitBounds.height << ")" << std::endl;
+    
     // KHI: Update Animation
     animator.Update(dt);
 
@@ -178,7 +185,7 @@ void Block::InitializeBlockRegistry()
     // LMJ: "Register 74 blocks (37x2 grid, indices 0-73)"
     for (int i = 0; i < 74; ++i)
     {
-        std::string displayName = "Block " + std::to_string(i + 1);
+        std::string displayName = "Block"/* + std::to_string(i + 1)*/;
         RegisterBlockFromSheet(i, displayName, true, false, false, false);
     }
 
