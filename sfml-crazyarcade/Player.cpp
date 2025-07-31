@@ -299,13 +299,13 @@ void Player::RefreshPassThroughSet()
 }
 
 bool Player::CollectObstacleRects(std::vector<sf::FloatRect>& outRects)
- {
+{
 	Scene* cur = SCENE_MGR.GetCurrentScene();
 
 	for (auto* obj : cur->FindGameObjects("Block"))
 	{
 		Block* blk = dynamic_cast<Block*>(obj);
-		if (blk && blk->GetActive() && blk->IsDestroyable())
+		if (blk && blk->GetActive())
 			outRects.push_back(blk->GetHitBox().GetGlobalBounds());
 	}
 
@@ -477,12 +477,12 @@ size_t Player::GetCollidedTileInfo(sf::FloatRect& outTileBounds)
 	for (auto* obj : gameObjects)
 	{
 		Block* block = dynamic_cast<Block*>(obj);
-		if (block && block->IsDestroyable())
+		if (block)
 		{
 			sf::FloatRect blockBounds = block->GetHitBox().GetGlobalBounds();
 			if (hitBox.rect.getGlobalBounds().intersects(blockBounds))
 			{
-				if (block && block->GetActive() && block->IsDestroyable())
+				if (block && block->GetActive())
 				{
 					outTileBounds = blockBounds;
 					cnt++;
