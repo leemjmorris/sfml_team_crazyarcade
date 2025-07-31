@@ -3,7 +3,7 @@
 #include "Item.h"
 #include "Scene.h"
 
-// LMJ: "Default item spawn probability (50%)"
+// LMJ: "Default item spawn probability (50%)" 
 float Block::defaultItemSpawnProbability = 0.5f;
 
 // LMJ: "Static registry initialization"
@@ -13,7 +13,8 @@ bool Block::registryInitialized = false;
 Block::Block(const std::string& name)
     : SpriteGo("", name), blockType(BlockType::None),
     isDestroyable(false), isHidable(false), isMovable(false),
-    canSpawnItem(true), itemSpawnProbability(defaultItemSpawnProbability)
+    canSpawnItem(true), itemSpawnProbability(defaultItemSpawnProbability),
+    registryIndex(-1), blockIndex(0)
 {
     sortingLayer = SortingLayers::Foreground;
     sortingOrder = 0;
@@ -60,6 +61,7 @@ void Block::SetBlockType(BlockType type)
 void Block::SetBlockProperties(const BlockInfo& info)
 {
     textureId = info.textureId;
+    blockIndex = info.blockIndex; // LMJ: "Set sprite sheet index"
     isDestroyable = info.isDestroyable;
     isHidable = info.isHidable;
     isMovable = info.isMovable;
@@ -87,7 +89,13 @@ void Block::Release()
 
 void Block::Reset()
 {
-    SpriteGo::Reset();
+    // LMJ: "Load sprite sheet texture and set texture rect"
+    sprite.setTexture(TEXTURE_MGR.Get(PATH_BLOCK_SHEET "block_sheet.png"));
+
+    // LMJ: "Calculate texture rect from block index"
+    sf::IntRect textureRect = GetBlockTextureRect(blockIndex);
+    sprite.setTextureRect(textureRect);
+
     SetOrigin(Origins::BC);
 }
 
@@ -98,7 +106,6 @@ void Block::Update(float dt)
 
 void Block::Draw(sf::RenderWindow& window)
 {
-
     SpriteGo::Draw(window);
 }
 
@@ -141,22 +148,29 @@ void Block::InitializeBlockRegistry()
 
     blockRegistry.clear();
 
-    // LMJ: "Register forest blocks with specified properties"
-    // LMJ: "All blocks: not movable, destructable, not hidable, no item spawn"
-    RegisterBlock("assets/map/forest/block/block_1.bmp", "Forest Block 1", true, false, false, false);
-    RegisterBlock("assets/map/forest/block/block_2.bmp", "Forest Block 2", true, false, false, false);
-    RegisterBlock("assets/map/forest/block/block_3.bmp", "Forest Block 3", true, false, false, false);
-    RegisterBlock("assets/map/forest/block/block_4.bmp", "Forest Block 4", true, false, false, false);
-    RegisterBlock("assets/map/forest/block/block_5.bmp", "Forest Block 5", true, false, false, false);
-    RegisterBlock("assets/map/forest/block/block_6.bmp", "Forest Block 6", true, false, false, false);
+    // LMJ: "Register 74 blocks (37x2 grid, indices 0-73)"
+    for (int i = 0; i < 74; ++i)
+    {
+        std::string displayName = "Block " + std::to_string(i + 1);
+        RegisterBlockFromSheet(i, displayName, true, false, false, false);
+    }
 
     registryInitialized = true;
+}
+
+void Block::RegisterBlockFromSheet(int sheetIndex, const std::string& displayName,
+    bool destroyable, bool hidable, bool movable, bool spawnItem)
+{
+    // LMJ: "Use sprite sheet path as textureId, store sheet index separately"
+    std::string textureId = PATH_BLOCK_SHEET "block_sheet.png";
+    blockRegistry.emplace_back(textureId, displayName, destroyable, hidable, movable, spawnItem, sheetIndex);
 }
 
 void Block::RegisterBlock(const std::string& textureId, const std::string& displayName,
     bool destroyable, bool hidable, bool movable, bool spawnItem)
 {
-    blockRegistry.emplace_back(textureId, displayName, destroyable, hidable, movable, spawnItem);
+    // LMJ: "Legacy method - assume index 0 for backward compatibility"
+    blockRegistry.emplace_back(textureId, displayName, destroyable, hidable, movable, spawnItem, 0);
 }
 
 void Block::RegisterBlock(const std::string& textureId, BlockType type, const std::string& displayName)
@@ -187,6 +201,26 @@ void Block::RegisterBlock(const std::string& textureId, BlockType type, const st
     }
 
     RegisterBlock(textureId, displayName, destroyable, hidable, movable, spawnItem);
+}
+
+sf::IntRect Block::GetBlockTextureRect(int blockIndex)
+{
+    // LMJ: "Get actual texture size (same as LoadBlockSet)"
+    sf::Texture& texture = TEXTURE_MGR.Get(PATH_BLOCK_SHEET "block_sheet.png");
+    sf::Vector2u textureSize = texture.getSize();
+
+    const float blockWidth = textureSize.x / 37.0f;
+    const float blockHeight = textureSize.y / 2.0f;
+
+    int row = blockIndex / 37;
+    int col = blockIndex % 37;
+
+    return sf::IntRect(
+        static_cast<int>(col * blockWidth),
+        static_cast<int>(row * blockHeight),
+        static_cast<int>(blockWidth),
+        static_cast<int>(blockHeight)
+    );
 }
 
 std::vector<BlockInfo> Block::GetBlocksByType(BlockType type)
@@ -251,7 +285,7 @@ BlockInfo Block::GetBlockInfo(int registryIndex)
     }
 
     // LMJ: "Return default BlockInfo if index is invalid"
-    return BlockInfo("", "Invalid", false, false, false, false);
+    return BlockInfo("", "Invalid", false, false, false, false, 0);
 }
 
 int Block::GetBlockRegistrySize()
@@ -265,13 +299,8 @@ int Block::GetBlockRegistrySize()
 
 std::string Block::GetTextureId(BlockType type)
 {
-    // LMJ: "Legacy method - returns first texture of the type"
-    auto blocks = GetBlocksByType(type);
-    if (!blocks.empty())
-    {
-        return blocks[0].textureId;
-    }
-    return "";
+    // LMJ: "Legacy method - returns sprite sheet path"
+    return PATH_BLOCK_SHEET "block_sheet.png";
 }
 
 Block* Block::CreateBlock(BlockType type, const sf::Vector2f& position)
@@ -283,7 +312,8 @@ Block* Block::CreateBlock(BlockType type, const sf::Vector2f& position)
 
     Block* block = new Block();
     block->SetBlockType(type);
-    block->textureId = blocks[0].textureId; // LMJ: "Use first texture"
+    block->textureId = PATH_BLOCK_SHEET "block_sheet.png";
+    block->blockIndex = blocks[0].blockIndex; // LMJ: "Set sprite sheet index"
     block->Reset();
     block->SetPosition(position);
     return block;
@@ -299,19 +329,71 @@ Block* Block::CreateBlockFromRegistry(int registryIndex, const sf::Vector2f& pos
     block->SetRegistryIndex(registryIndex);
     block->SetBlockProperties(blockInfo); // LMJ: "Use new property system"
     block->textureId = blockInfo.textureId;
+    block->blockIndex = blockInfo.blockIndex; // LMJ: "Set sprite sheet index"
     block->Reset();
     block->SetPosition(position);
 
     return block;
 }
 
-Block* Block::CreateBlockWithProperties(const std::string& textureId, const sf::Vector2f& position,
-    bool destroyable, bool hidable, bool movable, bool spawnItem)
+// LMJ: "JSON serialization methods"
+json Block::ToJson(const Block* block, int registryIndex)
 {
-    Block* block = new Block();
-    block->textureId = textureId;
-    block->SetBlockProperties(destroyable, hidable, movable, spawnItem);
-    block->Reset();
-    block->SetPosition(position);
-    return block;
+    if (!block) return json{};
+
+    json j;
+    j["registryIndex"] = registryIndex;
+    j["blockIndex"] = block->blockIndex; // LMJ: "Save sprite sheet index"
+    j["x"] = block->GetPosition().x;     // LMJ: "Keep original field name for compatibility"
+    j["y"] = block->GetPosition().y;     // LMJ: "Keep original field name for compatibility" 
+    j["isDestroyable"] = block->IsDestroyable();
+    j["isHidable"] = block->IsHidable();
+    j["isMovable"] = block->IsMovable();
+    j["canSpawnItem"] = block->CanSpawnItem();
+    j["itemSpawnProbability"] = block->itemSpawnProbability; // LMJ: "New field for sprite sheet"
+
+    return j;
+}
+
+Block* Block::FromJson(const json& j)
+{
+    try
+    {
+        int registryIndex = j.at("registryIndex").get<int>();
+
+        // LMJ: "Support both old (x,y) and new (positionX,positionY) field names"
+        float posX = j.contains("positionX") ? j.at("positionX").get<float>() : j.at("x").get<float>();
+        float posY = j.contains("positionY") ? j.at("positionY").get<float>() : j.at("y").get<float>();
+
+        // LMJ: "Create block from registry"
+        Block* block = Block::CreateBlockFromRegistry(registryIndex, sf::Vector2f(posX, posY));
+        if (!block) return nullptr;
+
+        // LMJ: "Load sprite sheet index if available (new feature)"
+        if (j.contains("blockIndex"))
+        {
+            block->blockIndex = j.at("blockIndex").get<int>();
+        }
+
+        // LMJ: "Load block properties with backward compatibility"
+        bool isDestroyable = j.value("isDestroyable", false);
+        bool isHidable = j.value("isHidable", false);
+        bool isMovable = j.value("isMovable", false);
+        bool canSpawnItem = j.value("canSpawnItem", false);
+
+        block->SetBlockProperties(isDestroyable, isHidable, isMovable, canSpawnItem);
+
+        // LMJ: "Load item spawn probability if available"
+        if (j.contains("itemSpawnProbability"))
+        {
+            block->itemSpawnProbability = j.at("itemSpawnProbability").get<float>();
+        }
+
+        return block;
+    }
+    catch (const std::exception& e)
+    {
+        //std::cerr << "Error loading block from JSON: " << e.what() << std::endl;
+        return nullptr;
+    }
 }

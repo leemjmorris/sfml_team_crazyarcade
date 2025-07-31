@@ -1,6 +1,8 @@
 #pragma once
 
 // LMJ: File Path Organizer Added
+#define PATH_BLOCK_SHEET "assets/block/"
+#define PATH_TILE_SHEET "assets/tile/"
 #define PATH_MAP_FOREST_TILE "assets/map/forest/tile/"
 #define PATH_MAP_FOREST_BLOCK "assets/map/forest/block/"
 #define PATH_MAP_TOWN "assets/map/town/"

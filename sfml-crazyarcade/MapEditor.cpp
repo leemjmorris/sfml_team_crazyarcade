@@ -205,42 +205,44 @@ void MapEditor::LoadTileSet()
 
 void MapEditor::LoadBlockSet()
 {
-    // LMJ: Clear existing block data
     BlockPreviewSprites.clear();
     BlockTextures.clear();
 
-    auto allBlocks = Block::GetAllBlocks();
+    sf::Texture blockSheetTexture;
+    if (!blockSheetTexture.loadFromFile(PATH_BLOCK_SHEET "block_sheet.png"))
+        return;
 
-    for (const auto& blockInfo : allBlocks)
+    BlockTextures.push_back(blockSheetTexture);
+
+    sf::Vector2u textureSize = blockSheetTexture.getSize();
+    const float blockWidth = textureSize.x / 37.0f;
+    const float blockHeight = textureSize.y / 2.0f;
+
+    // LMJ: "Create 74 blocks in same order as InitializeBlockRegistry"
+    for (int i = 0; i < 74; ++i)
     {
-        // LMJ: Load texture directly for each block type
-        sf::Texture blockTexture;
-        if (blockTexture.loadFromFile(blockInfo.textureId))
-        {
-            sf::Vector2u textureSize = blockTexture.getSize();
+        int row = i / 37;  // 0-36은 row=0, 37-73은 row=1
+        int col = i % 37;  // 각 행에서의 열 위치
 
-            // LMJ: Skip textures with invalid dimensions
-            if (textureSize.x == 0 || textureSize.y == 0)
-            {
-                continue;
-            }
+        sf::Sprite blockSprite;
+        blockSprite.setTexture(BlockTextures[0]);
 
-            // LMJ: Store texture in member container
-            BlockTextures.push_back(blockTexture);
+        blockSprite.setTextureRect(sf::IntRect(
+            static_cast<int>(col * blockWidth),
+            static_cast<int>(row * blockHeight),
+            static_cast<int>(blockWidth),
+            static_cast<int>(blockHeight)
+        ));
 
-            // LMJ: Create preview sprite with proper scaling
-            sf::Sprite blockSprite;
-            blockSprite.setTexture(BlockTextures.back());
+        float scaleX = static_cast<float>(GRID_SIZE) / blockWidth;
+        float scaleY = static_cast<float>(GRID_SIZE) / blockHeight;
+        //blockSprite.setScale(scaleX, scaleY);
+        blockSprite.setOrigin(blockWidth / 2, (blockHeight / 2) + 26.f);
 
-            float scaleX = static_cast<float>(GRID_SIZE) / textureSize.x;
-            float scaleY = static_cast<float>(GRID_SIZE) / textureSize.y;
-            blockSprite.setScale(scaleX, scaleY);
-
-            Utils::SetOrigin(blockSprite, Origins::MC);
-            BlockPreviewSprites.push_back(blockSprite);
-        }
+        BlockPreviewSprites.push_back(blockSprite);
     }
 }
+
 
 void MapEditor::Update(float dt)
 {
@@ -786,11 +788,12 @@ Block* MapEditor::GetBlockAtPosition(const sf::Vector2f& gridPos)
 void MapEditor::ApplyBlockDefaultScale(Block* block)
 {
     sf::Sprite& s = block->GetSprite();
-    auto texSize = s.getTexture()->getSize();
-    float baseX = static_cast<float>(GRID_SIZE) / texSize.x;
-    float baseY = static_cast<float>(GRID_SIZE) / texSize.y;
-    const float extra = 1.3f;
-    s.setScale(baseX * extra, baseY * extra);
+
+    // LMJ: "Same scaling as tile preview (no extra scaling)"
+    sf::IntRect rect = s.getTextureRect();
+    float scaleX = static_cast<float>(GRID_SIZE) / rect.width;
+    float scaleY = static_cast<float>(GRID_SIZE) / rect.height;
+    //s.setScale(scaleX * 1.3f, scaleY * 1.3f);  // 1.3배만 적용
     Utils::SetOrigin(s, Origins::MC);
 }
 
@@ -881,7 +884,7 @@ void MapEditor::DrawTilePreviewAtMouse(sf::RenderWindow& window)
 
 void MapEditor::DrawBlockPreview(sf::RenderWindow& window)
 {
-    if (BlockTextures.empty() || blockRegistryIndex >= static_cast<int>(BlockTextures.size()))
+    if (BlockTextures.empty() || blockRegistryIndex >= static_cast<int>(BlockPreviewSprites.size()))
         return;
 
     sf::Vector2i mousePos = InputMgr::GetMousePosition();
@@ -890,28 +893,21 @@ void MapEditor::DrawBlockPreview(sf::RenderWindow& window)
 
     if (IsValidGridPosition(gridPos))
     {
-        // LMJ: Snap preview to grid center like placed blocks
+        // LMJ: "Snap preview to grid center like placed blocks"
         sf::Vector2f snappedPos(
             gridPos.x * GRID_SIZE + GRID_SIZE / 2.0f,
             gridPos.y * GRID_SIZE + GRID_SIZE / 2.0f
         );
 
-        // LMJ: Create preview sprite with same properties as placed blocks
-        sf::Sprite preview;
-        preview.setTexture(BlockTextures[blockRegistryIndex]);
-
-        sf::Vector2u textureSize = BlockTextures[blockRegistryIndex].getSize();
-        float scaleX = static_cast<float>(GRID_SIZE) / textureSize.x;
-        float scaleY = static_cast<float>(GRID_SIZE) / textureSize.y;
-        preview.setScale(scaleX * 1.3f, scaleY * 1.3f);
-
-        Utils::SetOrigin(preview, Origins::MC);
+        // LMJ: "Create preview sprite using existing BlockPreviewSprites"
+        sf::Sprite preview = BlockPreviewSprites[blockRegistryIndex];
         preview.setPosition(snappedPos);
+        //preview.setScale(preview.getScale().x/* * 1.3f*/, preview.getScale().y/* * 1.3f*/); // LMJ: "Apply same scale as placed blocks"
         preview.setColor(sf::Color(255, 255, 255, 180));
 
         window.draw(preview);
 
-        // LMJ: Draw grid highlight for block placement
+        // LMJ: "Draw grid highlight for block placement"
         sf::RectangleShape highlight;
         highlight.setSize(sf::Vector2f(GRID_SIZE, GRID_SIZE));
         highlight.setPosition(gridPos.x * GRID_SIZE, gridPos.y * GRID_SIZE);
@@ -1011,11 +1007,11 @@ void MapEditor::DrawBlockPropertyIndicators(sf::RenderWindow& window)
 
 void MapEditor::DrawRightSideUI(sf::RenderWindow& window)
 {
-    // LMJ: UI positioning
+    // LMJ: "UI positioning"
     const float rightPanelX = GRID_WIDTH * 40.0f + 20;
     const float rightPanelWidth = 160;
 
-    // LMJ: Draw UI background panel
+    // LMJ: "Draw UI background panel"
     sf::RectangleShape uiBackground;
     uiBackground.setSize(sf::Vector2f(rightPanelWidth, 580));
     uiBackground.setPosition(rightPanelX, 10);
@@ -1024,7 +1020,7 @@ void MapEditor::DrawRightSideUI(sf::RenderWindow& window)
     uiBackground.setOutlineThickness(2);
     window.draw(uiBackground);
 
-    // LMJ: Draw preview section background
+    // LMJ: "Draw preview section background"
     const float previewSize = 80;
     sf::RectangleShape previewBg;
     previewBg.setSize(sf::Vector2f(previewSize, previewSize));
@@ -1034,7 +1030,7 @@ void MapEditor::DrawRightSideUI(sf::RenderWindow& window)
     previewBg.setOutlineThickness(2);
     window.draw(previewBg);
 
-    // LMJ: Draw preview content based on current layer
+    // LMJ: "Draw preview content based on current layer"
     if (currentLayer == LayerType::Background && tileOptionIndex < TileOptions.size())
     {
         sf::Sprite currentTile = TileOptions[tileOptionIndex];
@@ -1046,18 +1042,17 @@ void MapEditor::DrawRightSideUI(sf::RenderWindow& window)
     }
     else if (currentLayer == LayerType::Block && blockRegistryIndex < Block::GetBlockRegistrySize())
     {
-        BlockInfo blockInfo = Block::GetBlockInfo(blockRegistryIndex);
-        if (!blockInfo.textureId.empty() && TEXTURE_MGR.Exists(blockInfo.textureId))
+        // LMJ: "Draw block preview from sprite sheet"
+        if (!BlockTextures.empty() && blockRegistryIndex < static_cast<int>(BlockPreviewSprites.size()))
         {
-            sf::Sprite blockPreview;
-            blockPreview.setTexture(TEXTURE_MGR.Get(blockInfo.textureId));
-            Utils::SetOrigin(blockPreview, Origins::MC);
+            sf::Sprite blockPreview = BlockPreviewSprites[blockRegistryIndex];
             blockPreview.setPosition(rightPanelX + 80, 60);
+            blockPreview.setScale(1.2f, 1.2f); // LMJ: "Adjust scale for UI preview"
             blockPreview.setColor(sf::Color::White);
             window.draw(blockPreview);
         }
     }
-    else if (currentLayer == LayerType::SpawnPoint)  // LMJ: Draw spawn point preview in UI
+    else if (currentLayer == LayerType::SpawnPoint)  // LMJ: "Draw spawn point preview in UI"
     {
         sf::CircleShape spawnPreview(30.0f);
         spawnPreview.setFillColor(GetSpawnPointColor(currentSpawnPlayerIndex));
@@ -1067,7 +1062,7 @@ void MapEditor::DrawRightSideUI(sf::RenderWindow& window)
         spawnPreview.setPosition(rightPanelX + 80, 60);
         window.draw(spawnPreview);
 
-        // LMJ: Draw player number
+        // LMJ: "Draw player number"
         if (FONT_MGR.Exists("assets/font/Daum_Regular.ttf"))
         {
             sf::Text playerText;
@@ -1081,7 +1076,7 @@ void MapEditor::DrawRightSideUI(sf::RenderWindow& window)
         }
     }
 
-    // LMJ: Draw information sections
+    // LMJ: "Draw information sections"
     DrawLayerInfo(window, rightPanelX, 110);
     DrawControlsInfo(window, rightPanelX, 190);
 
@@ -1089,7 +1084,7 @@ void MapEditor::DrawRightSideUI(sf::RenderWindow& window)
     {
         DrawLayer2Info(window, rightPanelX, 320);
     }
-    else if (currentLayer == LayerType::SpawnPoint)  // LMJ: Draw spawn point info
+    else if (currentLayer == LayerType::SpawnPoint)  // LMJ: "Draw spawn point info"
     {
         DrawSpawnPointInfo(window, rightPanelX, 320);
     }

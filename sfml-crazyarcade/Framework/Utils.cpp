@@ -460,7 +460,7 @@ void Utils::LoadBlocksFromJson(Scene* scene, const void* blocksJsonPtr)
 {
     const json& blocksJson = *static_cast<const json*>(blocksJsonPtr);
 
-    // LMJ: "Create Block objects (same as MapEditor)"
+    // LMJ: "Create Block objects using sprite sheet"
     for (const auto& jb : blocksJson)
     {
         Block* block = Block::FromJson(jb);
@@ -468,8 +468,8 @@ void Utils::LoadBlocksFromJson(Scene* scene, const void* blocksJsonPtr)
         {
             // LMJ: "Initialize block same as MapEditor"
             block->Init();
-            block->SetScale({ 1.f, 1.f/*0.588235319f * 1.3f, 0.597014904f * 1.3f*/ }); // LMJ: "Same scale as MapEditor"
-            block->Reset();
+            block->SetScale({ 1.f, 1.f }); // LMJ: "Same scale as MapEditor"
+            block->Reset(); // LMJ: "This will set up sprite sheet texture and rect"
             block->sortingLayer = SortingLayers::Foreground;
 
             // KHI: Store collider layer values based on block properties
