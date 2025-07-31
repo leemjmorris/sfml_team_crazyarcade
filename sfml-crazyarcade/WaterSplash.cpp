@@ -254,6 +254,15 @@ bool WaterSplash::CheckCollisionWithBlocks()
 				return true;
 			}
 		}
+		else if (block && !block->IsDestroyable())
+		{
+			sf::FloatRect blockRect = block->GetGlobalBounds();
+
+			if (IsCompletelyInside(hitBox.rect.getGlobalBounds(), blockRect))
+			{
+				return true;
+			}
+		}
 	}
 
 	return false;
