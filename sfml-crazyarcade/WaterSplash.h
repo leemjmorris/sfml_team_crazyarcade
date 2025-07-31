@@ -42,8 +42,6 @@ protected:
 
 	HitBox hitBox;
 	
-	std::vector<TileHitBox> blockCollData;
-
 public:
 	WaterSplash(const std::string& name = "WaterSplash");
 	virtual ~WaterSplash() = default;
@@ -67,6 +65,7 @@ public:
 	void CheckCollisionWithItems();
 	bool CheckCollisionWithBlocks();
 	bool CheckCollisionWithWindow();
+	void CheckCollisionWithBombs();
 	bool IsCompletelyInside(const sf::FloatRect& inner, const sf::FloatRect& outer);
 
 	const HitBox& GetHitBox() const

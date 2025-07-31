@@ -2,6 +2,7 @@
 #include "WaterSplash.h"
 #include "WaterSplashPool.h"
 #include "Item.h"
+#include "WaterBalloon.h"
 
 WaterSplash::WaterSplash(const std::string& name)
 	: GameObject(name)
@@ -52,9 +53,17 @@ void WaterSplash::Init()
 	ANI_CLIP_MGR.Load("animation/waterSplashUpExitAnim.csv");
 	ANI_CLIP_MGR.Load("animation/waterSplashUpEndAnim.csv");
 
+	ANI_CLIP_MGR.Load("animation/waterSplashDownAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashDownExitAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashDownEndAnim.csv");
+
 	ANI_CLIP_MGR.Load("animation/waterSplashLeftAnim.csv");
 	ANI_CLIP_MGR.Load("animation/waterSplashLeftExitAnim.csv");
 	ANI_CLIP_MGR.Load("animation/waterSplashLeftEndAnim.csv");
+
+	ANI_CLIP_MGR.Load("animation/waterSplashRightAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashRightExitAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashRightEndAnim.csv");
 
 	animator.SetTarget(&waterSplash);
 
@@ -92,6 +101,7 @@ void WaterSplash::Update(float dt)
 	}
 
 	CheckCollisionWithItems();
+	CheckCollisionWithBombs();
 
 	if (!animator.IsPlaying())
 	{
@@ -122,57 +132,48 @@ void WaterSplash::PlayAnim()
 	{
 		animator.Play("animation/waterSplashAnim.csv");
 		SetOrigin(Origins::MC);
-		SetScale({ 1, 1 });
 	}
 	// KHI: Dir
 	else if (animType == AnimType::Up)
 	{
 		animator.Play("animation/waterSplashUpAnim.csv");
 		SetOrigin(Origins::MC);
-		SetScale({ 1, 1 });
 	}
 	else if (animType == AnimType::Down)
 	{
-		animator.Play("animation/waterSplashUpAnim.csv");
+		animator.Play("animation/waterSplashDownAnim.csv");
 		SetOrigin(Origins::MC);
-		SetScale({ 1, -1 });
 	}
 	else if (animType == AnimType::Left)
 	{
 		animator.Play("animation/waterSplashLeftAnim.csv");
 		SetOrigin(Origins::MC);
-		SetScale({ 1, 1 });
 	}
 	else if (animType == AnimType::Right)
 	{
-		animator.Play("animation/waterSplashLeftAnim.csv");
+		animator.Play("animation/waterSplashRightAnim.csv");
 		SetOrigin(Origins::MC);
-		SetScale({ -1, 1 });
 	}
 	// KHI: End
 	else if (animType == AnimType::UpEnd)
 	{
 		animator.Play("animation/waterSplashUpEndAnim.csv");
 		SetOrigin(Origins::MC);
-		SetScale({ 1, 1 });
 	}
 	else if (animType == AnimType::DownEnd)
 	{
-		animator.Play("animation/waterSplashUpEndAnim.csv");
+		animator.Play("animation/waterSplashDownEndAnim.csv");
 		SetOrigin(Origins::MC);
-		SetScale({ 1, -1 });
 	}
 	else if (animType == AnimType::LeftEnd)
 	{
 		animator.Play("animation/waterSplashLeftEndAnim.csv");
 		SetOrigin(Origins::MC);
-		SetScale({ 1, 1 });
 	}
 	else if (animType == AnimType::RightEnd)
 	{
-		animator.Play("animation/waterSplashLeftEndAnim.csv");
+		animator.Play("animation/waterSplashRightEndAnim.csv");
 		SetOrigin(Origins::MC);
-		SetScale({ -1, 1 });
 	}
 }
 
@@ -182,31 +183,26 @@ void WaterSplash::PlayExitAnim()
 	{
 		animator.Play("animation/waterSplashExitAnim.csv");
 		SetOrigin(Origins::MC);
-		SetScale({ 1, 1 });
 	}
 	else if (animType == AnimType::Up || animType == AnimType::UpEnd)
 	{
 		animator.Play("animation/waterSplashUpExitAnim.csv");
 		SetOrigin(Origins::MC);
-		SetScale({ 1, 1 });
 	}
 	else if (animType == AnimType::Down || animType == AnimType::DownEnd)
 	{
-		animator.Play("animation/waterSplashUpExitAnim.csv");
+		animator.Play("animation/waterSplashDownExitAnim.csv");
 		SetOrigin(Origins::MC);
-		SetScale({ 1, -1 });
 	}
 	else if (animType == AnimType::Left || animType == AnimType::LeftEnd)
 	{
 		animator.Play("animation/waterSplashLeftExitAnim.csv");
 		SetOrigin(Origins::MC);
-		SetScale({ 1, 1 });
 	}
 	else if (animType == AnimType::Right || animType == AnimType::RightEnd)
 	{
-		animator.Play("animation/waterSplashLeftExitAnim.csv");
+		animator.Play("animation/waterSplashRightExitAnim.csv");
 		SetOrigin(Origins::MC);
-		SetScale({ -1, 1 });
 	}
 }
 
@@ -239,7 +235,8 @@ void WaterSplash::CheckCollisionWithItems()
 
 bool WaterSplash::CheckCollisionWithBlocks()
 {
-	hitBox.UpdateCustomTransform(waterSplash, { 42.f, 42.f }, Origins::MC, { 0.f, 0.f });
+	auto localBounds = waterSplash.getLocalBounds();
+	hitBox.UpdateCustomTransform(waterSplash, { localBounds.width, localBounds.height }, Origins::MC);
 
 	Scene* curScene = SCENE_MGR.GetCurrentScene();
 	auto gameObjects = curScene->FindGameObjects("Block");
@@ -264,16 +261,38 @@ bool WaterSplash::CheckCollisionWithBlocks()
 
 bool WaterSplash::CheckCollisionWithWindow()
 {
-	sf::FloatRect windowBounds = FRAMEWORK.GetWindowBounds();
-	sf::FloatRect splashBounds = GetHitBox().rect.getGlobalBounds();
+	auto localBounds = waterSplash.getLocalBounds();
+	hitBox.UpdateCustomTransform(waterSplash, { localBounds.width, localBounds.height }, Origins::MC);
 
-	if (!windowBounds.intersects(splashBounds))
-	{
-		return true;
-	}
+	constexpr int GRID_SIZE = 52;
+	const sf::FloatRect worldBounds(0.f, 0.f, 15 * GRID_SIZE, 13 * GRID_SIZE);
+	const sf::FloatRect splashBounds = hitBox.GetGlobalBounds();
 
-	return false;
+	return !IsCompletelyInside(splashBounds, worldBounds);
 }
+
+void WaterSplash::CheckCollisionWithBombs()
+{
+	sf::FloatRect splashRect = hitBox.rect.getGlobalBounds();
+
+	auto waterBalloons = SCENE_MGR.GetCurrentScene()->FindGameObjects("bomb");
+	for (auto* obj : waterBalloons)
+	{
+		auto* balloon = dynamic_cast<WaterBalloon*>(obj);
+
+		if (!balloon || !balloon->GetActive())
+			continue;
+
+		sf::Vector2f balloonCenter = { balloon->GetGlobalBounds().left + balloon->GetGlobalBounds().width * 0.5f,
+								balloon->GetGlobalBounds().top + balloon->GetGlobalBounds().height * 0.5f };
+
+		if (splashRect.contains(balloonCenter))
+		{
+			balloon->Explode();
+		}
+	}
+}
+
 
 bool WaterSplash::IsCompletelyInside(const sf::FloatRect& inner, const sf::FloatRect& outer)
 {

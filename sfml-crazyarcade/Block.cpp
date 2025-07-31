@@ -483,7 +483,6 @@ bool Block::IsBlockedAtTarget()
 {
     Scene* curScene = SCENE_MGR.GetCurrentScene();
 
-    sf::FloatRect windowBounds = FRAMEWORK.GetWindowBounds();
     sf::FloatRect splashBounds = GetHitBox().rect.getGlobalBounds();
 
     sprite.setPosition(targetPos);
@@ -496,7 +495,10 @@ bool Block::IsBlockedAtTarget()
     };
 
     // KHI: Window
-    if (!windowBounds.contains(targetPosCenter))
+    constexpr int GRID_SIZE = 52;
+    const sf::FloatRect worldBounds(0.f, 0.f, 15 * GRID_SIZE, 13 * GRID_SIZE);
+
+    if (!worldBounds.contains(targetPosCenter))
     {
         return true;
     }
