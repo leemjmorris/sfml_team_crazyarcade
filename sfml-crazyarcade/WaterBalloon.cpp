@@ -161,14 +161,15 @@ void WaterBalloon::SpawnWaterSplash(WaterSplash::AnimType dir, int length)
 				splashObj->SetAnimType(dir);
 			}
 
-			splashObj->SetPosition(pos);
+			splashObj->SetPosition(pos); 
+			splashObj->Reset();
 
 			if (splashObj->CheckCollisionWithBlocks() || splashObj->CheckCollisionWithWindow())
 			{
 				WaterSplashPool::ReturnToPool(splashObj);
 				break;
 			}
-			splashObj->Reset();
+	
 			splashObj->PlayAnim();
 		}
 	}

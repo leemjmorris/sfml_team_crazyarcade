@@ -86,14 +86,18 @@ void WaterSplash::Reset()
 {
 	skillCountdown = SKILL_DURATION;
 	isCounting = true;
+
+	SetOrigin(Origins::MC);
+
+	hitBox.UpdateCustomTransform(waterSplash, { 42.f, 42.f }, Origins::MC);
 }
 
 void WaterSplash::Update(float dt)
 {
-	auto localBounds = waterSplash.getLocalBounds();
-	hitBox.UpdateCustomTransform(waterSplash, { localBounds.width, localBounds.height }, Origins::MC);
-
 	animator.Update(dt);
+
+	hitBox.UpdateCustomTransform(waterSplash, { 42.f, 42.f }, Origins::MC);
+
 
 	if (isCounting)
 	{ 
@@ -105,6 +109,10 @@ void WaterSplash::Update(float dt)
 
 	if (!animator.IsPlaying())
 	{
+		animator.Stop();
+		isCounting = false;
+		skillCountdown = SKILL_DURATION;
+
 		WaterSplashPool::ReturnToPool(this);
 	}
 }
@@ -235,8 +243,7 @@ void WaterSplash::CheckCollisionWithItems()
 
 bool WaterSplash::CheckCollisionWithBlocks()
 {
-	auto localBounds = waterSplash.getLocalBounds();
-	hitBox.UpdateCustomTransform(waterSplash, { localBounds.width, localBounds.height }, Origins::MC);
+	hitBox.UpdateCustomTransform(waterSplash, { 42.f, 42.f }, Origins::MC);
 
 	Scene* curScene = SCENE_MGR.GetCurrentScene();
 	auto gameObjects = curScene->FindGameObjects("Block");
@@ -270,8 +277,7 @@ bool WaterSplash::CheckCollisionWithBlocks()
 
 bool WaterSplash::CheckCollisionWithWindow()
 {
-	auto localBounds = waterSplash.getLocalBounds();
-	hitBox.UpdateCustomTransform(waterSplash, { localBounds.width, localBounds.height }, Origins::MC);
+	hitBox.UpdateCustomTransform(waterSplash, { 42.f, 42.f }, Origins::MC);
 
 	constexpr int GRID_SIZE = 52;
 	const sf::FloatRect worldBounds(0.f, 0.f, 15 * GRID_SIZE, 13 * GRID_SIZE);

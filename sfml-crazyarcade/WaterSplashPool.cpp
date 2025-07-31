@@ -4,7 +4,7 @@
 
 std::vector<WaterSplash*> WaterSplashPool::allObjects;
 std::queue<WaterSplash*> WaterSplashPool::readyObjects;
-int WaterSplashPool::initPoolSize = 100;
+int WaterSplashPool::initPoolSize = 500;
 Scene* WaterSplashPool::curScene = nullptr;
 
 WaterSplashPool::WaterSplashPool()
@@ -28,6 +28,7 @@ WaterSplash* WaterSplashPool::GetFromPool()
     WaterSplash* splash = readyObjects.front();
     readyObjects.pop();
     splash->SetActive(true);
+    splash->Reset();
     return splash;
 }
 
