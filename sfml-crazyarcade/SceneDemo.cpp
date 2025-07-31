@@ -161,9 +161,6 @@ void SceneDemo::Enter()
 	bazzi->SetPosition(Utils::GetPlayerSpawnPoint(0));	
 	dao->SetPosition(Utils::GetPlayerSpawnPoint(1));
 
-	std::cout << "Player 1 position: (" << bazzi->GetPosition().x << ", " << bazzi->GetPosition().y << ")" << std::endl;
-	std::cout << "Player 2 position: (" << dao->GetPosition().x	<< ", " << dao->GetPosition().y << ")" << std::endl;
-
 	goReadyRoom = false;
 	bazzi->SetEnter(true);
 	dao->SetEnter(true);
