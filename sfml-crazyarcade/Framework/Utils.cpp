@@ -513,7 +513,7 @@ void Utils::LoadSpawnPointsFromJson(Scene* scene, const void* spawnPointsJsonPtr
 
         if (playerIndex >= 0 && playerIndex < 2)
         {
-            PlayerSpawnPoints[playerIndex] = sf::Vector2f(x, y + 26.f);
+            PlayerSpawnPoints[playerIndex] = sf::Vector2f(x, y + 26.f); // LMJ: Change Player Spawn Position inside the Grid.
         }
     }
 }
@@ -525,9 +525,7 @@ sf::Vector2f Utils::GridToWorldPosition(int gridX, int gridY, int gridSize)
 
 void Utils::ClearMapObjects(Scene* scene)
 {
-    // LMJ: "Implementation depends on Scene's object management"
-    // LMJ: "This could remove all background and foreground objects"
-    // LMJ: "Left empty for now as it needs Scene's internal access"
+    // LMJ: Not using this part. Maybe for future, I dont know.
 }
 
 sf::Vector2f Utils::GetPlayerSpawnPoint(int playerIndex)
