@@ -1,12 +1,24 @@
 #include "stdafx.h"
 #include "GameSceneUI.h"
 
-GameSceneUI::GameSceneUI()
+GameSceneUI::GameSceneUI(const std::string& name)
+    :UiHud(name)
 {
 }
 
 void GameSceneUI::Init()
 {
+    exitButton = new Button("exitButton");
+    exitButton->SetActive(false);
+    exitButton->SetOnClick([=] {
+        exitButton->SetActive(!exitButton->GetActive());
+        if (exitButton->GetActive()) 
+            exitButton->SetActive(false);
+            SCENE_MGR.ChangeScene(SceneIds::Ready);
+        });
+
+    exitButton->SetButton("assets/ui/game/exitbutton.png", { 647.f, 561.f, 141.f, 32.f });
+
     // KHI: ShaderSettings
     colorMask.LoadFromFile("assets/shaders/transparent.frag");
     colorMask.SetMaskColor(sf::Color(255, 0, 255));
@@ -28,28 +40,32 @@ void GameSceneUI::Release()
 
 void GameSceneUI::Reset()
 {
-    SetActive(true);
+    exitButton->Reset();
 
     draftSprite.setTexture(TEXTURE_MGR.Get("assets/play_ui.png"));
 
     sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
     sf::Vector2u texSize = draftSprite.getTexture()->getSize();
-
     draftSprite.setScale(windowSize.x / texSize.x, windowSize.y / texSize.y);
     std::cout << texSize.x << ", " << texSize.y << std::endl;
-    SetOrigin(Origins::TL);
-    SetPosition({ 0, 0 });
-
-    sortingLayer = SortingLayers::UI;
+    draftSprite.setPosition({ 0, 0 });
 }
 
 void GameSceneUI::Update(float dt)
 {
+    auto& win = FRAMEWORK.GetWindow();
+    sf::View old = win.getView();
+    win.setView(win.getDefaultView());
 
+    exitButton->Update(dt);
+
+    win.setView(old);
 }
 
 void GameSceneUI::Draw(sf::RenderWindow& window)
 {
-    window.setView(window.getDefaultView());
-    colorMask.Apply(window, draftSprite);
+    //window.setView(window.getDefaultView());
+    //colorMask.Apply(window, draftSprite);
+
+    exitButton->Draw(window);
 }

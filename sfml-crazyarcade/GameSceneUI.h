@@ -1,12 +1,16 @@
 #pragma once
-#include "GameObject.h"
+#include "UiHud.h"
 #include "ColorMaskShader.h"
+#include "Button.h"
 
-class GameSceneUI : public GameObject
+class GameSceneUI : public UiHud
 {
 protected:
-	sf::Sprite draftSprite;
+	Button* exitButton;
+
 	ColorMaskShader colorMask;
+
+	sf::Sprite draftSprite;
 
 	//LSY : SceneDemo have same those
 	sf::Text textResult;
@@ -15,7 +19,7 @@ protected:
 
 	sf::FloatRect worldBounds = FRAMEWORK.GetWindowBounds();
 public:
-	GameSceneUI();
+	GameSceneUI(const std::string& name);
 	~GameSceneUI() = default;
 
 	void Init() override;

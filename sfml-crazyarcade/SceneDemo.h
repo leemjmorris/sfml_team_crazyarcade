@@ -15,7 +15,7 @@ protected:
 	bool isShowingText = false;
 	float readyRoomTimer = 0.f;
 
-	sf::FloatRect clickableArea = sf::FloatRect(647.f,561.f,141.f, 32.f);
+	//sf::FloatRect clickableArea = sf::FloatRect(647.f,561.f,141.f, 32.f);
 
 	const int GRID_HEIGHT = 13;
 	const int GRID_WIDTH = 15;

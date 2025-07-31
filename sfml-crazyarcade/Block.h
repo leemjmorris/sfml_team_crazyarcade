@@ -57,8 +57,6 @@ protected:
     static std::vector<BlockInfo> blockRegistry;
     static bool registryInitialized;
 
-    int registryIndex = -1;
-
     // KHI: about HitBox
     HitBox hitBox;
     sf::Vector2f hitBoxSize = { 52.f, 52.f };
@@ -71,7 +69,7 @@ public:
     // LMJ: "Static default item spawn probability"
     static float defaultItemSpawnProbability;
 
-    Block(const std::string& name = "");
+    Block(const std::string& name = "Block");
     ~Block() = default;
 
     // LMJ: "GameObject interface"
