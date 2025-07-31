@@ -5,14 +5,16 @@
 #include "CharacterStats.h"
 #include "MapCollisionBuilder.h"
 #include "WaterBalloon.h"
+constexpr float slidePixelsPerSecond = 80.f;
+constexpr float tileSize = 52.f;
 
-enum class AnimState { Ready, Normal, Trapped, Dead, Live, Win};
+enum class AnimState { Ready, Normal, Trapped, Dead, Live, Win };
 
 class Player :
 	public GameObject
 {
 protected:
-	WaterBalloon* spawnBalloon;
+	std::unordered_set<WaterBalloon*> passThroughBombs;
 
 	float curSpeed;
 	int balloonCapacity;
@@ -41,25 +43,31 @@ protected:
 	bool gameOverStarted = false;
 	bool atBalloon = false;
 	bool isStart = false;
-	bool isAnotherDead =false;
+	bool isAnotherDead = false;
 	bool isDead;
 	bool isDraw;
-	bool isAnotherEscapeFailed =false;
+	bool isAnotherEscapeFailed = false;
 	bool isPop = false;
-
+	bool slidePlayer = false;
 	sf::Vector2f playerHitBoxSize = { 30.f, 30.f }; // KHI
-	sf::Vector2f playerHitBoxOffset = { 0.f, 20.f }; // KHIs
+	sf::Vector2f playerHitBoxOffset = { 0.f, 10.f }; // KHI
 	HitBox hitBox;
 
 	std::vector<TileHitBox> mapData;
+
+	float pushCount = 0.4f;
+	float pushedCount = 0.f;
 
 public:
 	Player(const std::string& name, CharacterID id, int index);
 	~Player();
 	void PlayerEvent(float dt);
 	void OnBalloonExploded();
+	void RefreshPassThroughSet();
 	bool CanPlaceBalloon() const;
 	bool CheckInstallWaterballoon();
+	bool CollectObstacleRects(std::vector<sf::FloatRect>& outRects);
+	size_t GetCollidedObstacleInfo(sf::FloatRect& outBounds);
 	bool HandleBubbleDeath(AnimState s);
 	void PlayMoveAnimation()
 	{
@@ -79,19 +87,19 @@ public:
 			}
 		}
 	}
-	void AddSpeed(float s =1);
-	void AddWaterBalloonCount(int c =1);
-	void AddWaterBalloonLength(int l =1);
+	void AddSpeed(float s = 1);
+	void AddWaterBalloonCount(int c = 1);
+	void AddWaterBalloonLength(int l = 1);
 	void SetGameOver(bool t, bool l, float dt);
 	void SetEnter(bool t)
 	{
-		animator.Play("animation/bazzi_ready.csv",true);
+		animator.Play("animation/bazzi_ready.csv", true);
 		animator.PlayQueue("animation/bazzi_ready2.csv");
 		animator.PlayQueue("animation/bazzi_ready2.csv");
 		animator.PlayQueue("animation/bazzi_ready2.csv");
 		animator.PlayQueue("animation/bazzi_ready2.csv");
 		animator.PlayQueue("animation/bazzi_ready2.csv");
-		
+
 		animState = AnimState::Ready;
 		isStart = t;
 	}
@@ -101,7 +109,6 @@ public:
 	const int GetWaterBalloonLength() { return activeWaterBalloonLength; };
 	AnimState GetPlayerState() { return animState; };
 	void SetMapData(const std::vector<TileHitBox>& data) { mapData = data; }
-	void ClearspawnBalloonBomb(WaterBalloon* b);
 
 	void Init() override;
 	void Release() override;
@@ -115,10 +122,11 @@ public:
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
 
-	bool CheckCollWithBalloon(); // LSY
 	void CheckCollWithSplash(); // KHI
 	void Movement(float dt); // KHI
-	bool GetCollidedTileInfo(sf::FloatRect& outTileBounds); // KHI
+	size_t GetCollidedTileInfo(sf::FloatRect& outTileBounds);
+	Block* GetCollidedBlock();
+	//bool GetCollidedTileInfo(sf::FloatRect& outTileBounds); // KHI
 
 	sf::FloatRect GetGlobalBounds() const
 	{

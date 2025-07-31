@@ -1,5 +1,8 @@
 #pragma once
 #include "SpriteGo.h"
+#include "ColorMaskShader.h"
+#include "HitBox.h"   // KHI
+#include "Animator.h" // KHI
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
@@ -53,6 +56,16 @@ protected:
     // LMJ: "Static registry for block management"
     static std::vector<BlockInfo> blockRegistry;
     static bool registryInitialized;
+
+    int registryIndex = -1;
+
+    // KHI: about HitBox
+    HitBox hitBox;
+    sf::Vector2f hitBoxSize = { 52.f, 52.f };
+    sf::Vector2f hitBoxOffset = { 0.f, 0.f };
+
+    Animator animator; // KHI
+    bool hasAnimStarted = false; // KHI
 
 public:
     // LMJ: "Static default item spawn probability"
@@ -129,4 +142,22 @@ public:
     // LMJ: "JSON serialization methods"
     static json ToJson(const Block* block, int registryIndex);
     static Block* FromJson(const json& j);
+
+    // KHI --------
+    void PlayExitAnim();
+
+    sf::Vector2f originPos = { 0.f, 0.f };
+    sf::Vector2f targetPos = { 0.f, 0.f };
+    bool isMoving = false;
+    void PushBlock(sf::Vector2f dir);
+    void Movement(float dt);
+    bool IsBlockedAtTarget();
+
+    const HitBox& GetHitBox() const
+    {
+        return hitBox;
+    }
+
+    public:
+    bool GetIsMoving() const { return isMoving; }
 };

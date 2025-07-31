@@ -8,7 +8,7 @@ SceneReady::SceneReady()
 
 void SceneReady::Init()
 {
-	texIds.push_back("assets/lobby_scene_bg.bmp");
+	texIds.push_back("assets/lobby_bg.png");
 
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 	worldView.setSize(windowSize);
@@ -16,13 +16,25 @@ void SceneReady::Init()
 
 	TEXTURE_MGR.Load(texIds);
 
+	//Button::LoadHitMask("Assets/UI/lobbyColorMap.png", { 0.f, 0.f }, { 1.f, 1.f });
+
+	/*auto btnMap = ui.Add<Button>("btnMap");
+	btnMap->SetButton({ 120.f, 50.f }, sf::Color{ 40, 144, 240 },
+		"Fonts/NanumGothic.ttf", sf::Color::Black, 2.f);
+	btnMap->SetPosition({ 610.f, 420.f });
+	btnMap->SetText("¢¬?¨ù¡¾??");
+	btnMap->UseBackground(false);
+	btnMap->SetOnClick([this]() { OpenMapSelectPopup(); });*/
+	ui = new lobbyUi("loobyUi");
+	ui->Init();
+
 	Scene::Init();
 }
 
 void SceneReady::Enter()
 {
 	TEXTURE_MGR.Load(texIds);
-	sf::Texture& bgTexture = TEXTURE_MGR.Get("assets/lobby_scene_bg.bmp");
+	sf::Texture& bgTexture = TEXTURE_MGR.Get("assets/lobby_bg.png");
 	bgSprite.setTexture(bgTexture);
 
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
@@ -45,11 +57,11 @@ void SceneReady::Enter()
 
 void SceneReady::Update(float dt)
 {
-	if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
-	{
-		SCENE_MGR.ChangeScene(SceneIds::Demo);
-	}
-
+	//if (InputMgr::GetMouseButtonDown(sf::Mouse::Left)) // && readyButton.Contains(mousePos)
+	//{
+	//	//SCENE_MGR.ChangeScene(SceneIds::Demo);
+	//}
+	ui->Update(dt);
 	Scene::Update(dt);
 }
 
@@ -57,6 +69,7 @@ void SceneReady::Draw(sf::RenderWindow& window)
 {
 	window.setView(worldView);
 	window.draw(bgSprite);
-
+	window.setView(window.getDefaultView());
+	ui->Draw(window);
 	Scene::Draw(window);
 }

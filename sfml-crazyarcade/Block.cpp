@@ -2,6 +2,7 @@
 #include "Block.h"
 #include "Item.h"
 #include "Scene.h"
+#include "Player.h"
 
 // LMJ: "Default item spawn probability (50%)" 
 float Block::defaultItemSpawnProbability = 0.5f;
@@ -80,6 +81,10 @@ void Block::SetBlockProperties(bool destroyable, bool hidable, bool movable, boo
 void Block::Init()
 {
     SpriteGo::Init();
+
+    ANI_CLIP_MGR.Load("animation/block_destroy.csv"); // KHI 
+
+    animator.SetTarget(&sprite); // KHI
 }
 
 void Block::Release()
@@ -97,15 +102,35 @@ void Block::Reset()
     sprite.setTextureRect(textureRect);
 
     SetOrigin(Origins::BC);
+    hasAnimStarted = false;
 }
 
 void Block::Update(float dt)
 {
     SpriteGo::Update(dt);
+
+    // KHI: Update HitBox
+    hitBox.UpdateCustomTransform(sprite, hitBoxSize, hitBoxOffset, Origins::BC);
+
+    // KHI: Update Animation
+    animator.Update(dt);
+
+    if (!animator.IsPlaying() && hasAnimStarted)
+    {
+        Scene* curScene = SCENE_MGR.GetCurrentScene();
+        this->DestroyBlock(curScene);
+        hasAnimStarted = false;
+    }
+
+    if (isMoving)
+    {
+        Movement(dt);
+    }
 }
 
 void Block::Draw(sf::RenderWindow& window)
 {
+    hitBox.Draw(window);
     SpriteGo::Draw(window);
 }
 
@@ -124,8 +149,10 @@ void Block::DestroyBlock(Scene* scene)
         Item::ItemType itemType = static_cast<Item::ItemType>(randomItemType);
 
         // LMJ: "Spawn item at block position using existing SpawnItem method"
-        std::string itemName = "SpawnedItem_" + std::to_string(rand());
+        std::string itemName = "item";
         Item::SpawnItem(itemName, itemType, blockPosition);
+
+        std::cout << "Block position : " << blockPosition.x << ", " << blockPosition.y << std::endl;
     }
 
     // LMJ: "Deactivate the block (will be removed by scene)"
@@ -396,4 +423,106 @@ Block* Block::FromJson(const json& j)
         //std::cerr << "Error loading block from JSON: " << e.what() << std::endl;
         return nullptr;
     }
+}
+
+// KHI
+void Block::PlayExitAnim()
+{
+    animator.Play("animation/block_destroy.csv");
+    hasAnimStarted = true;
+}
+
+// KHI
+void Block::PushBlock(sf::Vector2f dir)
+{
+    originPos = GetPosition();
+    targetPos = originPos + (dir * 52.f);
+
+    if (IsBlockedAtTarget())
+    {
+        isMoving = false;
+    }
+    else
+    {
+        isMoving = true;
+    }
+
+    sprite.setPosition(originPos);
+}
+
+// KHI
+void Block::Movement(float dt)
+{
+    sf::Vector2f currentPos = GetPosition();
+    sf::Vector2f toTarget = targetPos - currentPos;
+    float distance = Utils::Magnitude(toTarget);
+
+    float moveAmount = 150 * dt;
+
+    if (distance <= moveAmount)
+    {
+        SetPosition(targetPos);
+        isMoving = false;
+    }
+    else
+    {
+        sf::Vector2f moveDir = Utils::GetNormal(toTarget);
+        SetPosition(currentPos + moveDir * moveAmount);
+    }
+}
+
+// KHI
+bool Block::IsBlockedAtTarget()
+{
+    Scene* curScene = SCENE_MGR.GetCurrentScene();
+
+    sf::FloatRect windowBounds = FRAMEWORK.GetWindowBounds();
+    sf::FloatRect splashBounds = GetHitBox().rect.getGlobalBounds();
+
+    sprite.setPosition(targetPos);
+    hitBox.UpdateCustomTransform(sprite, hitBoxSize, hitBoxOffset, Origins::BC);
+    sf::FloatRect targetBounds = hitBox.GetGlobalBounds();
+
+    sf::Vector2f targetPosCenter = {
+        targetBounds.left + targetBounds.width * 0.5f,
+        targetBounds.top + targetBounds.height * 0.5f
+    };
+
+    // KHI: Window
+    if (!windowBounds.contains(targetPosCenter))
+    {
+        return true;
+    }
+
+    // KHI: Block
+    auto gameObjects = curScene->FindGameObjects("Block");
+    for (auto* obj : gameObjects)
+    {
+        Block* block = dynamic_cast<Block*>(obj);
+        if (!block || block == this || !block->GetActive())
+        {
+            continue;
+        }
+
+        sf::FloatRect blockBounds = block->GetHitBox().GetGlobalBounds();
+        if (blockBounds.contains(targetPosCenter))
+        {
+            return true;
+        }
+    }
+
+    // KHI: Player
+    auto players = curScene->FindGameObjects("Player");
+    for (auto* obj : players)
+    {
+        Player* player = dynamic_cast<Player*>(obj);
+
+        sf::FloatRect playerBounds = player->GetHitBox().GetGlobalBounds();
+        if (playerBounds.contains(targetPosCenter))
+        {
+            return true;
+        }
+    }
+
+    return false;
 }

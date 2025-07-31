@@ -78,7 +78,7 @@ bool Player::CheckInstallWaterballoon()
 	else
 		std::cout << "Player 2  activeBalloons:" << activeBalloons << ", balloonCapacity: " << balloonCapacity << std::endl;
 
-	spawnBalloon = b;
+	passThroughBombs.insert(b);
 	++activeBalloons;
 	return true;
 }
@@ -209,6 +209,7 @@ void Player::Update(float dt)
 	}
 	else
 	{
+		RefreshPassThroughSet();
 		Movement(dt);
 	}
 	animator.Update(dt);
@@ -253,51 +254,6 @@ inline sf::Vector2i ToGrid(const sf::Vector2f& worldPos)
 	return { int(worldPos.x / 52), int(worldPos.y / 52) };
 }
 
-bool Player::CheckCollWithBalloon()
-{
-	sf::FloatRect playerBounds = hitBox.rect.getGlobalBounds();
-
-	if (spawnBalloon && spawnBalloon->GetActive())
-	{
-		if (spawnBalloon->GetGlobalBounds().intersects(playerBounds))
-		{
-			//std::cout << "collision" << std::endl;
-			return false;
-		}
-
-		spawnBalloon = nullptr;
-		return false;
-	}
-
-	auto balloons = SCENE_MGR.GetCurrentScene()->FindGameObjects("bomb");
-	for (auto* obj : balloons)
-	{
-		WaterBalloon* b = dynamic_cast<WaterBalloon*>(obj);
-		if (!b || !b->GetActive()) continue;
-		if (b->GetGlobalBounds().intersects(playerBounds))
-			return true;
-	}
-	return false;
-
-	//auto waterBalloons = SCENE_MGR.GetCurrentScene()->FindGameObjects("bomb");
-	//if(atBalloon)
-	//	return false; // LSY: if player is at balloon, then no need to check collision with balloon
- //   sf::FloatRect playerBounds = hitBox.rect.getGlobalBounds();
- //   for (auto* obj : waterBalloons)
- //   {
- //       WaterBalloon* balloonObj = dynamic_cast<WaterBalloon*>(obj);
- //       if (!balloonObj || !balloonObj->GetActive())
- //           continue;
-
- //       if (balloonObj->GetGlobalBounds().intersects(playerBounds))
- //       {
-	//		atBalloon = true;
- //           return true;
- //       }
- //   }
-	//return false;
-}
-
 void Player::CheckCollWithSplash()
 {
 	if (animState == AnimState::Trapped)
@@ -322,9 +278,64 @@ void Player::CheckCollWithSplash()
 	}
 }
 
-void Player::ClearspawnBalloonBomb(WaterBalloon* b)
+
+void Player::RefreshPassThroughSet()
 {
-	if (spawnBalloon == b) spawnBalloon = nullptr;
+	sf::FloatRect me = hitBox.rect.getGlobalBounds();
+
+	for (auto it = passThroughBombs.begin(); it != passThroughBombs.end(); )
+	{
+		WaterBalloon* wb = *it;
+
+
+		bool stillOverlap = wb->GetActive() &&
+			wb->GetGlobalBounds().intersects(me);
+
+		if (!stillOverlap)
+			it = passThroughBombs.erase(it);
+		else
+			++it;
+	}
+}
+
+bool Player::CollectObstacleRects(std::vector<sf::FloatRect>& outRects)
+{
+	Scene* cur = SCENE_MGR.GetCurrentScene();
+
+	for (auto* obj : cur->FindGameObjects("Block"))
+	{
+		Block* blk = dynamic_cast<Block*>(obj);
+		if (blk && blk->GetActive() && blk->IsDestroyable())
+			outRects.push_back(blk->GetHitBox().GetGlobalBounds());
+	}
+
+	for (auto* obj : cur->FindGameObjects("bomb"))
+	{
+		auto* wb = dynamic_cast<WaterBalloon*>(obj);
+		if (!wb || !wb->GetActive()) continue;
+
+		if (passThroughBombs.count(wb)) continue;
+		outRects.push_back(wb->GetGlobalBounds());
+
+	}
+	return !outRects.empty();
+}
+
+size_t Player::GetCollidedObstacleInfo(sf::FloatRect& outBounds)
+{
+	std::vector<sf::FloatRect> rects;
+	CollectObstacleRects(rects);
+
+	size_t cnt = 0;
+	for (auto& r : rects)
+	{
+		if (hitBox.rect.getGlobalBounds().intersects(r))
+		{
+			outBounds = r;
+			++cnt;
+		}
+	}
+	return cnt;
 }
 
 // KHI
@@ -332,6 +343,7 @@ void Player::Movement(float dt)
 {
 	if (animState == AnimState::Win || animState == AnimState::Dead)
 		return;
+
 
 	if (animState == AnimState::Live || animState == AnimState::Trapped)
 	{
@@ -341,8 +353,7 @@ void Player::Movement(float dt)
 		sf::Vector2f currentPos = GetPosition();
 		sf::Vector2f tempPos = currentPos;
 
-		const float correction = curSpeed * 0.3f * dt; // KHI: Distance to nudge the player during collision (slide correction offset)
-		const float tileSize = 52.f;
+		const float correction = slidePixelsPerSecond * dt; // KHI: Distance to nudge the player during collision (slide correction offset)
 
 		// KHI: Get Player Center
 		sf::FloatRect bounds = hitBox.rect.getGlobalBounds();
@@ -352,22 +363,30 @@ void Player::Movement(float dt)
 		};
 
 		sf::FloatRect collidedBounds;
+		bool collX = false;
+		bool collY = false;
+		Block* collidedBlockX = nullptr;
+		Block* collidedBlockY = nullptr;
 
 		// KHI: Move X
 		sf::Vector2f tryX = currentPos + sf::Vector2f(dir.x * curSpeed * dt, 0.f);
 		sprite.setPosition(tryX);
 		hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
-		bool collidedX = GetCollidedTileInfo(collidedBounds);
+		//size_t collidedX = GetCollidedTileInfo(collidedBounds);
+		size_t collidedX = GetCollidedObstacleInfo(collidedBounds);
 
-		if (!collidedX)
+		if (collidedX == 0)
 		{
 			tempPos.x = tryX.x;
 		}
-		else
+		else if (collidedX == 1)
 		{
+			collX = true;
+			collidedBlockX = GetCollidedBlock();
+
 			float third = tileSize / 3.f;
-			float upper = collidedBounds.top + third * 1;
-			float lower = collidedBounds.top + third * 2;
+			float upper = collidedBounds.top + third * 0.2;
+			float lower = collidedBounds.top + third * 2.8;
 
 			if (playerCenter.y < upper)
 			{
@@ -377,31 +396,28 @@ void Player::Movement(float dt)
 			{
 				tempPos.y += correction;
 			}
-
-			//sf::Vector2f retryX = tempPos + sf::Vector2f(dir.x * curSpeed * dt, 0.f);
-			//sprite.setPosition(retryX);
-			//hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
-			//if (!GetCollidedTileInfo(collidedBounds))
-			//{
-			//	tempPos.x = retryX.x;
-			//}
+			slidePlayer = true;
 		}
 
 		// KHI: Move Y
 		sf::Vector2f tryY = tempPos + sf::Vector2f(0.f, dir.y * curSpeed * dt);
 		sprite.setPosition(sf::Vector2f(tempPos.x, tryY.y));
 		hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
-		bool collidedY = GetCollidedTileInfo(collidedBounds);
+		//size_t collidedY = GetCollidedTileInfo(collidedBounds);
+		size_t collidedY = GetCollidedObstacleInfo(collidedBounds);
 
-		if (!collidedY)
+		if (collidedY == 0 && !slidePlayer)
 		{
 			tempPos.y = tryY.y;
 		}
-		else
+		else if (collidedY == 1)
 		{
+			collY = true;
+			collidedBlockY = GetCollidedBlock();
+
 			float third = tileSize / 3.f;
-			float left = collidedBounds.left + third * 1;
-			float right = collidedBounds.left + third * 2;
+			float left = collidedBounds.left + third * 0.2;
+			float right = collidedBounds.left + third * 2.8;
 
 			if (playerCenter.x < left)
 			{
@@ -411,20 +427,36 @@ void Player::Movement(float dt)
 			{
 				tempPos.x += correction;
 			}
+			slidePlayer = true;
+		}
+		slidePlayer = false;
 
-			//sf::Vector2f retryY = tempPos + sf::Vector2f(0.f, dir.y * curSpeed * dt);
-			//sprite.setPosition(sf::Vector2f(tempPos.x, retryY.y));
-			//hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
-			//if (!GetCollidedTileInfo(collidedBounds))
-			//{
-			//	tempPos.y = retryY.y;
-			//}
+		bool hasInput = (InputMgr::GetAxisRaw(vAxis) != 0 || InputMgr::GetAxisRaw(hAxis) != 0);
+		bool collided = collX || collY;
+		Block* targetBlock = (collidedBlockX != nullptr) ? collidedBlockX : collidedBlockY;
+
+		if (collided && hasInput)
+		{
+			pushedCount += dt;
+
+			if (pushedCount >= pushCount)
+			{
+				if (targetBlock && targetBlock->IsMovable() && !targetBlock->GetIsMoving())
+				{
+					targetBlock->PushBlock(dir);
+				}
+				pushedCount = 0.f;
+			}
+		}
+		else
+		{
+			pushedCount = 0.f;
 		}
 
 		SetPosition(tempPos);
 		float tempSpeed = GetSpeed();
-		if(animState == AnimState::Live)
-		SetScale({ dir.x < 0 ? -1.f : dir.x > 0 ? 1.f : sprite.getScale().x, 1.f });
+		if (animState == AnimState::Live)
+			SetScale({ dir.x < 0 ? -1.f : dir.x > 0 ? 1.f : sprite.getScale().x, 1.f });
 
 		if (animState == AnimState::Trapped)
 		{
@@ -437,24 +469,79 @@ void Player::Movement(float dt)
 	}
 }
 
-// KHI
-bool Player::GetCollidedTileInfo(sf::FloatRect& outTileBounds)
+// LSY: hange return value : bool -> size_t for counting
+
+size_t Player::GetCollidedTileInfo(sf::FloatRect& outTileBounds)
 {
 	Scene* curScene = SCENE_MGR.GetCurrentScene();
+	Block* block = dynamic_cast<Block*>(obj);
 	auto gameObjects = curScene->FindGameObjects("Block");
-
+	size_t cnt = 0;
 	for (auto* obj : gameObjects)
 	{
 		Block* block = dynamic_cast<Block*>(obj);
 		if (block && block->IsDestroyable())
 		{
-			sf::FloatRect blockBounds = block->GetGlobalBounds();
+			sf::FloatRect blockBounds = block->GetHitBox().GetGlobalBounds();
 			if (hitBox.rect.getGlobalBounds().intersects(blockBounds))
 			{
-				outTileBounds = blockBounds;
-				return true;
+				if (block && block->GetActive() && block->IsDestroyable())
+				{
+					outTileBounds = blockBounds;
+					cnt++;
+				}
 			}
 		}
 	}
-	return false;
+	return cnt;
 }
+
+Block* Player::GetCollidedBlock()
+{
+	Scene* curScene = SCENE_MGR.GetCurrentScene();
+	auto gameObjects = curScene->FindGameObjects("Block");
+
+	sf::FloatRect playerBounds = hitBox.rect.getGlobalBounds();
+
+	for (auto* obj : gameObjects)
+	{
+		Block* block = dynamic_cast<Block*>(obj);
+		if (!block || !block->GetActive())
+		{
+			continue;
+		}
+
+		if (playerBounds.intersects(block->GetHitBox().GetGlobalBounds()))
+		{
+			return block;
+		}
+	}
+
+	return nullptr;
+}
+
+
+//  //KHI(ver)
+//bool Player::GetCollidedTileInfo(sf::FloatRect& outTileBounds)
+// {
+//Scene* curScene = SCENE_MGR.GetCurrentScene();
+//auto gameObjects = curScene->FindGameObjects("Block");
+//
+//for (auto* obj : gameObjects)
+//{
+//	Block* block = dynamic_cast<Block*>(obj);
+//	if (block && block->IsDestroyable())
+//	{
+//		sf::FloatRect blockBounds = block->GetHitBox().GetGlobalBounds();
+//		if (hitBox.rect.getGlobalBounds().intersects(blockBounds))
+//		{
+//			if (block && block->GetActive() && block->IsDestroyable())
+//			{
+//				outTileBounds = blockBounds;
+//				return true;
+//			}
+//		}
+// 	 } 
+//}
+// return false; 
+//}

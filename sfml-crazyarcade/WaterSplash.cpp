@@ -81,10 +81,13 @@ void WaterSplash::Reset()
 
 void WaterSplash::Update(float dt)
 {
+	auto localBounds = waterSplash.getLocalBounds();
+	hitBox.UpdateCustomTransform(waterSplash, { localBounds.width, localBounds.height }, Origins::MC);
+
 	animator.Update(dt);
 
 	if (isCounting)
-	{
+	{ 
 		UpdateSkillDuration(dt);
 	}
 
@@ -94,8 +97,6 @@ void WaterSplash::Update(float dt)
 	{
 		WaterSplashPool::ReturnToPool(this);
 	}
-
-	hitBox.UpdateTransform(waterSplash, waterSplash.getLocalBounds());
 }
 
 void WaterSplash::Draw(sf::RenderWindow& window)
@@ -216,9 +217,18 @@ void WaterSplash::CheckCollisionWithItems()
 
 	for (Item* item : Item::allItems)
 	{
-		if (item == nullptr) continue;
+		if (item == nullptr) 
+			continue;
 
-		if (Utils::CheckCollision(hitBox.rect, item->GetHitBox().rect))
+		if (!item->GetCanDestroy()) 
+			continue;
+
+		sf::Vector2f itemCenter = { item->GetHitBox().rect.getGlobalBounds().left + item->GetHitBox().rect.getGlobalBounds().width * 0.5f,
+									item->GetHitBox().rect.getGlobalBounds().top + item->GetHitBox().rect.getGlobalBounds().height * 0.5f };
+
+		sf::FloatRect splashRect = hitBox.rect.getGlobalBounds();
+
+		if (splashRect.contains(itemCenter))
 		{
 			item->SetActive(false);
 		}
@@ -231,8 +241,6 @@ bool WaterSplash::CheckCollisionWithBlocks()
 {
 	hitBox.UpdateCustomTransform(waterSplash, { 42.f, 42.f }, Origins::MC, { 0.f, 0.f });
 
-	blockCollData = dynamic_cast<SceneDemo*>(SCENE_MGR.GetCurrentScene())->GetCollData();
-
 	Scene* curScene = SCENE_MGR.GetCurrentScene();
 	auto gameObjects = curScene->FindGameObjects("Block");
 
@@ -242,15 +250,26 @@ bool WaterSplash::CheckCollisionWithBlocks()
 		if (block && block->IsDestroyable())
 		{
 			sf::FloatRect blockRect = block->GetGlobalBounds();
-			/*sf::Vector2f  blockCenter = block->GetPosition();
-			sf::FloatRect blockRect(blockCenter.x - 26.f, blockCenter.y - 52.f, 52.f, 52.f);*/
 
 			if (IsCompletelyInside(hitBox.rect.getGlobalBounds(), blockRect))
 			{
-				block->DestroyBlock(curScene);
+				block->PlayExitAnim(); // KHI: Destroy the object after the block destruction animation ends
 				return true;
 			}
 		}
+	}
+
+	return false;
+}
+
+bool WaterSplash::CheckCollisionWithWindow()
+{
+	sf::FloatRect windowBounds = FRAMEWORK.GetWindowBounds();
+	sf::FloatRect splashBounds = GetHitBox().rect.getGlobalBounds();
+
+	if (!windowBounds.intersects(splashBounds))
+	{
+		return true;
 	}
 
 	return false;

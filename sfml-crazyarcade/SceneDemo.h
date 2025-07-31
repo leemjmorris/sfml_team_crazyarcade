@@ -28,7 +28,6 @@ protected:
 	Player* dao;
 	Item* item;
 	sf::FloatRect worldBounds = FRAMEWORK.GetWindowBounds();
-	//sf::FloatRect worldBounds = { 0, 780, 0, 676 };
 	std::vector<GameObject*> objectsNeedingClamp;
 
 	GameSceneUI* ui;
@@ -43,9 +42,6 @@ protected:
 	int blockLayer[13][15] = { 0 };
 
 	ColorMaskShader colorMask;
-
-	std::vector<TileHitBox> collData;
-	std::unique_ptr<MapCollisionBuilder> collBuilder;
 
 	// KHI: For Testing
 	bool toggleActiveDebugDraw = false;
@@ -63,7 +59,6 @@ public:
 	void Exit() override;
 
 	void ClampToBounds(GameObject& obj);
-	const std::vector<TileHitBox>& GetCollData() const { return collData; }
 
 	// KHI: For TEST !!!
 	bool CheckCollisionWithPlayer(float dt);

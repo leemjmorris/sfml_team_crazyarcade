@@ -14,14 +14,13 @@ protected:
 	sf::Sprite balloon;
 	Animator animator;
 
-	float countdownTime = 4.f;
+	float countdownTime = 2.f;
 	float currentTime = 0;
 	bool isCounting = false;
-	bool active = true;
 	int splashLength = 1;
 
-	sf::Vector2f balloonHitBoxSize = { 50.f, 50.f }; // LSY:
-	sf::Vector2f balloonHitBoxOffset = { 0.f, 25.f }; // LSY: 
+	sf::Vector2f balloonHitBoxSize = { 52.f, 52.f }; // LSY:
+	sf::Vector2f balloonHitBoxOffset = { 0.f, 0.f }; // LSY: 
 
 	static const int GRID_SIZE = 52;
 	static inline int GridKey(int gx, int gy) { return gy * 100 + gx; }

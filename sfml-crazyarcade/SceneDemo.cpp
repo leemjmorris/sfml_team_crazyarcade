@@ -59,6 +59,9 @@ void SceneDemo::Init()
 	texIds.push_back("assets/player/bazzi/flash_short.png");
 	texIds.push_back("assets/play_bg.bmp");
 
+	// KHI: Effect
+	texIds.push_back("assets/map/common_block.png");
+
 	// LMJ: "Load forest tileset texture for map loading (same as MapEditor)"
 	texIds.push_back(PATH_MAP_FOREST_TILE "forest_tile_set.png");
 
@@ -89,8 +92,8 @@ void SceneDemo::Init()
 	ANI_CLIP_MGR.Load("animation/bazzi_ready.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_ready2.csv");
 
-	bazzi = static_cast<Player*>(AddGameObject(new Player("Bazzi", CharacterID::BAZZI, 0)));
-	dao = static_cast<Player*>(AddGameObject(new Player("Dao", CharacterID::DAO, 1)));
+	bazzi = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::BAZZI, 0)));
+	dao = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 1)));
 
 	objectsNeedingClamp.push_back(bazzi);
 	objectsNeedingClamp.push_back(dao);
@@ -140,15 +143,13 @@ void SceneDemo::Enter()
 	WaterSplashPool::SetCurScene(SCENE_MGR.GetCurrentScene());
 	WaterSplashPool::Init();
 
-	Item::SpawnItem("item", Item::ItemType::Balloon, { 200.f, 200.f });
-	Item::SpawnItem("item", Item::ItemType::Speed, { 300.f, 200.f });
-	Item::SpawnItem("item", Item::ItemType::WaterJet, { 400.f, 200.f });
-
 	std::cout << "===================" << std::endl;
 	std::cout << "     SceneDemo" << std::endl;
 	std::cout << "===================" << std::endl;
 
 	// LMJ: Load map from JSON file created in MapEditor
+	auto blocks = FindGameObjects("Block");
+	for (auto* obj : blocks) RemoveGameObject(obj);
 	if (!LOAD_MAP(this, "DemoMap.json"))
 	{
 		std::cout << "Failed to load DemoMap.json, using default positions..." << std::endl;
@@ -170,20 +171,13 @@ void SceneDemo::Enter()
 	dao->SetEnter(true);
 
 	// LMJ: Initialize collision system
-	for (int y = 0; y < 13; ++y)
-	{
-		for (int x = 0; x < 15; ++x)
-		{
-			blockLayer[y][x] = Utils::CollBlockLayer[y][x];
-		}
-	}
-
-	collBuilder = std::make_unique<MapCollisionBuilder>(blockLayer);
-	collBuilder->CreateCollisionHitBox();
-	collData = collBuilder->GetTileHitBoxes();
-
-	bazzi->SetMapData(collData);
-	dao->SetMapData(collData);
+	//for (int y = 0; y < 13; ++y)
+	//{
+	//	for (int x = 0; x < 15; ++x)
+	//	{
+	//		blockLayer[y][x] = Utils::CollBlockLayer[y][x];
+	//	}
+	//}
 }
 
 void SceneDemo::Update(float dt)
@@ -245,11 +239,23 @@ void SceneDemo::Update(float dt)
 			SCENE_MGR.ChangeScene(SceneIds::Ready);
 		}
 	}
+
 	Scene::Update(dt);
 }
 
 void SceneDemo::Exit()
 {
+	// KHI: delete balloons
+	auto balloons = FindGameObjects("bomb");
+	for (auto* obj : balloons)
+	{
+		WaterBalloon* b = dynamic_cast<WaterBalloon*>(obj);
+		if (b->GetActive() == false)
+		{
+			RemoveGameObject(obj);
+		}
+	}
+
 	auto items = FindGameObjects("item");
 
 	for (auto* obj : items)
@@ -259,6 +265,10 @@ void SceneDemo::Exit()
 	isShowingText = false;
 	goReadyRoom = false;
 	readyRoomTimer = 0.f;
+
+	auto blocks = FindGameObjects("Block");
+	for (auto* obj : blocks)
+		RemoveGameObject(obj);
 
 	bazzi->Reset();
 	dao->Reset();
@@ -285,7 +295,6 @@ void SceneDemo::Draw(sf::RenderWindow& window)
 	if (toggleActiveDebugDraw)
 	{
 		window.draw(gridLines);
-		collBuilder->DrawDebugHitBox(window);
 	}
 
 	if (isShowingText)

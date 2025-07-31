@@ -82,7 +82,7 @@ public:
 	static sf::Vector2f GetDefaultSpawnPoint(int playerIndex);  // LMJ: Fallback positions
 
 	// KHI: Map-related data converted into layer array
-	static int CollBlockLayer[13][15]; // Will separate into detailed layers based on block properties later
+	//static int CollBlockLayer[13][15]; // Will separate into detailed layers based on block properties later
 
 	// LMJ: Spawn point storage for other scenes to access
 	static std::vector<sf::Vector2f> PlayerSpawnPoints;
