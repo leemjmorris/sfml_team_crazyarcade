@@ -93,8 +93,8 @@ void SceneDemo::Init()
 	ANI_CLIP_MGR.Load("animation/bazzi_ready.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_ready2.csv");
 
-	bazzi = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::BAZZI, 0)));
-	dao = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 1)));
+	bazzi = static_cast<Player*>(AddGameObject(new Player("Bazzi", CharacterID::BAZZI, 0)));
+	dao = static_cast<Player*>(AddGameObject(new Player("Dao", CharacterID::DAO, 1)));
 
 	objectsNeedingClamp.push_back(bazzi);
 	objectsNeedingClamp.push_back(dao);
@@ -123,7 +123,7 @@ void SceneDemo::Init()
 void SceneDemo::Enter()
 {
 	Scene::Enter();
-	
+
 	//sf::Texture& tex = TEXTURE_MGR.Get("assets/play_bg.bmp");
 	sf::Texture& tex = TEXTURE_MGR.Get("assets/play_ui.png");
 	uiSprite.setTexture(tex);
@@ -162,16 +162,16 @@ void SceneDemo::Enter()
 	}
 
 	// LMJ: Set player positions using helper functions
-	bazzi->SetPosition(Utils::GetPlayerSpawnPoint(0));	
+	bazzi->SetPosition(Utils::GetPlayerSpawnPoint(0));
 	dao->SetPosition(Utils::GetPlayerSpawnPoint(1));
 
 	std::cout << "Player 1 position: (" << bazzi->GetPosition().x << ", " << bazzi->GetPosition().y << ")" << std::endl;
-	std::cout << "Player 2 position: (" << dao->GetPosition().x	<< ", " << dao->GetPosition().y << ")" << std::endl;
+	std::cout << "Player 2 position: (" << dao->GetPosition().x << ", " << dao->GetPosition().y << ")" << std::endl;
 
 	goReadyRoom = false;
 	bazzi->SetEnter(true);
 	dao->SetEnter(true);
-	popUi->SetPlayerList({ bazzi,dao });
+	popUi->SetResult({ bazzi,dao });
 	// LMJ: Initialize collision system
 	//for (int y = 0; y < 13; ++y)
 	//{
@@ -195,29 +195,48 @@ void SceneDemo::Update(float dt)
 	for (auto* obj : objectsNeedingClamp)
 		ClampToBounds(*obj);
 
+	static bool printed = false;
+	if (bazzi->GetPlayerState() == AnimState::Win)
+	{
+		popUi->SetResult({ bazzi, dao });
+		popUi->SetWinner(1);
+		popUi->SetActive(true);
+		printed = true;
+	}
+
+	if (dao->GetPlayerState() == AnimState::Win)
+	{
+		popUi->SetResult({ bazzi, dao });
+		popUi->SetWinner(2);
+		popUi->SetActive(true);
+		printed = true;
+	}
+
 	CheckCollisionWithPlayer(dt);
 	if (bazzi->GetPlayerState() == AnimState::Dead)
 	{
+		//dao->SetPlayerState(AnimState::Win);
 		isShowingText = true;
 		dao->SetGameOver(true, false, dt);
 		textResult.setString("2P Win");
 		gameTimer = 0.f;
 		goReadyRoom = true;
-		popUi->SetPlayerList({ bazzi, dao });
-		popUi->SetActive(true);
-		popUi->SetResult();
+		//popUi->SetResult({ bazzi, dao });
+		//popUi->SetActive(true);
+		//popUi->SetWinner(2);
 	}
 
 	if (dao->GetPlayerState() == AnimState::Dead)
 	{
+		//bazzi->SetPlayerState(AnimState::Win);
 		isShowingText = true;
 		bazzi->SetGameOver(true, false, dt);
 		textResult.setString("1P Win");
 		gameTimer = 0.f;
 		goReadyRoom = true;
-		popUi->SetPlayerList({ bazzi, dao });
-		popUi->SetActive(true);
-		popUi->SetResult();
+		//popUi->SetResult({ bazzi, dao });
+		//popUi->SetActive(true);
+		//popUi->SetWinner(1);
 	}
 
 	if (gameTimer > 1500.f && bazzi->GetPlayerState() == AnimState::Live && dao->GetPlayerState() == AnimState::Live) // LSY: "Game over after 20 second"
@@ -231,9 +250,9 @@ void SceneDemo::Update(float dt)
 		gameTimer = 0.f;
 		goReadyRoom = true;
 		std::cout << "Time's up! Draw!" << std::endl;
-		popUi->SetPlayerList({ bazzi, dao });
+		popUi->SetResult({ bazzi, dao });
 		popUi->SetActive(true);
-		popUi->SetResult();
+		//popUi->SetResult();
 	}
 
 	// LSY: click to exit
@@ -302,7 +321,7 @@ void SceneDemo::Draw(sf::RenderWindow& window)
 	colorMask.Apply(window, uiSprite);
 
 	ui->Draw(window);
-	
+
 	window.setView(worldView);
 	Scene::Draw(window);
 
@@ -316,12 +335,12 @@ void SceneDemo::Draw(sf::RenderWindow& window)
 		window.draw(gridLines);
 	}
 
-	if (isShowingText)
+	/*if (isShowingText)
 	{
 		window.setView(uiView);
 		window.draw(textResult);
-	}
-
+	}*/
+	window.setView(uiView);
 	popUi->Draw(window);
 }
 

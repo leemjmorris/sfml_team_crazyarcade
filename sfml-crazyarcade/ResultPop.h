@@ -1,40 +1,34 @@
-#pragma once
+﻿#pragma once
 #include "UiHud.h"
 
 class Player;
-class ResultPop :
-    public UiHud
+class ResultPop : public UiHud
 {
-protected:
-	sf::Sprite popUp;
-	sf::Texture tex;
-
-	sf::Text resultText;
-	sf::Font font;
-
-	std::vector<Player*> resultPlayers;
-	std::vector<sf::Text> resultTexts;
 public:
-	ResultPop(const std::string& name);
-	~ResultPop();
+    ResultPop(const std::string& name);
+    ~ResultPop() = default;
 
-	SortingLayers sortingLayer = SortingLayers::UI;
-	int sortingOrder = 0;
+    void Init() override;
+    void Reset() override;
+    void Update(float dt) override {}
+    void Draw(sf::RenderWindow& window) override;
+    void Release() override;
 
-	void SetPlayerList(std::vector<Player*> players) { resultPlayers = players; };
-	void SetResult();
+    void SetResult(const std::vector<Player*>& players);
+    void SetWinner(int winnerIndex);          // 1 ¡æ 1P, 2 ¡æ 2P ¡¦
 
-	const std::string GetName() const { return name; }
-	bool GetActive() const { return active; }
-	void SetActive(bool a) { active = a; }
+private:
+    sf::Texture bgTex;
+    sf::Sprite  bgSpr;
 
-	sf::Vector2f GetPosition() const { return position; }
-	void SetPosition(const sf::Vector2f& pos) { position = pos; }
+    sf::Texture winTex;
+    sf::Sprite  winSpr;
+    bool        showWin = false;
 
-	void Init();
-	void Release();
-	void Reset();
+    sf::Texture lineBgTex;
+    std::vector<sf::Sprite> lineBgs;
 
-	void Update(float dt);
-	void Draw(sf::RenderWindow& window);
+    std::vector<sf::Text> lineNums;
+
+    std::vector<sf::Text> resultTexts;
 };
