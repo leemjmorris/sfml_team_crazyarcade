@@ -472,25 +472,6 @@ void Utils::LoadBlocksFromJson(Scene* scene, const void* blocksJsonPtr)
             block->Reset(); // LMJ: "This will set up sprite sheet texture and rect"
             block->sortingLayer = SortingLayers::Foreground;
 
-            // KHI: Store collider layer values based on block properties
-            //sf::Vector2f pos = block->GetPosition();
-            //int gridX = static_cast<int>(pos.x) / 52;
-            //int gridY = (static_cast<int>(pos.y) - 26) / 52;
-
-            //if (block->IsDestroyable() || block->IsHidable() || block->IsMovable())
-            //{
-            //    if (gridY >= 0 && gridY < 13 && gridX >= 0 && gridX < 15)
-            //    {
-            //        Utils::CollBlockLayer[gridY][gridX] = 1;
-            //    }
-            //}
-            //else
-            //{
-            //    if (gridY >= 0 && gridY < 13 && gridX >= 0 && gridX < 15)
-            //    {
-            //        Utils::CollBlockLayer[gridY][gridX] = 0;
-            //    }
-            //}
             scene->AddGameObject(block);
         }
     }

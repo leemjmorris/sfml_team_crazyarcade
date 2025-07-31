@@ -29,19 +29,18 @@ void SceneDev1::Init()
 
 	// KHI: wave
 	texIds.push_back("assets/bomb/pop.bmp");
+
 	texIds.push_back("assets/wave/up1.bmp");
+	texIds.push_back("assets/wave/down1.bmp");
 	texIds.push_back("assets/wave/left1.bmp");
+	texIds.push_back("assets/wave/right1.bmp");
+
 	texIds.push_back("assets/wave/up2.bmp");
+	texIds.push_back("assets/wave/down2.bmp");
 	texIds.push_back("assets/wave/left2.bmp");
+	texIds.push_back("assets/wave/right2.bmp");
 
 	TEXTURE_MGR.Load(texIds);
-
-	//WaterSplash* testObj = new WaterSplash();
-	//testObj->Reset();
-	//AddGameObject(testObj);
-	//testObj->SetPosition({ 100, 100 });
-
-
 
 	Scene::Init();
 }
