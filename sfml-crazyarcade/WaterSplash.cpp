@@ -2,6 +2,7 @@
 #include "WaterSplash.h"
 #include "WaterSplashPool.h"
 #include "Item.h"
+#include "WaterBalloon.h"
 
 WaterSplash::WaterSplash(const std::string& name)
 	: GameObject(name)
@@ -100,6 +101,7 @@ void WaterSplash::Update(float dt)
 	}
 
 	CheckCollisionWithItems();
+	CheckCollisionWithBombs();
 
 	if (!animator.IsPlaying())
 	{
@@ -267,6 +269,28 @@ bool WaterSplash::CheckCollisionWithWindow()
 	const sf::FloatRect splashBounds = hitBox.GetGlobalBounds();
 
 	return !IsCompletelyInside(splashBounds, worldBounds);
+}
+
+void WaterSplash::CheckCollisionWithBombs()
+{
+	sf::FloatRect splashRect = hitBox.rect.getGlobalBounds();
+
+	auto waterBalloons = SCENE_MGR.GetCurrentScene()->FindGameObjects("bomb");
+	for (auto* obj : waterBalloons)
+	{
+		auto* balloon = dynamic_cast<WaterBalloon*>(obj);
+
+		if (!balloon || !balloon->GetActive())
+			continue;
+
+		sf::Vector2f balloonCenter = { balloon->GetGlobalBounds().left + balloon->GetGlobalBounds().width * 0.5f,
+								balloon->GetGlobalBounds().top + balloon->GetGlobalBounds().height * 0.5f };
+
+		if (splashRect.contains(balloonCenter))
+		{
+			balloon->Explode();
+		}
+	}
 }
 
 

@@ -65,6 +65,7 @@ public:
 	void CheckCollisionWithItems();
 	bool CheckCollisionWithBlocks();
 	bool CheckCollisionWithWindow();
+	void CheckCollisionWithBombs();
 	bool IsCompletelyInside(const sf::FloatRect& inner, const sf::FloatRect& outer);
 
 	const HitBox& GetHitBox() const
