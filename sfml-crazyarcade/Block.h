@@ -62,7 +62,7 @@ protected:
     // KHI: about HitBox
     HitBox hitBox;
     sf::Vector2f hitBoxSize = { 52.f, 52.f };
-    sf::Vector2f hitBoxOffset = { 0.f, 20.f };
+    sf::Vector2f hitBoxOffset = { 0.f, 10.f };
 
     Animator animator; // KHI
     bool hasAnimStarted = false; // KHI

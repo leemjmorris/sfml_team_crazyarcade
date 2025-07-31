@@ -32,7 +32,7 @@ void SceneDemo::Init()
 	gridLines.setPrimitiveType(sf::Lines);
 	gridLines.clear();
 
-	sf::Color gridColor(255, 255, 255, 100);
+	sf::Color gridColor(255, 255, 255, 255);
 	for (int x = 0; x <= GRID_WIDTH; ++x)
 	{
 		float xPos = x * GRID_SIZE;

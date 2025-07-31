@@ -115,9 +115,9 @@ void Block::Update(float dt)
     // LMJ: Debug - HitBox 위치 출력
     sf::FloatRect hitBounds = hitBox.GetGlobalBounds();
     sf::Vector2f spritePos = sprite.getPosition();
-    std::cout << "Block Sprite Pos: (" << spritePos.x << ", " << spritePos.y << ")"
+    /*std::cout << "Block Sprite Pos: (" << spritePos.x << ", " << spritePos.y << ")"
         << " HitBox: (" << hitBounds.left << ", " << hitBounds.top
-        << ", " << hitBounds.width << ", " << hitBounds.height << ")" << std::endl;
+        << ", " << hitBounds.width << ", " << hitBounds.height << ")" << std::endl;*/
     
     // KHI: Update Animation
     animator.Update(dt);
