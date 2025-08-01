@@ -7,7 +7,7 @@
 constexpr float slidePixelsPerSecond = 80.f;
 constexpr float tileSize = 52.f;
 
-enum class AnimState { Ready, Normal, Trapped, Dead, Live, Win };
+enum class AnimState { Ready, Normal, Trapped, Dead, Live, Win, Draw };
 
 class Player :
 	public GameObject
@@ -87,6 +87,7 @@ public:
 	void AddSpeed(float s = 1);
 	void AddWaterBalloonCount(int c = 1);
 	void AddWaterBalloonLength(int l = 1);
+	void SetPlayerState(AnimState s);
 	void SetGameOver(bool t, bool l, float dt);
 	void SetEnter(bool t)
 	{

@@ -137,7 +137,7 @@ void Item::Use(Player* player)
 	}
 	else if (itemType == ItemType::Speed)
 	{
-		player->AddSpeed(50);
+		player->AddSpeed(20);
 	}
 
 	else if (itemType == ItemType::WaterJet)
