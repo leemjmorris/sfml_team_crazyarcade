@@ -178,6 +178,9 @@ void SceneDemo::Enter()
 
 void SceneDemo::Update(float dt)
 {
+	InputMgr::UpdateGamepad();
+	InputMgr::Update(dt);
+
 	gameTimer += dt;
 	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
 	{

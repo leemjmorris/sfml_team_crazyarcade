@@ -59,4 +59,9 @@ public:
 	static bool IsMouseWheelScrolled();
 	static bool IsMouseWheelUp();
 	static bool IsMouseWheelDown();
+
+	// LMJ: Controller methods
+	static sf::Vector2f GetGamepadDirection(int gamepadIndex);
+	static bool GetGamepadBombButton(int gamepadIndex);
+	static void UpdateGamepad();
 };

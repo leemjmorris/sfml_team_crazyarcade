@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "InputMgr.h"
+#include "GamepadInput.h"
 
 std::list<int> InputMgr::downKeys;
 std::list<int> InputMgr::heldKeys;
@@ -246,3 +247,18 @@ bool InputMgr::IsMouseWheelDown()
 	return mouseWheelScrolled && mouseWheelDelta < 0;
 }
 
+// LMJ: Controller Methods
+void InputMgr::UpdateGamepad()
+{
+	GamepadInput::Update();
+}
+
+sf::Vector2f InputMgr::GetGamepadDirection(int gamepadIndex)
+{
+	return GamepadInput::GetDirection(gamepadIndex);
+}
+
+bool InputMgr::GetGamepadBombButton(int gamepadIndex)
+{
+	return GamepadInput::GetBombButtonPressed(gamepadIndex);
+}

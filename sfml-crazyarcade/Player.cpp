@@ -34,10 +34,51 @@ Player::~Player()
 
 void Player::PlayerEvent(float dt)
 {
-	if (InputMgr::GetKeyDown(installWaterBomb))
+	// LMJ: Player 1 - keyboard bomb input only
+	if (playerIndex == 0 && InputMgr::GetKeyDown(installWaterBomb))
 	{
 		CheckInstallWaterballoon();
 	}
+
+	// LMJ: Player 2 - gamepad bomb input (for testing)
+	if (playerIndex == 1)
+	{
+		if (InputMgr::GetGamepadBombButton(0)) // LMJ: Use first gamepad
+		{
+			CheckInstallWaterballoon();
+		}
+		// LMJ: Also keep keyboard as fallback
+		else if (InputMgr::GetKeyDown(installWaterBomb))
+		{
+			CheckInstallWaterballoon();
+		}
+	}
+
+	// LMJ: Players 3, 4 - gamepad bomb input
+	if (playerIndex == 2 || playerIndex == 3)
+	{
+		int gamepadIndex = playerIndex - 2;
+		if (InputMgr::GetGamepadBombButton(gamepadIndex))
+		{
+			CheckInstallWaterballoon();
+		}
+	}
+	// LMJ:  For 3p and 4p. CHECK BEFORE ERASING!!!!!
+	//// LMJ: Keyboard bomb input for players 1 and 2
+	//if ((playerIndex == 0 || playerIndex == 1) && InputMgr::GetKeyDown(installWaterBomb))
+	//{
+	//	CheckInstallWaterballoon();
+	//}
+
+	//// LMJ: Gamepad bomb input for players 3 and 4
+	//if (playerIndex == 2 || playerIndex == 3)
+	//{
+	//	int gamepadIndex = playerIndex - 2; // LMJ: Convert to gamepad index (0 or 1)
+	//	if (InputMgr::GetGamepadBombButton(gamepadIndex))
+	//	{
+	//		CheckInstallWaterballoon();
+	//	}
+	//}
 	//if (isAlive)
 	//{
 	//	isTrapped = false;
@@ -348,7 +389,64 @@ void Player::Movement(float dt)
 	if (animState == AnimState::Live || animState == AnimState::Trapped)
 	{
 		PlayMoveAnimation();
-		dir = InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
+
+		// LMJ: 1P keyboard, 2P gamepad (for testing), 3P, 4P gamepad
+		if (playerIndex == 0)
+		{
+			// LMJ: Player 1 - keyboard input only
+			dir = InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
+		}
+		else if (playerIndex == 1)
+		{
+			// LMJ: Player 2 - gamepad input (for testing Xbox controller)
+			sf::Vector2f gamepadDir = InputMgr::GetGamepadDirection(0); // LMJ: Use first gamepad
+
+			if (gamepadDir.x != 0.f || gamepadDir.y != 0.f)
+			{
+				dir = gamepadDir;
+			}
+			else
+			{
+				// LMJ: Fallback to keyboard if gamepad not connected
+				dir = InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
+			}
+		}
+		else if (playerIndex == 2 || playerIndex == 3)
+		{
+			// LMJ: Player 3, 4 - gamepad input
+			int gamepadIndex = playerIndex - 2;
+			sf::Vector2f gamepadDir = InputMgr::GetGamepadDirection(gamepadIndex);
+
+			if (gamepadDir.x != 0.f || gamepadDir.y != 0.f)
+			{
+				dir = gamepadDir;
+			}
+			else
+			{
+				dir = { 0.f, 0.f };
+			}
+		}
+
+		// LMJ: Below for 3p and 4p. CHECK BEFORE ERASING
+		//if (playerIndex == 0 || playerIndex == 1)
+		//{
+		//	dir = InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
+		//}
+		//else if (playerIndex == 2 || playerIndex == 3)
+		//{
+		//	// LMJ: Player 3, 4 - gamepad input
+		//	int gamepadIndex = playerIndex - 2; // LMJ: Convert to gamepad index (0 or 1)
+		//	sf::Vector2f gamepadDir = InputMgr::GetGamepadDirection(gamepadIndex);
+
+		//	if (gamepadDir.x != 0.f || gamepadDir.y != 0.f)
+		//	{
+		//		dir = gamepadDir;
+		//	}
+		//	else
+		//	{
+		//		dir = { 0.f, 0.f }; // LMJ: No movement if no gamepad input
+		//	}
+		//}
 
 		sf::Vector2f currentPos = GetPosition();
 		sf::Vector2f tempPos = currentPos;

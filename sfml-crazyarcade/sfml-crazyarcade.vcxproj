@@ -151,6 +151,7 @@
     <ClCompile Include="Framework\InputMgr.cpp" />
     <ClCompile Include="Framework\SpriteGo.cpp" />
     <ClCompile Include="Framework\Scene.cpp" />
+    <ClCompile Include="GamepadInput.cpp" />
     <ClCompile Include="GameSceneUI.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="libtinyfiledialogs-master\tinyfiledialogs.c">
@@ -196,6 +197,7 @@
     <ClInclude Include="Framework\Singleton.h" />
     <ClInclude Include="Framework\SpriteGo.h" />
     <ClInclude Include="Framework\Scene.h" />
+    <ClInclude Include="GamepadInput.h" />
     <ClInclude Include="GameSceneUI.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="libtinyfiledialogs-master\tinyfiledialogs.h" />
