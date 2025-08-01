@@ -25,6 +25,9 @@ protected:
 	bool goReadyRoom = false;
 	Player* bazzi;
 	Player* dao;
+	Player* player3p;
+	Player* player4p;
+
 	Item* item;
 	sf::FloatRect worldBounds = FRAMEWORK.GetWindowBounds();
 	std::vector<GameObject*> objectsNeedingClamp;
