@@ -82,22 +82,7 @@ void Item::Update(float dt)
 		canDestroy = true;
 	}
 
-	elapsedTime += dt;
-	if (blinkInterval <= elapsedTime)
-	{
-		elapsedTime = 0.f;
-
-		outlineColor = !outlineColor;
-
-		if (outlineColor)
-		{
-			outline.SetOutlineColor(sf::Color::White);
-		}
-		else
-		{
-			outline.SetOutlineColor(sf::Color::Yellow);
-		}
-	}
+	OutlineBlink(dt);
 }
 
 void Item::Draw(sf::RenderWindow& window)
@@ -220,6 +205,24 @@ void Item::CheckCollisionWithBlock()
 			SetActive(false);
 			CheckAndRemoveItem();
 		}
+	}
+}
+
+void Item::OutlineBlink(float dt)
+{
+	elapsedTime += dt;
+
+	if (elapsedTime < blinkInterval)
+		return;
+
+	elapsedTime = 0.f;
+
+	outline.SetOutlineColor(outlineColors[curColorIdx]);
+
+	curColorIdx++;
+	if (curColorIdx >= outlineColors.size())
+	{
+		curColorIdx = 0;
 	}
 }
 

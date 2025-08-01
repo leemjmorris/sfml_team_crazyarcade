@@ -13,7 +13,6 @@ bool OutlineShader::LoadFromFile(const std::string& fragmentShaderPath)
     if (!shader.loadFromFile(fragmentShaderPath, sf::Shader::Fragment))
         return false;
 
-    // 초기 유니폼 세팅
     shader.setUniform("texture", sf::Shader::CurrentTexture);
     shader.setUniform("outlineColor", outlineColor);
     shader.setUniform("thickness", thickness);
