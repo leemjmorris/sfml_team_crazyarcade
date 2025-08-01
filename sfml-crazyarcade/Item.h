@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "HitBox.h"
+#include "OutlineShader.h"
 
 class Player;
 
@@ -34,6 +35,13 @@ protected:
 
 	HitBox hitBox;
 
+	// KHI: OutLine
+	float blinkInterval = 0.1f;
+	float elapsedTime = 0.f;
+	int curColorIdx = 0;
+	std::array<sf::Color, 4> outlineColors = { sf::Color::White, sf::Color::Yellow, sf::Color::Green, sf::Color(233, 181, 91) };
+	OutlineShader outline;
+
 public:
 	Item(const std::string& name = "");
 	virtual ~Item() = default;
@@ -50,6 +58,7 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
+	void OutlineBlink(float dt);
 	void SetItemType(ItemType type);
 	void SetOriginPos(sf::Vector2f pos) { originPos = pos; }
 	void FloatingEffect(float dt, float verticalRange = 5.f, float speed = 10.f);

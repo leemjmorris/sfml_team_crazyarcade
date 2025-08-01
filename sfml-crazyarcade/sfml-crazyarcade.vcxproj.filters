@@ -106,6 +106,9 @@
     <ClCompile Include="GamepadInput.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="OutlineShader.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\AnimationClip.h">
@@ -223,6 +226,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="GamepadInput.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="OutlineShader.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
