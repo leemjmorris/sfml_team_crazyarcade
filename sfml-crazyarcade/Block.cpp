@@ -133,6 +133,11 @@ void Block::Update(float dt)
     {
         Movement(dt);
     }
+
+    if (isHidable)
+    {
+        Test();
+    }
 }
 
 void Block::Draw(sf::RenderWindow& window)
@@ -534,4 +539,32 @@ bool Block::IsBlockedAtTarget()
     }
 
     return false;
+}
+
+// KHI
+void Block::Test()
+{
+    Scene* curScene = SCENE_MGR.GetCurrentScene();
+    auto players = curScene->FindGameObjects("Player");
+
+    for (auto* obj : players)
+    {
+        Player* player = dynamic_cast<Player*>(obj);
+
+        sf::FloatRect targetBounds = player->GetHitBox().GetGlobalBounds();
+        sf::Vector2f targetPosCenter = {
+            targetBounds.left + targetBounds.width * 0.5f,
+            targetBounds.top + targetBounds.height * 0.5f
+        };
+
+        if (hitBox.GetGlobalBounds().contains(targetPosCenter))
+        {
+            std::cout << "hello~~"<<std::endl;
+            player->SetSpriteColor(sf::Color(255, 255, 255, 0));
+        }
+        else
+        {
+            player->SetSpriteColor(sf::Color(255, 255, 255, 255));
+        }
+    }
 }

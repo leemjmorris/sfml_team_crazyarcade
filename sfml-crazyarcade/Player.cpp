@@ -484,13 +484,19 @@ void Player::Movement(float dt)
 		{
 			tempPos.x = tryX.x;
 		}
-		else if (collidedX == 1)
+		if (collidedX == 1)
 		{
-			collX = true;
-			collidedBlockX = GetCollidedBlock();
+			Block* rawBlock = GetCollidedBlock();
 
-			if (collidedBlockX != nullptr && !collidedBlockX->IsHidable())
+			if (rawBlock == nullptr || rawBlock->IsHidable())
 			{
+				tempPos.x = tryX.x;
+			}
+			else
+			{
+				collX = true;
+				collidedBlockX = rawBlock;
+
 				float third = tileSize / 3.f;
 				float upper = collidedBounds.top + third * 0.2;
 				float lower = collidedBounds.top + third * 2.8;
@@ -503,9 +509,9 @@ void Player::Movement(float dt)
 				{
 					tempPos.y += correction;
 				}
+
 				slidePlayer = true;
 			}
-
 		}
 
 		// KHI: Move Y
@@ -519,28 +525,36 @@ void Player::Movement(float dt)
 		{
 			tempPos.y = tryY.y;
 		}
-		else if (collidedY == 1)
+		if (collidedY == 1)
 		{
-			collY = true;
-			collidedBlockY = GetCollidedBlock();
+			Block* rawBlock = GetCollidedBlock();
 
-			if (collidedBlockY != nullptr && !collidedBlockY->IsHidable())
+			if (rawBlock == nullptr || rawBlock->IsHidable())
 			{
-				float third = tileSize / 3.f;
-				float left = collidedBounds.left + third * 0.2;
-				float right = collidedBounds.left + third * 2.8;
+				tempPos.y = tryY.y;
+			}
+			else
+			{
+				collY = true;
+				collidedBlockY = rawBlock;
 
-				if (playerCenter.x < left)
+				float third = tileSize / 3.f;
+				float upper = collidedBounds.top + third * 0.2;
+				float lower = collidedBounds.top + third * 2.8;
+
+				if (playerCenter.x < upper)
 				{
 					tempPos.x -= correction;
 				}
-				else if (playerCenter.x > right)
+				else if (playerCenter.x > lower)
 				{
 					tempPos.x += correction;
 				}
+
 				slidePlayer = true;
 			}
 		}
+
 		slidePlayer = false;
 
 		bool hasInput = (InputMgr::GetAxisRaw(vAxis) != 0 || InputMgr::GetAxisRaw(hAxis) != 0);
@@ -564,11 +578,6 @@ void Player::Movement(float dt)
 		{
 			pushedCount = 0.f;
 		}
-
-		// if (collided && targetBlock->IsHidable())
-		// {
-		// 	std::cout << "Hidable()" << std::endl;
-		// }
 
 		SetPosition(tempPos);
 		float tempSpeed = GetSpeed();

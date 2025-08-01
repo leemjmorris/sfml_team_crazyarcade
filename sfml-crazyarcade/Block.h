@@ -152,6 +152,7 @@ public:
     void PushBlock(sf::Vector2f dir);
     void Movement(float dt);
     bool IsBlockedAtTarget();
+    void Test();
 
     const HitBox& GetHitBox() const
     {
