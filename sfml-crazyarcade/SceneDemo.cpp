@@ -146,7 +146,7 @@ void SceneDemo::Enter()
 	WaterSplashPool::Init();
 
 	std::cout << "===================" << std::endl;
-	std::cout << "     SceneDemo" << std::endl;
+	std::cout << "     SceneDemo"      << std::endl;
 	std::cout << "===================" << std::endl;
 
 	// LMJ: Load map from JSON file created in MapEditor

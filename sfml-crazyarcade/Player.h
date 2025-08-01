@@ -125,6 +125,12 @@ public:
 	Block* GetCollidedBlock();
 	//bool GetCollidedTileInfo(sf::FloatRect& outTileBounds); // KHI
 
+	// KHI
+	void SetSpriteColor(const sf::Color& color)
+	{
+		sprite.setColor(color);
+	}
+
 	sf::FloatRect GetGlobalBounds() const
 	{
 		return sprite.getGlobalBounds();

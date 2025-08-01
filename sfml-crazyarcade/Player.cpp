@@ -356,7 +356,7 @@ bool Player::CollectObstacleRects(std::vector<sf::FloatRect>& outRects)
 	for (auto* obj : cur->FindGameObjects("Block"))
 	{
 		Block* blk = dynamic_cast<Block*>(obj);
-		if (blk && blk->GetActive())
+		if (blk && blk->GetActive() && !blk->IsHidable())
 			outRects.push_back(blk->GetHitBox().GetGlobalBounds());
 	}
 
@@ -602,7 +602,7 @@ size_t Player::GetCollidedTileInfo(sf::FloatRect& outTileBounds)
 			sf::FloatRect blockBounds = block->GetHitBox().GetGlobalBounds();
 			if (hitBox.rect.getGlobalBounds().intersects(blockBounds))
 			{
-				if (block && block->GetActive())
+				if (block && block->GetActive() && !block->IsHidable())
 				{
 					outTileBounds = blockBounds;
 					cnt++;
@@ -623,7 +623,7 @@ Block* Player::GetCollidedBlock()
 	for (auto* obj : gameObjects)
 	{
 		Block* block = dynamic_cast<Block*>(obj);
-		if (!block || !block->GetActive())
+		if (!block || !block->GetActive() || block->IsHidable())
 		{
 			continue;
 		}

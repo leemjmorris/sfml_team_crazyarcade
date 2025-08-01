@@ -152,12 +152,14 @@ public:
     void PushBlock(sf::Vector2f dir);
     void Movement(float dt);
     bool IsBlockedAtTarget();
+    void UpdateHiddenState();
 
     const HitBox& GetHitBox() const
     {
         return hitBox;
     }
 
-    public:
     bool GetIsMoving() const { return isMoving; }
+
+    void SetSpriteColor(const sf::Color& color) override;
 };

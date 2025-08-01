@@ -133,6 +133,11 @@ void Block::Update(float dt)
     {
         Movement(dt);
     }
+
+    if (isHidable)
+    {
+        UpdateHiddenState();
+    }
 }
 
 void Block::Draw(sf::RenderWindow& window)
@@ -508,7 +513,8 @@ bool Block::IsBlockedAtTarget()
     for (auto* obj : gameObjects)
     {
         Block* block = dynamic_cast<Block*>(obj);
-        if (!block || block == this || !block->GetActive())
+
+        if (!block || block == this || !block->GetActive() || block->IsHidable())
         {
             continue;
         }
@@ -534,4 +540,61 @@ bool Block::IsBlockedAtTarget()
     }
 
     return false;
+}
+
+// KHI
+void Block::UpdateHiddenState()
+{
+    Scene* curScene = SCENE_MGR.GetCurrentScene();
+    auto players = curScene->FindGameObjects("Player");
+
+    // KHI: Player
+    for (auto* obj : players)
+    {
+        Player* player = dynamic_cast<Player*>(obj);
+
+        sf::FloatRect targetBounds = player->GetHitBox().GetGlobalBounds();
+        sf::Vector2f targetPosCenter = {
+            targetBounds.left + targetBounds.width * 0.5f,
+            targetBounds.top + targetBounds.height * 0.5f
+        };
+
+        if (hitBox.GetGlobalBounds().contains(targetPosCenter))
+        {
+            player->SetSpriteColor(sf::Color(255, 255, 255, 0));
+        }
+        else
+        {
+            player->SetSpriteColor(sf::Color(255, 255, 255, 255));
+        }
+    }
+
+    // KHI: Block
+    auto gameObjects = curScene->FindGameObjects("Block");
+    sf::FloatRect thisBounds = this->hitBox.GetGlobalBounds();
+
+    for (auto* obj : gameObjects)
+    {
+        Block* block = dynamic_cast<Block*>(obj);
+        if (!block || block == this || !block->GetActive() || block->IsHidable())
+            continue;
+
+        sf::FloatRect blockBounds = block->GetHitBox().GetGlobalBounds();
+
+        if (Utils::HasTrueOverlap(thisBounds, blockBounds))
+        {
+            block->SetIsBmp(false);
+            block->SetSpriteColor(sf::Color(255, 255, 255, 0));
+        }
+        else
+        {
+            block->SetIsBmp(true);
+            block->SetSpriteColor(sf::Color(255, 255, 255, 255));
+        }
+    }
+}
+
+void Block::SetSpriteColor(const sf::Color& color)
+{
+    sprite.setColor(color);
 }
