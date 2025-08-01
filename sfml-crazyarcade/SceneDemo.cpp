@@ -95,9 +95,13 @@ void SceneDemo::Init()
 
 	bazzi = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::BAZZI, 0, "Bazzi")));
 	dao = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 1, "Dao")));
-
+	player3p = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 2, "player3p")));
+	player4p = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 3, "player4p")));
+	
 	objectsNeedingClamp.push_back(bazzi);
 	objectsNeedingClamp.push_back(dao);
+	objectsNeedingClamp.push_back(player3p);
+	objectsNeedingClamp.push_back(player4p);
 
 	colorMask.LoadFromFile("assets/shaders/transparent.frag");
 	colorMask.SetMaskColor(sf::Color(255, 0, 255));
@@ -141,6 +145,7 @@ void SceneDemo::Enter()
 
 	Item::SetPlayer(bazzi);
 	Item::SetPlayer(dao);
+	Item::SetPlayer(player3p);
 
 	WaterSplashPool::SetCurScene(SCENE_MGR.GetCurrentScene());
 	WaterSplashPool::Init();
@@ -164,6 +169,7 @@ void SceneDemo::Enter()
 	// LMJ: Set player positions using helper functions
 	bazzi->SetPosition(Utils::GetPlayerSpawnPoint(0));
 	dao->SetPosition(Utils::GetPlayerSpawnPoint(1));
+	player3p->SetPosition(Utils::GetPlayerSpawnPoint(1));
 
 	std::cout << "Player 1 position: (" << bazzi->GetPosition().x << ", " << bazzi->GetPosition().y << ")" << std::endl;
 	std::cout << "Player 2 position: (" << dao->GetPosition().x << ", " << dao->GetPosition().y << ")" << std::endl;
@@ -171,7 +177,8 @@ void SceneDemo::Enter()
 	goReadyRoom = false;
 	bazzi->SetEnter(true);
 	dao->SetEnter(true);
-	popUi->SetResult({ bazzi,dao });
+	player3p->SetEnter(true);
+	popUi->SetResult({ bazzi,dao,player3p });
 	// LMJ: Initialize collision system
 	//for (int y = 0; y < 13; ++y)
 	//{
@@ -311,6 +318,7 @@ void SceneDemo::Exit()
 
 	bazzi->Reset();
 	dao->Reset();
+	player3p->Reset();
 	Item::CheckAndRemoveItem();
 	Item::allItems.clear();
 	Item::players.clear();

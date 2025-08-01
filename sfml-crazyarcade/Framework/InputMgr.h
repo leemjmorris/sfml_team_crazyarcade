@@ -6,6 +6,7 @@ enum class Axis
 	Vertical_1p,
 	Horizontal_2p,
 	Vertical_2p,
+	None
 };
 
 struct AxisInfo
