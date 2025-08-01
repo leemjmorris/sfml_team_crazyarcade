@@ -7,7 +7,7 @@ class MapLists : public UiHud
 protected:
 	sf::Sprite background;
 
-	std::map<std::string, std::string> mapList;
+	std::map<std::string, std::string> mapList; // KHI: <mapName - mapFilePath>
 
 public:
 	MapLists(const std::string& name = "MapList", bool b = true);
@@ -18,4 +18,6 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	std::map<std::string, std::string> LoadMapList(const std::string& folderPath);
 };
