@@ -136,7 +136,7 @@ void Block::Update(float dt)
 
     if (isHidable)
     {
-        Test();
+        UpdateHiddenState();
     }
 }
 
@@ -513,7 +513,8 @@ bool Block::IsBlockedAtTarget()
     for (auto* obj : gameObjects)
     {
         Block* block = dynamic_cast<Block*>(obj);
-        if (!block || block == this || !block->GetActive())
+
+        if (!block || block == this || !block->GetActive() || block->IsHidable())
         {
             continue;
         }
@@ -542,11 +543,12 @@ bool Block::IsBlockedAtTarget()
 }
 
 // KHI
-void Block::Test()
+void Block::UpdateHiddenState()
 {
     Scene* curScene = SCENE_MGR.GetCurrentScene();
     auto players = curScene->FindGameObjects("Player");
 
+    // KHI: Player
     for (auto* obj : players)
     {
         Player* player = dynamic_cast<Player*>(obj);
@@ -559,7 +561,6 @@ void Block::Test()
 
         if (hitBox.GetGlobalBounds().contains(targetPosCenter))
         {
-            std::cout << "hello~~"<<std::endl;
             player->SetSpriteColor(sf::Color(255, 255, 255, 0));
         }
         else
@@ -567,4 +568,37 @@ void Block::Test()
             player->SetSpriteColor(sf::Color(255, 255, 255, 255));
         }
     }
+
+    // KHI: Block
+    auto gameObjects = curScene->FindGameObjects("Block");
+    for (auto* obj : gameObjects)
+    {
+        Block* block = dynamic_cast<Block*>(obj);
+        if (!block || block == this || !block->GetActive() || block->IsHidable())
+        {
+            continue;
+        }
+
+        sf::FloatRect blockBounds = block->GetHitBox().GetGlobalBounds();
+        sf::Vector2f targetPosCenter = {
+            blockBounds.left + blockBounds.width * 0.5f,
+            blockBounds.top + blockBounds.height * 0.5f
+        };
+
+        if (this->hitBox.GetGlobalBounds().contains(targetPosCenter))
+        {
+            block->SetIsBmp(false);
+            block->SetSpriteColor(sf::Color(255, 255, 255, 0));
+        }
+        else
+        {
+            block->SetIsBmp(true);
+            block->SetSpriteColor(sf::Color(255, 255, 255, 255));
+        }
+    }
+}
+
+void Block::SetSpriteColor(const sf::Color& color)
+{
+    sprite.setColor(color);
 }

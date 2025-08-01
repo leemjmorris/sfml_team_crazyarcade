@@ -45,4 +45,10 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	// KHI: Set sprite color
+	virtual void SetSpriteColor(const sf::Color& color)
+	{
+		sprite.setColor(color);
+	}
 };

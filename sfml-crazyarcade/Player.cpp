@@ -356,7 +356,7 @@ bool Player::CollectObstacleRects(std::vector<sf::FloatRect>& outRects)
 	for (auto* obj : cur->FindGameObjects("Block"))
 	{
 		Block* blk = dynamic_cast<Block*>(obj);
-		if (blk && blk->GetActive())
+		if (blk && blk->GetActive() && !blk->IsHidable())
 			outRects.push_back(blk->GetHitBox().GetGlobalBounds());
 	}
 
@@ -484,19 +484,13 @@ void Player::Movement(float dt)
 		{
 			tempPos.x = tryX.x;
 		}
-		if (collidedX == 1)
+		else if (collidedX == 1)
 		{
-			Block* rawBlock = GetCollidedBlock();
+			collX = true;
+			collidedBlockX = GetCollidedBlock();
 
-			if (rawBlock == nullptr || rawBlock->IsHidable())
+			if (collidedBlockX != nullptr && !collidedBlockX->IsHidable())
 			{
-				tempPos.x = tryX.x;
-			}
-			else
-			{
-				collX = true;
-				collidedBlockX = rawBlock;
-
 				float third = tileSize / 3.f;
 				float upper = collidedBounds.top + third * 0.2;
 				float lower = collidedBounds.top + third * 2.8;
@@ -509,9 +503,9 @@ void Player::Movement(float dt)
 				{
 					tempPos.y += correction;
 				}
-
 				slidePlayer = true;
 			}
+
 		}
 
 		// KHI: Move Y
@@ -525,36 +519,28 @@ void Player::Movement(float dt)
 		{
 			tempPos.y = tryY.y;
 		}
-		if (collidedY == 1)
+		else if (collidedY == 1)
 		{
-			Block* rawBlock = GetCollidedBlock();
+			collY = true;
+			collidedBlockY = GetCollidedBlock();
 
-			if (rawBlock == nullptr || rawBlock->IsHidable())
+			if (collidedBlockY != nullptr && !collidedBlockY->IsHidable())
 			{
-				tempPos.y = tryY.y;
-			}
-			else
-			{
-				collY = true;
-				collidedBlockY = rawBlock;
-
 				float third = tileSize / 3.f;
-				float upper = collidedBounds.top + third * 0.2;
-				float lower = collidedBounds.top + third * 2.8;
+				float left = collidedBounds.left + third * 0.2;
+				float right = collidedBounds.left + third * 2.8;
 
-				if (playerCenter.x < upper)
+				if (playerCenter.x < left)
 				{
 					tempPos.x -= correction;
 				}
-				else if (playerCenter.x > lower)
+				else if (playerCenter.x > right)
 				{
 					tempPos.x += correction;
 				}
-
 				slidePlayer = true;
 			}
 		}
-
 		slidePlayer = false;
 
 		bool hasInput = (InputMgr::GetAxisRaw(vAxis) != 0 || InputMgr::GetAxisRaw(hAxis) != 0);
@@ -578,6 +564,11 @@ void Player::Movement(float dt)
 		{
 			pushedCount = 0.f;
 		}
+
+		// if (collided && targetBlock->IsHidable())
+		// {
+		// 	std::cout << "Hidable()" << std::endl;
+		// }
 
 		SetPosition(tempPos);
 		float tempSpeed = GetSpeed();
@@ -611,7 +602,7 @@ size_t Player::GetCollidedTileInfo(sf::FloatRect& outTileBounds)
 			sf::FloatRect blockBounds = block->GetHitBox().GetGlobalBounds();
 			if (hitBox.rect.getGlobalBounds().intersects(blockBounds))
 			{
-				if (block && block->GetActive())
+				if (block && block->GetActive() && !block->IsHidable())
 				{
 					outTileBounds = blockBounds;
 					cnt++;
@@ -632,7 +623,7 @@ Block* Player::GetCollidedBlock()
 	for (auto* obj : gameObjects)
 	{
 		Block* block = dynamic_cast<Block*>(obj);
-		if (!block || !block->GetActive())
+		if (!block || !block->GetActive() || block->IsHidable())
 		{
 			continue;
 		}
