@@ -60,6 +60,11 @@ void Item::Reset()
 	SetOrigin(Origins::BC);
 	canDestroy = false;
 	destroyTimer = 2;
+
+	outline.LoadFromFile("assets/shaders/outline.frag");
+	outline.SetOutlineColor(sf::Color::White);
+	outline.SetThickness(1.f);
+	outline.SetTextureSize(itemSprite.getTexture()->getSize());
 }
 
 void Item::Update(float dt)
@@ -76,11 +81,34 @@ void Item::Update(float dt)
 	{
 		canDestroy = true;
 	}
+
+	elapsedTime += dt;
+	if (blinkInterval <= elapsedTime)
+	{
+		elapsedTime = 0.f;
+
+		outlineColor = !outlineColor;
+
+		if (outlineColor)
+		{
+			outline.SetOutlineColor(sf::Color::White);
+		}
+		else
+		{
+			outline.SetOutlineColor(sf::Color::Yellow);
+		}
+	}
 }
 
 void Item::Draw(sf::RenderWindow& window)
 {
+
+	outline.Apply(window, itemSprite);
+
 	window.draw(itemSprite);
+
+
+	//window.draw(itemSprite);
 }
 
 void Item::SetItemType(ItemType type)

@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "HitBox.h"
+#include "OutlineShader.h"
 
 class Player;
 
@@ -33,6 +34,12 @@ protected:
 	float destroyTimer = 2.f;
 
 	HitBox hitBox;
+
+
+	float blinkInterval = 0.1f;
+	float elapsedTime = 0.f;
+	bool outlineColor = true; // KHI: True = white, False = yellow
+	OutlineShader outline;
 
 public:
 	Item(const std::string& name = "");
