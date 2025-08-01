@@ -220,7 +220,19 @@ void Player::Init()
 		hAxis = Axis::Horizontal_2p;
 		installWaterBomb = sf::Keyboard::RShift;
 		break;
+	case 2:
+		vAxis = Axis::None;
+		hAxis = Axis::None;
+		installWaterBomb = sf::Keyboard::KeyCount;
+	case 3:
+		vAxis = Axis::None;
+		hAxis = Axis::None;
+		installWaterBomb = sf::Keyboard::KeyCount;
+		break;
 	}
+}
+	}
+
 }
 
 void Player::Release()
