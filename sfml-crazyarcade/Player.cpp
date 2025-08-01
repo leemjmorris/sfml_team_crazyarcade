@@ -133,6 +133,11 @@ bool Player::HandleBubbleDeath(AnimState s)
 
 void Player::AddSpeed(float s)
 {
+	const auto& stats = CharacterTable.at(charId);
+	if (curSpeed >= stats.maxPlayerSpeed)
+	{
+		curSpeed = stats.maxPlayerSpeed;
+	}
 	curSpeed += s;
 }
 
@@ -147,6 +152,11 @@ void Player::AddWaterBalloonLength(int l)
 }
 
 //====================================GAME OVER==========================================
+void Player::SetPlayerState(AnimState s)
+{
+	animState = s;
+}
+
 void Player::SetGameOver(bool t, bool l, float dt)
 {
 	isAnotherDead = t;
@@ -340,13 +350,13 @@ void Player::RefreshPassThroughSet()
 }
 
 bool Player::CollectObstacleRects(std::vector<sf::FloatRect>& outRects)
- {
+{
 	Scene* cur = SCENE_MGR.GetCurrentScene();
 
 	for (auto* obj : cur->FindGameObjects("Block"))
 	{
 		Block* blk = dynamic_cast<Block*>(obj);
-		if (blk && blk->GetActive() && !blk->IsHidable())
+		if (blk && blk->GetActive())
 			outRects.push_back(blk->GetHitBox().GetGlobalBounds());
 	}
 
@@ -555,10 +565,10 @@ void Player::Movement(float dt)
 			pushedCount = 0.f;
 		}
 
-		if (collided && targetBlock->IsHidable())
-		{
-			std::cout << "Hidable()" << std::endl;
-		}
+		// if (collided && targetBlock->IsHidable())
+		// {
+		// 	std::cout << "Hidable()" << std::endl;
+		// }
 
 		SetPosition(tempPos);
 		float tempSpeed = GetSpeed();
