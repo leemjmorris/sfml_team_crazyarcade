@@ -7,6 +7,8 @@ class MapLists : public UiHud
 protected:
 	sf::Sprite background;
 
+	std::map<std::string, std::string> mapList;
+
 public:
 	MapLists(const std::string& name = "MapList", bool b = true);
 	~MapLists() = default;

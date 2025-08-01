@@ -15,6 +15,13 @@ void MapLists::Init()
 	Utils::SetOrigin(background, Origins::MC);
 	sf::Vector2f center = FRAMEWORK.GetWindowSizeF() * 0.5f;
 	background.setPosition(center);
+
+	// KHI: 
+	mapList = {
+	{ "Example Map1", "mapId"},
+	{ "Example Map2", "mapId"},
+	{ "Example Map3", "mapId"},
+	};
 }
 
 void MapLists::Release()

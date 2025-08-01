@@ -74,7 +74,7 @@ void SceneReady::Draw(sf::RenderWindow& window)
 	window.setView(worldView);
 	window.draw(bgSprite);
 	window.setView(window.getDefaultView());
-	//mapListUi->Draw(window);
+	mapListUi->Draw(window);
 	ui->Draw(window);
 	Scene::Draw(window);
 }
