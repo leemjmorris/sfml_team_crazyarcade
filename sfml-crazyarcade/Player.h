@@ -56,7 +56,7 @@ protected:
 	float pushedCount = 0.f;
 
 public:
-	Player(const std::string& name, CharacterID id, int index);
+	Player(const std::string& name, CharacterID id, int index, const std::string& resultName);
 	~Player();
 	void PlayerEvent(float dt);
 	void OnBalloonExploded();

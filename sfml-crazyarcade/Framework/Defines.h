@@ -23,7 +23,6 @@ enum class SceneIds
 {
 	None = -1,
 	Dev1,
-	Dev2,
 	MapEditor,
 	Ready,
 	Demo,

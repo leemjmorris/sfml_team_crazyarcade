@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "WaterBalloon.h"
 
-Player::Player(const std::string& name, CharacterID id, int index)
+Player::Player(const std::string& name, CharacterID id, int index, const std::string& resultName)
 	: GameObject(name),
 	charId(id),
 	curSpeed(100.f),
