@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "Button.h"
 #include "lobbyUi.h"
+#include "MapLists.h"
 
 class SceneReady : public Scene
 {
@@ -9,6 +10,7 @@ protected:
 	sf::Sprite bgSprite; // KHI: DRAFT!!
 
 	lobbyUi* ui;
+	MapLists* mapListUi;
 
 public:
 	SceneReady();

@@ -9,6 +9,7 @@ SceneReady::SceneReady()
 void SceneReady::Init()
 {
 	texIds.push_back("assets/lobby_bg.png");
+	texIds.push_back("assets/SelectMapImg.png");
 
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 	worldView.setSize(windowSize);
@@ -27,6 +28,9 @@ void SceneReady::Init()
 	btnMap->SetOnClick([this]() { OpenMapSelectPopup(); });*/
 	ui = new lobbyUi("loobyUi");
 	ui->Init();
+
+	mapListUi = new MapLists("MapList");
+	mapListUi->Init();
 
 	Scene::Init();
 }
@@ -70,6 +74,7 @@ void SceneReady::Draw(sf::RenderWindow& window)
 	window.setView(worldView);
 	window.draw(bgSprite);
 	window.setView(window.getDefaultView());
+	mapListUi->Draw(window);
 	ui->Draw(window);
 	Scene::Draw(window);
 }

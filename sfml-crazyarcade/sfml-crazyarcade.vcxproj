@@ -160,6 +160,7 @@
     <ClCompile Include="lobbyUi.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapEditor.cpp" />
+    <ClCompile Include="MapLists.cpp" />
     <ClCompile Include="OutlineShader.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ResultPop.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="libtinyfiledialogs-master\tinyfiledialogs.h" />
     <ClInclude Include="lobbyUi.h" />
     <ClInclude Include="MapEditor.h" />
+    <ClInclude Include="MapLists.h" />
     <ClInclude Include="OutlineShader.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResultPop.h" />
