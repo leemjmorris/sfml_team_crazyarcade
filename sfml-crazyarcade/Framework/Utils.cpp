@@ -483,7 +483,7 @@ void Utils::LoadSpawnPointsFromJson(Scene* scene, const void* spawnPointsJsonPtr
 
     // LMJ: Clear existing spawn points
     PlayerSpawnPoints.clear();
-    PlayerSpawnPoints.resize(2, sf::Vector2f(-1, -1)); // LMJ: Initialize with invalid positions
+    PlayerSpawnPoints.resize(4, sf::Vector2f(-1, -1)); // LMJ: Initialize with invalid positions
 
     // LMJ: Load spawn points from JSON
     for (const auto& jSpawn : spawnPointsJson)
@@ -492,7 +492,7 @@ void Utils::LoadSpawnPointsFromJson(Scene* scene, const void* spawnPointsJsonPtr
         float x = jSpawn.at("positionX").get<float>();
         float y = jSpawn.at("positionY").get<float>();
 
-        if (playerIndex >= 0 && playerIndex < 2)
+        if (playerIndex >= 0 && playerIndex < 4)
         {
             PlayerSpawnPoints[playerIndex] = sf::Vector2f(x, y + 26.f); // LMJ: Change Player Spawn Position inside the Grid.
         }
@@ -559,6 +559,8 @@ sf::Vector2f Utils::GetDefaultSpawnPoint(int playerIndex)
     {
     case 0: return sf::Vector2f(234.f, 260.f);  // Player 1 default
     case 1: return sf::Vector2f(546.f, 468.f);  // Player 2 default
+	case 2: return sf::Vector2f(120.f, 400.f); // Player 3 default
+	case 3: return sf::Vector2f(400.f, 300.f);  // Player 4 default
     default: return sf::Vector2f(400.f, 300.f); // Generic default
     }
 }

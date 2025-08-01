@@ -566,6 +566,14 @@ void MapEditor::HandleSpawnPointInput()
     {
         currentSpawnPlayerIndex = 1;  // Player 2
     }
+    else if (InputMgr::GetKeyDown(sf::Keyboard::Num3))
+    {
+        currentSpawnPlayerIndex = 2;  // Player 3
+    }
+    else if (InputMgr::GetKeyDown(sf::Keyboard::Num4))
+    {
+        currentSpawnPlayerIndex = 3;  // Player 4
+	}
 }
 
 void MapEditor::SelectBlockAtPosition(const sf::Vector2f& gridPos)
@@ -852,6 +860,8 @@ sf::Color MapEditor::GetSpawnPointColor(int playerIndex) const
     {
     case 0: return sf::Color::Cyan;    // Player 1
     case 1: return sf::Color::Magenta; // Player 2
+	case 2: return sf::Color::Yellow;  // Player 3
+	case 3: return sf::Color::Green;   // Player 4
     default: return sf::Color::White;
     }
 }
@@ -1058,7 +1068,7 @@ void MapEditor::DrawRightSideUI(sf::RenderWindow& window)
             window.draw(blockPreview);
         }
     }
-    else if (currentLayer == LayerType::SpawnPoint)  // LMJ: "Draw spawn point preview in UI"
+    else if (currentLayer == LayerType::SpawnPoint)
     {
         sf::CircleShape spawnPreview(30.0f);
         spawnPreview.setFillColor(GetSpawnPointColor(currentSpawnPlayerIndex));
@@ -1068,14 +1078,13 @@ void MapEditor::DrawRightSideUI(sf::RenderWindow& window)
         spawnPreview.setPosition(rightPanelX + 80, 60);
         window.draw(spawnPreview);
 
-        // LMJ: "Draw player number"
         if (FONT_MGR.Exists("assets/font/Daum_Regular.ttf"))
         {
             sf::Text playerText;
             playerText.setFont(FONT_MGR.Get("assets/font/Daum_Regular.ttf"));
             playerText.setCharacterSize(20);
             playerText.setFillColor(sf::Color::White);
-            playerText.setString(std::to_string(currentSpawnPlayerIndex + 1));
+            playerText.setString(std::to_string(currentSpawnPlayerIndex + 1));  // 1-4
             Utils::SetOrigin(playerText, Origins::MC);
             playerText.setPosition(rightPanelX + 80, 60);
             window.draw(playerText);
@@ -1143,8 +1152,8 @@ void MapEditor::DrawLayerInfo(sf::RenderWindow& window, float x, float y)
     case LayerType::BlockState:
         layerInfo += L"속성\n모드: " + GetPropertyModeString(currentPropertyMode);
         break;
-    case LayerType::SpawnPoint:  // LMJ: New spawn point layer info
-        layerInfo += L"스폰\n플레이어: " + std::to_wstring(currentSpawnPlayerIndex + 1);
+    case LayerType::SpawnPoint:
+        layerInfo += L"스폰\n플레이어: " + std::to_wstring(currentSpawnPlayerIndex + 1) + L"/4";  // LMJ: 4P 표시
         break;
     }
 
@@ -1191,11 +1200,11 @@ void MapEditor::DrawControlsInfo(sf::RenderWindow& window, float x, float y)
         controls += L"T / F: 참/거짓\n";
         controls += L"C / V: 복사/붙여넣기";
     }
-    else if (currentLayer == LayerType::SpawnPoint)  // LMJ: New spawn point controls
+    else if (currentLayer == LayerType::SpawnPoint)
     {
         controls = L"=== 스폰 포인트 ===\n";
         controls += L"Tab: 레이어 전환\n";
-        controls += L"1 / 2: 플레이어 선택\n";
+        controls += L"1~4: 플레이어 선택\n";        // LMJ: 1-4키로 확장
         controls += L"좌 클릭: 스폰 포인트 배치\n";
         controls += L"우 클릭: 스폰 포인트 삭제\n";
         controls += L"※ 플레이어당 1개만 가능";
@@ -1276,18 +1285,23 @@ void MapEditor::DrawSpawnPointInfo(sf::RenderWindow& window, float x, float y)
     spawnInfoText.setString(L"=== 스폰 포인트 ===");
     window.draw(spawnInfoText);
 
-    // LMJ: Show current spawn points
+    // LMJ: Show current spawn points for all 4 players
     std::wstring spawnInfo = L"배치된 스폰 포인트:\n";
-    bool hasPlayer1 = false, hasPlayer2 = false;
+    bool hasPlayer[4] = { false, false, false, false };  // LMJ: 4P 추적
 
     for (const auto& spawn : spawnPoints)
     {
-        if (spawn.playerIndex == 0) hasPlayer1 = true;
-        if (spawn.playerIndex == 1) hasPlayer2 = true;
+        if (spawn.playerIndex >= 0 && spawn.playerIndex < 4)
+        {
+            hasPlayer[spawn.playerIndex] = true;
+        }
     }
 
-    spawnInfo += L"플레이어 1: " + std::wstring(hasPlayer1 ? L"배치됨" : L"미배치") + L"\n";
-    spawnInfo += L"플레이어 2: " + std::wstring(hasPlayer2 ? L"배치됨" : L"미배치") + L"\n\n";
+    // LMJ: 각 플레이어별 상태 표시
+    spawnInfo += L"플레이어 1: " + std::wstring(hasPlayer[0] ? L"배치됨" : L"미배치") + L"\n";
+    spawnInfo += L"플레이어 2: " + std::wstring(hasPlayer[1] ? L"배치됨" : L"미배치") + L"\n";
+    spawnInfo += L"플레이어 3: " + std::wstring(hasPlayer[2] ? L"배치됨" : L"미배치") + L"\n";
+    spawnInfo += L"플레이어 4: " + std::wstring(hasPlayer[3] ? L"배치됨" : L"미배치") + L"\n\n";
     spawnInfo += L"현재 선택: 플레이어 " + std::to_wstring(currentSpawnPlayerIndex + 1);
 
     sf::Text detailText;
