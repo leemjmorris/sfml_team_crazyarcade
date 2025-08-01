@@ -3,7 +3,7 @@
 #include "Animator.h"
 #include "ColorMaskShader.h"
 #include "HitBox.h"
-#include "SceneDemo.h"
+#include "SceneGame.h"
 
 class WaterSplash : public GameObject
 {

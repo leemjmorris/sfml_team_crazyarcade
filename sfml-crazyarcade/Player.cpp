@@ -113,6 +113,9 @@ bool Player::CheckInstallWaterballoon()
 		std::cout << "cannot install position\n";
 		return false;
 	}
+
+	SOUND_MGR.PlaySfx("sounds/Set_WaterBomb.mp3");
+
 	std::cout << "Spawned bomb ptr = " << b << '\n';
 	if (playerIndex == 0)
 		std::cout << "Player 1 activeBalloons:" << activeBalloons << ", balloonCapacity: " << balloonCapacity << std::endl;
@@ -572,7 +575,7 @@ void Player::Movement(float dt)
 
 		if (animState == AnimState::Trapped)
 		{
-			curSpeed = 10.f;
+			curSpeed = 20.f;
 		}
 		else
 		{

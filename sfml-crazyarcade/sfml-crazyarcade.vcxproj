@@ -163,10 +163,8 @@
     <ClCompile Include="OutlineShader.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ResultPop.cpp" />
-    <ClCompile Include="SceneDemo.cpp" />
     <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="SceneReady.cpp" />
-    <ClCompile Include="Scenes\SceneDev1.cpp" />
     <ClCompile Include="Framework\SceneMgr.cpp" />
     <ClCompile Include="Framework\SoundMgr.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -207,10 +205,8 @@
     <ClInclude Include="OutlineShader.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResultPop.h" />
-    <ClInclude Include="SceneDemo.h" />
     <ClInclude Include="SceneGame.h" />
     <ClInclude Include="SceneReady.h" />
-    <ClInclude Include="Scenes\SceneDev1.h" />
     <ClInclude Include="Framework\SceneMgr.h" />
     <ClInclude Include="Framework\SoundMgr.h" />
     <ClInclude Include="stdafx.h" />
