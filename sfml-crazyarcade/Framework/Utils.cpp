@@ -563,6 +563,16 @@ sf::Vector2f Utils::GetDefaultSpawnPoint(int playerIndex)
     }
 }
 
+bool Utils::HasTrueOverlap(const sf::FloatRect& a, const sf::FloatRect& b, float threshold)
+{
+    sf::FloatRect i;
+    if (a.intersects(b, i))
+    {
+        return (i.width >= threshold && i.height >= threshold);
+    }
+    return false;
+}
+
 sf::Sprite* Utils::CreateTileSprite(int tileOptionIndex, const sf::Vector2f& position, float rotation)
 {
     // LMJ: "Use forest_tile_set.png like in MapEditor"

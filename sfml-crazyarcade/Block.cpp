@@ -571,21 +571,17 @@ void Block::UpdateHiddenState()
 
     // KHI: Block
     auto gameObjects = curScene->FindGameObjects("Block");
+    sf::FloatRect thisBounds = this->hitBox.GetGlobalBounds();
+
     for (auto* obj : gameObjects)
     {
         Block* block = dynamic_cast<Block*>(obj);
         if (!block || block == this || !block->GetActive() || block->IsHidable())
-        {
             continue;
-        }
 
         sf::FloatRect blockBounds = block->GetHitBox().GetGlobalBounds();
-        sf::Vector2f targetPosCenter = {
-            blockBounds.left + blockBounds.width * 0.5f,
-            blockBounds.top + blockBounds.height * 0.5f
-        };
 
-        if (this->hitBox.GetGlobalBounds().contains(targetPosCenter))
+        if (Utils::HasTrueOverlap(thisBounds, blockBounds))
         {
             block->SetIsBmp(false);
             block->SetSpriteColor(sf::Color(255, 255, 255, 0));

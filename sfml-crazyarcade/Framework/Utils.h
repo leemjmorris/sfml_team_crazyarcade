@@ -87,6 +87,9 @@ public:
 	// LMJ: Spawn point storage for other scenes to access
 	static std::vector<sf::Vector2f> PlayerSpawnPoints;
 
+	// KHI
+	static bool HasTrueOverlap(const sf::FloatRect& a, const sf::FloatRect& b, float threshold = 5.f);
+
 private:
 	// LMJ: "Private helper for map loading"
 	static sf::Sprite* CreateTileSprite(int tileOptionIndex, const sf::Vector2f& position, float rotation = 0.f);
