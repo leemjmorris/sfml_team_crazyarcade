@@ -26,7 +26,7 @@ sf::Vector2f GamepadInput::GetDirection(int gamepadIndex)
     y /= 100.f;
 
     // LMJ: Apply deadzone
-    const float deadzone = 0.3f;
+    const float deadzone = 0.8f;
     if (std::abs(x) < deadzone && std::abs(y) < deadzone)
         return { 0.f, 0.f };
 
