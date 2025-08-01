@@ -231,9 +231,6 @@ void Player::Init()
 		break;
 	}
 }
-	}
-
-}
 
 void Player::Release()
 {

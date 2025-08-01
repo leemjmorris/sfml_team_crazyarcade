@@ -146,6 +146,7 @@ void SceneDemo::Enter()
 	Item::SetPlayer(bazzi);
 	Item::SetPlayer(dao);
 	Item::SetPlayer(player3p);
+	Item::SetPlayer(player4p);
 
 	WaterSplashPool::SetCurScene(SCENE_MGR.GetCurrentScene());
 	WaterSplashPool::Init();
@@ -170,6 +171,7 @@ void SceneDemo::Enter()
 	bazzi->SetPosition(Utils::GetPlayerSpawnPoint(0));
 	dao->SetPosition(Utils::GetPlayerSpawnPoint(1));
 	player3p->SetPosition(Utils::GetPlayerSpawnPoint(1));
+	player4p->SetPosition(Utils::GetPlayerSpawnPoint(1));
 
 	std::cout << "Player 1 position: (" << bazzi->GetPosition().x << ", " << bazzi->GetPosition().y << ")" << std::endl;
 	std::cout << "Player 2 position: (" << dao->GetPosition().x << ", " << dao->GetPosition().y << ")" << std::endl;
@@ -178,6 +180,7 @@ void SceneDemo::Enter()
 	bazzi->SetEnter(true);
 	dao->SetEnter(true);
 	player3p->SetEnter(true);
+	player4p->SetEnter(true);
 	popUi->SetResult({ bazzi,dao,player3p });
 	// LMJ: Initialize collision system
 	//for (int y = 0; y < 13; ++y)
@@ -319,6 +322,7 @@ void SceneDemo::Exit()
 	bazzi->Reset();
 	dao->Reset();
 	player3p->Reset();
+	player4p->Reset();
 	Item::CheckAndRemoveItem();
 	Item::allItems.clear();
 	Item::players.clear();
