@@ -11,7 +11,6 @@ void Button::SetSize(sf::Vector2f v)
 	button.setScale(v);
 }
 
-
 void Button::SetOnClick(std::function<void()> func)
 {
 	onClick = func;
@@ -34,12 +33,14 @@ void Button::Release()
 void Button::Reset()
 {
 	tex.loadFromFile(texId);
-	if (highlitedTexId != "")
+	if (highlitedTexId != "") // KHI
 	{
 		highlitedTex.loadFromFile(highlitedTexId);
 	}
 	button.setTexture(tex);
 	Utils::SetOrigin(button, Origins::TL);
+
+	font = FONT_MGR.Get("assets/font/Daum_Regular.ttf"); // KHI
 }
 
 void Button::Update(float dt)
@@ -73,5 +74,21 @@ void Button::Draw(sf::RenderWindow& window)
 {
 	if (GetActive()) {
 		if (isButton) window.draw(button);
+		if (btnText.getString() != "") window.draw(btnText);
 	}
+}
+
+// KHI
+void Button::SetText(const std::string& str, int size, sf::Color color)
+{
+	btnText.setFont(font);
+	btnText.setString(str);
+	btnText.setCharacterSize(size);
+	btnText.setFillColor(color);
+
+	sf::FloatRect textBounds = btnText.getLocalBounds();
+	btnText.setOrigin(textBounds.left * 0.5f, textBounds.height * 0.5f);
+
+	sf::FloatRect btnBounds = button.getGlobalBounds();
+	btnText.setPosition(btnBounds.left + 10, btnBounds.top + btnBounds.height * 0.5f);
 }

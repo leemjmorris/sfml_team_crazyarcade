@@ -10,6 +10,7 @@ protected:
 	sf::Sprite button;
 	std::string texId;
 	std::string highlitedTexId; // KHI
+	sf::Text btnText; // KHI
 	bool isButton = false;
 
 	std::function<void()> onClick;
@@ -28,8 +29,8 @@ public:
 		button.setScale(1.f, 1.f);
 		button.setPosition(r.left, r.top);
 	}
-	// KHI
 
+	// KHI
 	void SetButton(const sf::String& str, sf::FloatRect r, const sf::String& hStr)
 	{
 		isButton = true;
@@ -38,6 +39,9 @@ public:
 		button.setScale(1.f, 1.f);
 		button.setPosition(r.left, r.top);
 	}
+
+	void SetText(const std::string& str, int size = 20, sf::Color color = sf::Color::White);
+
 	const sf::Sprite& getBox() const { return button; }
 
 	void SetOnClick(std::function<void()> func);

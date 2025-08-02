@@ -10,12 +10,14 @@ void SceneReady::Init()
 {
 	texIds.push_back("assets/lobby_bg.png");
 	texIds.push_back("assets/SelectMapImg.png");
+	fontIds.push_back("assets/font/Daum_Regular.ttf");
 
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 	worldView.setSize(windowSize);
 	worldView.setCenter(windowSize * 0.5f);
 
 	TEXTURE_MGR.Load(texIds);
+	FONT_MGR.Load(fontIds);
 
 	//Button::LoadHitMask("Assets/UI/lobbyColorMap.png", { 0.f, 0.f }, { 1.f, 1.f });
 
