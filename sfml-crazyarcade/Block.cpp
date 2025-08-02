@@ -164,7 +164,7 @@ void Block::DestroyBlock(Scene* scene)
         std::string itemName = "item";
         Item::SpawnItem(itemName, itemType, blockPosition);
 
-        std::cout << "Block position : " << blockPosition.x << ", " << blockPosition.y << std::endl;
+        //std::cout << "Block position : " << blockPosition.x << ", " << blockPosition.y << std::endl;
     }
 
     // LMJ: "Deactivate the block (will be removed by scene)"

@@ -104,23 +104,23 @@ bool Player::CheckInstallWaterballoon()
 		return false;
 
 	if (!CanPlaceBalloon()) {
-		std::cout << "all waterballoon is installed" << std::endl;
+		//std::cout << "all waterballoon is installed" << std::endl;
 		return false;
 	}
 
 	WaterBalloon* b = WaterBalloon::Spawn("bomb", { GetPosition().x, GetPosition().y - 10.f }, GetWaterBalloonLength(), this);
 	if (!b) {
-		std::cout << "cannot install position\n";
+		//std::cout << "cannot install position\n";
 		return false;
 	}
 
 	SOUND_MGR.PlaySfx("sounds/Set_WaterBomb.mp3");
 
-	std::cout << "Spawned bomb ptr = " << b << '\n';
+	//std::cout << "Spawned bomb ptr = " << b << '\n';
 	if (playerIndex == 0)
-		std::cout << "Player 1 activeBalloons:" << activeBalloons << ", balloonCapacity: " << balloonCapacity << std::endl;
-	else
-		std::cout << "Player 2  activeBalloons:" << activeBalloons << ", balloonCapacity: " << balloonCapacity << std::endl;
+		//std::cout << "Player 1 activeBalloons:" << activeBalloons << ", balloonCapacity: " << balloonCapacity << std::endl;
+	//else
+		//std::cout << "Player 2  activeBalloons:" << activeBalloons << ", balloonCapacity: " << balloonCapacity << std::endl;
 
 	passThroughBombs.insert(b);
 	++activeBalloons;
@@ -290,7 +290,7 @@ void Player::Update(float dt)
 			animState = AnimState::Dead;
 			dieTimer = 0.f;
 			animator.Play("animation/bazzi_die.csv");
-			std::cout << "TrappedTimer is finished: AnimeState::Dead" << std::endl;
+			//std::cout << "TrappedTimer is finished: AnimeState::Dead" << std::endl;
 		}
 	}
 	if (gameOverStarted && animState != AnimState::Win)
@@ -424,7 +424,7 @@ void Player::Movement(float dt)
 			int gamepadIndex = playerIndex - 2;
 			
 			sf::Vector2f gamepadDir = InputMgr::GetGamepadDirection(gamepadIndex);
-			std::cout << gamepadDir.x << ", " << gamepadDir.y << std::endl;
+			//std::cout << gamepadDir.x << ", " << gamepadDir.y << std::endl;
 			if (gamepadDir.x != 0.f || gamepadDir.y != 0.f)
 			{
 				dir = gamepadDir;

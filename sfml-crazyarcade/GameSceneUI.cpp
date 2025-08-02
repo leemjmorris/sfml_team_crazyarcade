@@ -47,7 +47,7 @@ void GameSceneUI::Reset()
     sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
     sf::Vector2u texSize = draftSprite.getTexture()->getSize();
     draftSprite.setScale(windowSize.x / texSize.x, windowSize.y / texSize.y);
-    std::cout << texSize.x << ", " << texSize.y << std::endl;
+    //std::cout << texSize.x << ", " << texSize.y << std::endl;
     draftSprite.setPosition({ 0, 0 });
 }
 

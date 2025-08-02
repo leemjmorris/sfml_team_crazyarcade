@@ -143,7 +143,7 @@ void Item::FloatingEffect(float dt, float verticalRange, float speed)
 
 void Item::Use(Player* player)
 {
-	std::cout << itemType << std::endl;
+	//std::cout << itemType << std::endl;
 	if (itemType == ItemType::Balloon)
 	{
 		player->AddWaterBalloonCount(1);
@@ -172,7 +172,7 @@ void Item::CheckCollisionWithPlayers()
 	{
 		if (Utils::CheckCollision(hitBox.rect, players[i]->GetHitBox().rect))
 		{
-			std::cout << "Item collided with player: " << players[i]->GetName() << std::endl;
+			//std::cout << "Item collided with player: " << players[i]->GetName() << std::endl;
 			Use(players[i]);
 		}
 	}

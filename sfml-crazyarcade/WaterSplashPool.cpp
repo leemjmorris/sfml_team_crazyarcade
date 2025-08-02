@@ -9,7 +9,7 @@ Scene* WaterSplashPool::curScene = nullptr;
 
 WaterSplashPool::WaterSplashPool()
 {
-	std::cout << "Created WaterSplash ObjectPool" << std::endl;
+	//std::cout << "Created WaterSplash ObjectPool" << std::endl;
 }
 
 void WaterSplashPool::Init()
@@ -55,7 +55,7 @@ void WaterSplashPool::CreateObject(int amount)
         }
         else
         {
-            std::cout << "WaterSplashPool: 현재 씬 설정해주세요 ㅜ.ㅜ" << std::endl;
+            //std::cout << "WaterSplashPool: 현재 씬 설정해주세요 ㅜ.ㅜ" << std::endl;
         }
     }
 }

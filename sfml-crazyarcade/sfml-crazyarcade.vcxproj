@@ -164,9 +164,11 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ResultPop.cpp" />
     <ClCompile Include="SceneGame.cpp" />
+    <ClCompile Include="SceneIntro.cpp" />
     <ClCompile Include="SceneReady.cpp" />
     <ClCompile Include="Framework\SceneMgr.cpp" />
     <ClCompile Include="Framework\SoundMgr.cpp" />
+    <ClCompile Include="SceneTitle.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -206,9 +208,11 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResultPop.h" />
     <ClInclude Include="SceneGame.h" />
+    <ClInclude Include="SceneIntro.h" />
     <ClInclude Include="SceneReady.h" />
     <ClInclude Include="Framework\SceneMgr.h" />
     <ClInclude Include="Framework\SoundMgr.h" />
+    <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\Utils.h" />

@@ -126,7 +126,7 @@ void SceneGame::Init()
 	soundIds.push_back("sounds/Lobby_Select.mp3");
 	soundIds.push_back("sounds/logo.mp3");
 	soundIds.push_back("sounds/Result_Draw.mp3");
-	soundIds.push_back("sounds/Result_Win.wav");
+	soundIds.push_back("sounds/Result_Win.mp3");
 	soundIds.push_back("sounds/Set_WaterBomb.mp3");
 	soundIds.push_back("sounds/Title.mp3");
 
@@ -189,20 +189,20 @@ void SceneGame::Enter()
 	WaterSplashPool::SetCurScene(SCENE_MGR.GetCurrentScene());
 	WaterSplashPool::Init();
 
-	std::cout << "===================" << std::endl;
-	std::cout << "     SceneDemo" << std::endl;
-	std::cout << "===================" << std::endl;
+	//std::cout << "===================" << std::endl;
+	//std::cout << "     SceneDemo" << std::endl;
+	//std::cout << "===================" << std::endl;
 
 	// LMJ: Load map from JSON file created in MapEditor
 	auto blocks = FindGameObjects("Block");
 	for (auto* obj : blocks) RemoveGameObject(obj);
 	if (!LOAD_MAP(this, "DemoMap.json"))
 	{
-		std::cout << "Failed to load DemoMap.json, using default positions..." << std::endl;
+		//std::cout << "Failed to load DemoMap.json, using default positions..." << std::endl;
 	}
 	else
 	{
-		std::cout << "Successfully loaded map from DemoMap.json!" << std::endl;
+		//std::cout << "Successfully loaded map from DemoMap.json!" << std::endl;
 	}
 
 	// LMJ: Set player positions using helper functions
@@ -211,8 +211,8 @@ void SceneGame::Enter()
 	player3p->SetPosition(Utils::GetPlayerSpawnPoint(2));
 	player4p->SetPosition(Utils::GetPlayerSpawnPoint(3));
 
-	std::cout << "Player 1 position: (" << bazzi->GetPosition().x << ", " << bazzi->GetPosition().y << ")" << std::endl;
-	std::cout << "Player 2 position: (" << dao->GetPosition().x << ", " << dao->GetPosition().y << ")" << std::endl;
+	//std::cout << "Player 1 position: (" << bazzi->GetPosition().x << ", " << bazzi->GetPosition().y << ")" << std::endl;
+	//std::cout << "Player 2 position: (" << dao->GetPosition().x << ", " << dao->GetPosition().y << ")" << std::endl;
 
 	goReadyRoom = false;
 	bazzi->SetEnter(true);
@@ -300,7 +300,7 @@ void SceneGame::Update(float dt)
 		dao->SetGameOver(false, true, dt);
 		gameTimer = 0.f;
 		goReadyRoom = true;
-		std::cout << "Time's up! Draw!" << std::endl;
+		//std::cout << "Time's up! Draw!" << std::endl;
 		popUi->SetResult({ bazzi, dao });
 		popUi->SetActive(true);
 		//popUi->SetResult();
@@ -413,15 +413,15 @@ bool SceneGame::CheckCollisionWithPlayer(float dt)
 		if (dao->GetPlayerState() == AnimState::Trapped && bazzi->GetPlayerState() != AnimState::Trapped)
 		{
 			dao->HandleBubbleDeath(AnimState::Dead);
-			std::cout << " 2P Player Dead " << std::endl;
-			std::cout << "GameOver" << std::endl;
+			//std::cout << " 2P Player Dead " << std::endl;
+			//std::cout << "GameOver" << std::endl;
 			return true;
 		}
 		else if (bazzi->GetPlayerState() == AnimState::Trapped && dao->GetPlayerState() != AnimState::Trapped)
 		{
 			bazzi->HandleBubbleDeath(AnimState::Dead);
-			std::cout << " 1P Player Dead " << std::endl;
-			std::cout << "GameOver" << std::endl;
+			//std::cout << " 1P Player Dead " << std::endl;
+			//std::cout << "GameOver" << std::endl;
 			return true;
 		}
 	}

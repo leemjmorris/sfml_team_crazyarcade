@@ -58,9 +58,6 @@
     <ClCompile Include="Item.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\SceneDev1.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="WaterBalloon.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -77,9 +74,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Block.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneDemo.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="libtinyfiledialogs-master\tinyfiledialogs.c">
@@ -107,6 +101,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="OutlineShader.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneIntro.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneTitle.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -180,9 +180,6 @@
     <ClInclude Include="Item.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\SceneDev1.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="WaterBalloon.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -199,9 +196,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Block.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneDemo.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="libtinyfiledialogs-master\tinyfiledialogs.h">
@@ -229,6 +223,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="OutlineShader.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneIntro.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneTitle.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

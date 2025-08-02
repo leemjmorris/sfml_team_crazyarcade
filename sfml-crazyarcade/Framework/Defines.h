@@ -22,6 +22,8 @@ enum class Origins
 enum class SceneIds
 {
 	None = -1,
+	Intro,
+	Title,
 	MapEditor,
 	Ready,
 	Game,
