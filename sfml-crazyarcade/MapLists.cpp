@@ -52,6 +52,21 @@ void MapLists::Reset()
 
     CreateButtons();
 	CreateActionButtons();
+
+	SetRandomMap();
+
+	tempPath = SceneMgr::SelectedMapPath;
+	std::string selectedMapName = tempPath.substr(0, tempPath.find_last_of('.'));
+	SetMapNameText(selectedMapName);
+
+	for (auto* btn : buttons)
+	{
+		if (btn->GetName() == "Btn_" + selectedMapName)
+		{
+			btn->SetClicked(true);
+			break;
+		}
+	}
 }
 
 void MapLists::Update(float dt)
@@ -75,6 +90,8 @@ void MapLists::Draw(sf::RenderWindow& window)
 
 	confirmBtn->Draw(window);
 	cancelBtn->Draw(window);
+
+	window.draw(mapNameText);
 }
 
 std::map<std::string, std::string> MapLists::LoadMapList(const std::string& folderPath)
@@ -104,6 +121,14 @@ std::map<std::string, std::string> MapLists::LoadMapList(const std::string& fold
 	return mapList;
 }
 
+void MapLists::SetRandomMap()
+{
+	int random = Utils::RandomRange(0, mapList.size());
+
+	auto it = std::next(mapList.begin(), Utils::RandomRange(0, mapList.size()));
+	SceneMgr::SelectedMapPath = it->second;
+}
+
 void MapLists::CreateButtons()
 {
 	const float startX = 335.f;
@@ -126,7 +151,7 @@ void MapLists::CreateButtons()
 
 		btn->SetButton(listBtnTex, { btnPos.x, btnPos.y, 0.f, 0.f }, listBtnTexH, listBtnTexC);
 		btn->SetText(pair.first, 13);
-		btn->SetOnClick([this, btn, path = pair.second] {
+		btn->SetOnClick([this, btn, name = pair.first, path = pair.second] {
 
 			for (auto* otherBtn : buttons)
 			{
@@ -136,6 +161,7 @@ void MapLists::CreateButtons()
 			btn->SetClicked(true);
 
 			tempPath = path;
+			SetMapNameText(name);
 			});
 
 		btn->Init();
@@ -167,4 +193,17 @@ void MapLists::CreateActionButtons()
 	cancelBtn->SetOnClick([] {
 		std::cout << "cancel" << std::endl;
 		});
+}
+
+void MapLists::SetMapNameText(std::string str)
+{
+	mapNameText.setFont(FONT_MGR.Get("assets/font/Daum_Regular.ttf"));
+	mapNameText.setString(str);
+	mapNameText.setCharacterSize(13);
+	mapNameText.setFillColor(sf::Color::White);
+
+	sf::FloatRect bounds = mapNameText.getLocalBounds();
+	mapNameText.setOrigin(bounds.width * 0.5f, bounds.height * 0.5f);
+
+	mapNameText.setPosition(230.f, 126.5f);
 }

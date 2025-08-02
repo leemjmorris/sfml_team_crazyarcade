@@ -21,7 +21,7 @@ protected:
 
 	std::string tempPath;
 
-	std::string mapName;
+	sf::Text mapNameText;
 
 public:
 	MapLists(const std::string& name = "MapList", bool b = true);
@@ -34,6 +34,8 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	std::map<std::string, std::string> LoadMapList(const std::string& folderPath);
+	void SetRandomMap();
 	void CreateButtons();
 	void CreateActionButtons();
+	void SetMapNameText(std::string str);
 };
