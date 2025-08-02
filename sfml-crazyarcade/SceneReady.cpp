@@ -56,6 +56,9 @@ void SceneReady::Enter()
 
 	bgSprite.setScale(scale);
 
+
+	mapListUi->Reset();
+
 	Scene::Enter();
 }
 

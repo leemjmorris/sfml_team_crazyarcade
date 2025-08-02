@@ -9,14 +9,6 @@ MapLists::MapLists(const std::string& name, bool b)
 
 void MapLists::Init()
 {
-	sf::Texture& tex = TEXTURE_MGR.Get("assets/SelectMapImg.png");
-	background.setTexture(tex);
-
-	// KHI: Center align map settings background image
-	Utils::SetOrigin(background, Origins::MC);
-	sf::Vector2f center = FRAMEWORK.GetWindowSizeF() * 0.5f;
-	background.setPosition(center);
-
 	// KHI: Load JSON files located in the map folder
 	std::map<std::string, std::string> mapList = LoadMapList("map");
 
@@ -35,6 +27,14 @@ void MapLists::Release()
 
 void MapLists::Reset()
 {
+	TEXTURE_MGR.Load("assets/SelectMapImg.png");
+	background.setTexture(TEXTURE_MGR.Get("assets/SelectMapImg.png"));
+
+	// KHI: Center align map settings background image
+	Utils::SetOrigin(background, Origins::MC);
+	sf::View currentView = FRAMEWORK.GetWindow().getView();
+	sf::Vector2f viewCenter = currentView.getCenter();
+	background.setPosition(viewCenter);
 }
 
 void MapLists::Update(float dt)
