@@ -112,7 +112,7 @@ void MapLists::CreateButtons()
 		btnPos.x = startX;
 		btnPos.y = startY + idx * (texSize.y + gapY);
 
-		btn->SetButton(listBtnTex, { btnPos.x, btnPos.y, 0.f, 0.f });
+		btn->SetButton(listBtnTex, { btnPos.x, btnPos.y, 0.f, 0.f }, listBtnTexH);
 
 		btn->SetOnClick([path = pair.second] {
 			SceneMgr::SelectedMapPath = path;

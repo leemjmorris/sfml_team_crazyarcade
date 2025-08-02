@@ -11,6 +11,7 @@ protected:
 	std::map<std::string, std::string> mapList; // KHI: <mapName - mapFilePath>
 	std::vector<Button*> buttons;
 	std::string listBtnTex = "assets/ui/mapListBtn.png";
+	std::string listBtnTexH = "assets/ui/mapListHighlightedBtn.png";
 
 public:
 	MapLists(const std::string& name = "MapList", bool b = true);

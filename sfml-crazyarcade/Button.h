@@ -6,8 +6,10 @@ class Button :
 protected:
 	sf::Font font;
 	sf::Texture tex;
+	sf::Texture highlitedTex;
 	sf::Sprite button;
 	std::string texId;
+	std::string highlitedTexId; // KHI
 	bool isButton = false;
 
 	std::function<void()> onClick;
@@ -17,10 +19,22 @@ public:
 	virtual ~Button()=default;
 
 	void SetSize(sf::Vector2f v);
+
 	void SetButton(const sf::String& str, sf::FloatRect r)
 	{
 		isButton = true;
 		texId = str;
+		highlitedTexId = "";
+		button.setScale(1.f, 1.f);
+		button.setPosition(r.left, r.top);
+	}
+	// KHI
+
+	void SetButton(const sf::String& str, sf::FloatRect r, const sf::String& hStr)
+	{
+		isButton = true;
+		texId = str;
+		highlitedTexId = hStr;
 		button.setScale(1.f, 1.f);
 		button.setPosition(r.left, r.top);
 	}

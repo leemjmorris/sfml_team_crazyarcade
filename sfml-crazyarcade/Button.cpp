@@ -34,6 +34,10 @@ void Button::Release()
 void Button::Reset()
 {
 	tex.loadFromFile(texId);
+	if (highlitedTexId != "")
+	{
+		highlitedTex.loadFromFile(highlitedTexId);
+	}
 	button.setTexture(tex);
 	Utils::SetOrigin(button, Origins::TL);
 }
@@ -50,6 +54,19 @@ void Button::Update(float dt)
 	{
 		if (onClick) onClick();
 	}
+
+	// KHI: If a highlight texture exists, apply the highlight texture on mouse hover
+    if (highlitedTexId != "")
+    {
+        if (isMouseOver && button.getTexture() != &highlitedTex)
+        {
+            button.setTexture(highlitedTex);
+        }
+        else if (!isMouseOver && button.getTexture() != &tex)
+        {
+            button.setTexture(tex);
+        }
+    }
 }
 
 void Button::Draw(sf::RenderWindow& window)
