@@ -111,11 +111,20 @@ void MapLists::CreateButtons()
 		btnPos.x = startX;
 		btnPos.y = startY + idx * (texSize.y + gapY);
 
-		btn->SetButton(listBtnTex, { btnPos.x, btnPos.y, 0.f, 0.f }, listBtnTexH);
+		btn->SetButton(listBtnTex, { btnPos.x, btnPos.y, 0.f, 0.f }, listBtnTexH, listBtnTexC);
 		btn->SetText(pair.first, 13);
-		btn->SetOnClick([path = pair.second] {
+		btn->SetOnClick([this, btn, path = pair.second] {
+
+			for (auto* otherBtn : buttons)
+			{
+				otherBtn->Reset();
+			}
+
+			btn->SetClicked(true);
+
 			SceneMgr::SelectedMapPath = path;
-			SCENE_MGR.ChangeScene(SceneIds::Demo);
+			std::cout << path << std::endl;
+			//SCENE_MGR.ChangeScene(SceneIds::Demo);
 			});
 
 

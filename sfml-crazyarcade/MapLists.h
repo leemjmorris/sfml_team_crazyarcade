@@ -12,6 +12,7 @@ protected:
 	std::vector<Button*> buttons;
 	std::string listBtnTex = "assets/ui/mapListBtn.png";
 	std::string listBtnTexH = "assets/ui/mapListHighlightedBtn.png";
+	std::string listBtnTexC = "assets/ui/mapClickedBtn.png";
 
 public:
 	MapLists(const std::string& name = "MapList", bool b = true);

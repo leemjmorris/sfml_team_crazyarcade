@@ -33,19 +33,26 @@ void Button::Release()
 void Button::Reset()
 {
 	tex.loadFromFile(texId);
+	button.setTexture(tex);
+
 	if (highlitedTexId != "") // KHI
 	{
 		highlitedTex.loadFromFile(highlitedTexId);
 	}
-	button.setTexture(tex);
+	if (clickedTexId != "") // KHI
+	{
+		clickedTex.loadFromFile(clickedTexId);
+	}
+
 	Utils::SetOrigin(button, Origins::TL);
 
 	font = FONT_MGR.Get("assets/font/Daum_Regular.ttf"); // KHI
-
 	if (btnText.getString() != "")
 	{
 		SetText(btnText.getString(), btnText.getCharacterSize());
 	}
+
+	isClicked = false; // KHI
 }
 
 void Button::Update(float dt)
@@ -73,6 +80,11 @@ void Button::Update(float dt)
             button.setTexture(tex);
         }
     }
+
+	if (isClicked)
+	{
+		button.setTexture(clickedTex);
+	}
 }
 
 void Button::Draw(sf::RenderWindow& window)
@@ -96,4 +108,10 @@ void Button::SetText(const std::string& str, int size, sf::Color color)
 
 	sf::FloatRect btnBounds = button.getGlobalBounds();
 	btnText.setPosition(btnBounds.left + 10, btnBounds.top + btnBounds.height * 0.5f);
+}
+
+// KHI
+void Button::SetClicked(bool clicked)
+{
+	isClicked = clicked;
 }
