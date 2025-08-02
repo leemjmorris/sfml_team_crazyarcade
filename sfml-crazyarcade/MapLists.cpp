@@ -35,16 +35,15 @@ void MapLists::Release()
 
 void MapLists::Reset()
 {
-	TEXTURE_MGR.Load("assets/SelectMapImg.png");
-	background.setTexture(TEXTURE_MGR.Get("assets/SelectMapImg.png"));
+    TEXTURE_MGR.Load("assets/SelectMapImg.png");
+    background.setTexture(TEXTURE_MGR.Get("assets/SelectMapImg.png"));
 
-	// KHI: Center align map settings background image
-	Utils::SetOrigin(background, Origins::MC);
-	sf::View currentView = FRAMEWORK.GetWindow().getView();
-	sf::Vector2f viewCenter = currentView.getCenter();
-	background.setPosition(viewCenter);
+    Utils::SetOrigin(background, Origins::MC);
+    sf::View currentView = FRAMEWORK.GetWindow().getView();
+    sf::Vector2f viewCenter = currentView.getCenter();
+    background.setPosition(viewCenter);
 
-	CreateButtons();
+    CreateButtons();
 }
 
 void MapLists::Update(float dt)
@@ -113,7 +112,7 @@ void MapLists::CreateButtons()
 		btnPos.y = startY + idx * (texSize.y + gapY);
 
 		btn->SetButton(listBtnTex, { btnPos.x, btnPos.y, 0.f, 0.f }, listBtnTexH);
-		btn->SetText(pair.first, 10);
+		btn->SetText(pair.first, 13);
 		btn->SetOnClick([path = pair.second] {
 			SceneMgr::SelectedMapPath = path;
 			SCENE_MGR.ChangeScene(SceneIds::Demo);

@@ -41,6 +41,11 @@ void Button::Reset()
 	Utils::SetOrigin(button, Origins::TL);
 
 	font = FONT_MGR.Get("assets/font/Daum_Regular.ttf"); // KHI
+
+	if (btnText.getString() != "")
+	{
+		SetText(btnText.getString(), btnText.getCharacterSize());
+	}
 }
 
 void Button::Update(float dt)

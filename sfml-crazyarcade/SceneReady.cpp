@@ -40,6 +40,7 @@ void SceneReady::Init()
 void SceneReady::Enter()
 {
 	TEXTURE_MGR.Load(texIds);
+	FONT_MGR.Load(fontIds);
 	sf::Texture& bgTexture = TEXTURE_MGR.Get("assets/lobby_bg.png");
 	bgSprite.setTexture(bgTexture);
 
