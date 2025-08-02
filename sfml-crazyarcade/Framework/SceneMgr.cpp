@@ -5,6 +5,8 @@
 #include "SceneReady.h"
 #include "SceneDemo.h"
 
+std::string SceneMgr::SelectedMapPath = "DemoMap.json";
+
 void SceneMgr::Init()
 {
 	scenes.push_back(new SceneDev1());

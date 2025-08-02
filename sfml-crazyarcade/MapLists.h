@@ -1,5 +1,6 @@
 #pragma once
 #include "UiHud.h"
+#include "Button.h"
 
 // KHI
 class MapLists : public UiHud
@@ -8,6 +9,8 @@ protected:
 	sf::Sprite background;
 
 	std::map<std::string, std::string> mapList; // KHI: <mapName - mapFilePath>
+	std::vector<Button*> buttons;
+	std::string listBtnTex = "assets/ui/mapListBtn.png";
 
 public:
 	MapLists(const std::string& name = "MapList", bool b = true);
@@ -20,4 +23,5 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	std::map<std::string, std::string> LoadMapList(const std::string& folderPath);
+	void CreateButtons();
 };

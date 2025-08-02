@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MapLists.h"
+#include "Button.h"
 #include <windows.h>
 
 MapLists::MapLists(const std::string& name, bool b)
@@ -10,19 +11,26 @@ MapLists::MapLists(const std::string& name, bool b)
 void MapLists::Init()
 {
 	// KHI: Load JSON files located in the map folder
-	std::map<std::string, std::string> mapList = LoadMapList("map");
+	mapList = LoadMapList("map");
 
 	// KHI: Results output for TESTING
-	std::cout << "======== ¸Ê ¸ñ·Ï ========" << std::endl;
-	for (const auto& pair : mapList) 
+	std::cout << "-------------------------" << std::endl;
+	for (const auto& pair : mapList)
 	{
 		std::cout << pair.first << ": " << pair.second << std::endl;
 	}
 	std::cout << "ÃÑ " << mapList.size() << "°³ ·Îµå" << std::endl;
+	std::cout << "-------------------------" << std::endl;
 }
 
 void MapLists::Release()
 {
+	for (auto* btn : buttons) 
+	{ 
+		btn->Release(); 
+		delete btn;
+	}
+	buttons.clear();
 }
 
 void MapLists::Reset()
@@ -35,15 +43,26 @@ void MapLists::Reset()
 	sf::View currentView = FRAMEWORK.GetWindow().getView();
 	sf::Vector2f viewCenter = currentView.getCenter();
 	background.setPosition(viewCenter);
+
+	CreateButtons();
 }
 
 void MapLists::Update(float dt)
 {
+	for (auto* btn : buttons)
+	{
+		btn->Update(dt);
+	}
 }
 
 void MapLists::Draw(sf::RenderWindow& window)
 {
 	window.draw(background);
+
+	for (auto* btn : buttons)
+	{
+		btn->Draw(window);
+	}
 }
 
 std::map<std::string, std::string> MapLists::LoadMapList(const std::string& folderPath)
@@ -62,9 +81,8 @@ std::map<std::string, std::string> MapLists::LoadMapList(const std::string& fold
 			{
 				std::string fileName = findData.cFileName;
 				std::string nameOnly = fileName.substr(0, fileName.find_last_of('.'));
-				std::string fullPath = folderPath + "/" + fileName;
 
-				mapList[nameOnly] = fullPath;
+				mapList[nameOnly] = fileName;
 			}
 		} while (FindNextFileA(hFind, &findData));
 
@@ -72,4 +90,40 @@ std::map<std::string, std::string> MapLists::LoadMapList(const std::string& fold
 	}
 
 	return mapList;
+}
+
+void MapLists::CreateButtons()
+{
+	const float startX = 335.f;
+	const float startY = 180.f;
+	const float gapY = 1.f;
+
+	int idx = 0;
+
+	for (const auto& pair : mapList)
+	{
+		Button* btn = new Button("Btn_" + pair.first);
+
+		sf::Texture tex;
+		tex.loadFromFile(listBtnTex);
+		sf::Vector2u texSize = tex.getSize();
+
+		sf::Vector2f btnPos;
+		btnPos.x = startX;
+		btnPos.y = startY + idx * (texSize.y + gapY);
+
+		btn->SetButton(listBtnTex, { btnPos.x, btnPos.y, 0.f, 0.f });
+
+		btn->SetOnClick([path = pair.second] {
+			SceneMgr::SelectedMapPath = path;
+			SCENE_MGR.ChangeScene(SceneIds::Demo);
+			});
+
+
+		btn->Init();
+		btn->Reset();
+
+		buttons.push_back(btn);
+		idx++;
+	}
 }

@@ -69,6 +69,7 @@ void SceneReady::Update(float dt)
 	//	//SCENE_MGR.ChangeScene(SceneIds::Demo);
 	//}
 	ui->Update(dt);
+	mapListUi->Update(dt);
 	Scene::Update(dt);
 }
 

@@ -158,13 +158,13 @@ void SceneDemo::Enter()
 	// LMJ: Load map from JSON file created in MapEditor
 	auto blocks = FindGameObjects("Block");
 	for (auto* obj : blocks) RemoveGameObject(obj);
-	if (!LOAD_MAP(this, "DemoMap.json"))
+	if (!LOAD_MAP(this, SceneMgr::SelectedMapPath))
 	{
-		std::cout << "Failed to load DemoMap.json, using default positions..." << std::endl;
+		std::cout << "Failed to load " << SceneMgr::SelectedMapPath << ", using default positions..." << std::endl;
 	}
 	else
 	{
-		std::cout << "Successfully loaded map from DemoMap.json!" << std::endl;
+		std::cout << "Successfully loaded map from " << SceneMgr::SelectedMapPath << "!" << std::endl;
 	}
 
 	// LMJ: Set player positions using helper functions
