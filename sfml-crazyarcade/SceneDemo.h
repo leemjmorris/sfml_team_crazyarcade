@@ -4,6 +4,11 @@
 #include "Item.h"
 #include "ColorMaskShader.h"
 
+struct LobbyConfig {
+	int roomCount = 0;
+	std::vector<CharacterID> chars;
+};
+
 class GameSceneUI;
 class ResultPop;
 class SceneDemo : public Scene
@@ -14,6 +19,8 @@ protected:
 	bool isShowingText = false;
 	float readyRoomTimer = 0.f;
 
+
+	LobbyConfig lobbyConf;
 	//sf::FloatRect clickableArea = sf::FloatRect(647.f,561.f,141.f, 32.f);
 
 	const int GRID_HEIGHT = 13;
@@ -23,10 +30,10 @@ protected:
 	float gameTimer;
 	bool isGameOver = false;
 	bool goReadyRoom = false;
-	Player* bazzi;
-	Player* dao;
-	Player* player3p;
-	Player* player4p;
+	Player* bazzi = nullptr;
+	Player* dao = nullptr;
+	Player* player3p = nullptr;
+	Player* player4p = nullptr;
 
 	Item* item;
 	sf::FloatRect worldBounds = FRAMEWORK.GetWindowBounds();
@@ -51,6 +58,10 @@ protected:
 
 	sf::Sprite uiSprite;
 
+	std::vector<Player*> players;
+	bool CheckCollisionAmongPlayers(float dt);
+	void EvaluateRoundState(float dt);
+
 public:
 	SceneDemo();
 	~SceneDemo() override = default;
@@ -62,7 +73,9 @@ public:
 	void Exit() override;
 
 	void ClampToBounds(GameObject& obj);
+	void SetLobbyConfig(const LobbyConfig& conf) { lobbyConf = conf; }
 
 	// KHI: For TEST !!!
 	bool CheckCollisionWithPlayer(float dt);
+	void BuildPlayersFromRoomCount();
 };

@@ -1,0 +1,6 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)",,,
+Win,4,1,,,
+,,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
+assets/player/dao/unit_dao.png,343,278,71,71,0
+assets/player/dao/unit_dao.png,434,434,71,71,0

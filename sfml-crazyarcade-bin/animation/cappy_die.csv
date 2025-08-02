@@ -1,0 +1,17 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)",,,
+Die,10,0,,,
+,,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
+assets/player/cappy/unit_cappy.png,455,221,71,71,0
+assets/player/cappy/unit_cappy.png,53,418,71,71,0
+assets/player/cappy/unit_cappy.png,312,424,67,71,0
+assets/player/cappy/unit_cappy.png,387,424,67,71,0
+assets/player/cappy/unit_cappy.png,420,512,67,71,0
+assets/player/cappy/unit_cappy.png,387,424,67,71,0
+assets/player/cappy/unit_cappy.png,420,512,67,71,0
+assets/player/cappy/unit_cappy.png,387,424,67,71,0
+assets/player/cappy/unit_cappy.png,420,512,67,71,0
+assets/player/cappy/unit_cappy.png,387,424,67,71,0
+assets/player/cappy/unit_cappy.png,420,512,67,71,0
+assets/player/cappy/unit_cappy.png,387,424,67,71,0
+assets/player/cappy/unit_cappy.png,420,512,67,71,0

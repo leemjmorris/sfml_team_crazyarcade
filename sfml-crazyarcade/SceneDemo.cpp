@@ -8,6 +8,161 @@
 #include "GameSceneUI.h"
 #include "ResultPop.h"
 
+bool SceneDemo::CheckCollisionAmongPlayers(float dt)
+{
+	auto isTrapped = [](AnimState s) { return s == AnimState::Trapped; };
+
+	for (size_t i = 0; i < players.size(); ++i) {
+		Player* A = players[i];
+		if (!A) continue;
+
+		for (size_t j = i + 1; j < players.size(); ++j) {
+			Player* B = players[j];
+			if (!B) continue;
+
+			if (!Utils::CheckCollision(A->GetHitBox().rect, B->GetHitBox().rect))
+				continue;
+
+			AnimState a = A->GetPlayerState();
+			AnimState b = B->GetPlayerState();
+
+			if (isTrapped(a) ^ isTrapped(b)) {
+				Player* trapped = isTrapped(a) ? A : B;
+				Player* other = (trapped == A) ? B : A;
+
+				if (trapped->GetPlayerState() != AnimState::Dead) {
+					trapped->HandleBubbleDeath(AnimState::Dead);
+					std::cout << trapped->GetName()
+						<< " Dead by contact with "
+						<< other->GetName() << std::endl;
+					return true; 
+				}
+			}
+		}
+	}
+	return false;
+}
+
+void SceneDemo::EvaluateRoundState(float dt)
+{
+	std::vector<Player*> alive;
+	alive.reserve(players.size());
+	for (auto* p : players) {
+		if (!p) continue;
+		AnimState s = p->GetPlayerState();
+		if (s != AnimState::Dead) {
+			alive.push_back(p);
+		}
+	}
+
+	if (alive.size() == 1) {
+		isShowingText = true;
+
+		alive[0]->SetGameOver(true, false, dt);
+
+		/*int winnerNo = 
+			(alive[0]->GetPlayerNo() ? alive[0]->GetPlayerNo() + 1
+				: int(std::distance(players.begin(),
+					std::find(players.begin(), players.end(), alive[0]))) + 1);*/
+
+		//textResult.setString(std::to_string(winnerNo) + "P Win");
+		popUi->SetResult(players);    
+		popUi->SetWinner(alive[0]->GetPlayerNo() + 1);
+		popUi->SetActive(true);
+
+		gameTimer = 0.f;
+		goReadyRoom = true;
+		return;
+	}
+
+	if (gameTimer > 1500.f) {
+		if (alive.size() >= 2) {
+			isShowingText = true;
+			textResult.setString("Draw");
+			for (auto* p : alive) p->SetGameOver(false, true, dt);
+
+			gameTimer = 0.f;
+			goReadyRoom = true;
+
+			popUi->SetResult(players);
+			popUi->SetActive(true);
+		}
+	}
+}
+
+void SceneDemo::BuildPlayersFromRoomCount()
+{
+	for (auto* p : players) {
+		if (p) RemoveGameObject(p);
+	}
+	players.clear();
+	bazzi = dao = player3p = player4p = nullptr;
+	objectsNeedingClamp.clear();
+
+	int playerSlots = lobbyConf.roomCount + 1; 
+	for (int i = 0; i < playerSlots; ++i) {
+		CharacterID id = CharacterID::BAZZI; 
+		if (i < (int)lobbyConf.chars.size())
+			id = lobbyConf.chars[i];
+
+		std::string displayName;
+		switch (id) {
+		case CharacterID::BAZZI: displayName = "Bazzi"; break;
+		case CharacterID::DAO:   displayName = "Dao";   break;
+		case CharacterID::CAPPI: displayName = "Cappi"; break;
+		case CharacterID::MARID: displayName = "Marid"; break;
+		default:                 displayName = "Player"; break;
+		}
+
+		Player* p = static_cast<Player*>(
+			AddGameObject(new Player("Player", id, i, displayName))
+			);
+		players.push_back(p);
+		objectsNeedingClamp.push_back(p);
+		if (i == 0) bazzi = p;
+		else if (i == 1) dao = p;
+		else if (i == 2) player3p = p;
+		else if (i == 3) player4p = p;
+	}
+
+	//for (int i = 0; i < lobbyConf.roomCount + 1; ++i)
+	//{
+	//	switch (i)
+	//	{
+	//	case 0: {
+	//		bazzi = static_cast<Player*>(AddGameObject(
+	//			new Player("Player", CharacterID::BAZZI, 0, "Bazzi")));
+	//		players.push_back(bazzi);
+	//		objectsNeedingClamp.push_back(bazzi);
+	//		break;
+	//	}
+	//	case 1: {
+	//		dao = static_cast<Player*>(AddGameObject(
+	//			new Player("Player", CharacterID::DAO, 1, "Dao")));
+	//		players.push_back(dao);
+	//		objectsNeedingClamp.push_back(dao);
+	//		break;                      
+	//	}
+	//	case 2: {
+	//		player3p = static_cast<Player*>(AddGameObject(
+	//			new Player("Player", CharacterID::DAO, 2, "player3p")));
+	//		players.push_back(player3p);
+	//		objectsNeedingClamp.push_back(player3p);
+	//		break;
+	//	}
+	//	case 3: {
+	//		player4p = static_cast<Player*>(AddGameObject(
+	//			new Player("Player", CharacterID::DAO, 3, "player4p")));
+	//		players.push_back(player4p);
+	//		objectsNeedingClamp.push_back(player4p);
+	//		break;
+	//	}
+	//	default:
+	//		break;
+	//	}
+	//}
+}
+
 SceneDemo::SceneDemo()
 	: Scene(SceneIds::Demo), dao(nullptr), bazzi(nullptr), item(nullptr)
 {
@@ -62,6 +217,13 @@ void SceneDemo::Init()
 	texIds.push_back("assets/player/bazzi/jump.png");
 	texIds.push_back("assets/player/bazzi/ready.png");
 	texIds.push_back("assets/player/bazzi/flash_short.png");
+	texIds.push_back("assets/player/bazzi/ready.png");
+	texIds.push_back("assets/player/cappy/unit_cappy.png");
+	texIds.push_back("assets/player/dao/unit_dao.png");
+	texIds.push_back("assets/player/marid/unit_marid.png");
+	texIds.push_back("assets/player/cappy/ready.png");
+	texIds.push_back("assets/player/dao/ready.png");
+	texIds.push_back("assets/player/marid/ready.png");
 	texIds.push_back("assets/play_bg.bmp");
 	texIds.push_back("assets/play_ui.png");
 
@@ -93,15 +255,54 @@ void SceneDemo::Init()
 	ANI_CLIP_MGR.Load("animation/bazzi_ready.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_ready2.csv");
 
-	bazzi = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::BAZZI, 0, "Bazzi")));
-	dao = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 1, "Dao")));
-	player3p = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 2, "player3p")));
-	player4p = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 3, "player4p")));
-	
-	objectsNeedingClamp.push_back(bazzi);
-	objectsNeedingClamp.push_back(dao);
-	objectsNeedingClamp.push_back(player3p);
-	objectsNeedingClamp.push_back(player4p);
+	ANI_CLIP_MGR.Load("animation/cappy_die.csv");
+	ANI_CLIP_MGR.Load("animation/cappy_down.csv");
+	ANI_CLIP_MGR.Load("animation/cappy_live.csv");
+	ANI_CLIP_MGR.Load("animation/cappy_ready.csv");
+	ANI_CLIP_MGR.Load("animation/cappy_run.csv");
+	ANI_CLIP_MGR.Load("animation/cappy_trap.csv");
+	ANI_CLIP_MGR.Load("animation/cappy_up.csv");
+	ANI_CLIP_MGR.Load("animation/cappy_win.csv");
+	ANI_CLIP_MGR.Load("animation/cappy_idle.csv");
+	ANI_CLIP_MGR.Load("animation/cappy_idleSide.csv");
+	ANI_CLIP_MGR.Load("animation/cappy_idleUp.csv");
+
+	ANI_CLIP_MGR.Load("animation/dao_die.csv");
+	ANI_CLIP_MGR.Load("animation/dao_down.csv");
+	ANI_CLIP_MGR.Load("animation/dao_live.csv");
+	ANI_CLIP_MGR.Load("animation/dao_ready.csv");
+	ANI_CLIP_MGR.Load("animation/dao_run.csv");
+	ANI_CLIP_MGR.Load("animation/dao_trap.csv");
+	ANI_CLIP_MGR.Load("animation/dao_up.csv");
+	ANI_CLIP_MGR.Load("animation/dao_win.csv");
+	ANI_CLIP_MGR.Load("animation/dao_idle.csv");
+	ANI_CLIP_MGR.Load("animation/dao_idleSide.csv");
+	ANI_CLIP_MGR.Load("animation/dao_idleUp.csv");
+
+	ANI_CLIP_MGR.Load("animation/marid_die.csv");
+	ANI_CLIP_MGR.Load("animation/marid_down.csv");
+	ANI_CLIP_MGR.Load("animation/marid_live.csv");
+	ANI_CLIP_MGR.Load("animation/marid_ready.csv");
+	ANI_CLIP_MGR.Load("animation/marid_run.csv");
+	ANI_CLIP_MGR.Load("animation/marid_trap.csv");
+	ANI_CLIP_MGR.Load("animation/marid_up.csv");
+	ANI_CLIP_MGR.Load("animation/marid_win.csv");
+	ANI_CLIP_MGR.Load("animation/marid_idle.csv");
+	ANI_CLIP_MGR.Load("animation/marid_idleSide.csv");
+	ANI_CLIP_MGR.Load("animation/marid_idleUp.csv");
+
+
+	//bazzi = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::BAZZI, 0, "Bazzi")));
+	//dao = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 1, "Dao")));
+	//player3p = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 2, "player3p")));
+	//player4p = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 3, "player4p")));
+
+	//players = { bazzi, dao, player3p, player4p };
+	//
+	//objectsNeedingClamp.push_back(bazzi);
+	//objectsNeedingClamp.push_back(dao);
+	//objectsNeedingClamp.push_back(player3p);
+	//objectsNeedingClamp.push_back(player4p);
 
 	colorMask.LoadFromFile("assets/shaders/transparent.frag");
 	colorMask.SetMaskColor(sf::Color(255, 0, 255));
@@ -143,10 +344,12 @@ void SceneDemo::Enter()
 	uiSprite.setPosition(0.f, 0.f);
 	Utils::SetOrigin(uiSprite, Origins::TL);
 
-	Item::SetPlayer(bazzi);
-	Item::SetPlayer(dao);
-	Item::SetPlayer(player3p);
-	Item::SetPlayer(player4p);
+	BuildPlayersFromRoomCount();
+
+	if (bazzi) Item::SetPlayer(bazzi);
+	if (dao) Item::SetPlayer(dao);
+	if (player3p) Item::SetPlayer(player3p);
+	if (player4p) Item::SetPlayer(player4p);
 
 	WaterSplashPool::SetCurScene(SCENE_MGR.GetCurrentScene());
 	WaterSplashPool::Init();
@@ -168,20 +371,20 @@ void SceneDemo::Enter()
 	}
 
 	// LMJ: Set player positions using helper functions
-	bazzi->SetPosition(Utils::GetPlayerSpawnPoint(0));
-	dao->SetPosition(Utils::GetPlayerSpawnPoint(1));
-	player3p->SetPosition(Utils::GetPlayerSpawnPoint(2));
-	player4p->SetPosition(Utils::GetPlayerSpawnPoint(3));
+	if (bazzi) bazzi->SetPosition(Utils::GetPlayerSpawnPoint(0));
+	if (dao) dao->SetPosition(Utils::GetPlayerSpawnPoint(1));
+	if (player3p) player3p->SetPosition(Utils::GetPlayerSpawnPoint(2));
+	if (player4p) player4p->SetPosition(Utils::GetPlayerSpawnPoint(3));
 
-	std::cout << "Player 1 position: (" << bazzi->GetPosition().x << ", " << bazzi->GetPosition().y << ")" << std::endl;
-	std::cout << "Player 2 position: (" << dao->GetPosition().x << ", " << dao->GetPosition().y << ")" << std::endl;
+	//std::cout << "Player 1 position: (" << bazzi->GetPosition().x << ", " << bazzi->GetPosition().y << ")" << std::endl;
+	//std::cout << "Player 2 position: (" << dao->GetPosition().x << ", " << dao->GetPosition().y << ")" << std::endl;
 
 	goReadyRoom = false;
-	bazzi->SetEnter(true);
-	dao->SetEnter(true);
-	player3p->SetEnter(true);
-	player4p->SetEnter(true);
-	popUi->SetResult({ bazzi,dao,player3p });
+	if (bazzi) bazzi->SetEnter(true);
+	if (dao) dao->SetEnter(true);
+	if (player3p) player3p->SetEnter(true);
+	if (player4p) player4p->SetEnter(true);
+	//popUi->SetResult({ bazzi,dao,player3p });
 	// LMJ: Initialize collision system
 	//for (int y = 0; y < 13; ++y)
 	//{
@@ -208,65 +411,69 @@ void SceneDemo::Update(float dt)
 	for (auto* obj : objectsNeedingClamp)
 		ClampToBounds(*obj);
 
-	static bool printed = false;
-	if (bazzi->GetPlayerState() == AnimState::Win)
-	{
-		popUi->SetResult({ bazzi, dao });
-		popUi->SetWinner(1);
-		popUi->SetActive(true);
-		printed = true;
-	}
+	CheckCollisionAmongPlayers(dt);
 
-	if (dao->GetPlayerState() == AnimState::Win)
-	{
-		popUi->SetResult({ bazzi, dao });
-		popUi->SetWinner(2);
-		popUi->SetActive(true);
-		printed = true;
-	}
+	EvaluateRoundState(dt);
 
-	CheckCollisionWithPlayer(dt);
-	if (bazzi->GetPlayerState() == AnimState::Dead)
-	{
-		//dao->SetPlayerState(AnimState::Win);
-		isShowingText = true;
-		dao->SetGameOver(true, false, dt);
-		textResult.setString("2P Win");
-		gameTimer = 0.f;
-		goReadyRoom = true;
-		//popUi->SetResult({ bazzi, dao });
-		//popUi->SetActive(true);
-		//popUi->SetWinner(2);
-	}
+	//static bool printed = false;
+	//if (bazzi->GetPlayerState() == AnimState::Win)
+	//{
+	//	popUi->SetResult({ bazzi, dao });
+	//	popUi->SetWinner(1);
+	//	popUi->SetActive(true);
+	//	printed = true;
+	//}
 
-	if (dao->GetPlayerState() == AnimState::Dead)
-	{
-		//bazzi->SetPlayerState(AnimState::Win);
-		isShowingText = true;
-		bazzi->SetGameOver(true, false, dt);
-		textResult.setString("1P Win");
-		gameTimer = 0.f;
-		goReadyRoom = true;
-		//popUi->SetResult({ bazzi, dao });
-		//popUi->SetActive(true);
-		//popUi->SetWinner(1);
-	}
+	//if (dao->GetPlayerState() == AnimState::Win)
+	//{
+	//	popUi->SetResult({ bazzi, dao });
+	//	popUi->SetWinner(2);
+	//	popUi->SetActive(true);
+	//	printed = true;
+	//}
 
-	if (gameTimer > 1500.f && bazzi->GetPlayerState() == AnimState::Live && dao->GetPlayerState() == AnimState::Live) // LSY: "Game over after 20 second"
-	{
-		bazzi->SetPlayerState(AnimState::Draw);
-		dao->SetPlayerState(AnimState::Draw);
-		isShowingText = true;
-		textResult.setString("Draw");
-		bazzi->SetGameOver(false, true, dt);
-		dao->SetGameOver(false, true, dt);
-		gameTimer = 0.f;
-		goReadyRoom = true;
-		std::cout << "Time's up! Draw!" << std::endl;
-		popUi->SetResult({ bazzi, dao });
-		popUi->SetActive(true);
-		//popUi->SetResult();
-	}
+	//CheckCollisionWithPlayer(dt);
+	//if (bazzi->GetPlayerState() == AnimState::Dead)
+	//{
+	//	//dao->SetPlayerState(AnimState::Win);
+	//	isShowingText = true;
+	//	dao->SetGameOver(true, false, dt);
+	//	textResult.setString("2P Win");
+	//	gameTimer = 0.f;
+	//	goReadyRoom = true;
+	//	//popUi->SetResult({ bazzi, dao });
+	//	//popUi->SetActive(true);
+	//	//popUi->SetWinner(2);
+	//}
+
+	//if (dao->GetPlayerState() == AnimState::Dead)
+	//{
+	//	//bazzi->SetPlayerState(AnimState::Win);
+	//	isShowingText = true;
+	//	bazzi->SetGameOver(true, false, dt);
+	//	textResult.setString("1P Win");
+	//	gameTimer = 0.f;
+	//	goReadyRoom = true;
+	//	//popUi->SetResult({ bazzi, dao });
+	//	//popUi->SetActive(true);
+	//	//popUi->SetWinner(1);
+	//}
+
+	//if (gameTimer > 1500.f && bazzi->GetPlayerState() == AnimState::Live && dao->GetPlayerState() == AnimState::Live) // LSY: "Game over after 20 second"
+	//{
+	//	bazzi->SetPlayerState(AnimState::Draw);
+	//	dao->SetPlayerState(AnimState::Draw);
+	//	isShowingText = true;
+	//	textResult.setString("Draw");
+	//	bazzi->SetGameOver(false, true, dt);
+	//	dao->SetGameOver(false, true, dt);
+	//	gameTimer = 0.f;
+	//	goReadyRoom = true;
+	//	std::cout << "Time's up! Draw!" << std::endl;
+	//	popUi->SetResult({ bazzi, dao });
+	//	popUi->SetActive(true);
+	//	//popUi->SetResult();
+	//}
 
 	// LSY: click to exit
 	//if (InputMgr::GetMouseButton(sf::Mouse::Left) &&
@@ -295,6 +502,16 @@ void SceneDemo::Exit()
 {
 	popUi->SetActive(false);
 	// KHI: delete balloons
+
+	auto playerObjs = FindGameObjects("Player");
+	for (auto* obj : playerObjs) {
+		RemoveGameObject(obj);
+	}
+
+	players.clear();
+	bazzi = dao = player3p = player4p = nullptr;
+	objectsNeedingClamp.clear();
+
 	auto balloons = FindGameObjects("bomb");
 	for (auto* obj : balloons)
 	{
@@ -319,10 +536,11 @@ void SceneDemo::Exit()
 	for (auto* obj : blocks)
 		RemoveGameObject(obj);
 
-	bazzi->Reset();
-	dao->Reset();
-	player3p->Reset();
-	player4p->Reset();
+	if (bazzi) bazzi->Reset();
+	if (dao) dao->Reset();
+	if (player3p) player3p->Reset();
+	if (player4p) player4p->Reset();
+	players.clear();
 	Item::CheckAndRemoveItem();
 	Item::allItems.clear();
 	Item::players.clear();

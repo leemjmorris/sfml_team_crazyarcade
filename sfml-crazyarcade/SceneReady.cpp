@@ -10,6 +10,10 @@ void SceneReady::Init()
 {
 	texIds.push_back("assets/lobby_bg.png");
 	texIds.push_back("assets/SelectMapImg.png");
+	//texIds.push_back("assets/ui/lobby/slotB.png");
+	//texIds.push_back("assets/ui/lobby/slotD.png");
+	//texIds.push_back("assets/ui/lobby/slotC.png");
+	//texIds.push_back("assets/ui/lobby/slotM.png");
 
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 	worldView.setSize(windowSize);
@@ -55,6 +59,8 @@ void SceneReady::Enter()
 	scale.y = windowSize.y / textureSizeF.y;
 
 	bgSprite.setScale(scale);
+
+	ui->Reset();
 
 	Scene::Enter();
 }

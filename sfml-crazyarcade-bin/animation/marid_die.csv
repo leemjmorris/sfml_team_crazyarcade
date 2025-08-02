@@ -1,0 +1,16 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)",,,
+Die,10,0,,,
+,,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
+assets/player/marid/unit_marid.png,420,269,71,71,0
+assets/player/marid/unit_marid.png,49,430,71,72,0
+assets/player/marid/unit_marid.png,124,428,71,72,0
+assets/player/marid/unit_marid.png,281,432,71,71,0
+assets/player/marid/unit_marid.png,356,432,71,71,0
+assets/player/marid/unit_marid.png,281,506,71,71,0
+assets/player/marid/unit_marid.png,356,432,71,71,0
+assets/player/marid/unit_marid.png,281,506,71,71,0
+assets/player/marid/unit_marid.png,356,432,71,71,0
+assets/player/marid/unit_marid.png,281,506,71,71,0
+assets/player/marid/unit_marid.png,356,432,71,71,0
+assets/player/marid/unit_marid.png,281,506,71,71,0

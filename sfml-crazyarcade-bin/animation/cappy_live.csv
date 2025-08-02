@@ -1,0 +1,7 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)",,,
+live,10,0,,,
+,,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
+assets/player/cappy/unit_cappy.png,456,221,71,71,0
+assets/player/cappy/unit_cappy.png,231,347,71,71,0
+assets/player/cappy/unit_cappy.png,450,335,71,71,0

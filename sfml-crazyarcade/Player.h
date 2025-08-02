@@ -22,6 +22,8 @@ protected:
 	int	maxBalloonCount;
 	int	maxBalloonLength;
 
+	std::string rName;
+
 	AnimState animState;
 	int playerIndex;
 
@@ -50,6 +52,7 @@ protected:
 	bool slidePlayer = false;
 	sf::Vector2f playerHitBoxSize = { 30.f, 30.f }; // KHI
 	sf::Vector2f playerHitBoxOffset = { 0.f, 10.f }; // KHI
+	sf::Vector2f playerHitBoxOffset2 = { 0.f, -10.f }; // KHI
 	HitBox hitBox;
 
 	float pushCount = 0.4f;
@@ -58,6 +61,10 @@ protected:
 public:
 	Player(const std::string& name, CharacterID id, int index, const std::string& resultName);
 	~Player();
+	int GetPlayerNo() const { return playerIndex; }
+	const std::string convertAniStr(const std::string & s, const std::string& ss);
+	const bool GetOver() const { return gameOverStarted; }
+	const std::string& GetPlayerName() const { return rName; }
 	void PlayerEvent(float dt);
 	void OnBalloonExploded();
 	void RefreshPassThroughSet();
@@ -66,41 +73,13 @@ public:
 	bool CollectObstacleRects(std::vector<sf::FloatRect>& outRects);
 	size_t GetCollidedObstacleInfo(sf::FloatRect& outBounds);
 	bool HandleBubbleDeath(AnimState s);
-	void PlayMoveAnimation()
-	{
-		const std::string clipId = animator.GetCurrentClipId();
-		if (animState == AnimState::Live)
-		{
-			if (dir.x != 0 && clipId != "Run")
-				animator.Play("animation/bazzi_run.csv");
-			else if (dir.y < 0 && clipId != "Up")
-				animator.Play("animation/bazzi_up.csv");
-			else if (dir.y > 0 && clipId != "Down")
-				animator.Play("animation/bazzi_down.csv");
-			else if (dir == sf::Vector2f(0.f, 0.f)) {
-				if (clipId == "Run") animator.Play("animation/bazzi_run.csv");
-				else if (clipId == "Up") animator.Play("animation/bazzi_up.csv");
-				else if (clipId == "Down") animator.Play("animation/bazzi_down.csv");
-			}
-		}
-	}
+	void PlayMoveAnimation();
 	void AddSpeed(float s = 1);
 	void AddWaterBalloonCount(int c = 1);
 	void AddWaterBalloonLength(int l = 1);
 	void SetPlayerState(AnimState s);
 	void SetGameOver(bool t, bool l, float dt);
-	void SetEnter(bool t)
-	{
-		animator.Play("animation/bazzi_ready.csv", true);
-		animator.PlayQueue("animation/bazzi_ready2.csv");
-		animator.PlayQueue("animation/bazzi_ready2.csv");
-		animator.PlayQueue("animation/bazzi_ready2.csv");
-		animator.PlayQueue("animation/bazzi_ready2.csv");
-		animator.PlayQueue("animation/bazzi_ready2.csv");
-
-		animState = AnimState::Ready;
-		isStart = t;
-	}
+	void SetEnter(bool t);
 
 	float GetSpeed() { return curSpeed; };
 	const int GetWaterBalloonCount() { return activeBalloons; };

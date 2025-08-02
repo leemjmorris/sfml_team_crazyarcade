@@ -15,6 +15,28 @@ class lobbyUi :
 	public UiHud
 {
 protected:
+
+	int focusedArea = -1;
+	std::array<Button*, 4> areaBtns;
+	std::array<Button*, 4> charBtns;
+
+	std::array<CharacterID, 4> chosenCharByArea = {
+	  CharacterID::NONE, CharacterID::NONE, CharacterID::NONE, CharacterID::NONE
+	};
+
+
+	std::array<sf::Sprite, 4> areaPortraits;
+
+	sf::Texture slotB; 
+	sf::Texture slotC;
+	sf::Texture slotM;
+	sf::Texture slotD;
+
+	std::unordered_map<CharacterID, sf::Texture*> portraitTex;
+
+	std::array<bool, 4> areaDirty = { true, true, true, true };
+
+	Button* characterArea0 = nullptr;
 	Button* characterArea1 = nullptr;
 	Button* characterArea2 = nullptr;
 	Button* characterArea3 = nullptr;
@@ -23,11 +45,11 @@ protected:
 	Button* choiceCharacter1 = nullptr;
 	Button* choiceCharacter2 = nullptr;
 	Button* choiceCharacter3 = nullptr;
-	Button* choiceCharacter4 = nullptr;
-	Button* choiceCharacter5 = nullptr;
-	Button* choiceCharacter6 = nullptr;
-	Button* choiceCharacter7 = nullptr;
-	Button* choiceCharacter8 = nullptr;
+	//Button* choiceCharacter4 = nullptr;
+	//Button* choiceCharacter5 = nullptr;
+	//Button* choiceCharacter6 = nullptr;
+	//Button* choiceCharacter7 = nullptr;
+	//Button* choiceCharacter8 = nullptr;
 
 	Button* choiceColorRed = nullptr;
 	Button* choiceColorYellow = nullptr;
@@ -45,6 +67,9 @@ protected:
 
 	int numRooms = 0;
 	int numColors = 0;
+	int numChars = 0;
+
+	float startButtonTimer = 0.f;
 
 
 	//sf::FloatRect characterArea1 = { 132.f, 93.f, 100.f, 100.f };
@@ -95,4 +120,8 @@ public:
 
 	void Update(float dt);
 	void Draw(sf::RenderWindow& window);
+
+	CharacterID CharIdOfButton(Button* b) const;
+	void RefreshCharButtons();
+	void ApplySelectionToArea(int areaIndex);
 };

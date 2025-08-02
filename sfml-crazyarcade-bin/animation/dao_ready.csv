@@ -1,0 +1,24 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)",,,
+Ready,10,0,,,
+,,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
+assets/player/dao/ready.png,2,0,51,73,0
+assets/player/dao/ready.png,51,0,59,73,0
+assets/player/dao/ready.png,110,0,57,73,0
+assets/player/dao/ready.png,167,0,49,73,0
+assets/player/dao/ready.png,216,0,52,73,0
+assets/player/dao/ready.png,268,0,60,73,0
+assets/player/dao/ready.png,326,0,58,73,0
+assets/player/dao/ready.png,384,0,53,73,0
+assets/player/dao/ready.png,436,0,59,73,0
+assets/player/dao/ready.png,494,0,59,73,0
+assets/player/dao/ready.png,552,0,55,73,0
+assets/player/dao/ready.png,606,0,60,73,0
+assets/player/dao/ready.png,665,0,60,73,0
+assets/player/dao/ready.png,727,0,60,73,0
+assets/player/dao/ready.png,786,0,60,73,0
+assets/player/dao/ready.png,845,0,57,73,0
+assets/player/dao/ready.png,901,0,57,73,0
+assets/player/dao/ready.png,964,0,57,73,0
+assets/player/dao/ready.png,1021,0,57,73,0
+assets/player/dao/ready.png,964,0,57,73,0

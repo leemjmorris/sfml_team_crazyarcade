@@ -18,14 +18,40 @@ Player::Player(const std::string& name, CharacterID id, int index, const std::st
 	hAxis(Axis::Horizontal_1p),
 	vAxis(Axis::Vertical_1p),
 	installWaterBomb(sf::Keyboard::Unknown),
+	rName(resultName),
 	obj(nullptr)
 {
+	SetOrigin(Origins::BC);
 	const auto& stats = CharacterTable.at(charId);
-
+	animator.SetTarget(&sprite);
 	curSpeed = stats.intiPlayerSpeed;
 	balloonCapacity = stats.initBombCount;
 	maxBalloonCount = stats.maxBombCount;
 	maxBalloonLength = stats.maxbombLength;
+
+	switch (playerIndex)
+	{
+	case 0:
+		vAxis = Axis::Vertical_1p;
+		hAxis = Axis::Horizontal_1p;
+		installWaterBomb = sf::Keyboard::LShift;
+		break;
+	case 1:
+		vAxis = Axis::Vertical_2p;
+		hAxis = Axis::Horizontal_2p;
+		installWaterBomb = sf::Keyboard::RShift;
+		break;
+	case 2:
+		vAxis = Axis::None;
+		hAxis = Axis::None;
+		installWaterBomb = sf::Keyboard::KeyCount;
+		break;
+	case 3:
+		vAxis = Axis::None;
+		hAxis = Axis::None;
+		installWaterBomb = sf::Keyboard::KeyCount;
+		break;
+	}
 }
 
 Player::~Player()
@@ -127,7 +153,7 @@ bool Player::CheckInstallWaterballoon()
 bool Player::HandleBubbleDeath(AnimState s)
 {
 	animState = s;
-	animator.Play("animation/bazzi_die.csv");
+	animator.Play(convertAniStr("animation/", "_die.csv"));
 	return true;
 }
 
@@ -205,31 +231,8 @@ void Player::SetOrigin(Origins preset)
 void Player::Init()
 {
 	//std::cout << "[Init balloonCount]" << curWaterBalloonCount << ", [Init balloonLength]" << curWaterBalloonLength << ", [Init Speed]" << curSpeed << std::endl;
-	SetOrigin(Origins::BC);
-	animator.SetTarget(&sprite);
-
-	switch (playerIndex)
-	{
-	case 0:
-		vAxis = Axis::Vertical_1p;
-		hAxis = Axis::Horizontal_1p;
-		installWaterBomb = sf::Keyboard::LShift;
-		break;
-	case 1:
-		vAxis = Axis::Vertical_2p;
-		hAxis = Axis::Horizontal_2p;
-		installWaterBomb = sf::Keyboard::RShift;
-		break;
-	case 2:
-		vAxis = Axis::None;
-		hAxis = Axis::None;
-		installWaterBomb = sf::Keyboard::KeyCount;
-	case 3:
-		vAxis = Axis::None;
-		hAxis = Axis::None;
-		installWaterBomb = sf::Keyboard::KeyCount;
-		break;
-	}
+	//SetOrigin(Origins::BC);
+	//animator.SetTarget(&sprite);
 }
 
 void Player::Release()
@@ -248,7 +251,35 @@ void Player::Reset()
 	balloonCapacity = CharacterTable.at(charId).initBombCount;
 	activeBalloons = 0;
 	activeWaterBalloonLength = 1;
-	animator.Play("animation/bazzi_run.csv");
+	//animator.Play("animation/bazzi_run.csv");
+	animator.Play(convertAniStr("animation/", "_run.csv"));
+}
+
+void Player::PlayMoveAnimation()
+{
+	const std::string clipId = animator.GetCurrentClipId();
+	if (animState == AnimState::Live)
+	{
+		if (dir.x != 0 && clipId != "Run")
+			animator.Play(convertAniStr("animation/", "_run.csv"));
+		else if (dir.y < 0 && clipId != "Up")
+			animator.Play(convertAniStr("animation/", "_up.csv"));
+		else if (dir.y > 0 && clipId != "Down")
+			animator.Play(convertAniStr("animation/", "_down.csv"));
+		else if (dir == sf::Vector2f(0.f, 0.f)) {
+			if (charId == CharacterID::BAZZI)
+			{
+				if (clipId == "Run") animator.Play(convertAniStr("animation/", "_run.csv"));
+				else if (clipId == "Up") animator.Play(convertAniStr("animation/", "_up.csv"));
+				else if (clipId == "Down") animator.Play(convertAniStr("animation/", "_down.csv"));
+			}
+			else {
+				if (clipId == "Run") animator.Play(convertAniStr("animation/", "_idleSide.csv"));
+				else if (clipId == "Up") animator.Play(convertAniStr("animation/", "_idleUp.csv"));
+				else if (clipId == "Down") animator.Play(convertAniStr("animation/", "_idle.csv"));
+			}
+		}
+	}
 }
 
 void Player::Update(float dt)
@@ -286,7 +317,8 @@ void Player::Update(float dt)
 		{
 			animState = AnimState::Dead;
 			dieTimer = 0.f;
-			animator.Play("animation/bazzi_die.csv");
+			//animator.Play("animation/bazzi_die.csv");
+			animator.Play(convertAniStr("animation/", "_die.csv"));
 			std::cout << "TrappedTimer is finished: AnimeState::Dead" << std::endl;
 		}
 	}
@@ -295,10 +327,11 @@ void Player::Update(float dt)
 		winTimer += dt;
 		if (winTimer > 1.f)
 		{
+			animState = AnimState::Win;
 			winTimer = 0.f;
 			gameOverStarted = false;
-			animator.Play("animation/bazzi_win.csv");
-			animState = AnimState::Win;
+			//animator.Play("animation/bazzi_win.csv");
+			animator.Play(convertAniStr("animation/", "_win.csv"));
 		}
 	}
 }
@@ -316,7 +349,7 @@ inline sf::Vector2i ToGrid(const sf::Vector2f& worldPos)
 
 void Player::CheckCollWithSplash()
 {
-	if (animState == AnimState::Trapped)
+	if (animState == AnimState::Trapped || animState == AnimState::Dead)
 		return;
 
 	auto waterSplashes = SCENE_MGR.GetCurrentScene()->FindGameObjects("WaterSplash");
@@ -331,13 +364,31 @@ void Player::CheckCollWithSplash()
 			if (rect.contains({ GetPosition().x, GetPosition().y - 20.f }))
 			{
 				animState = AnimState::Trapped;
-				animator.Play("animation/bazzi_trap.csv", true);
+				//animator.Play("animation/bazzi_trap.csv", true);
+				animator.Play(convertAniStr("animation/", "_trap.csv"), true);
 				break;
 			}
 		}
 	}
 }
 
+void Player::SetEnter(bool t) 
+{
+	animator.Play(convertAniStr("animation/", "_ready.csv"), true);
+	if (charId == CharacterID::BAZZI) {
+		animator.PlayQueue("animation/bazzi_ready2.csv");
+		animator.PlayQueue("animation/bazzi_ready2.csv");
+		animator.PlayQueue("animation/bazzi_ready2.csv");
+		animator.PlayQueue("animation/bazzi_ready2.csv");
+		animator.PlayQueue("animation/bazzi_ready2.csv");
+	}
+	else {
+		SetScale({ 1.2f, 1.2f });
+	}
+
+	animState = AnimState::Ready;
+	isStart = t;
+}
 
 void Player::RefreshPassThroughSet()
 {
@@ -355,6 +406,17 @@ void Player::RefreshPassThroughSet()
 			it = passThroughBombs.erase(it);
 		else
 			++it;
+	}
+}
+
+const std::string Player::convertAniStr(const std::string& s, const std::string& ss)
+{
+	switch (charId) {
+		case CharacterID::BAZZI: return s + "bazzi" + ss;
+		case CharacterID::DAO:   return s + "dao" + ss;
+		case CharacterID::CAPPI: return s + "cappy" + ss;
+		case CharacterID::MARID: return s + "marid" + ss;
+		default:                 return s + "bazzi" + ss;
 	}
 }
 
@@ -471,7 +533,12 @@ void Player::Movement(float dt)
 		// KHI: Move X
 		sf::Vector2f tryX = currentPos + sf::Vector2f(dir.x * curSpeed * dt, 0.f);
 		sprite.setPosition(tryX);
-		hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
+
+		sf::Vector2f hbOffset = playerHitBoxOffset2;
+		if (sprite.getScale().x < 0.f) hbOffset.x = -hbOffset.x;
+
+		hitBox.UpdateNoScale(sprite.getPosition(), playerHitBoxSize, hbOffset, Origins::BC);
+		//hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
 		//size_t collidedX = GetCollidedTileInfo(collidedBounds);
 		size_t collidedX = GetCollidedObstacleInfo(collidedBounds);
 
@@ -506,7 +573,8 @@ void Player::Movement(float dt)
 		// KHI: Move Y
 		sf::Vector2f tryY = tempPos + sf::Vector2f(0.f, dir.y * curSpeed * dt);
 		sprite.setPosition(sf::Vector2f(tempPos.x, tryY.y));
-		hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
+		hitBox.UpdateNoScale(sprite.getPosition(), playerHitBoxSize, playerHitBoxOffset2, Origins::BC);
+		//hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
 		//size_t collidedY = GetCollidedTileInfo(collidedBounds);
 		size_t collidedY = GetCollidedObstacleInfo(collidedBounds);
 
@@ -568,7 +636,16 @@ void Player::Movement(float dt)
 		SetPosition(tempPos);
 		float tempSpeed = GetSpeed();
 		if (animState == AnimState::Live)
-			SetScale({ dir.x < 0 ? -1.f : dir.x > 0 ? 1.f : sprite.getScale().x, 1.f });
+		{
+			if (charId == CharacterID::BAZZI) {
+				SetScale({ dir.x < 0 ? -1.f : dir.x > 0 ? 1.f : sprite.getScale().x, 1.f });
+			}
+			else {
+				const float scaleX = (dir.x < 0 ? -1.f : dir.x > 0 ? 1.f : sprite.getScale().x < 0 ? -1.f : 1.f) * (1.2f);
+				const float scaleY = 1.2f;
+				SetScale({ scaleX, scaleY });
+			}
+		}
 
 		if (animState == AnimState::Trapped)
 		{

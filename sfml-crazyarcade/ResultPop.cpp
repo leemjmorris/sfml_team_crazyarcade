@@ -47,16 +47,20 @@ void ResultPop::SetResult(const std::vector<Player*>& players)
         lineNums.push_back(std::move(num));
 
         sf::Text res;
-        res.setFont(FONT_MGR.Get("assets/font/ARCADECLASSIC.TTF"));
+        sf::Font& f = FONT_MGR.Get("assets/font/ARCADECLASSIC.TTF");
+        res.setFont(f);
         res.setCharacterSize(26);
         res.setFillColor(sf::Color::White);
 
         switch (p->GetPlayerState())
         {
-        case AnimState::Win: res.setString("WIN    " + p->GetName()); break;
-        case AnimState::Dead: res.setString("LOSE    " + p->GetName()); break;
+        //case AnimState::Win: res.setString("WIN    " + p->GetPlayerName()); break;
+        case AnimState::Dead: res.setString("LOSE    " + p->GetPlayerName()); break;
         case AnimState::Draw: res.setString("DRAW"); break;
-        default:              res.setString("--");   break;
+        default:              
+            res.setString("--");   
+            if (p->GetOver()) res.setString("WIN    " + p->GetPlayerName());
+            break;
         }
 
         res.setPosition({ 90.f, firstY + lineGap * idx - 6.f });

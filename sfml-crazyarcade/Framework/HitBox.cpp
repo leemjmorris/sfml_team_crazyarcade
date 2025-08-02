@@ -61,6 +61,15 @@ void HitBox::UpdateCustomTransform(const sf::Transformable& tr, const sf::Vector
     rect.setRotation(tr.getRotation());
 }
 
+void HitBox::UpdateNoScale(const sf::Vector2f& worldPos, const sf::Vector2f& size, const sf::Vector2f& offset, Origins origin)
+{
+    rect.setSize(size);                 
+    Utils::SetOrigin(rect, origin);    
+    rect.setScale(1.f, 1.f);          
+    rect.setRotation(0.f);              
+    rect.setPosition(worldPos + offset);
+}
+
 sf::Vector2f HitBox::CalculateOriginOffset(Origins spriteOrigin, const sf::FloatRect& spriteBounds)
 {
     sf::Vector2f spriteOriginPos;

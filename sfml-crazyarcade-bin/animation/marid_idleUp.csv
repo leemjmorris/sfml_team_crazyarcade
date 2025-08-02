@@ -1,0 +1,5 @@
+ID,FPS,"LoopType (0: Single, 1: Loop)",,,
+IdleUp,4,1,,,
+,,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,"FLIPX (0:Fale, 1:True)"
+assets/player/marid/unit_marid.png,198,127,72,71,0

@@ -18,6 +18,7 @@ public:
 	void Release();
 
 	Scene* GetCurrentScene() { return scenes[(int)currentScene]; }
+	Scene* GetScene(const SceneIds& s) { return scenes[(int)s]; }
 	SceneIds GetCurrentSceneId() const { return currentScene; }
 	void ChangeScene(SceneIds id);
 
