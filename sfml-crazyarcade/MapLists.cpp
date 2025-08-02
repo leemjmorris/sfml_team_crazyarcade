@@ -44,6 +44,7 @@ void MapLists::Reset()
     background.setPosition(viewCenter);
 
     CreateButtons();
+	CreateActionButtons();
 }
 
 void MapLists::Update(float dt)
@@ -52,6 +53,8 @@ void MapLists::Update(float dt)
 	{
 		btn->Update(dt);
 	}
+	confirmBtn->Update(dt);
+	cancelBtn->Update(dt);
 }
 
 void MapLists::Draw(sf::RenderWindow& window)
@@ -62,6 +65,9 @@ void MapLists::Draw(sf::RenderWindow& window)
 	{
 		btn->Draw(window);
 	}
+
+	confirmBtn->Draw(window);
+	cancelBtn->Draw(window);
 }
 
 std::map<std::string, std::string> MapLists::LoadMapList(const std::string& folderPath)
@@ -122,11 +128,8 @@ void MapLists::CreateButtons()
 
 			btn->SetClicked(true);
 
-			SceneMgr::SelectedMapPath = path;
-			std::cout << path << std::endl;
-			//SCENE_MGR.ChangeScene(SceneIds::Demo);
+			tempPath = path;
 			});
-
 
 		btn->Init();
 		btn->Reset();
@@ -134,4 +137,27 @@ void MapLists::CreateButtons()
 		buttons.push_back(btn);
 		idx++;
 	}
+}
+
+void MapLists::CreateActionButtons()
+{
+	const float startX = 291;
+	const float startY = 501.f;
+
+	confirmBtn = new Button("Btn");
+	confirmBtn->SetButton(confirmBtnTex, { startX, startY, 0.f, 0.f });
+	confirmBtn->Init();
+	confirmBtn->Reset();
+	confirmBtn->SetOnClick([this] {
+		std::cout << "confirm" << std::endl;
+		SceneMgr::SelectedMapPath = tempPath;
+		});
+
+	cancelBtn = new Button("Btn");
+	cancelBtn->SetButton(cancelBtnTex, { startX + 116, startY, 0.f, 0.f });
+	cancelBtn->Init();
+	cancelBtn->Reset();
+	cancelBtn->SetOnClick([] {
+		std::cout << "cancel" << std::endl;
+		});
 }

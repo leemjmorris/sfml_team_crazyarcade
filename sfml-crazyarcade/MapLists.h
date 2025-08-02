@@ -14,6 +14,13 @@ protected:
 	std::string listBtnTexH = "assets/ui/mapListHighlightedBtn.png";
 	std::string listBtnTexC = "assets/ui/mapClickedBtn.png";
 
+	Button* confirmBtn;
+	Button* cancelBtn;
+	std::string confirmBtnTex = "assets/ui/confirmBtn.png";
+	std::string cancelBtnTex = "assets/ui/cancelBtn.png";
+
+	std::string tempPath;
+
 public:
 	MapLists(const std::string& name = "MapList", bool b = true);
 	~MapLists() = default;
@@ -26,4 +33,5 @@ public:
 
 	std::map<std::string, std::string> LoadMapList(const std::string& folderPath);
 	void CreateButtons();
+	void CreateActionButtons();
 };
