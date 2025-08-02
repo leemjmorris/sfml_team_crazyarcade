@@ -13,6 +13,13 @@ void MapLists::Init()
 	// KHI: Load JSON files located in the map folder
 	mapList = LoadMapList("map");
 
+	// KHI: Set default map
+	if (!mapList.empty())
+	{
+		SceneMgr::SelectedMapPath = mapList.begin()->second;
+		tempPath = mapList.begin()->second;
+	}
+
 	// KHI: Results output for TESTING
 	std::cout << "-------------------------" << std::endl;
 	for (const auto& pair : mapList)

@@ -21,6 +21,8 @@ protected:
 
 	std::string tempPath;
 
+	std::string mapName;
+
 public:
 	MapLists(const std::string& name = "MapList", bool b = true);
 	~MapLists() = default;
