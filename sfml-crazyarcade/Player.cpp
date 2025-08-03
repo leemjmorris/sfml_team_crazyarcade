@@ -130,20 +130,23 @@ bool Player::CheckInstallWaterballoon()
 		return false;
 
 	if (!CanPlaceBalloon()) {
-		std::cout << "all waterballoon is installed" << std::endl;
+		//std::cout << "all waterballoon is installed" << std::endl;
 		return false;
 	}
 
 	WaterBalloon* b = WaterBalloon::Spawn("bomb", { GetPosition().x, GetPosition().y - 10.f }, GetWaterBalloonLength(), this);
 	if (!b) {
-		std::cout << "cannot install position\n";
+		//std::cout << "cannot install position\n";
 		return false;
 	}
-	std::cout << "Spawned bomb ptr = " << b << '\n';
+
+	SOUND_MGR.PlaySfx("sounds/Set_WaterBomb.mp3");
+
+	//std::cout << "Spawned bomb ptr = " << b << '\n';
 	if (playerIndex == 0)
-		std::cout << "Player 1 activeBalloons:" << activeBalloons << ", balloonCapacity: " << balloonCapacity << std::endl;
-	else
-		std::cout << "Player 2  activeBalloons:" << activeBalloons << ", balloonCapacity: " << balloonCapacity << std::endl;
+		//std::cout << "Player 1 activeBalloons:" << activeBalloons << ", balloonCapacity: " << balloonCapacity << std::endl;
+	//else
+		//std::cout << "Player 2  activeBalloons:" << activeBalloons << ", balloonCapacity: " << balloonCapacity << std::endl;
 
 	passThroughBombs.insert(b);
 	++activeBalloons;
@@ -152,6 +155,8 @@ bool Player::CheckInstallWaterballoon()
 
 bool Player::HandleBubbleDeath(AnimState s)
 {
+	SOUND_MGR.PlaySfx("sounds/Kill_WaterBomb.wav");
+
 	animState = s;
 	animator.Play(convertAniStr("animation/", "_die.csv"));
 	return true;
@@ -159,6 +164,8 @@ bool Player::HandleBubbleDeath(AnimState s)
 
 void Player::AddSpeed(float s)
 {
+	SOUND_MGR.PlaySfx("sounds/Eat_Item.mp3");
+
 	const auto& stats = CharacterTable.at(charId);
 	if (curSpeed >= stats.maxPlayerSpeed)
 	{
@@ -169,11 +176,15 @@ void Player::AddSpeed(float s)
 
 void Player::AddWaterBalloonCount(int b)
 {
+	SOUND_MGR.PlaySfx("sounds/Eat_Item.mp3");
+
 	balloonCapacity = Utils::Clamp(balloonCapacity + b, 1, maxBalloonCount);
 }
 
 void Player::AddWaterBalloonLength(int l)
 {
+	SOUND_MGR.PlaySfx("sounds/Eat_Item.mp3");
+
 	activeWaterBalloonLength += l;
 }
 
@@ -483,7 +494,7 @@ void Player::Movement(float dt)
 			int gamepadIndex = playerIndex - 2;
 			
 			sf::Vector2f gamepadDir = InputMgr::GetGamepadDirection(gamepadIndex);
-			std::cout << gamepadDir.x << ", " << gamepadDir.y << std::endl;
+			//std::cout << gamepadDir.x << ", " << gamepadDir.y << std::endl;
 			if (gamepadDir.x != 0.f || gamepadDir.y != 0.f)
 			{
 				dir = gamepadDir;
@@ -649,7 +660,7 @@ void Player::Movement(float dt)
 
 		if (animState == AnimState::Trapped)
 		{
-			curSpeed = 10.f;
+			curSpeed = 20.f;
 		}
 		else
 		{

@@ -101,6 +101,7 @@ void WaterBalloon::StartCastCountdown()
 
 void WaterBalloon::Explode()
 {
+	SOUND_MGR.PlaySfx("sounds/Blow_WaterBomb.mp3");
 	SetActive(false);
 	ExplodeInAllDirections(splashLength, splashLength, splashLength, splashLength);
 	player->OnBalloonExploded();
@@ -126,7 +127,7 @@ void WaterBalloon::ExplodeInAllDirections(int upLen, int downLen, int leftLen, i
 }
 
 void WaterBalloon::SpawnWaterSplash(WaterSplash::AnimType dir, int length)
-{
+{	
 	sf::Vector2f centerPos = GetPosition();
 	float texSize = 52.f;
 
@@ -190,6 +191,7 @@ sf::Vector2f WaterBalloon::GetSnappedGridCenter(const sf::Vector2f& worldPos)
 // KHI: Static method
 WaterBalloon* WaterBalloon::Spawn(const std::string& name, sf::Vector2f spawnPos, int splashLen, Player* p)
 {
+	
 
 	sf::Vector2i g = { int(spawnPos.x / GRID_SIZE),
 					   int(spawnPos.y / GRID_SIZE) };

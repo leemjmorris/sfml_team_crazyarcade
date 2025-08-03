@@ -36,7 +36,7 @@ TileData TileData::FromJson(const json& j)
         tileOptionIndex = tileOptionIndex % MAX_TILES;
         if (tileOptionIndex < 0) tileOptionIndex = 0;
 
-        std::cout << "WARNING: TileData index " << originalIndex << " fixed to " << tileOptionIndex << std::endl;
+        //std::cout << "WARNING: TileData index " << originalIndex << " fixed to " << tileOptionIndex << std::endl;
     }
 
     // LMJ: "Load worldPosition if available, fallback to grid calculation"

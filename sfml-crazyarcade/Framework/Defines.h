@@ -22,10 +22,11 @@ enum class Origins
 enum class SceneIds
 {
 	None = -1,
-	Dev1,
+	Intro,
+	Title,
 	MapEditor,
 	Ready,
-	Demo,
+	Game,
 	Count,
 };
 

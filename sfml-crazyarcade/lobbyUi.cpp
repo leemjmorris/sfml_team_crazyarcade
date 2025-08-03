@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "lobbyUi.h"
 #include "Button.h"
-#include "SceneDemo.h"
+#include "SceneGame.h"
 
 lobbyUi::lobbyUi(const std::string& name)
 	: UiHud(name)
@@ -137,7 +137,7 @@ void lobbyUi::Init()
 		gameStartButton->SetActive(!gameStartButton->GetActive());
 		if (gameStartButton->GetActive()) 
 			exitButton->SetActive(false);
-		//	SCENE_MGR.ChangeScene(SceneIds::Demo);
+			SCENE_MGR.ChangeScene(SceneIds::Game);
 		});
 
 	exitButton = new Button("exitButton");
@@ -395,8 +395,8 @@ void lobbyUi::Update(float dt)
 				std::cout << "Do not play 1p" << std::endl;
 				return;
 			}
-			auto* demo = dynamic_cast<SceneDemo*>(SCENE_MGR.GetScene(SceneIds::Demo));
-			if (demo) 
+			auto* Game = dynamic_cast<SceneGame*>(SCENE_MGR.GetScene(SceneIds::Game));
+			if (Game) 
 			{
 				LobbyConfig conf;
 				conf.roomCount = numRooms;
@@ -408,9 +408,9 @@ void lobbyUi::Update(float dt)
 					else
 						conf.chars.push_back(CharacterID::BAZZI);
 				}
-				demo->SetLobbyConfig(conf);
+				Game->SetLobbyConfig(conf);
 			}
-			SCENE_MGR.ChangeScene(SceneIds::Demo);
+			SCENE_MGR.ChangeScene(SceneIds::Game);
 		}
 	}
 
