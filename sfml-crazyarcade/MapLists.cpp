@@ -26,6 +26,8 @@ void MapLists::Init()
 	{
 		std::cout << pair.first << ": " << pair.second << std::endl;
 	}
+	std::cout << "�� " << mapList.size() << "�� �ε�" << std::endl;
+	std::cout << "-------------------------" << std::endl;
 }
 
 void MapLists::Release()
@@ -43,10 +45,9 @@ void MapLists::Reset()
 	TEXTURE_MGR.Load("assets/SelectMapImg.png");
 	background.setTexture(TEXTURE_MGR.Get("assets/SelectMapImg.png"));
 
-	Utils::SetOrigin(background, Origins::MC);
-	sf::View currentView = FRAMEWORK.GetWindow().getView();
-	sf::Vector2f viewCenter = currentView.getCenter();
-	background.setPosition(viewCenter);
+    Utils::SetOrigin(background, Origins::MC);
+	sf::Vector2u windowSize = FRAMEWORK.GetWindowSize();
+	background.setPosition(windowSize.x * 0.5f, windowSize.y * 0.5f);
 
 	CreateButtons();
 	CreateActionButtons();
@@ -59,10 +60,10 @@ void MapLists::Reset()
 
 	for (auto* btn : buttons)
 	{
+		btn->Reset();
 		if (btn->GetName() == "Btn_" + selectedMapName)
 		{
 			btn->SetClicked(true);
-			break;
 		}
 	}
 }
@@ -177,7 +178,7 @@ void MapLists::CreateActionButtons()
 	const float startY = 501.f;
 
 	confirmBtn = new Button("Btn");
-	confirmBtn->SetButton(confirmBtnTex, { startX, startY, 0.f, 0.f });
+	confirmBtn->SetButton(confirmBtnTex, { startX, startY, 0.f, 0.f }, confirmBtnTexH);
 	confirmBtn->Init();
 	confirmBtn->Reset();
 	confirmBtn->SetOnClick([this] {
@@ -187,7 +188,7 @@ void MapLists::CreateActionButtons()
 		});
 
 	cancelBtn = new Button("Btn");
-	cancelBtn->SetButton(cancelBtnTex, { startX + 116, startY, 0.f, 0.f });
+	cancelBtn->SetButton(cancelBtnTex, { startX + 116, startY, 0.f, 0.f }, cancelBtnTexH);
 	cancelBtn->Init();
 	cancelBtn->Reset();
 	cancelBtn->SetOnClick([this] {

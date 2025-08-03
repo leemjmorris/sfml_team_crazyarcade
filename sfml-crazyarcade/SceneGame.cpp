@@ -72,6 +72,23 @@ void SceneGame::Init()
 	texIds.push_back("assets/play_bg.bmp");
 	texIds.push_back("assets/play_ui.png");
 
+	texIds.push_back("assets/bomb/pop.bmp");
+
+	texIds.push_back("assets/wave/up1.bmp");
+	texIds.push_back("assets/wave/down1.bmp");
+	texIds.push_back("assets/wave/left1.bmp");
+	texIds.push_back("assets/wave/right1.bmp");
+
+	texIds.push_back("assets/wave/up2.bmp");
+	texIds.push_back("assets/wave/down2.bmp");
+	texIds.push_back("assets/wave/left2.bmp");
+	texIds.push_back("assets/wave/right2.bmp");
+
+	texIds.push_back("assets/item/bubble.png");
+	texIds.push_back("assets/item/damage.png");
+	texIds.push_back("assets/bomb/waterBalloon.png");
+	texIds.push_back("assets/bomb/default.png");
+
 	// KHI: Effect
 	texIds.push_back("assets/map/common_block.png");
 
@@ -156,6 +173,34 @@ void SceneGame::Init()
 	ANI_CLIP_MGR.Load("animation/marid_idleSide.csv");
 	ANI_CLIP_MGR.Load("animation/marid_idleUp.csv");
 
+	ANI_CLIP_MGR.Load("animation/waterSplashAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashDownAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashDownEndAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashDownExitAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashExitAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashLeftAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashLeftEndAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashLeftExitAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashRightAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashRightEndAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashRightExitAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashUpAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashUpEndAnim.csv");
+	ANI_CLIP_MGR.Load("animation/waterSplashUpExitAnim.csv");
+
+
+	//bazzi = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::BAZZI, 0, "Bazzi")));
+	//dao = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 1, "Dao")));
+	//player3p = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 2, "player3p")));
+	//player4p = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 3, "player4p")));
+
+	//players = { bazzi, dao, player3p, player4p };
+	//
+	//objectsNeedingClamp.push_back(bazzi);
+	//objectsNeedingClamp.push_back(dao);
+	//objectsNeedingClamp.push_back(player3p);
+	//objectsNeedingClamp.push_back(player4p);
+
 	colorMask.LoadFromFile("assets/shaders/transparent.frag");
 	colorMask.SetMaskColor(sf::Color(255, 0, 255));
 	colorMask.SetThreshold(0.1f);
@@ -202,7 +247,7 @@ void SceneGame::Enter()
 	WaterSplashPool::Init();
 
 	std::cout << "===================" << std::endl;
-	std::cout << "     SceneDemo"      << std::endl;
+	std::cout << "     SceneGame"      << std::endl;
 	std::cout << "===================" << std::endl;
 
 	// LMJ: Load map from JSON file created in MapEditor
