@@ -289,7 +289,7 @@ void SceneGame::Enter()
 
 	ui->Reset();
 	popUi->Reset();
-
+	SOUND_MGR.PlaySfx("sounds/Game_Start.mp3");
 	isPlayingResultSound = false;
 }
 
