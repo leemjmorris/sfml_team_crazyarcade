@@ -272,7 +272,30 @@ void SceneGame::Enter()
 	}
 	else
 	{
-		std::cout << "Successfully loaded map from DemoMap.json!" << std::endl;
+		if (SceneMgr::SelectedMapPath == "box_1.json")
+			SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
+		//if (SceneMgr::SelectedMapPath == "camp_1.json")
+		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
+		//if (SceneMgr::SelectedMapPath == "factory_1.json")
+		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
+		//if (SceneMgr::SelectedMapPath == "factory_2.json")
+		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
+		//if (SceneMgr::SelectedMapPath == "forest_1.json")
+		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
+		//if (SceneMgr::SelectedMapPath == "forest_2.json")
+		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
+		//if (SceneMgr::SelectedMapPath == "forest_maze.json")
+		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
+		//if (SceneMgr::SelectedMapPath == "Ice_1.json")
+		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
+		//if (SceneMgr::SelectedMapPath == "Ice_2.json")
+		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
+		//if (SceneMgr::SelectedMapPath == "race_1.json")
+		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
+		//if (SceneMgr::SelectedMapPath == "scary_1.json")
+		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
+		//if (SceneMgr::SelectedMapPath == "ship_1.json")
+		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
 	}
 
 	// LMJ: Set player positions using helper functions
