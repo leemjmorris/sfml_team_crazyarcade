@@ -30,6 +30,7 @@ protected:
 	float gameTimer;
 	bool isGameOver = false;
 	bool goReadyRoom = false;
+	bool isPlayingResultSound = false;
 	Player* bazzi = nullptr;
 	Player* dao = nullptr;
 	Player* player3p = nullptr;

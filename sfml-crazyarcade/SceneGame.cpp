@@ -188,6 +188,19 @@ void SceneGame::Init()
 	ANI_CLIP_MGR.Load("animation/waterSplashUpEndAnim.csv");
 	ANI_CLIP_MGR.Load("animation/waterSplashUpExitAnim.csv");
 
+	SOUNDBUFFER_MGR.Load("sounds/Blow_WaterBomb.mp3");
+	SOUNDBUFFER_MGR.Load("sounds/Boomhill.mp3");
+	SOUNDBUFFER_MGR.Load("sounds/Bubble_Sound.wav");
+	SOUNDBUFFER_MGR.Load("sounds/Eat_Item.mp3");
+	SOUNDBUFFER_MGR.Load("sounds/Game_Start.mp3");
+	SOUNDBUFFER_MGR.Load("sounds/Kill_WaterBomb.wav");
+	SOUNDBUFFER_MGR.Load("sounds/Lobby.wav");
+	SOUNDBUFFER_MGR.Load("sounds/Lobby_Select.mp3");
+	SOUNDBUFFER_MGR.Load("sounds/logo.mp3");
+	SOUNDBUFFER_MGR.Load("sounds/Result_Draw.mp3");
+	SOUNDBUFFER_MGR.Load("sounds/Result_Win.mp3");
+	SOUNDBUFFER_MGR.Load("sounds/Set_WaterBomb.mp3");
+
 
 	//bazzi = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::BAZZI, 0, "Bazzi")));
 	//dao = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 1, "Dao")));
@@ -276,6 +289,8 @@ void SceneGame::Enter()
 
 	ui->Reset();
 	popUi->Reset();
+
+	isPlayingResultSound = false;
 }
 
 void SceneGame::Update(float dt)
@@ -449,6 +464,7 @@ bool SceneGame::CheckCollisionAmongPlayers(float dt)
 					std::cout << trapped->GetName()
 						<< " Dead by contact with "
 						<< other->GetName() << std::endl;
+					SOUND_MGR.PlaySfx("sounds/Kill_WaterBomb.wav");
 					return true;
 				}
 			}
@@ -486,6 +502,11 @@ void SceneGame::EvaluateRoundState(float dt)
 
 		gameTimer = 0.f;
 		goReadyRoom = true;
+		if (!isPlayingResultSound)
+		{
+		 SOUND_MGR.PlaySfx("sounds/Result_Win.mp3");
+		 isPlayingResultSound = true;
+		}
 		return;
 	}
 
@@ -497,9 +518,14 @@ void SceneGame::EvaluateRoundState(float dt)
 
 			gameTimer = 0.f;
 			goReadyRoom = true;
-
+			
 			popUi->SetResult(players);
 			popUi->SetActive(true);
+			if (isPlayingResultSound)
+			{
+				SOUND_MGR.PlaySfx("sounds/Result_Draw.mp3");
+				isPlayingResultSound = false;
+			}
 		}
 	}
 }

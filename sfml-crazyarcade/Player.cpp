@@ -60,11 +60,11 @@ Player::~Player()
 
 void Player::PlayerEvent(float dt)
 {
-	// LMJ: Player 1 - keyboard bomb input only
-	if (playerIndex == 0 && InputMgr::GetKeyDown(installWaterBomb))
-	{
-		CheckInstallWaterballoon();
-	}
+	//// LMJ: Player 1 - keyboard bomb input only
+	//if (playerIndex == 0 && InputMgr::GetKeyDown(installWaterBomb))
+	//{
+	//	CheckInstallWaterballoon();
+	//}
 
 
 	if ((playerIndex == 0 || playerIndex == 1) && InputMgr::GetKeyDown(installWaterBomb))
@@ -289,6 +289,7 @@ void Player::Update(float dt)
 			animState = AnimState::Dead;
 			dieTimer = 0.f;
 			animator.Play(convertAniStr("animation/", "_die.csv"));
+			SOUND_MGR.PlaySfx("sounds/Kill_WaterBomb.wav");
 			std::cout << "TrappedTimer is finished: AnimeState::Dead" << std::endl;
 		}
 	}
@@ -336,6 +337,7 @@ void Player::CheckCollWithSplash()
 				animState = AnimState::Trapped;
 				//animator.Play("animation/bazzi_trap.csv", true);
 				animator.Play(convertAniStr("animation/", "_trap.csv"), true);
+				SOUND_MGR.PlaySfx("sounds/Bubble_Sound.wav");
 				break;
 			}
 		}
