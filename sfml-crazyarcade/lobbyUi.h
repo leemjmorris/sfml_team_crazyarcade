@@ -16,6 +16,8 @@ class lobbyUi :
 {
 protected:
 
+	ColorMaskShader colorMask;
+
 	int focusedArea = -1;
 	std::array<Button*, 4> areaBtns;
 	std::array<Button*, 4> charBtns;

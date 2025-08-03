@@ -38,6 +38,10 @@ lobbyUi::~lobbyUi()
 
 void lobbyUi::Init()
 {
+	colorMask.LoadFromFile("assets/shaders/transparent.frag");
+	colorMask.SetMaskColor(sf::Color(255, 0, 255));
+	colorMask.SetThreshold(0.1f);
+
 	slotB.loadFromFile("assets/ui/lobby/slotB.png");
 	slotD.loadFromFile("assets/ui/lobby/slotD.png");
 	slotC.loadFromFile("assets/ui/lobby/slotC.png");
@@ -365,8 +369,8 @@ void lobbyUi::Draw(sf::RenderWindow& window)
 	choiceColorPurple->Draw(window);
 	choiceColorMagenta->Draw(window);
 
+	if(gameStartButton->GetActive()) colorMask.Apply(window, gameStartButton->getBox());
 	mapPop->Draw(window);
-	gameStartButton->Draw(window);
 	exitButton->Draw(window);
 
 	for (int i = 0; i < 4; ++i) {

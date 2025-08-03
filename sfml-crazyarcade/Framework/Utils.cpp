@@ -470,7 +470,7 @@ void Utils::LoadBlocksFromJson(Scene* scene, const void* blocksJsonPtr)
             block->Init();
             block->SetScale({ 1.f, 1.f }); // LMJ: "Same scale as MapEditor"
             block->Reset(); // LMJ: "This will set up sprite sheet texture and rect"
-            block->sortingLayer = SortingLayers::Foreground;
+            block->sortingLayer = SortingLayers::Default;
 
             scene->AddGameObject(block);
         }
@@ -559,8 +559,8 @@ sf::Vector2f Utils::GetDefaultSpawnPoint(int playerIndex)
     {
     case 0: return sf::Vector2f(234.f, 260.f);  // Player 1 default
     case 1: return sf::Vector2f(546.f, 468.f);  // Player 2 default
-	case 2: return sf::Vector2f(120.f, 400.f); // Player 3 default
-	case 3: return sf::Vector2f(400.f, 300.f);  // Player 4 default
+    case 2: return sf::Vector2f(120.f, 400.f); // Player 3 default
+    case 3: return sf::Vector2f(400.f, 300.f);  // Player 4 default
     default: return sf::Vector2f(400.f, 300.f); // Generic default
     }
 }

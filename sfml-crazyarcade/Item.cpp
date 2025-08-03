@@ -45,7 +45,7 @@ void Item::SetOrigin(Origins preset)
 
 void Item::Init()
 {
-	sortingLayer = SortingLayers::Foreground;
+	sortingLayer = SortingLayers::Default;
 	sortingOrder = 0;
 }
 
@@ -55,7 +55,7 @@ void Item::Release()
 
 void Item::Reset()
 {
-	sortingLayer = SortingLayers::Foreground;
+	sortingLayer = SortingLayers::Default;
 	sortingOrder = 0;
 	SetOrigin(Origins::BC);
 	canDestroy = false;
