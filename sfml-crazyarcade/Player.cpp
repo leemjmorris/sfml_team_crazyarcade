@@ -279,6 +279,12 @@ void Player::Update(float dt)
 
 	CheckCollWithSplash();
 
+	if (needsHiddenStateCheck)
+	{
+		CheckHiddenState();
+		needsHiddenStateCheck = false;
+	}
+
 	// LSY: if player is trapped, then stop moving
 	if (animState == AnimState::Trapped)
 	{
@@ -649,4 +655,39 @@ Block* Player::GetCollidedBlock()
 	}
 
 	return nullptr;
+}
+
+void Player::CheckHiddenState()
+{
+	Scene* scene = SCENE_MGR.GetCurrentScene();
+	auto blocks = scene->FindGameObjects("Block");
+
+	bool isHidden = false;
+	sf::FloatRect playerBounds = hitBox.rect.getGlobalBounds();
+	sf::Vector2f playerCenter = {
+		playerBounds.left + playerBounds.width * 0.5f,
+		playerBounds.top + playerBounds.height * 0.5f
+	};
+
+	for (auto* obj : blocks)
+	{
+		Block* block = dynamic_cast<Block*>(obj);
+		if (!block || !block->GetActive() || !block->IsHidable())
+			continue;
+
+		if (block->GetHitBox().GetGlobalBounds().contains(playerCenter))
+		{
+			isHidden = true;
+			break;
+		}
+	}
+
+	if (isHidden)
+	{
+		SetSpriteColor(sf::Color(255, 255, 255, 0));
+	}
+	else
+	{
+		SetSpriteColor(sf::Color(255, 255, 255, 255));
+	}
 }

@@ -179,24 +179,6 @@ void Block::DestroyBlock(Scene* scene)
                 block->UpdateHiddenState();
             }
         }
-
-        auto players = scene->FindGameObjects("Player");
-        for (auto* obj : players)
-        {
-            Player* player = dynamic_cast<Player*>(obj);
-            if (!player) continue;
-
-            sf::FloatRect playerBounds = player->GetHitBox().GetGlobalBounds();
-            sf::Vector2f playerCenter = {
-                playerBounds.left + playerBounds.width * 0.5f,
-                playerBounds.top + playerBounds.height * 0.5f
-            };
-
-            if (hitBox.GetGlobalBounds().contains(playerCenter))
-            {
-                player->SetSpriteColor(sf::Color(255, 255, 255, 255));
-            }
-        }
     }
 
     // LMJ: "Deactivate the block (will be removed by scene)"

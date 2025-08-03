@@ -58,7 +58,10 @@ protected:
 	float pushCount = 0.4f;
 	float pushedCount = 0.f;
 
+
 public:
+	bool needsHiddenStateCheck = false;
+
 	Player(const std::string& name, CharacterID id, int index, const std::string& resultName);
 	~Player();
 	int GetPlayerNo() const { return playerIndex; }
@@ -101,8 +104,8 @@ public:
 	void CheckCollWithSplash(); // KHI
 	void Movement(float dt); // KHI
 	size_t GetCollidedTileInfo(sf::FloatRect& outTileBounds);
-	Block* GetCollidedBlock();
-	//bool GetCollidedTileInfo(sf::FloatRect& outTileBounds); // KHI
+	Block* GetCollidedBlock(); // KHI
+	void CheckHiddenState();   // KHI
 
 	// KHI
 	void SetSpriteColor(const sf::Color& color)
