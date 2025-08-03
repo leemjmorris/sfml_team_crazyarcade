@@ -1,1680 +1,2053 @@
 {
     "blocks": [
         {
+            "blockIndex": 0,
             "canSpawnItem": true,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 0,
             "x": 390.0,
             "y": 26.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 286.0,
             "y": 26.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 494.0,
             "y": 26.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 78.0,
             "y": 26.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 130.0,
             "y": 26.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 182.0,
             "y": 26.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 234.0,
             "y": 26.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 26.0,
             "y": 26.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 546.0,
             "y": 26.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 650.0,
             "y": 26.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 702.0,
             "y": 26.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 598.0,
             "y": 26.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 754.0,
             "y": 26.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 338.0,
             "y": 26.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 442.0,
             "y": 26.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 494.0,
             "y": 78.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 78.0,
             "y": 78.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 234.0,
             "y": 78.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 182.0,
             "y": 78.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 130.0,
             "y": 78.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 26.0,
             "y": 78.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 702.0,
             "y": 78.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 598.0,
             "y": 78.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 650.0,
             "y": 78.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 754.0,
             "y": 78.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 546.0,
             "y": 78.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 286.0,
             "y": 78.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 130.0,
             "y": 130.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 182.0,
             "y": 130.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 234.0,
             "y": 130.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 598.0,
             "y": 130.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 26.0,
             "y": 130.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 286.0,
             "y": 130.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 338.0,
             "y": 130.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 546.0,
             "y": 130.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 650.0,
             "y": 130.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 78.0,
             "y": 130.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 390.0,
             "y": 130.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 442.0,
             "y": 130.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 494.0,
             "y": 130.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 754.0,
             "y": 130.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 702.0,
             "y": 130.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 338.0,
             "y": 182.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 390.0,
             "y": 182.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 182.0,
             "y": 182.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 442.0,
             "y": 182.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 286.0,
             "y": 182.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 234.0,
             "y": 182.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 650.0,
             "y": 182.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 702.0,
             "y": 182.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 130.0,
             "y": 182.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 546.0,
             "y": 182.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 598.0,
             "y": 182.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 78.0,
             "y": 182.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 754.0,
             "y": 182.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 494.0,
             "y": 182.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 26.0,
             "y": 182.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 26.0,
             "y": 234.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 130.0,
             "y": 234.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 494.0,
             "y": 234.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 442.0,
             "y": 234.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 390.0,
             "y": 234.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 182.0,
             "y": 234.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 234.0,
             "y": 234.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 598.0,
             "y": 234.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 338.0,
             "y": 234.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 78.0,
             "y": 234.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 754.0,
             "y": 234.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 702.0,
             "y": 234.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 650.0,
             "y": 234.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 546.0,
             "y": 234.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 286.0,
             "y": 234.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 546.0,
             "y": 286.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 598.0,
             "y": 286.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 650.0,
             "y": 286.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 78.0,
             "y": 286.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 130.0,
             "y": 286.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 390.0,
             "y": 286.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 442.0,
             "y": 286.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 234.0,
             "y": 286.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 26.0,
             "y": 286.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 754.0,
             "y": 286.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 494.0,
             "y": 286.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 182.0,
             "y": 286.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 286.0,
             "y": 286.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 338.0,
             "y": 286.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 702.0,
             "y": 286.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 26.0,
             "y": 338.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 598.0,
             "y": 338.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 650.0,
             "y": 338.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 286.0,
             "y": 338.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 702.0,
             "y": 338.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 130.0,
             "y": 338.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 182.0,
             "y": 338.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 234.0,
             "y": 338.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 78.0,
             "y": 338.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 338.0,
             "y": 338.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 754.0,
             "y": 338.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 390.0,
             "y": 338.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 442.0,
             "y": 338.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 494.0,
             "y": 338.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 546.0,
             "y": 338.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 598.0,
             "y": 390.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 650.0,
             "y": 390.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 702.0,
             "y": 390.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 754.0,
             "y": 390.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 130.0,
             "y": 390.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 78.0,
             "y": 390.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 26.0,
             "y": 390.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 182.0,
             "y": 390.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 234.0,
             "y": 390.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 286.0,
             "y": 390.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 338.0,
             "y": 390.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 390.0,
             "y": 390.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 442.0,
             "y": 390.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 494.0,
             "y": 390.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 546.0,
             "y": 390.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 650.0,
             "y": 442.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 702.0,
             "y": 442.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 754.0,
             "y": 442.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 338.0,
             "y": 442.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 286.0,
             "y": 442.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 234.0,
             "y": 442.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 182.0,
             "y": 442.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 130.0,
             "y": 442.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 78.0,
             "y": 442.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 26.0,
             "y": 442.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 390.0,
             "y": 442.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 442.0,
             "y": 442.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 494.0,
             "y": 442.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 546.0,
             "y": 442.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 598.0,
             "y": 442.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 286.0,
             "y": 494.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 234.0,
             "y": 494.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 182.0,
             "y": 494.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 130.0,
             "y": 494.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 78.0,
             "y": 494.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 338.0,
             "y": 494.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 26.0,
             "y": 494.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 754.0,
             "y": 494.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 650.0,
             "y": 494.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 702.0,
             "y": 494.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 442.0,
             "y": 494.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 390.0,
             "y": 494.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 494.0,
             "y": 494.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 598.0,
             "y": 494.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 546.0,
             "y": 494.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 650.0,
             "y": 546.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 442.0,
             "y": 546.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 182.0,
             "y": 546.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 234.0,
             "y": 546.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 598.0,
             "y": 546.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 390.0,
             "y": 546.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 130.0,
             "y": 546.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 26.0,
             "y": 546.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": true,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 546.0,
             "y": 546.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 494.0,
             "y": 546.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 754.0,
             "y": 546.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 338.0,
             "y": 546.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 286.0,
             "y": 546.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 598.0,
             "y": 598.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 338.0,
             "y": 598.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 494.0,
             "y": 598.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 390.0,
             "y": 598.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 442.0,
             "y": 598.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 286.0,
             "y": 598.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 182.0,
             "y": 598.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 26.0,
             "y": 598.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 754.0,
             "y": 598.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 546.0,
             "y": 598.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 234.0,
             "y": 598.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 650.0,
             "y": 650.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 494.0,
             "y": 650.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 286.0,
             "y": 650.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 546.0,
             "y": 650.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 338.0,
             "y": 650.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 442.0,
             "y": 650.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 390.0,
             "y": 650.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 598.0,
             "y": 650.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 26.0,
             "y": 650.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 78.0,
             "y": 650.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 234.0,
             "y": 650.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 754.0,
             "y": 650.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 702.0,
             "y": 650.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 182.0,
             "y": 650.0
         },
         {
+            "blockIndex": 3,
             "canSpawnItem": false,
             "isDestroyable": false,
             "isHidable": false,
             "isMovable": false,
+            "itemSpawnProbability": 0.5,
             "registryIndex": 3,
             "x": 130.0,
             "y": 650.0
         }
     ],
+    "spawnPoints": [],
     "tiles": [
         {
             "gridX": 0,
@@ -2613,110 +2986,6 @@
             "tileOptionIndex": 4
         },
         {
-            "gridX": 0,
-            "gridY": 8,
-            "positionX": 0.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 1,
-            "gridY": 8,
-            "positionX": 52.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 2,
-            "gridY": 8,
-            "positionX": 104.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 3,
-            "gridY": 8,
-            "positionX": 156.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 4,
-            "gridY": 8,
-            "positionX": 208.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 5,
-            "gridY": 8,
-            "positionX": 260.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 6,
-            "gridY": 8,
-            "positionX": 312.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 7,
-            "gridY": 8,
-            "positionX": 364.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 8,
-            "gridY": 8,
-            "positionX": 416.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 9,
-            "gridY": 8,
-            "positionX": 468.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 10,
-            "gridY": 8,
-            "positionX": 520.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 11,
-            "gridY": 8,
-            "positionX": 572.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 12,
-            "gridY": 8,
-            "positionX": 624.0,
-            "positionY": 416.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
             "gridX": 12,
             "gridY": 7,
             "positionX": 624.0,
@@ -2749,6 +3018,206 @@
             "tileOptionIndex": 4
         },
         {
+            "gridX": 7,
+            "gridY": 11,
+            "positionX": 364.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 11,
+            "gridY": 11,
+            "positionX": 572.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 13,
+            "gridY": 11,
+            "positionX": 676.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 2,
+            "gridY": 12,
+            "positionX": 104.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 4,
+            "gridY": 12,
+            "positionX": 208.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 5,
+            "gridY": 12,
+            "positionX": 260.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 6,
+            "gridY": 12,
+            "positionX": 312.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 7,
+            "gridY": 12,
+            "positionX": 364.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 8,
+            "gridY": 12,
+            "positionX": 416.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 9,
+            "gridY": 12,
+            "positionX": 468.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 10,
+            "gridY": 12,
+            "positionX": 520.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 11,
+            "gridY": 12,
+            "positionX": 572.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 12,
+            "gridY": 12,
+            "positionX": 624.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 13,
+            "gridY": 9,
+            "positionX": 676.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 1,
+            "gridY": 8,
+            "positionX": 52.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 2,
+            "gridY": 8,
+            "positionX": 104.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 3,
+            "gridY": 8,
+            "positionX": 156.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 4,
+            "gridY": 8,
+            "positionX": 208.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 5,
+            "gridY": 8,
+            "positionX": 260.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 6,
+            "gridY": 8,
+            "positionX": 312.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 7,
+            "gridY": 8,
+            "positionX": 364.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 8,
+            "gridY": 8,
+            "positionX": 416.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 9,
+            "gridY": 8,
+            "positionX": 468.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 10,
+            "gridY": 8,
+            "positionX": 520.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 11,
+            "gridY": 8,
+            "positionX": 572.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
             "gridX": 13,
             "gridY": 8,
             "positionX": 676.0,
@@ -2757,18 +3226,114 @@
             "tileOptionIndex": 4
         },
         {
-            "gridX": 14,
+            "gridX": 12,
+            "gridY": 8,
+            "positionX": 624.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 12,
             "gridY": 9,
-            "positionX": 728.0,
+            "positionX": 624.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 2,
+            "gridY": 9,
+            "positionX": 104.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 3,
+            "gridY": 9,
+            "positionX": 156.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 4,
+            "gridY": 9,
+            "positionX": 208.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 5,
+            "gridY": 9,
+            "positionX": 260.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 6,
+            "gridY": 9,
+            "positionX": 312.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 7,
+            "gridY": 9,
+            "positionX": 364.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 8,
+            "gridY": 9,
+            "positionX": 416.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 9,
+            "gridY": 9,
+            "positionX": 468.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 10,
+            "gridY": 9,
+            "positionX": 520.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 11,
+            "gridY": 9,
+            "positionX": 572.0,
             "positionY": 468.0,
             "rotation": 0.0,
             "tileOptionIndex": 4
         },
         {
             "gridX": 13,
-            "gridY": 9,
+            "gridY": 10,
             "positionX": 676.0,
-            "positionY": 468.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 12,
+            "gridY": 10,
+            "positionX": 624.0,
+            "positionY": 520.0,
             "rotation": 0.0,
             "tileOptionIndex": 4
         },
@@ -2781,66 +3346,18 @@
             "tileOptionIndex": 4
         },
         {
-            "gridX": 3,
-            "gridY": 9,
-            "positionX": 156.0,
-            "positionY": 468.0,
+            "gridX": 10,
+            "gridY": 10,
+            "positionX": 520.0,
+            "positionY": 520.0,
             "rotation": 0.0,
             "tileOptionIndex": 4
         },
         {
-            "gridX": 2,
-            "gridY": 9,
-            "positionX": 104.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 1,
-            "gridY": 9,
-            "positionX": 52.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 0,
-            "gridY": 9,
-            "positionX": 0.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 0,
-            "gridY": 11,
-            "positionX": 0.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 1,
-            "gridY": 11,
-            "positionX": 52.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 2,
-            "gridY": 11,
-            "positionX": 104.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 3,
-            "gridY": 11,
-            "positionX": 156.0,
-            "positionY": 572.0,
+            "gridX": 9,
+            "gridY": 10,
+            "positionX": 468.0,
+            "positionY": 520.0,
             "rotation": 0.0,
             "tileOptionIndex": 4
         },
@@ -2869,161 +3386,25 @@
             "tileOptionIndex": 4
         },
         {
-            "gridX": 7,
-            "gridY": 11,
-            "positionX": 364.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 8,
-            "gridY": 11,
-            "positionX": 416.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 9,
-            "gridY": 11,
-            "positionX": 468.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 14,
-            "gridY": 12,
-            "positionX": 728.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 14,
-            "gridY": 11,
-            "positionX": 728.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 14,
-            "gridY": 10,
-            "positionX": 728.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 13,
-            "gridY": 10,
-            "positionX": 676.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 12,
-            "gridY": 10,
-            "positionX": 624.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 12,
-            "gridY": 9,
-            "positionX": 624.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 11,
-            "gridY": 9,
-            "positionX": 572.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 10,
-            "gridY": 9,
-            "positionX": 520.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 9,
-            "gridY": 9,
-            "positionX": 468.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 8,
-            "gridY": 9,
-            "positionX": 416.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 7,
-            "gridY": 9,
-            "positionX": 364.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
             "gridX": 6,
-            "gridY": 9,
+            "gridY": 10,
             "positionX": 312.0,
-            "positionY": 468.0,
+            "positionY": 520.0,
             "rotation": 0.0,
             "tileOptionIndex": 4
         },
         {
             "gridX": 5,
-            "gridY": 9,
+            "gridY": 10,
             "positionX": 260.0,
-            "positionY": 468.0,
+            "positionY": 520.0,
             "rotation": 0.0,
             "tileOptionIndex": 4
         },
         {
             "gridX": 4,
-            "gridY": 9,
+            "gridY": 10,
             "positionX": 208.0,
-            "positionY": 468.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 0,
-            "gridY": 10,
-            "positionX": 0.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 1,
-            "gridY": 10,
-            "positionX": 52.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 2,
-            "gridY": 10,
-            "positionX": 104.0,
             "positionY": 520.0,
             "rotation": 0.0,
             "tileOptionIndex": 4
@@ -3037,186 +3418,42 @@
             "tileOptionIndex": 4
         },
         {
-            "gridX": 4,
+            "gridX": 0,
+            "gridY": 8,
+            "positionX": 0.0,
+            "positionY": 416.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 0,
+            "gridY": 9,
+            "positionX": 0.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 1,
+            "gridY": 9,
+            "positionX": 52.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 1,
             "gridY": 10,
-            "positionX": 208.0,
+            "positionX": 52.0,
             "positionY": 520.0,
             "rotation": 0.0,
             "tileOptionIndex": 4
         },
         {
-            "gridX": 5,
-            "gridY": 10,
-            "positionX": 260.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 6,
-            "gridY": 10,
-            "positionX": 312.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 7,
-            "gridY": 10,
-            "positionX": 364.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 8,
-            "gridY": 10,
-            "positionX": 416.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 9,
-            "gridY": 10,
-            "positionX": 468.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 10,
-            "gridY": 10,
-            "positionX": 520.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 10,
+            "gridX": 1,
             "gridY": 11,
-            "positionX": 520.0,
+            "positionX": 52.0,
             "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 11,
-            "gridY": 11,
-            "positionX": 572.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 12,
-            "gridY": 11,
-            "positionX": 624.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 13,
-            "gridY": 11,
-            "positionX": 676.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 13,
-            "gridY": 12,
-            "positionX": 676.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 12,
-            "gridY": 12,
-            "positionX": 624.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 11,
-            "gridY": 12,
-            "positionX": 572.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 10,
-            "gridY": 12,
-            "positionX": 520.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 9,
-            "gridY": 12,
-            "positionX": 468.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 8,
-            "gridY": 12,
-            "positionX": 416.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 7,
-            "gridY": 12,
-            "positionX": 364.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 6,
-            "gridY": 12,
-            "positionX": 312.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 5,
-            "gridY": 12,
-            "positionX": 260.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 4,
-            "gridY": 12,
-            "positionX": 208.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 3,
-            "gridY": 12,
-            "positionX": 156.0,
-            "positionY": 624.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 4
-        },
-        {
-            "gridX": 2,
-            "gridY": 12,
-            "positionX": 104.0,
-            "positionY": 624.0,
             "rotation": 0.0,
             "tileOptionIndex": 4
         },
@@ -3230,9 +3467,145 @@
         },
         {
             "gridX": 0,
+            "gridY": 10,
+            "positionX": 0.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 0,
+            "gridY": 11,
+            "positionX": 0.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 0,
             "gridY": 12,
             "positionX": 0.0,
             "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 2,
+            "gridY": 10,
+            "positionX": 104.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 2,
+            "gridY": 11,
+            "positionX": 104.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 3,
+            "gridY": 11,
+            "positionX": 156.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 3,
+            "gridY": 12,
+            "positionX": 156.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 7,
+            "gridY": 10,
+            "positionX": 364.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 8,
+            "gridY": 10,
+            "positionX": 416.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 8,
+            "gridY": 11,
+            "positionX": 416.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 9,
+            "gridY": 11,
+            "positionX": 468.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 10,
+            "gridY": 11,
+            "positionX": 520.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 12,
+            "gridY": 11,
+            "positionX": 624.0,
+            "positionY": 572.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 13,
+            "gridY": 12,
+            "positionX": 676.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 14,
+            "gridY": 12,
+            "positionX": 728.0,
+            "positionY": 624.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 14,
+            "gridY": 9,
+            "positionX": 728.0,
+            "positionY": 468.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 14,
+            "gridY": 10,
+            "positionX": 728.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 4
+        },
+        {
+            "gridX": 14,
+            "gridY": 11,
+            "positionX": 728.0,
+            "positionY": 572.0,
             "rotation": 0.0,
             "tileOptionIndex": 4
         }
