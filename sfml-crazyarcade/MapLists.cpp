@@ -19,15 +19,6 @@ void MapLists::Init()
 		SceneMgr::SelectedMapPath = mapList.begin()->second;
 		tempPath = mapList.begin()->second;
 	}
-
-	// KHI: Results output for TESTING
-	std::cout << "-------------------------" << std::endl;
-	for (const auto& pair : mapList)
-	{
-		std::cout << pair.first << ": " << pair.second << std::endl;
-	}
-	std::cout << "ÃÑ " << mapList.size() << "°³ ·Îµå" << std::endl;
-	std::cout << "-------------------------" << std::endl;
 }
 
 void MapLists::Release()
@@ -46,9 +37,8 @@ void MapLists::Reset()
     background.setTexture(TEXTURE_MGR.Get("assets/SelectMapImg.png"));
 
     Utils::SetOrigin(background, Origins::MC);
-    sf::View currentView = FRAMEWORK.GetWindow().getView();
-    sf::Vector2f viewCenter = currentView.getCenter();
-    background.setPosition(viewCenter);
+	sf::Vector2u windowSize = FRAMEWORK.GetWindowSize();
+	background.setPosition(windowSize.x * 0.5f, windowSize.y * 0.5f);
 
     CreateButtons();
 	CreateActionButtons();
