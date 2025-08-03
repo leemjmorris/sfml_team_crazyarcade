@@ -266,6 +266,8 @@ void SceneGame::Update(float dt)
 	CheckCollisionWithPlayer(dt);
 	if (bazzi->GetPlayerState() == AnimState::Dead)
 	{
+		SOUND_MGR.PlaySfx("sounds/Result_Win.mp3");
+
 		//dao->SetPlayerState(AnimState::Win);
 		isShowingText = true;
 		dao->SetGameOver(true, false, dt);
@@ -279,6 +281,8 @@ void SceneGame::Update(float dt)
 
 	if (dao->GetPlayerState() == AnimState::Dead)
 	{
+		SOUND_MGR.PlaySfx("sounds/Result_Win.mp3");
+
 		//bazzi->SetPlayerState(AnimState::Win);
 		isShowingText = true;
 		bazzi->SetGameOver(true, false, dt);
@@ -292,6 +296,8 @@ void SceneGame::Update(float dt)
 
 	if (gameTimer > 1500.f && bazzi->GetPlayerState() == AnimState::Live && dao->GetPlayerState() == AnimState::Live) // LSY: "Game over after 20 second"
 	{
+		SOUND_MGR.PlaySfx("sounds/Result_Draw.mp3");
+
 		bazzi->SetPlayerState(AnimState::Draw);
 		dao->SetPlayerState(AnimState::Draw);
 		isShowingText = true;

@@ -129,6 +129,8 @@ bool Player::CheckInstallWaterballoon()
 
 bool Player::HandleBubbleDeath(AnimState s)
 {
+	SOUND_MGR.PlaySfx("sounds/Kill_WaterBomb.wav");
+
 	animState = s;
 	animator.Play("animation/bazzi_die.csv");
 	return true;
@@ -136,6 +138,8 @@ bool Player::HandleBubbleDeath(AnimState s)
 
 void Player::AddSpeed(float s)
 {
+	SOUND_MGR.PlaySfx("sounds/Eat_Item.mp3");
+
 	const auto& stats = CharacterTable.at(charId);
 	if (curSpeed >= stats.maxPlayerSpeed)
 	{
@@ -146,11 +150,15 @@ void Player::AddSpeed(float s)
 
 void Player::AddWaterBalloonCount(int b)
 {
+	SOUND_MGR.PlaySfx("sounds/Eat_Item.mp3");
+
 	balloonCapacity = Utils::Clamp(balloonCapacity + b, 1, maxBalloonCount);
 }
 
 void Player::AddWaterBalloonLength(int l)
 {
+	SOUND_MGR.PlaySfx("sounds/Eat_Item.mp3");
+
 	activeWaterBalloonLength += l;
 }
 
@@ -290,6 +298,8 @@ void Player::Update(float dt)
 			animState = AnimState::Dead;
 			dieTimer = 0.f;
 			animator.Play("animation/bazzi_die.csv");
+
+			SOUND_MGR.PlaySfx("sounds/Kill_WaterBomb.wav");
 			//std::cout << "TrappedTimer is finished: AnimeState::Dead" << std::endl;
 		}
 	}
@@ -334,6 +344,7 @@ void Player::CheckCollWithSplash()
 			if (rect.contains({ GetPosition().x, GetPosition().y - 20.f }))
 			{
 				animState = AnimState::Trapped;
+				SOUND_MGR.PlaySfx("sounds/Bubble_Sound.wav");
 				animator.Play("animation/bazzi_trap.csv", true);
 				break;
 			}
