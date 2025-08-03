@@ -168,7 +168,7 @@ void MapLists::CreateActionButtons()
 	const float startY = 501.f;
 
 	confirmBtn = new Button("Btn");
-	confirmBtn->SetButton(confirmBtnTex, { startX, startY, 0.f, 0.f });
+	confirmBtn->SetButton(confirmBtnTex, { startX, startY, 0.f, 0.f }, confirmBtnTexH);
 	confirmBtn->Init();
 	confirmBtn->Reset();
 	confirmBtn->SetOnClick([this] {
@@ -177,7 +177,7 @@ void MapLists::CreateActionButtons()
 		});
 
 	cancelBtn = new Button("Btn");
-	cancelBtn->SetButton(cancelBtnTex, { startX + 116, startY, 0.f, 0.f });
+	cancelBtn->SetButton(cancelBtnTex, { startX + 116, startY, 0.f, 0.f }, cancelBtnTexH);
 	cancelBtn->Init();
 	cancelBtn->Reset();
 	cancelBtn->SetOnClick([] {

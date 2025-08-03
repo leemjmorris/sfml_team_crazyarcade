@@ -18,6 +18,8 @@ protected:
 	Button* cancelBtn;
 	std::string confirmBtnTex = "assets/ui/confirmBtn.png";
 	std::string cancelBtnTex = "assets/ui/cancelBtn.png";
+	std::string confirmBtnTexH = "assets/ui/confirmBtn2.png";
+	std::string cancelBtnTexH = "assets/ui/cancelBtn2.png";
 
 	std::string tempPath;
 
