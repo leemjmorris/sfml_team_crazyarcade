@@ -25,7 +25,7 @@ protected:
     std::vector<sf::Sprite> secondIntroFrames;
     std::vector<std::string> secondIntroTextures;
     int secondIntroCurrentFrame = 0;
-    float secondIntroFrameTime = 0.08f; // LMJ: Time per frame
+    float secondIntroFrameTime = 0.05f; // LMJ: Time per frame
     float secondIntroTimer = 0.0f;
 
     // LMJ: Phase transition

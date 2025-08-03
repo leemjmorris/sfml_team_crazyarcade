@@ -191,7 +191,7 @@ void Block::InitializeBlockRegistry()
     for (int i = 0; i < 74; ++i)
     {
         std::string displayName = "Block"/* + std::to_string(i + 1)*/;
-        RegisterBlockFromSheet(i, displayName, true, false, false, false);
+        RegisterBlockFromSheet(i, displayName, true, false, false, true);
     }
 
     registryInitialized = true;
