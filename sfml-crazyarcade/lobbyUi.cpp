@@ -114,7 +114,10 @@ void lobbyUi::Init()
 
 	exitButton = new Button("exitButton");
 	exitButton->SetActive(false);
-	exitButton->SetOnClick([=] { exitButton->SetActive(!exitButton->GetActive()); });
+	exitButton->SetOnClick([=] {
+		exitButton->SetActive(!exitButton->GetActive());
+		FRAMEWORK.GetWindow().close();
+		});
 
 	characterArea0->SetButton("assets/ui/lobby/Button_Space_UnHover.png", { 26.f, 93.f, 100.f, 100.f });
 	characterArea1->SetButton("assets/ui/lobby/Button_Space_UnHover.png", { 132.f, 93.f, 100.f, 100.f });
@@ -137,6 +140,7 @@ void lobbyUi::Init()
 
 	mapPop->SetButton("assets/ui/lobby/choiceMap.png", { 647.f, 429.f, 121.f, 46.f });
 	gameStartButton->SetButton("assets/ui/lobby/Button_GameStart_Down.png", { 538.f, 495.f, 191.f, 54.f });
+	exitButton->SetButton("assets/ui/lobby/Button_GameStart_Down.png", { 749.f, 573.f, 30.f, 22.f });
 
 	characterArea0->Reset();
 	characterArea1->Reset();
@@ -167,6 +171,11 @@ void lobbyUi::Init()
 		btn->SetActive(false);
 		btn->SetOnClick([=]
 			{
+				auto* Ready = dynamic_cast<SceneReady*>(SCENE_MGR.GetScene(SceneIds::Ready));
+				if (Ready->mapListUi->GetActive())
+				{
+					return;
+				}
 				bool willOn = !btn->GetActive();
 				btn->SetActive(willOn);
 				numRooms += willOn ? +1 : -1;
@@ -319,12 +328,6 @@ void lobbyUi::Update(float dt)
 	choiceCharacter1->Update(dt);
 	choiceCharacter2->Update(dt);
 	choiceCharacter3->Update(dt);
-	/*choiceCharacter4->Update(dt);
-	choiceCharacter6->Update(dt);
-	choiceCharacter8->Update(dt);
-	choiceCharacter5->Update(dt);
-	choiceCharacter7->Update(dt);*/
-
 
 	choiceColorRed->Update(dt);
 	choiceColorOrange->Update(dt);
@@ -352,11 +355,6 @@ void lobbyUi::Draw(sf::RenderWindow& window)
 	choiceCharacter1->Draw(window);
 	choiceCharacter2->Draw(window);
 	choiceCharacter3->Draw(window);
-	//choiceCharacter4->Draw(window);
-	//choiceCharacter5->Draw(window);
-	//choiceCharacter6->Draw(window);
-	//choiceCharacter7->Draw(window);
-	//choiceCharacter8->Draw(window);
 
 	choiceColorRed->Draw(window);
 	choiceColorYellow->Draw(window);
