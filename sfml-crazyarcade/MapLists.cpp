@@ -51,10 +51,10 @@ void MapLists::Reset()
 
 	for (auto* btn : buttons)
 	{
+		btn->Reset();
 		if (btn->GetName() == "Btn_" + selectedMapName)
 		{
 			btn->SetClicked(true);
-			break;
 		}
 	}
 }
