@@ -3098,14 +3098,6 @@
         },
         {
             "gridX": 0,
-            "gridY": 11,
-            "positionX": 0.0,
-            "positionY": 572.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 53
-        },
-        {
-            "gridX": 0,
             "gridY": 12,
             "positionX": 0.0,
             "positionY": 624.0,
@@ -3124,14 +3116,6 @@
             "gridX": 5,
             "gridY": 10,
             "positionX": 260.0,
-            "positionY": 520.0,
-            "rotation": 0.0,
-            "tileOptionIndex": 53
-        },
-        {
-            "gridX": 9,
-            "gridY": 10,
-            "positionX": 468.0,
             "positionY": 520.0,
             "rotation": 0.0,
             "tileOptionIndex": 53
@@ -3429,6 +3413,22 @@
             "gridY": 0,
             "positionX": 728.0,
             "positionY": 0.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 53
+        },
+        {
+            "gridX": 9,
+            "gridY": 10,
+            "positionX": 468.0,
+            "positionY": 520.0,
+            "rotation": 0.0,
+            "tileOptionIndex": 53
+        },
+        {
+            "gridX": 0,
+            "gridY": 11,
+            "positionX": 0.0,
+            "positionY": 572.0,
             "rotation": 0.0,
             "tileOptionIndex": 53
         }
