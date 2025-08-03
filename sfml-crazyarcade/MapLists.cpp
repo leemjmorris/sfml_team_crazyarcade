@@ -26,15 +26,13 @@ void MapLists::Init()
 	{
 		std::cout << pair.first << ": " << pair.second << std::endl;
 	}
-	std::cout << "ÃÑ " << mapList.size() << "°³ ·Îµå" << std::endl;
-	std::cout << "-------------------------" << std::endl;
 }
 
 void MapLists::Release()
 {
-	for (auto* btn : buttons) 
-	{ 
-		btn->Release(); 
+	for (auto* btn : buttons)
+	{
+		btn->Release();
 		delete btn;
 	}
 	buttons.clear();
@@ -42,15 +40,15 @@ void MapLists::Release()
 
 void MapLists::Reset()
 {
-    TEXTURE_MGR.Load("assets/SelectMapImg.png");
-    background.setTexture(TEXTURE_MGR.Get("assets/SelectMapImg.png"));
+	TEXTURE_MGR.Load("assets/SelectMapImg.png");
+	background.setTexture(TEXTURE_MGR.Get("assets/SelectMapImg.png"));
 
-    Utils::SetOrigin(background, Origins::MC);
-    sf::View currentView = FRAMEWORK.GetWindow().getView();
-    sf::Vector2f viewCenter = currentView.getCenter();
-    background.setPosition(viewCenter);
+	Utils::SetOrigin(background, Origins::MC);
+	sf::View currentView = FRAMEWORK.GetWindow().getView();
+	sf::Vector2f viewCenter = currentView.getCenter();
+	background.setPosition(viewCenter);
 
-    CreateButtons();
+	CreateButtons();
 	CreateActionButtons();
 
 	SetRandomMap();
@@ -81,6 +79,7 @@ void MapLists::Update(float dt)
 
 void MapLists::Draw(sf::RenderWindow& window)
 {
+	if (!GetActive()) return;
 	window.draw(background);
 
 	for (auto* btn : buttons)
@@ -102,9 +101,9 @@ std::map<std::string, std::string> MapLists::LoadMapList(const std::string& fold
 	WIN32_FIND_DATAA findData;
 	HANDLE hFind = FindFirstFileA(searchPath.c_str(), &findData);
 
-	if (hFind != INVALID_HANDLE_VALUE) 
+	if (hFind != INVALID_HANDLE_VALUE)
 	{
-		do 
+		do
 		{
 			if (!(findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 			{
@@ -184,14 +183,16 @@ void MapLists::CreateActionButtons()
 	confirmBtn->SetOnClick([this] {
 		std::cout << "confirm" << std::endl;
 		SceneMgr::SelectedMapPath = tempPath;
+		this->SetActive(false);
 		});
 
 	cancelBtn = new Button("Btn");
 	cancelBtn->SetButton(cancelBtnTex, { startX + 116, startY, 0.f, 0.f });
 	cancelBtn->Init();
 	cancelBtn->Reset();
-	cancelBtn->SetOnClick([] {
+	cancelBtn->SetOnClick([this] {
 		std::cout << "cancel" << std::endl;
+		this->SetActive(false);
 		});
 }
 

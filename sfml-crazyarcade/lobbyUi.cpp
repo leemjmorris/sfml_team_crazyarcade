@@ -2,6 +2,7 @@
 #include "lobbyUi.h"
 #include "Button.h"
 #include "SceneGame.h"
+#include "SceneReady.h"
 
 lobbyUi::lobbyUi(const std::string& name)
 	: UiHud(name)
@@ -19,11 +20,6 @@ lobbyUi::~lobbyUi()
 	delete choiceCharacter1;
 	delete choiceCharacter2;
 	delete choiceCharacter3;
-	//delete choiceCharacter4;
-	//delete choiceCharacter5;
-	//delete choiceCharacter6;
-	//delete choiceCharacter7;
-	//delete choiceCharacter8;
 
 	delete choiceColorRed;
 	delete choiceColorYellow;
@@ -62,16 +58,6 @@ void lobbyUi::Init()
 	choiceCharacter2 = new Button("choiceCharacter2");
 	choiceCharacter3 = new Button("choiceCharacter3");
 
-	//choiceCharacter4 = new Button("choiceCharacter4");
-	//choiceCharacter5 = new Button("choiceCharacter5");
-	//choiceCharacter6 = new Button("choiceCharacter6");
-	//choiceCharacter7 = new Button("choiceCharacter7");
-	//choiceCharacter8 = new Button("choiceCharacter8");
-
-	//Button* charBtns[] = {
-	//	choiceCharacter0, choiceCharacter1, choiceCharacter2, choiceCharacter3
-	//};
-
 	choiceColorRed = new Button("choiceColorRed");
 	choiceColorYellow = new Button("choiceColorYellow");
 	choiceColorOrange = new Button("choiceColorOrange");
@@ -88,25 +74,6 @@ void lobbyUi::Init()
 
 	areaBtns = { characterArea0, characterArea1, characterArea2, characterArea3 };
 	charBtns = { choiceCharacter0, choiceCharacter1, choiceCharacter2, choiceCharacter3 };
-
-	//for (Button* btn : charBtns)
-	//{
-	//	btn->SetActive(false);
-	//	btn->SetOnClick([=]
-	//		{
-	//			//btn->SetActive(!btn->GetActive());
-	//			if (!btn->GetActive()) {
-	//				if (numChars < numRooms + 1) {
-	//					btn->SetActive(true);
-	//					++numChars;
-	//				}
-	//			}
-	//			else {
-	//				//btn->SetActive(false);
-	//				//--numChars;
-	//			}
-	//		});
-	//}
 
 	for (Button* btn : colorBtns)
 	{
@@ -129,15 +96,20 @@ void lobbyUi::Init()
 
 	mapPop = new Button("mapPop");
 	mapPop->SetActive(false);
-	mapPop->SetOnClick([=] { mapPop->SetActive(!mapPop->GetActive()); });
+	mapPop->SetOnClick([=] {
+		mapPop->SetActive(!mapPop->GetActive());
+		auto* Ready = dynamic_cast<SceneReady*>(SCENE_MGR.GetScene(SceneIds::Ready));
+		if (Ready) {
+			Ready->mapListUi->SetActive(true);
+		}
+		});
 
 	gameStartButton = new Button("gameStartButton");
 	gameStartButton->SetActive(false);
 	gameStartButton->SetOnClick([=] {
 		gameStartButton->SetActive(!gameStartButton->GetActive());
-		if (gameStartButton->GetActive()) 
+		if (gameStartButton->GetActive())
 			exitButton->SetActive(false);
-			SCENE_MGR.ChangeScene(SceneIds::Game);
 		});
 
 	exitButton = new Button("exitButton");
@@ -153,11 +125,6 @@ void lobbyUi::Init()
 	choiceCharacter1->SetButton("assets/ui/lobby/Button_CharatorSelect_Dao_Pick.png", { 564.f, 81.f, 64.f, 42.f });
 	choiceCharacter2->SetButton("assets/ui/lobby/Button_CharatorSelect_Kephi_Pick.png", { 632.f, 81.f, 64.f, 42.f });
 	choiceCharacter3->SetButton("assets/ui/lobby/Button_CharatorSelect_Marid_Pick.png", { 700.f, 81.f, 64.f, 42.f });
-	/*choiceCharacter4->SetButton("assets/ui/lobby/CharatorSelect_Button_Pick 2.png", { 496.f, 84.f, 64.f, 42.f });
-	choiceCharacter5->SetButton("assets/ui/lobby/CharatorSelect_Button_Pick 2.png", { 564.f, 84.f, 64.f, 42.f });
-	choiceCharacter6->SetButton("assets/ui/lobby/CharatorSelect_Button_Pick 2.png", { 632.f, 84.f, 64.f, 42.f });
-	choiceCharacter7->SetButton("assets/ui/lobby/CharatorSelect_Button_Pick 2.png", { 700.f, 84.f, 64.f, 42.f });
-	choiceCharacter8->SetButton("assets/ui/lobby/CharatorSelect_Button_Pick 2.png", { 496.f, 84.f, 64.f, 42.f });*/
 
 	choiceColorRed->SetButton("assets/ui/lobby/Button_ColorChoice_Red_Pick.png", { 488.f, 282.f, 33.f, 35.f });
 	choiceColorYellow->SetButton("assets/ui/lobby/Button_ColorChoice_Yellow_Pick.png", { 524.f, 282.f, 33.f, 35.f });
@@ -189,49 +156,11 @@ void lobbyUi::Init()
 	choiceCharacter1->Reset();
 	choiceCharacter2->Reset();
 	choiceCharacter3->Reset();
-	/*choiceCharacter4->Reset();
-	choiceCharacter5->Reset();
-	choiceCharacter6->Reset();
-	choiceCharacter7->Reset();
-	choiceCharacter8->Reset();*/
 
 	mapPop->Reset();
 	gameStartButton->Reset();
 	exitButton->Reset();
 
-	/*auto charIdOfBtn = [=](Button* b) -> CharacterID {
-		if (b == choiceCharacter0) return CharacterID::BAZZI;
-		if (b == choiceCharacter1) return CharacterID::DAO;
-		if (b == choiceCharacter2) return CharacterID::CAPPI; 
-		if (b == choiceCharacter3) return CharacterID::MARID;
-		return CharacterID::BAZZI;
-		};
-
-	auto btnOfChar = [&](CharacterID id) -> Button* {
-		switch (id) {
-		case CharacterID::BAZZI: return choiceCharacter0;
-		case CharacterID::DAO:   return choiceCharacter1;
-		case CharacterID::CAPPI: return choiceCharacter2;
-		case CharacterID::MARID: return choiceCharacter3;
-		default:                 return nullptr;
-		}
-		};
-
-	auto RefreshCharButtons = [&]() {
-		auto used = [&](CharacterID id) {
-			for (int i = 0; i < (int)areaBtns.size(); ++i) {
-				if (!areaBtns[i]->GetActive()) continue;
-				if (chosenCharByArea[i] != CharacterID::NONE && chosenCharByArea[i] == id) return true;
-			}
-			return false;
-			};
-
-		for (Button* b : charBtns) {
-			if (!b) continue;
-			CharacterID id = charIdOfBtn(b);
-			b->SetActive(used(id));  
-		}
-	};*/
 
 	for (Button* btn : { characterArea1, characterArea2, characterArea3 })
 	{
@@ -242,7 +171,7 @@ void lobbyUi::Init()
 				btn->SetActive(willOn);
 				numRooms += willOn ? +1 : -1;
 
-				// index Ã£±â
+				// index ??¡¾?
 				auto indexOfArea = [&](Button* b) {
 					for (int i = 0; i < (int)areaBtns.size(); ++i)
 						if (areaBtns[i] == b) return i;
@@ -251,35 +180,13 @@ void lobbyUi::Init()
 				int idx = indexOfArea(btn);
 
 				if (willOn && idx >= 0) {
-					chosenCharByArea[idx] = CharacterID::BAZZI;    
-					areaDirty[idx] = true;                         
+					chosenCharByArea[idx] = CharacterID::BAZZI;
+					areaDirty[idx] = true;
 				}
 				else if (!willOn && idx >= 0) {
 					chosenCharByArea[idx] = CharacterID::NONE;
 					if (focusedArea == idx) focusedArea = -1;
 				}
-				/*if (btn->GetActive()) {
-					btn->SetActive(false);
-					--numRooms;
-				}
-				else {
-					btn->SetActive(true);
-					++numRooms;
-				}*/
-
-				//int maxChars = numRooms + 1;
-				//if (numChars > maxChars) {
-				//	int needToTurnOff = numChars - maxChars;
-				//	for (int i = int(std::size(charBtns)) - 1; i >= 0; --i) 
-				//	{ 
-				//		Button* cBtn = charBtns[i];
-				//		if (cBtn->GetActive()) {
-				//			cBtn->SetActive(false);
-				//			--numChars;
-				//			if (--needToTurnOff == 0) break;
-				//		}
-				//	}
-				//}
 
 				int maxColors = numRooms + 1;
 				if (numColors > maxColors) {
@@ -299,7 +206,7 @@ void lobbyUi::Init()
 
 	for (Button* btn : charBtns)
 	{
-		btn->SetActive(false); 
+		btn->SetActive(false);
 		btn->SetOnClick([this, btn]
 			{
 				if (focusedArea < 0 || focusedArea >= (int)areaBtns.size() || !areaBtns[focusedArea]->GetActive()) {
@@ -329,42 +236,13 @@ void lobbyUi::Init()
 	}
 
 	for (int i = 0; i < 4; ++i) {
-		areaPortraits[i].setColor(sf::Color(255, 255, 255, 0)); 
-		areaPortraits[i].setOrigin(50.f, 50.f);             
+		areaPortraits[i].setColor(sf::Color(255, 255, 255, 0));
+		areaPortraits[i].setOrigin(50.f, 50.f);
 
 		sf::FloatRect box = areaBtns[i]->getBox().getGlobalBounds();
 		areaPortraits[i].setPosition(box.left + box.width * 0.5f,
 			box.top + box.height * 0.5f);
 	}
-
-
-	//for (Button* btn : charBtns)
-	//{
-	//	btn->SetActive(false);
-	//	btn->SetOnClick([=]
-	//		{
-	//			if (!btn->GetActive()) {
-	//				if (numChars < numRooms + 1) {
-	//					btn->SetActive(true);
-	//					++numChars;
-	//				}
-	//			}
-	//			else {
-	//				btn->SetActive(false);
-	//				--numChars;
-	//			}
-
-	//			if (focusedArea >= 0 && focusedArea < (int)areaBtns.size() && areaBtns[focusedArea]->GetActive()) {
-	//				CharacterID id = charIdOfBtn(btn);
-	//				chosenCharByArea[focusedArea] = id;
-
-	//				//UI UPDATE
-	//			}
-	//			else {
-	//				std::cout << "Please Right Click first" << std::endl;
-	//			}
-	//		});
-	//}
 
 }
 
@@ -390,13 +268,13 @@ void lobbyUi::Update(float dt)
 		if (startButtonTimer > 0.3f) {
 			startButtonTimer = 0.f;
 			gameStartButton->SetActive(false);
-			if (numRooms == 0) 
+			if (numRooms == 0)
 			{
 				std::cout << "Do not play 1p" << std::endl;
 				return;
 			}
 			auto* Game = dynamic_cast<SceneGame*>(SCENE_MGR.GetScene(SceneIds::Game));
-			if (Game) 
+			if (Game)
 			{
 				LobbyConfig conf;
 				conf.roomCount = numRooms;
@@ -417,9 +295,9 @@ void lobbyUi::Update(float dt)
 	if (InputMgr::GetMouseButton(sf::Mouse::Right)) {
 		sf::Vector2f mp = (sf::Vector2f)InputMgr::GetMousePosition();
 		for (int i = 0; i < (int)areaBtns.size(); ++i) {
-			if (areaBtns[i]->GetActive()                    
+			if (areaBtns[i]->GetActive()
 				&& areaBtns[i]->getBox().getGlobalBounds().contains(mp)) {
-				focusedArea = i;          
+				focusedArea = i;
 				break;
 			}
 		}
@@ -448,10 +326,10 @@ void lobbyUi::Update(float dt)
 	choiceCharacter7->Update(dt);*/
 
 
-	choiceColorRed->Update(dt);		
-	choiceColorOrange->Update(dt);	
-	choiceColorSkyBlue->Update(dt); 
-	choiceColorPurple->Update(dt);	
+	choiceColorRed->Update(dt);
+	choiceColorOrange->Update(dt);
+	choiceColorSkyBlue->Update(dt);
+	choiceColorPurple->Update(dt);
 
 	choiceColorYellow->Update(dt);
 	choiceColorGreen->Update(dt);
@@ -543,7 +421,7 @@ void lobbyUi::ApplySelectionToArea(int areaIndex)
 	std::cout << "sprite pos = " << areaPortraits[areaIndex].getPosition().x
 		<< "," << areaPortraits[areaIndex].getPosition().y << std::endl;
 
-    areaPortraits[areaIndex].setTexture(*portraitTex[id], true);
+	areaPortraits[areaIndex].setTexture(*portraitTex[id], true);
 
 	areaPortraits[areaIndex].setColor(sf::Color::White);
 }

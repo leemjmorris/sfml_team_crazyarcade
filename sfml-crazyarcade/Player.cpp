@@ -66,31 +66,7 @@ void Player::PlayerEvent(float dt)
 		CheckInstallWaterballoon();
 	}
 
-	//// LMJ: Player 2 - gamepad bomb input (for testing)
-	//if (playerIndex == 1)
-	//{
-	//	if (InputMgr::GetGamepadBombButton(0)) // LMJ: Use first gamepad
-	//	{
-	//		CheckInstallWaterballoon();
-	//	}
-	//	// LMJ: Also keep keyboard as fallback
-	//	else if (InputMgr::GetKeyDown(installWaterBomb))
-	//	{
-	//		CheckInstallWaterballoon();
-	//	}
-	//}
 
-	//// LMJ: Players 3, 4 - gamepad bomb input
-	//if (playerIndex == 2 || playerIndex == 3)
-	//{
-	//	int gamepadIndex = playerIndex - 2;
-	//	if (InputMgr::GetGamepadBombButton(gamepadIndex))
-	//	{
-	//		CheckInstallWaterballoon();
-	//	}
-	//}
-	// LMJ:  For 3p and 4p. CHECK BEFORE ERASING!!!!!
-	// LMJ: Keyboard bomb input for players 1 and 2
 	if ((playerIndex == 0 || playerIndex == 1) && InputMgr::GetKeyDown(installWaterBomb))
 	{
 		CheckInstallWaterballoon();
@@ -105,18 +81,11 @@ void Player::PlayerEvent(float dt)
 			CheckInstallWaterballoon();
 		}
 	}
-	//if (isAlive)
-	//{
-	//	isTrapped = false;
-	//	animState = AnimState::Live;
-	//	animator.Play("animation/bazzi_live.csv");
-	//}
 }
 
 void Player::OnBalloonExploded()
 {
 	if (activeBalloons > 0) --activeBalloons;
-	//ClearFootBomb(footBomb);
 }
 
 bool Player::CanPlaceBalloon() const
@@ -141,12 +110,6 @@ bool Player::CheckInstallWaterballoon()
 	}
 
 	SOUND_MGR.PlaySfx("sounds/Set_WaterBomb.mp3");
-
-	//std::cout << "Spawned bomb ptr = " << b << '\n';
-	if (playerIndex == 0)
-		//std::cout << "Player 1 activeBalloons:" << activeBalloons << ", balloonCapacity: " << balloonCapacity << std::endl;
-	//else
-		//std::cout << "Player 2  activeBalloons:" << activeBalloons << ", balloonCapacity: " << balloonCapacity << std::endl;
 
 	passThroughBombs.insert(b);
 	++activeBalloons;
@@ -241,9 +204,7 @@ void Player::SetOrigin(Origins preset)
 
 void Player::Init()
 {
-	//std::cout << "[Init balloonCount]" << curWaterBalloonCount << ", [Init balloonLength]" << curWaterBalloonLength << ", [Init Speed]" << curSpeed << std::endl;
-	//SetOrigin(Origins::BC);
-	//animator.SetTarget(&sprite);
+
 }
 
 void Player::Release()
@@ -262,7 +223,6 @@ void Player::Reset()
 	balloonCapacity = CharacterTable.at(charId).initBombCount;
 	activeBalloons = 0;
 	activeWaterBalloonLength = 1;
-	//animator.Play("animation/bazzi_run.csv");
 	animator.Play(convertAniStr("animation/", "_run.csv"));
 }
 
@@ -328,7 +288,6 @@ void Player::Update(float dt)
 		{
 			animState = AnimState::Dead;
 			dieTimer = 0.f;
-			//animator.Play("animation/bazzi_die.csv");
 			animator.Play(convertAniStr("animation/", "_die.csv"));
 			std::cout << "TrappedTimer is finished: AnimeState::Dead" << std::endl;
 		}
@@ -494,7 +453,6 @@ void Player::Movement(float dt)
 			int gamepadIndex = playerIndex - 2;
 			
 			sf::Vector2f gamepadDir = InputMgr::GetGamepadDirection(gamepadIndex);
-			//std::cout << gamepadDir.x << ", " << gamepadDir.y << std::endl;
 			if (gamepadDir.x != 0.f || gamepadDir.y != 0.f)
 			{
 				dir = gamepadDir;
@@ -504,27 +462,6 @@ void Player::Movement(float dt)
 				dir = { 0.f, 0.f };
 			}
 		}
-
-		// LMJ: Below for 3p and 4p. CHECK BEFORE ERASING
-		//if (playerIndex == 0 || playerIndex == 1)
-		//{
-		//	dir = InputMgr::GetPriorityDirection(hAxis, vAxis, playerIndex);
-		//}
-		//else if (playerIndex == 2 || playerIndex == 3)
-		//{
-		//	// LMJ: Player 3, 4 - gamepad input
-		//	int gamepadIndex = playerIndex - 2; // LMJ: Convert to gamepad index (0 or 1)
-		//	sf::Vector2f gamepadDir = InputMgr::GetGamepadDirection(gamepadIndex);
-
-		//	if (gamepadDir.x != 0.f || gamepadDir.y != 0.f)
-		//	{
-		//		dir = gamepadDir;
-		//	}
-		//	else
-		//	{
-		//		dir = { 0.f, 0.f }; // LMJ: No movement if no gamepad input
-		//	}
-		//}
 
 		sf::Vector2f currentPos = GetPosition();
 		sf::Vector2f tempPos = currentPos;
@@ -585,8 +522,7 @@ void Player::Movement(float dt)
 		sf::Vector2f tryY = tempPos + sf::Vector2f(0.f, dir.y * curSpeed * dt);
 		sprite.setPosition(sf::Vector2f(tempPos.x, tryY.y));
 		hitBox.UpdateNoScale(sprite.getPosition(), playerHitBoxSize, playerHitBoxOffset2, Origins::BC);
-		//hitBox.UpdateCustomTransform(sprite, playerHitBoxSize, playerHitBoxOffset, Origins::BC);
-		//size_t collidedY = GetCollidedTileInfo(collidedBounds);
+
 		size_t collidedY = GetCollidedObstacleInfo(collidedBounds);
 
 		if (collidedY == 0 && !slidePlayer)
@@ -638,11 +574,6 @@ void Player::Movement(float dt)
 		{
 			pushedCount = 0.f;
 		}
-
-		// if (collided && targetBlock->IsHidable())
-		// {
-		// 	std::cout << "Hidable()" << std::endl;
-		// }
 
 		SetPosition(tempPos);
 		float tempSpeed = GetSpeed();
@@ -719,29 +650,3 @@ Block* Player::GetCollidedBlock()
 
 	return nullptr;
 }
-
-
-//  //KHI(ver)
-//bool Player::GetCollidedTileInfo(sf::FloatRect& outTileBounds)
-// {
-//Scene* curScene = SCENE_MGR.GetCurrentScene();
-//auto gameObjects = curScene->FindGameObjects("Block");
-//
-//for (auto* obj : gameObjects)
-//{
-//	Block* block = dynamic_cast<Block*>(obj);
-//	if (block && block->IsDestroyable())
-//	{
-//		sf::FloatRect blockBounds = block->GetHitBox().GetGlobalBounds();
-//		if (hitBox.rect.getGlobalBounds().intersects(blockBounds))
-//		{
-//			if (block && block->GetActive() && block->IsDestroyable())
-//			{
-//				outTileBounds = blockBounds;
-//				return true;
-//			}
-//		}
-// 	 } 
-//}
-// return false; 
-//}

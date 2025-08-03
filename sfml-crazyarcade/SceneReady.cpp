@@ -19,15 +19,6 @@ void SceneReady::Init()
 	TEXTURE_MGR.Load(texIds);
 	FONT_MGR.Load(fontIds);
 
-	//Button::LoadHitMask("Assets/UI/lobbyColorMap.png", { 0.f, 0.f }, { 1.f, 1.f });
-
-	/*auto btnMap = ui.Add<Button>("btnMap");
-	btnMap->SetButton({ 120.f, 50.f }, sf::Color{ 40, 144, 240 },
-		"Fonts/NanumGothic.ttf", sf::Color::Black, 2.f);
-	btnMap->SetPosition({ 610.f, 420.f });
-	btnMap->SetText("��?����??");
-	btnMap->UseBackground(false);
-	btnMap->SetOnClick([this]() { OpenMapSelectPopup(); });*/
 	ui = new lobbyUi("loobyUi");
 	ui->Init();
 
@@ -80,7 +71,7 @@ void SceneReady::Draw(sf::RenderWindow& window)
 	window.setView(worldView);
 	window.draw(bgSprite);
 	window.setView(window.getDefaultView());
-	mapListUi->Draw(window);
 	ui->Draw(window);
+	mapListUi->Draw(window);
 	Scene::Draw(window);
 }

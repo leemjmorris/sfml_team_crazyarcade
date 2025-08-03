@@ -10,11 +10,12 @@ protected:
 	sf::Sprite bgSprite; // KHI: DRAFT!!
 
 	lobbyUi* ui;
-	MapLists* mapListUi;
 
 public:
 	SceneReady();
 	~SceneReady() override = default;
+
+	MapLists* mapListUi;
 
 	void Init() override;
 	void Enter() override;

@@ -8,161 +8,6 @@
 #include "GameSceneUI.h"
 #include "ResultPop.h"
 
-bool SceneGame::CheckCollisionAmongPlayers(float dt)
-{
-	auto isTrapped = [](AnimState s) { return s == AnimState::Trapped; };
-
-	for (size_t i = 0; i < players.size(); ++i) {
-		Player* A = players[i];
-		if (!A) continue;
-
-		for (size_t j = i + 1; j < players.size(); ++j) {
-			Player* B = players[j];
-			if (!B) continue;
-
-			if (!Utils::CheckCollision(A->GetHitBox().rect, B->GetHitBox().rect))
-				continue;
-
-			AnimState a = A->GetPlayerState();
-			AnimState b = B->GetPlayerState();
-
-			if (isTrapped(a) ^ isTrapped(b)) {
-				Player* trapped = isTrapped(a) ? A : B;
-				Player* other = (trapped == A) ? B : A;
-
-				if (trapped->GetPlayerState() != AnimState::Dead) {
-					trapped->HandleBubbleDeath(AnimState::Dead);
-					std::cout << trapped->GetName()
-						<< " Dead by contact with "
-						<< other->GetName() << std::endl;
-					return true; 
-				}
-			}
-		}
-	}
-	return false;
-}
-
-void SceneGame::EvaluateRoundState(float dt)
-{
-	std::vector<Player*> alive;
-	alive.reserve(players.size());
-	for (auto* p : players) {
-		if (!p) continue;
-		AnimState s = p->GetPlayerState();
-		if (s != AnimState::Dead) {
-			alive.push_back(p);
-		}
-	}
-
-	if (alive.size() == 1) {
-		isShowingText = true;
-
-		alive[0]->SetGameOver(true, false, dt);
-
-		/*int winnerNo = 
-			(alive[0]->GetPlayerNo() ? alive[0]->GetPlayerNo() + 1
-				: int(std::distance(players.begin(),
-					std::find(players.begin(), players.end(), alive[0]))) + 1);*/
-
-		//textResult.setString(std::to_string(winnerNo) + "P Win");
-		popUi->SetResult(players);    
-		popUi->SetWinner(alive[0]->GetPlayerNo() + 1);
-		popUi->SetActive(true);
-
-		gameTimer = 0.f;
-		goReadyRoom = true;
-		return;
-	}
-
-	if (gameTimer > 1500.f) {
-		if (alive.size() >= 2) {
-			isShowingText = true;
-			textResult.setString("Draw");
-			for (auto* p : alive) p->SetGameOver(false, true, dt);
-
-			gameTimer = 0.f;
-			goReadyRoom = true;
-
-			popUi->SetResult(players);
-			popUi->SetActive(true);
-		}
-	}
-}
-
-void SceneGame::BuildPlayersFromRoomCount()
-{
-	for (auto* p : players) {
-		if (p) RemoveGameObject(p);
-	}
-	players.clear();
-	bazzi = dao = player3p = player4p = nullptr;
-	objectsNeedingClamp.clear();
-
-	int playerSlots = lobbyConf.roomCount + 1; 
-	for (int i = 0; i < playerSlots; ++i) {
-		CharacterID id = CharacterID::BAZZI; 
-		if (i < (int)lobbyConf.chars.size())
-			id = lobbyConf.chars[i];
-
-		std::string displayName;
-		switch (id) {
-		case CharacterID::BAZZI: displayName = "Bazzi"; break;
-		case CharacterID::DAO:   displayName = "Dao";   break;
-		case CharacterID::CAPPI: displayName = "Cappi"; break;
-		case CharacterID::MARID: displayName = "Marid"; break;
-		default:                 displayName = "Player"; break;
-		}
-
-		Player* p = static_cast<Player*>(
-			AddGameObject(new Player("Player", id, i, displayName))
-			);
-		players.push_back(p);
-		objectsNeedingClamp.push_back(p);
-		if (i == 0) bazzi = p;
-		else if (i == 1) dao = p;
-		else if (i == 2) player3p = p;
-		else if (i == 3) player4p = p;
-	}
-
-	//for (int i = 0; i < lobbyConf.roomCount + 1; ++i)
-	//{
-	//	switch (i)
-	//	{
-	//	case 0: {
-	//		bazzi = static_cast<Player*>(AddGameObject(
-	//			new Player("Player", CharacterID::BAZZI, 0, "Bazzi")));
-	//		players.push_back(bazzi);
-	//		objectsNeedingClamp.push_back(bazzi);
-	//		break;
-	//	}
-	//	case 1: {
-	//		dao = static_cast<Player*>(AddGameObject(
-	//			new Player("Player", CharacterID::DAO, 1, "Dao")));
-	//		players.push_back(dao);
-	//		objectsNeedingClamp.push_back(dao);
-	//		break;                      
-	//	}
-	//	case 2: {
-	//		player3p = static_cast<Player*>(AddGameObject(
-	//			new Player("Player", CharacterID::DAO, 2, "player3p")));
-	//		players.push_back(player3p);
-	//		objectsNeedingClamp.push_back(player3p);
-	//		break;
-	//	}
-	//	case 3: {
-	//		player4p = static_cast<Player*>(AddGameObject(
-	//			new Player("Player", CharacterID::DAO, 3, "player4p")));
-	//		players.push_back(player4p);
-	//		objectsNeedingClamp.push_back(player4p);
-	//		break;
-	//	}
-	//	default:
-	//		break;
-	//	}
-	//}
-}
-
 SceneGame::SceneGame()
 	: Scene(SceneIds::Game), dao(nullptr), bazzi(nullptr), item(nullptr)
 {
@@ -245,6 +90,26 @@ void SceneGame::Init()
 	texIds.push_back("assets/item/damage.png");
 	texIds.push_back("assets/item/speed.png");
 
+	texIds.push_back("assets/item/bubble.png");
+	texIds.push_back("assets/item/damage.png");
+	texIds.push_back("assets/bomb/waterBalloon.png");
+	texIds.push_back("assets/bomb/default.png");
+
+	// KHI: wave
+	texIds.push_back("assets/bomb/pop.bmp");
+
+	texIds.push_back("assets/wave/up1.bmp");
+	texIds.push_back("assets/wave/down1.bmp");
+	texIds.push_back("assets/wave/left1.bmp");
+	texIds.push_back("assets/wave/right1.bmp");
+
+	texIds.push_back("assets/wave/up2.bmp");
+	texIds.push_back("assets/wave/down2.bmp");
+	texIds.push_back("assets/wave/left2.bmp");
+	texIds.push_back("assets/wave/right2.bmp");
+
+	TEXTURE_MGR.Load(texIds);
+
 	ANI_CLIP_MGR.Load("animation/bazzi_run.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_up.csv");
 	ANI_CLIP_MGR.Load("animation/bazzi_down.csv");
@@ -291,28 +156,11 @@ void SceneGame::Init()
 	ANI_CLIP_MGR.Load("animation/marid_idleSide.csv");
 	ANI_CLIP_MGR.Load("animation/marid_idleUp.csv");
 
-
-	//bazzi = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::BAZZI, 0, "Bazzi")));
-	//dao = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 1, "Dao")));
-	//player3p = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 2, "player3p")));
-	//player4p = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::DAO, 3, "player4p")));
-
-	//players = { bazzi, dao, player3p, player4p };
-	//
-	//objectsNeedingClamp.push_back(bazzi);
-	//objectsNeedingClamp.push_back(dao);
-	//objectsNeedingClamp.push_back(player3p);
-	//objectsNeedingClamp.push_back(player4p);
-
 	colorMask.LoadFromFile("assets/shaders/transparent.frag");
 	colorMask.SetMaskColor(sf::Color(255, 0, 255));
 	colorMask.SetThreshold(0.1f);
 
-	//ui = static_cast<GameSceneUI*>(AddGameObject(new GameSceneUI()));
-
 	// LSY: "will handle the game result display"
-	//fontIds.push_back("assets/font/ARCADECLASSIC.TTF");
-
 	font.loadFromFile("assets/font/ARCADECLASSIC.TTF");
 	textResult.setFont(font);
 	textResult.setOrigin(textResult.getGlobalBounds().width * 0.5f, textResult.getGlobalBounds().height * 0.5f);
@@ -329,7 +177,6 @@ void SceneGame::Enter()
 {
 	Scene::Enter();
 
-	//sf::Texture& tex = TEXTURE_MGR.Get("assets/play_bg.bmp");
 	sf::Texture& tex = TEXTURE_MGR.Get("assets/play_ui.png");
 	uiSprite.setTexture(tex);
 
@@ -376,23 +223,12 @@ void SceneGame::Enter()
 	if (player3p) player3p->SetPosition(Utils::GetPlayerSpawnPoint(2));
 	if (player4p) player4p->SetPosition(Utils::GetPlayerSpawnPoint(3));
 
-	//std::cout << "Player 1 position: (" << bazzi->GetPosition().x << ", " << bazzi->GetPosition().y << ")" << std::endl;
-	//std::cout << "Player 2 position: (" << dao->GetPosition().x << ", " << dao->GetPosition().y << ")" << std::endl;
-
 	goReadyRoom = false;
 	if (bazzi) bazzi->SetEnter(true);
 	if (dao) dao->SetEnter(true);
 	if (player3p) player3p->SetEnter(true);
 	if (player4p) player4p->SetEnter(true);
-	//popUi->SetResult({ bazzi,dao,player3p });
-	// LMJ: Initialize collision system
-	//for (int y = 0; y < 13; ++y)
-	//{
-	//	for (int x = 0; x < 15; ++x)
-	//	{
-	//		blockLayer[y][x] = Utils::CollBlockLayer[y][x];
-	//	}
-	//}
+
 	ui->Reset();
 	popUi->Reset();
 }
@@ -414,73 +250,6 @@ void SceneGame::Update(float dt)
 	CheckCollisionAmongPlayers(dt);
 
 	EvaluateRoundState(dt);
-
-	//static bool printed = false;
-	//if (bazzi->GetPlayerState() == AnimState::Win)
-	//{
-	//	popUi->SetResult({ bazzi, dao });
-	//	popUi->SetWinner(1);
-	//	popUi->SetActive(true);
-	//	printed = true;
-	//}
-
-	//if (dao->GetPlayerState() == AnimState::Win)
-	//{
-	//	popUi->SetResult({ bazzi, dao });
-	//	popUi->SetWinner(2);
-	//	popUi->SetActive(true);
-	//	printed = true;
-	//}
-
-	//CheckCollisionWithPlayer(dt);
-	//if (bazzi->GetPlayerState() == AnimState::Dead)
-	//{
-	//	//dao->SetPlayerState(AnimState::Win);
-	//	isShowingText = true;
-	//	dao->SetGameOver(true, false, dt);
-	//	textResult.setString("2P Win");
-	//	gameTimer = 0.f;
-	//	goReadyRoom = true;
-	//	//popUi->SetResult({ bazzi, dao });
-	//	//popUi->SetActive(true);
-	//	//popUi->SetWinner(2);
-	//}
-
-	//if (dao->GetPlayerState() == AnimState::Dead)
-	//{
-	//	//bazzi->SetPlayerState(AnimState::Win);
-	//	isShowingText = true;
-	//	bazzi->SetGameOver(true, false, dt);
-	//	textResult.setString("1P Win");
-	//	gameTimer = 0.f;
-	//	goReadyRoom = true;
-	//	//popUi->SetResult({ bazzi, dao });
-	//	//popUi->SetActive(true);
-	//	//popUi->SetWinner(1);
-	//}
-
-	//if (gameTimer > 1500.f && bazzi->GetPlayerState() == AnimState::Live && dao->GetPlayerState() == AnimState::Live) // LSY: "Game over after 20 second"
-	//{
-	//	bazzi->SetPlayerState(AnimState::Draw);
-	//	dao->SetPlayerState(AnimState::Draw);
-	//	isShowingText = true;
-	//	textResult.setString("Draw");
-	//	bazzi->SetGameOver(false, true, dt);
-	//	dao->SetGameOver(false, true, dt);
-	//	gameTimer = 0.f;
-	//	goReadyRoom = true;
-	//	std::cout << "Time's up! Draw!" << std::endl;
-	//	popUi->SetResult({ bazzi, dao });
-	//	popUi->SetActive(true);
-	//	//popUi->SetResult();
-	//}
-
-	// LSY: click to exit
-	//if (InputMgr::GetMouseButton(sf::Mouse::Left) &&
-	//	(clickableArea.contains((sf::Vector2f)InputMgr::GetMousePosition())))
-	//{
-	//	SCENE_MGR.ChangeScene(SceneIds::Ready);
-	//}
 
 	if (goReadyRoom)
 	{
@@ -606,4 +375,122 @@ bool SceneGame::CheckCollisionWithPlayer(float dt)
 		}
 	}
 	return false;
+}
+
+bool SceneGame::CheckCollisionAmongPlayers(float dt)
+{
+	auto isTrapped = [](AnimState s) { return s == AnimState::Trapped; };
+
+	for (size_t i = 0; i < players.size(); ++i) {
+		Player* A = players[i];
+		if (!A) continue;
+
+		for (size_t j = i + 1; j < players.size(); ++j) {
+			Player* B = players[j];
+			if (!B) continue;
+
+			if (!Utils::CheckCollision(A->GetHitBox().rect, B->GetHitBox().rect))
+				continue;
+
+			AnimState a = A->GetPlayerState();
+			AnimState b = B->GetPlayerState();
+
+			if (isTrapped(a) ^ isTrapped(b)) {
+				Player* trapped = isTrapped(a) ? A : B;
+				Player* other = (trapped == A) ? B : A;
+
+				if (trapped->GetPlayerState() != AnimState::Dead) {
+					trapped->HandleBubbleDeath(AnimState::Dead);
+					std::cout << trapped->GetName()
+						<< " Dead by contact with "
+						<< other->GetName() << std::endl;
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
+void SceneGame::EvaluateRoundState(float dt)
+{
+	std::vector<Player*> alive;
+	alive.reserve(players.size());
+	for (auto* p : players) {
+		if (!p) continue;
+		AnimState s = p->GetPlayerState();
+		if (s != AnimState::Dead) {
+			alive.push_back(p);
+		}
+	}
+
+	if (alive.size() == 1) {
+		isShowingText = true;
+
+		alive[0]->SetGameOver(true, false, dt);
+
+		/*int winnerNo =
+			(alive[0]->GetPlayerNo() ? alive[0]->GetPlayerNo() + 1
+				: int(std::distance(players.begin(),
+					std::find(players.begin(), players.end(), alive[0]))) + 1);*/
+
+					//textResult.setString(std::to_string(winnerNo) + "P Win");
+		popUi->SetResult(players);
+		popUi->SetWinner(alive[0]->GetPlayerNo() + 1);
+		popUi->SetActive(true);
+
+		gameTimer = 0.f;
+		goReadyRoom = true;
+		return;
+	}
+
+	if (gameTimer > 1500.f) {
+		if (alive.size() >= 2) {
+			isShowingText = true;
+			textResult.setString("Draw");
+			for (auto* p : alive) p->SetGameOver(false, true, dt);
+
+			gameTimer = 0.f;
+			goReadyRoom = true;
+
+			popUi->SetResult(players);
+			popUi->SetActive(true);
+		}
+	}
+}
+
+void SceneGame::BuildPlayersFromRoomCount()
+{
+	for (auto* p : players) {
+		if (p) RemoveGameObject(p);
+	}
+	players.clear();
+	bazzi = dao = player3p = player4p = nullptr;
+	objectsNeedingClamp.clear();
+
+	int playerSlots = lobbyConf.roomCount + 1;
+	for (int i = 0; i < playerSlots; ++i) {
+		CharacterID id = CharacterID::BAZZI;
+		if (i < (int)lobbyConf.chars.size())
+			id = lobbyConf.chars[i];
+
+		std::string displayName;
+		switch (id) {
+		case CharacterID::BAZZI: displayName = "Bazzi"; break;
+		case CharacterID::DAO:   displayName = "Dao";   break;
+		case CharacterID::CAPPI: displayName = "Cappi"; break;
+		case CharacterID::MARID: displayName = "Marid"; break;
+		default:                 displayName = "Player"; break;
+		}
+
+		Player* p = static_cast<Player*>(
+			AddGameObject(new Player("Player", id, i, displayName))
+			);
+		players.push_back(p);
+		objectsNeedingClamp.push_back(p);
+		if (i == 0) bazzi = p;
+		else if (i == 1) dao = p;
+		else if (i == 2) player3p = p;
+		else if (i == 3) player4p = p;
+	}
 }
