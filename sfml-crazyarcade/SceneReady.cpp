@@ -32,6 +32,8 @@ void SceneReady::Enter()
 {
 	TEXTURE_MGR.Load(texIds);
 	FONT_MGR.Load(fontIds);
+	SOUND_MGR.PlayBgm("sounds/Lobby.wav");
+
 	sf::Texture& bgTexture = TEXTURE_MGR.Get("assets/lobby_bg.png");
 	bgSprite.setTexture(bgTexture);
 
