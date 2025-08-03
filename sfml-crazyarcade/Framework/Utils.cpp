@@ -424,6 +424,10 @@ void Utils::LoadTilesFromJson(Scene* scene, const void* tilesJsonPtr)
         // LMJ: Create TileData from JSON (now includes worldPosition)
         TileData tileData = TileData::FromJson(jt);
 
+        if (tileData.tileOptionIndex < 0) {
+            continue;
+        }
+
         // LMJ: Debug output to check loaded values
         ////std::cout << "Tile - Index: " << tileData.tileOptionIndex
             //// ", Grid: (" << tileData.gridX << "," << tileData.gridY << ")"
@@ -439,6 +443,7 @@ void Utils::LoadTilesFromJson(Scene* scene, const void* tilesJsonPtr)
 
             // LMJ: Add tile sprite to scene as SpriteGo
             SpriteGo* spriteGo = new SpriteGo();
+            spriteGo->SetName("Tile");
             spriteGo->GetSprite() = *tileSprite;
             spriteGo->SetPosition(tileData.worldPosition); // LMJ: Use saved worldPosition
             spriteGo->SetScale({ 1.f, 1.f });
@@ -589,9 +594,10 @@ sf::Sprite* Utils::CreateTileSprite(int tileOptionIndex, const sf::Vector2f& pos
 
     if (tileOptionIndex < 0 || tileOptionIndex >= MAX_TILES)
     {
-        int originalIndex = tileOptionIndex;
-        tileOptionIndex = tileOptionIndex % MAX_TILES; // LMJ: "Wrap to 0-69 range"
-        if (tileOptionIndex < 0) tileOptionIndex = 0;
+        tileOptionIndex = Clamp(tileOptionIndex, 0, MAX_TILES - 1);
+        //int originalIndex = tileOptionIndex;
+        //tileOptionIndex = tileOptionIndex % MAX_TILES; // LMJ: "Wrap to 0-69 range"
+        //if (tileOptionIndex < 0) tileOptionIndex = 0;
     }
 
     // LMJ: "Calculate texture coordinates from index"

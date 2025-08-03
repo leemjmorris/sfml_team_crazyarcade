@@ -234,6 +234,7 @@ void SceneGame::Init()
 void SceneGame::Enter()
 {
 	Scene::Enter();
+	TEXTURE_MGR.Load(PATH_TILE_SHEET "tile_set.png");
 
 	sf::Texture& tex = TEXTURE_MGR.Get("assets/play_ui.png");
 	uiSprite.setTexture(tex);
@@ -260,7 +261,7 @@ void SceneGame::Enter()
 	WaterSplashPool::Init();
 
 	std::cout << "===================" << std::endl;
-	std::cout << "     SceneGame"      << std::endl;
+	std::cout << "     SceneGame" << std::endl;
 	std::cout << "===================" << std::endl;
 
 	// LMJ: Load map from JSON file created in MapEditor
@@ -360,6 +361,9 @@ void SceneGame::Exit()
 		RemoveGameObject(obj);
 	}
 
+	auto tiles = FindGameObjects("Tile");
+	for (auto* obj : tiles) RemoveGameObject(obj);
+
 	players.clear();
 	bazzi = dao = player3p = player4p = nullptr;
 	objectsNeedingClamp.clear();
@@ -396,7 +400,7 @@ void SceneGame::Exit()
 	Item::CheckAndRemoveItem();
 	Item::allItems.clear();
 	Item::players.clear();
-
+	TEXTURE_MGR.Unload(PATH_TILE_SHEET "tile_set.png");
 	Scene::Exit();
 }
 
@@ -527,8 +531,8 @@ void SceneGame::EvaluateRoundState(float dt)
 		goReadyRoom = true;
 		if (!isPlayingResultSound)
 		{
-		 SOUND_MGR.PlaySfx("sounds/Result_Win.mp3");
-		 isPlayingResultSound = true;
+			SOUND_MGR.PlaySfx("sounds/Result_Win.mp3");
+			isPlayingResultSound = true;
 		}
 		return;
 	}
@@ -541,7 +545,7 @@ void SceneGame::EvaluateRoundState(float dt)
 
 			gameTimer = 0.f;
 			goReadyRoom = true;
-			
+
 			popUi->SetResult(players);
 			popUi->SetActive(true);
 			if (isPlayingResultSound)
