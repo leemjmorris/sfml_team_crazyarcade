@@ -3,7 +3,7 @@
 #include "SceneDev1.h"
 #include "MapEditor.h"
 #include "SceneReady.h"
-#include "SceneDemo.h"
+#include "SceneGame.h"
 
 std::string SceneMgr::SelectedMapPath = "";
 
@@ -12,7 +12,7 @@ void SceneMgr::Init()
 	scenes.push_back(new SceneDev1());
 	scenes.push_back(new MapEditor());
 	scenes.push_back(new SceneReady());
-	scenes.push_back(new SceneDemo());
+	scenes.push_back(new SceneGame());
 
 	for (auto scene : scenes)
 	{

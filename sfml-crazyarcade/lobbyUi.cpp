@@ -140,7 +140,7 @@ void lobbyUi::Init()
 		gameStartButton->SetActive(!gameStartButton->GetActive());
 		if (gameStartButton->GetActive()) 
 			exitButton->SetActive(false);
-			SCENE_MGR.ChangeScene(SceneIds::Demo);
+			SCENE_MGR.ChangeScene(SceneIds::Game);
 		});
 
 	exitButton = new Button("exitButton");
