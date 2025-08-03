@@ -6,14 +6,15 @@
 #include "SceneIntro.h"
 #include "SceneTitle.h"
 
+std::string SceneMgr::SelectedMapPath = "";
+
 void SceneMgr::Init()
 {
 	scenes.push_back(new SceneIntro());
 	scenes.push_back(new SceneTitle());
 	scenes.push_back(new MapEditor());
 	scenes.push_back(new SceneReady());
-	scenes.push_back(new SceneGame());
-
+	scenes.push_back(new SceneDemo());
 
 	for (auto scene : scenes)
 	{

@@ -24,6 +24,8 @@ public:
 
 	void Update(float dt);
 	void Draw(sf::RenderWindow& window);
+
+	static std::string SelectedMapPath;
 };
 
 #define SCENE_MGR (SceneMgr::Instance())

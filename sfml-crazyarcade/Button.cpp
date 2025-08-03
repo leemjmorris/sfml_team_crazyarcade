@@ -11,7 +11,6 @@ void Button::SetSize(sf::Vector2f v)
 	button.setScale(v);
 }
 
-
 void Button::SetOnClick(std::function<void()> func)
 {
 	onClick = func;
@@ -35,7 +34,25 @@ void Button::Reset()
 {
 	tex.loadFromFile(texId);
 	button.setTexture(tex);
+
+	if (highlitedTexId != "") // KHI
+	{
+		highlitedTex.loadFromFile(highlitedTexId);
+	}
+	if (clickedTexId != "") // KHI
+	{
+		clickedTex.loadFromFile(clickedTexId);
+	}
+
 	Utils::SetOrigin(button, Origins::TL);
+
+	font = FONT_MGR.Get("assets/font/Daum_Regular.ttf"); // KHI
+	if (btnText.getString() != "")
+	{
+		SetText(btnText.getString(), btnText.getCharacterSize());
+	}
+
+	isClicked = false; // KHI
 }
 
 void Button::Update(float dt)
@@ -50,11 +67,51 @@ void Button::Update(float dt)
 	{
 		if (onClick) onClick();
 	}
+
+	// KHI: If a highlight texture exists, apply the highlight texture on mouse hover
+    if (highlitedTexId != "")
+    {
+        if (isMouseOver && button.getTexture() != &highlitedTex)
+        {
+            button.setTexture(highlitedTex);
+        }
+        else if (!isMouseOver && button.getTexture() != &tex)
+        {
+            button.setTexture(tex);
+        }
+    }
+
+	if (isClicked)
+	{
+		button.setTexture(clickedTex);
+	}
 }
 
 void Button::Draw(sf::RenderWindow& window)
 {
 	if (GetActive()) {
 		if (isButton) window.draw(button);
+		if (btnText.getString() != "") window.draw(btnText);
 	}
+}
+
+// KHI
+void Button::SetText(const std::string& str, int size, sf::Color color)
+{
+	btnText.setFont(font);
+	btnText.setString(str);
+	btnText.setCharacterSize(size);
+	btnText.setFillColor(color);
+
+	sf::FloatRect textBounds = btnText.getLocalBounds();
+	btnText.setOrigin(textBounds.left * 0.5f, textBounds.height * 0.5f);
+
+	sf::FloatRect btnBounds = button.getGlobalBounds();
+	btnText.setPosition(btnBounds.left + 10, btnBounds.top + btnBounds.height * 0.5f);
+}
+
+// KHI
+void Button::SetClicked(bool clicked)
+{
+	isClicked = clicked;
 }

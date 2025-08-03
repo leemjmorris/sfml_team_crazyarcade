@@ -10,16 +10,14 @@ void SceneReady::Init()
 {
 	texIds.push_back("assets/lobby_bg.png");
 	texIds.push_back("assets/SelectMapImg.png");
-	//texIds.push_back("assets/ui/lobby/slotB.png");
-	//texIds.push_back("assets/ui/lobby/slotD.png");
-	//texIds.push_back("assets/ui/lobby/slotC.png");
-	//texIds.push_back("assets/ui/lobby/slotM.png");
+	fontIds.push_back("assets/font/Daum_Regular.ttf");
 
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 	worldView.setSize(windowSize);
 	worldView.setCenter(windowSize * 0.5f);
 
 	TEXTURE_MGR.Load(texIds);
+	FONT_MGR.Load(fontIds);
 
 	//Button::LoadHitMask("Assets/UI/lobbyColorMap.png", { 0.f, 0.f }, { 1.f, 1.f });
 
@@ -27,7 +25,7 @@ void SceneReady::Init()
 	btnMap->SetButton({ 120.f, 50.f }, sf::Color{ 40, 144, 240 },
 		"Fonts/NanumGothic.ttf", sf::Color::Black, 2.f);
 	btnMap->SetPosition({ 610.f, 420.f });
-	btnMap->SetText("¢¬?¨ù¡¾??");
+	btnMap->SetText("ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½??");
 	btnMap->UseBackground(false);
 	btnMap->SetOnClick([this]() { OpenMapSelectPopup(); });*/
 	ui = new lobbyUi("loobyUi");
@@ -42,6 +40,7 @@ void SceneReady::Init()
 void SceneReady::Enter()
 {
 	TEXTURE_MGR.Load(texIds);
+	FONT_MGR.Load(fontIds);
 	sf::Texture& bgTexture = TEXTURE_MGR.Get("assets/lobby_bg.png");
 	bgSprite.setTexture(bgTexture);
 
@@ -61,7 +60,7 @@ void SceneReady::Enter()
 	bgSprite.setScale(scale);
 
 	ui->Reset();
-
+	mapListUi->Reset();
 	Scene::Enter();
 }
 
@@ -72,6 +71,7 @@ void SceneReady::Update(float dt)
 	//	//SCENE_MGR.ChangeScene(SceneIds::Demo);
 	//}
 	ui->Update(dt);
+	mapListUi->Update(dt);
 	Scene::Update(dt);
 }
 
@@ -80,7 +80,7 @@ void SceneReady::Draw(sf::RenderWindow& window)
 	window.setView(worldView);
 	window.draw(bgSprite);
 	window.setView(window.getDefaultView());
-	//mapListUi->Draw(window);
+	mapListUi->Draw(window);
 	ui->Draw(window);
 	Scene::Draw(window);
 }
