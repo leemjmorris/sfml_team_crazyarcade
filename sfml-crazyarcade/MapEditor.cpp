@@ -148,6 +148,8 @@ void MapEditor::Release()
 
 void MapEditor::Enter()
 {
+    SOUND_MGR.StopBgm();
+
     Scene::Enter();
 }
 
@@ -339,6 +341,12 @@ void MapEditor::HandleInput()
 {
     HandleLayerSwitching();
     HandleScrollInput();
+
+    if (InputMgr::GetKeyDown(sf::Keyboard::F5))
+    {
+        SCENE_MGR.ChangeScene(SceneIds::Intro);
+        return;
+    }
 
     if (currentLayer == LayerType::Background)
     {

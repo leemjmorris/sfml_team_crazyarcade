@@ -189,7 +189,6 @@ void SceneGame::Init()
 	ANI_CLIP_MGR.Load("animation/waterSplashUpExitAnim.csv");
 
 	SOUNDBUFFER_MGR.Load("sounds/Blow_WaterBomb.mp3");
-	SOUNDBUFFER_MGR.Load("sounds/Boomhill.mp3");
 	SOUNDBUFFER_MGR.Load("sounds/Bubble_Sound.wav");
 	SOUNDBUFFER_MGR.Load("sounds/Eat_Item.mp3");
 	SOUNDBUFFER_MGR.Load("sounds/Game_Start.mp3");
@@ -200,6 +199,16 @@ void SceneGame::Init()
 	SOUNDBUFFER_MGR.Load("sounds/Result_Draw.mp3");
 	SOUNDBUFFER_MGR.Load("sounds/Result_Win.mp3");
 	SOUNDBUFFER_MGR.Load("sounds/Set_WaterBomb.mp3");
+
+	// LMJ: BGM
+	SOUNDBUFFER_MGR.Load("sounds/Boomhill.mp3");
+	SOUNDBUFFER_MGR.Load("sounds/camp.mp3");
+	SOUNDBUFFER_MGR.Load("sounds/factory.mp3");
+	SOUNDBUFFER_MGR.Load("sounds/forest.mp3");
+	SOUNDBUFFER_MGR.Load("sounds/ice.mp3");
+	SOUNDBUFFER_MGR.Load("sounds/race.mp3");
+	SOUNDBUFFER_MGR.Load("sounds/scary.wav");
+	SOUNDBUFFER_MGR.Load("sounds/ship.mp3");
 
 
 	//bazzi = static_cast<Player*>(AddGameObject(new Player("Player", CharacterID::BAZZI, 0, "Bazzi")));
@@ -275,28 +284,28 @@ void SceneGame::Enter()
 	{
 		if (SceneMgr::SelectedMapPath == "box_1.json")
 			SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
-		//if (SceneMgr::SelectedMapPath == "camp_1.json")
-		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
-		//if (SceneMgr::SelectedMapPath == "factory_1.json")
-		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
-		//if (SceneMgr::SelectedMapPath == "factory_2.json")
-		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
-		//if (SceneMgr::SelectedMapPath == "forest_1.json")
-		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
-		//if (SceneMgr::SelectedMapPath == "forest_2.json")
-		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
-		//if (SceneMgr::SelectedMapPath == "forest_maze.json")
-		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
-		//if (SceneMgr::SelectedMapPath == "Ice_1.json")
-		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
-		//if (SceneMgr::SelectedMapPath == "Ice_2.json")
-		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
-		//if (SceneMgr::SelectedMapPath == "race_1.json")
-		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
-		//if (SceneMgr::SelectedMapPath == "scary_1.json")
-		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
-		//if (SceneMgr::SelectedMapPath == "ship_1.json")
-		//	SOUND_MGR.PlayBgm("sounds/Boomhill.mp3");
+		else if (SceneMgr::SelectedMapPath == "camp_1.json")
+			SOUND_MGR.PlayBgm("sounds/camp.mp3");
+		else if (SceneMgr::SelectedMapPath == "factory_1.json")
+			SOUND_MGR.PlayBgm("sounds/factory.mp3");
+		else if (SceneMgr::SelectedMapPath == "factory_2.json")
+			SOUND_MGR.PlayBgm("sounds/factory.mp3");
+		else if (SceneMgr::SelectedMapPath == "forest_1.json")
+			SOUND_MGR.PlayBgm("sounds/forest.mp3");
+		else if (SceneMgr::SelectedMapPath == "forest_2.json")
+			SOUND_MGR.PlayBgm("sounds/forest.mp3");
+		else if (SceneMgr::SelectedMapPath == "forest_maze.json")
+			SOUND_MGR.PlayBgm("sounds/forest.mp3");
+		else if (SceneMgr::SelectedMapPath == "Ice_1.json")
+			SOUND_MGR.PlayBgm("sounds/ice.mp3");
+		else if (SceneMgr::SelectedMapPath == "Ice_2.json")
+			SOUND_MGR.PlayBgm("sounds/ice.mp3");
+		else if (SceneMgr::SelectedMapPath == "race_1.json")
+			SOUND_MGR.PlayBgm("sounds/race.mp3");
+		else if (SceneMgr::SelectedMapPath == "scary_1.json")
+			SOUND_MGR.PlayBgm("sounds/scary.wav");
+		else if (SceneMgr::SelectedMapPath == "ship_1.json")
+			SOUND_MGR.PlayBgm("sounds/ship.mp3");
 	}
 
 	// LMJ: Set player positions using helper functions
@@ -321,6 +330,12 @@ void SceneGame::Update(float dt)
 {
 	InputMgr::UpdateGamepad();
 	InputMgr::Update(dt);
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::F5))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::MapEditor);
+		return;
+	}
 
 	gameTimer += dt;
 	if (InputMgr::GetKeyDown(sf::Keyboard::Space))

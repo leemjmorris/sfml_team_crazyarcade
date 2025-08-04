@@ -63,6 +63,13 @@ void SceneReady::Update(float dt)
 	//{
 	//	//SCENE_MGR.ChangeScene(SceneIds::Demo);
 	//}
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::F5))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::MapEditor);
+		return;
+	}
+
 	ui->Update(dt);
 	mapListUi->Update(dt);
 	Scene::Update(dt);
